@@ -28,15 +28,19 @@ export default [
       "vitest.config.ts", 
       "vite.config.ts",
       "build.ts",
-      "bun.lockb"
+      "**/build.ts",
+      "bun.lockb",
+      "packages/example-site/",
     ]
   },
+
   {
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        project: ['./tsconfig.json'],
+        project: ['./packages/markdown-generator/tsconfig.json', './packages/docusaurus-plugin/tsconfig.json'],
+
         tsconfigRootDir: __dirname,
         ecmaVersion: 2022,
         sourceType: 'module',
