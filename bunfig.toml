@@ -1,0 +1,4 @@
+[test]
+# Always enable coverage
+coverage = true
+coverageReporter = ["lcov","text"]
