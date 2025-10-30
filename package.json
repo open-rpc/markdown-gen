@@ -23,10 +23,15 @@
     "types": "bun run types:md-gen && bun run types:plugin",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+<<<<<<< HEAD
     "build:md-gen": "bun run --cwd packages/markdown-generator build.ts",
     "build:plugin": "bun run --cwd packages/docusaurus-plugin build.ts",
     "types:md-gen": "bun run --cwd packages/markdown-generator tsc -p tsconfig.json",
     "types:plugin": "bun run --cwd packages/docusaurus-plugin tsc -p tsconfig.json"
+=======
+    "build": "bun build.ts",
+    "preview": "bun scripts/preview-example.ts"
+>>>>>>> e6cdf0d (fix: add proposed pipeline for producing md)
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -40,5 +45,11 @@
     "globals": "^16.5.0",
     "typescript": "5.9"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@open-rpc/examples": "^1.0.1",
+    "mdast": "^3.0.0",
+    "remark-gfm": "^4.0.0",
+    "remark-stringify": "^11.0.0",
+    "unified": "^11.0.5"
+  }
 }
