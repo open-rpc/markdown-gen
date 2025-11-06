@@ -20,18 +20,16 @@
   ],
   "version": "0.0.0-development",
   "scripts": {
-    "types": "bun run types:md-gen && bun run types:plugin",
+    "types": "bun run types:json-schema-renderer && bun run types:md-gen && bun run types:plugin",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-<<<<<<< HEAD
+    "postinstall": "bun run build:json-schema-renderer",
+    "build:json-schema-renderer": "bun run --cwd packages/json-schema-renderer build.ts",
     "build:md-gen": "bun run --cwd packages/markdown-generator build.ts",
     "build:plugin": "bun run --cwd packages/docusaurus-plugin build.ts",
     "types:md-gen": "bun run --cwd packages/markdown-generator tsc -p tsconfig.json",
-    "types:plugin": "bun run --cwd packages/docusaurus-plugin tsc -p tsconfig.json"
-=======
-    "build": "bun build.ts",
-    "preview": "bun scripts/preview-example.ts"
->>>>>>> e6cdf0d (fix: add proposed pipeline for producing md)
+    "types:plugin": "bun run --cwd packages/docusaurus-plugin tsc -p tsconfig.json",
+    "types:json-schema-renderer": "bun run --cwd packages/json-schema-renderer tsc -p tsconfig.json"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -46,8 +44,13 @@
     "typescript": "5.9"
   },
   "dependencies": {
+    "@json-schema-tools/traverse": "^1.11.0",
     "@open-rpc/examples": "^1.0.1",
+    "@open-rpc/meta-schema": "^1.14.9",
     "mdast": "^3.0.0",
+    "mdast-util-gfm": "^3.1.0",
+    "mdast-util-mdx": "^3.0.0",
+    "mdast-util-to-markdown": "^2.1.2",
     "remark-gfm": "^4.0.0",
     "remark-stringify": "^11.0.0",
     "unified": "^11.0.5"

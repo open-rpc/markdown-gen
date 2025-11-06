@@ -33,6 +33,30 @@ type DereffedMethodObject = NoRefs<MethodObject>;
 
 type DereffedMethodObjectParams = NoRefs<MethodObjectParams>;
 
+export async function generateDocs2(inputPath: string, outputPath: string) {
+  const raw = await fs.readFile(inputPath, "utf8");
+  const doc: DereffedOpenrpcDocument = (await parseOpenRPCDocument(
+    raw,
+  )) as DereffedOpenrpcDocument;
+  const outDir = outputPath;
+  const methodsDir = path.join(outDir, "methods");
+  const schemasDir = path.join(outDir, "schemas");
+
+  await fs.mkdir(outDir, { recursive: true });
+  await fs.mkdir(methodsDir, { recursive: true });
+  await fs.mkdir(schemasDir, { recursive: true });
+
+  await fs.writeFile(path.join(outDir, "index.md"), renderIndex(doc), "utf8");
+
+  for (const m of doc.methods) {
+    await fs.writeFile(
+      path.join(methodsDir, `${m.name}.mdx`),
+      renderMethod(m),
+      "utf8",
+    );
+  }
+}
+
 export async function generateDocs(inputPath: string, outputPath: string) {
   const raw = await fs.readFile(inputPath, "utf8");
   const doc: DereffedOpenrpcDocument = (await parseOpenRPCDocument(
@@ -241,8 +265,10 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
     </>
   }
 >
-
-<TryNow method={"${m.name}"} openrpcDocument={${JSON.stringify(m)}} onClick={()=>(<div>Hello</div>)} />
+<TryNowContainer>
+  <TryNowDialog method={"${m.name}"} openrpcDocument={${JSON.stringify(m)}} show={showDialog} />
+  <TryNow method={"${m.name}"} openrpcDocument={${JSON.stringify(m)}} onClick={()=>(<div>Hello</div>)} />
+</TryNowContainer>
 # ${m.name}
 
 ${desc ? `${desc}\n` : ""}

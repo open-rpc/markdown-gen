@@ -1,18 +1,31 @@
 import { unified } from "unified";
 import remarkStringify from "remark-stringify";
+import type { Options as RemarkStringifyOptions } from "remark-stringify";
 import remarkGfm from "remark-gfm";
 import type {
-  Content,
   Heading,
   InlineCode,
   Paragraph,
   PhrasingContent,
   Root,
+  RootContent,
   Table,
   TableCell,
   TableRow,
   Text,
 } from "mdast";
+import { renderSchema } from "@open-rpc/json-schema-renderer";
+import type {
+  SchemaRenderResult,
+  JsonSchema,
+} from "@open-rpc/json-schema-renderer";
+import type {
+  DereffedMethodObject,
+  DereffedMethodObjectParam,
+  Edits,
+  SchemaEdits,
+} from "./type";
+import type { MdxJsxFlowElement } from "mdast-util-mdx";
 
 export interface OpenRPCInfo {
   title?: string;
@@ -20,9 +33,7 @@ export interface OpenRPCInfo {
   version?: string;
 }
 
-export interface OpenRPCSchema {
-  type?: string;
-}
+export type OpenRPCSchema = JsonSchema;
 
 export interface OpenRPCContentDescriptor {
   name?: string;
@@ -48,18 +59,80 @@ export async function generateMarkdownFromOpenRPC(
   document: OpenRPCDocument,
 ): Promise<string> {
   const tree = toMarkdownAst(document);
-  const processor = unified().use(remarkGfm).use(remarkStringify, {
-    fences: true,
-    listItemIndent: "1",
-    bullet: "-",
-  });
+  const processor = unified()
+    .use(remarkGfm)
+    .use(remarkStringify, {
+      fences: true,
+      // Coerce to satisfy types: remark-stringify currently only types `'one'`
+      // but we use the shorthand `"1"` to match existing markdown output.
+      listItemIndent:
+        "1" as unknown as RemarkStringifyOptions["listItemIndent"],
+      bullet: "-",
+    });
 
-  const processed = await processor.run(tree);
+  const processed = (await processor.run(tree)) as Root;
   return processor.stringify(processed);
 }
 
+export function renderMethod(
+  method: DereffedMethodObject,
+  edits?: Edits,
+  schemaEdits?: SchemaEdits,
+): Root {
+  let children: (RootContent | MdxJsxFlowElement)[] = [];
+
+  const methodSummary = method.summary ?? method.description;
+
+  children.push(heading(3, text(method.name)));
+  if (methodSummary) {
+    children.push(paragraphFromText(methodSummary));
+  }
+
+  if (edits?.editMethodParam) {
+    children = edits?.editMethodParam(
+      children,
+      method.params[0] as unknown as DereffedMethodObjectParam,
+    );
+  }
+
+  if (method.params && method.params.length > 0) {
+    children.push(heading(4, text("Parameters")));
+    children.push(parameterTable(method.params as OpenRPCContentDescriptor[]));
+  }
+
+  if (edits?.editMethodParamsParent) {
+    children = edits?.editMethodParamsParent(children, method.params);
+  }
+
+  if (method.result) {
+    if (edits?.editMethodResultParent)
+      children.push(heading(4, text("Result")));
+    const renderedResult = renderDescriptor(
+      method.result as OpenRPCContentDescriptor,
+      "result",
+    );
+
+    if (renderedResult.inline.length > 0) {
+      children.push(paragraphFromPhrasing(renderedResult.inline));
+    }
+
+    if (renderedResult.blocks.length > 0) {
+      children.push(...renderedResult.blocks);
+    }
+  }
+
+  if (edits?.editMethod) children = edits?.editMethod(children, method);
+
+  let root: Root = {
+    type: "root",
+    children,
+  };
+  if (edits?.editMethodParent) root = edits?.editMethodParent(root, method);
+  return root;
+}
+
 function toMarkdownAst(document: OpenRPCDocument): Root {
-  const children: Content[] = [];
+  const children: RootContent[] = [];
 
   const title = document.info?.title ?? "OpenRPC Document";
   children.push(heading(1, text(title)));
@@ -92,9 +165,15 @@ function toMarkdownAst(document: OpenRPCDocument): Root {
 
     if (method.result) {
       children.push(heading(4, text("Result")));
-      children.push(
-        paragraphFromPhrasing(descriptorSummary(method.result, "result")),
-      );
+      const renderedResult = renderDescriptor(method.result, "result");
+
+      if (renderedResult.inline.length > 0) {
+        children.push(paragraphFromPhrasing(renderedResult.inline));
+      }
+
+      if (renderedResult.blocks.length > 0) {
+        children.push(...renderedResult.blocks);
+      }
     }
   }
 
@@ -118,7 +197,7 @@ function paragraphFromPhrasing(children: PhrasingContent[]): Paragraph {
   };
 }
 
-function heading(depth: number, child: Text): Heading {
+function heading(depth: Heading["depth"], child: Text): Heading {
   return {
     type: "heading",
     depth,
@@ -149,11 +228,12 @@ function parameterTable(descriptors: OpenRPCContentDescriptor[]): Table {
   const rows = descriptors.map((descriptor, index) => {
     const fallbackName = `param${index + 1}`;
     const displayName = descriptorDisplayName(descriptor, fallbackName);
+    const renderedDescriptor = renderDescriptor(descriptor, fallbackName);
 
     return tableRow([
       textCell(displayName),
-      textCell(descriptor.schema?.type ?? "unknown"),
-      descriptorCell(descriptor, fallbackName),
+      textCell(schemaTypeLabel(descriptor.schema)),
+      descriptorCell(renderedDescriptor),
     ]);
   });
   return {
@@ -177,36 +257,15 @@ function textCell(value: string): TableCell {
   };
 }
 
-function descriptorCell(
-  descriptor: OpenRPCContentDescriptor,
-  fallbackName: string,
-): TableCell {
+function descriptorCell(renderedDescriptor: SchemaRenderResult): TableCell {
+  const children =
+    renderedDescriptor.inline.length > 0
+      ? renderedDescriptor.inline
+      : [text("unknown")];
   return {
     type: "tableCell",
-    children: descriptorSummary(descriptor, fallbackName),
+    children,
   };
-}
-
-function descriptorSummary(
-  descriptor: OpenRPCContentDescriptor,
-  fallbackName: string,
-): PhrasingContent[] {
-  const type = descriptor.schema?.type ?? "unknown";
-  const descriptorSummaryText =
-    descriptor.summary ?? descriptor.description ?? "";
-
-  const summaryText = descriptorSummaryText.trim();
-  const name = descriptorDisplayName(descriptor, fallbackName);
-  const phrasing: PhrasingContent[] = [
-    inlineCode(name),
-    text(` (${type})`),
-  ];
-
-  if (summaryText.length > 0) {
-    phrasing.push(text(` - ${summaryText}`));
-  }
-
-  return phrasing;
 }
 
 function descriptorDisplayName(
@@ -215,4 +274,37 @@ function descriptorDisplayName(
 ): string {
   const name = descriptor.name?.trim();
   return name && name.length > 0 ? name : fallbackName;
+}
+
+function renderDescriptor(
+  descriptor: OpenRPCContentDescriptor,
+  fallbackName: string,
+): SchemaRenderResult {
+  const name = descriptorDisplayName(descriptor, fallbackName);
+  const schemaResult = renderSchema(descriptor.schema, { name });
+  const inline =
+    schemaResult.inline.length > 0
+      ? [...schemaResult.inline]
+      : [inlineCode(name), text(" (unknown)")];
+
+  const descriptorSummaryText =
+    descriptor.summary ?? descriptor.description ?? "";
+  const summaryText = descriptorSummaryText.trim();
+
+  if (summaryText.length > 0) {
+    inline.push(text(` - ${summaryText}`));
+  }
+
+  return {
+    inline,
+    blocks: [...schemaResult.blocks],
+  };
+}
+
+function schemaTypeLabel(schema: OpenRPCSchema | undefined): string {
+  if (!schema?.type) {
+    return "unknown";
+  }
+
+  return Array.isArray(schema.type) ? schema.type.join(" | ") : schema.type;
 }

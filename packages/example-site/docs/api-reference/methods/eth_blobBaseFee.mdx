@@ -1,0 +1,71 @@
+---
+title: "eth_blobBaseFee"
+hide_table_of_contents: true
+description: "Documentation for JSON-RPC method eth_blobBaseFee."
+sidebar_label: "eth_blobBaseFee"
+rpc_method: "eth_blobBaseFee"
+tags:
+  - json-rpc
+  - openrpc
+  - method
+---
+
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';
+
+<TwoColumnLayout 
+  sidebar={
+    <>
+      <RequestExample 
+        title="Named Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_blobBaseFee\",\n  \"params\": {},\n  \"id\": 1\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 1\n}"} 
+      />
+    </>
+  }
+>
+
+<TryNow method={"eth_blobBaseFee"} openrpcDocument={{"name":"eth_blobBaseFee","summary":"Returns the base fee per blob gas in wei.","params":[],"result":{"name":"Blob gas base fee","schema":{"title":"Blob gas base fee","type":"string","pattern":"^0x(0|[1-9a-f][0-9a-f]*)$"}},"examples":[{"name":"eth_blobBaseFee example","params":[],"result":{"name":"Blob gas base fee","value":"0x3f5694c1f"}}]}} onClick={()=>(<div>Hello</div>)} />
+# eth_blobBaseFee
+
+
+
+---
+
+## Method
+
+- **JSON-RPC method name:** `eth_blobBaseFee`
+- **JSON-RPC version:** `2.0`
+
+## Parameters
+
+_This method does not accept any parameters._
+
+## Result
+
+- **Name:** `Blob gas base fee`
+- **Type:** `string`
+
+### Result schema
+
+```json
+{
+  "title": "Blob gas base fee",
+  "type": "string",
+  "pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
+}
+```
+
+
+---
+
+## Errors
+
+This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
+
+> TODO: Document method-specific error codes and conditions.
+
+</TwoColumnLayout>
