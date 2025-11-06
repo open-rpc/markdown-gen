@@ -78,13 +78,15 @@ describe("generateMarkdownFromOpenRPC", () => {
 
       #### Parameters
 
-      | Name | Type   | Description                               |
-      | ---- | ------ | ----------------------------------------- |
-      | pet  | object | \`pet\` (object) - Pet to add to the store. |
+      | Name | Type   | Description                                                       |
+      | ---- | ------ | ----------------------------------------------------------------- |
+      | pet  | object | \`pet\` (object) - no defined properties - Pet to add to the store. |
 
       #### Result
 
-      \`pet\` (object) - The created pet.
+      \`pet\` (object) - no defined properties - The created pet.
+
+      No defined properties.
       "
     `);
   });

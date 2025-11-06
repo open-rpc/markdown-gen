@@ -13,6 +13,8 @@ import type {
   TableRow,
   Text,
 } from "mdast";
+import { renderSchema } from "./json-schema";
+import type { SchemaRenderResult, JsonSchema } from "./json-schema";
 
 export interface OpenRPCInfo {
   title?: string;
@@ -20,9 +22,7 @@ export interface OpenRPCInfo {
   version?: string;
 }
 
-export interface OpenRPCSchema {
-  type?: string;
-}
+export type OpenRPCSchema = JsonSchema;
 
 export interface OpenRPCContentDescriptor {
   name?: string;
@@ -92,9 +92,15 @@ function toMarkdownAst(document: OpenRPCDocument): Root {
 
     if (method.result) {
       children.push(heading(4, text("Result")));
-      children.push(
-        paragraphFromPhrasing(descriptorSummary(method.result, "result")),
-      );
+      const renderedResult = renderDescriptor(method.result, "result");
+
+      if (renderedResult.inline.length > 0) {
+        children.push(paragraphFromPhrasing(renderedResult.inline));
+      }
+
+      if (renderedResult.blocks.length > 0) {
+        children.push(...renderedResult.blocks);
+      }
     }
   }
 
@@ -149,11 +155,12 @@ function parameterTable(descriptors: OpenRPCContentDescriptor[]): Table {
   const rows = descriptors.map((descriptor, index) => {
     const fallbackName = `param${index + 1}`;
     const displayName = descriptorDisplayName(descriptor, fallbackName);
+    const renderedDescriptor = renderDescriptor(descriptor, fallbackName);
 
     return tableRow([
       textCell(displayName),
-      textCell(descriptor.schema?.type ?? "unknown"),
-      descriptorCell(descriptor, fallbackName),
+      textCell(schemaTypeLabel(descriptor.schema)),
+      descriptorCell(renderedDescriptor),
     ]);
   });
   return {
@@ -177,36 +184,15 @@ function textCell(value: string): TableCell {
   };
 }
 
-function descriptorCell(
-  descriptor: OpenRPCContentDescriptor,
-  fallbackName: string,
-): TableCell {
+function descriptorCell(renderedDescriptor: SchemaRenderResult): TableCell {
+  const children =
+    renderedDescriptor.inline.length > 0
+      ? renderedDescriptor.inline
+      : [text("unknown")];
   return {
     type: "tableCell",
-    children: descriptorSummary(descriptor, fallbackName),
+    children,
   };
-}
-
-function descriptorSummary(
-  descriptor: OpenRPCContentDescriptor,
-  fallbackName: string,
-): PhrasingContent[] {
-  const type = descriptor.schema?.type ?? "unknown";
-  const descriptorSummaryText =
-    descriptor.summary ?? descriptor.description ?? "";
-
-  const summaryText = descriptorSummaryText.trim();
-  const name = descriptorDisplayName(descriptor, fallbackName);
-  const phrasing: PhrasingContent[] = [
-    inlineCode(name),
-    text(` (${type})`),
-  ];
-
-  if (summaryText.length > 0) {
-    phrasing.push(text(` - ${summaryText}`));
-  }
-
-  return phrasing;
 }
 
 function descriptorDisplayName(
@@ -215,4 +201,37 @@ function descriptorDisplayName(
 ): string {
   const name = descriptor.name?.trim();
   return name && name.length > 0 ? name : fallbackName;
+}
+
+function renderDescriptor(
+  descriptor: OpenRPCContentDescriptor,
+  fallbackName: string,
+): SchemaRenderResult {
+  const name = descriptorDisplayName(descriptor, fallbackName);
+  const schemaResult = renderSchema(descriptor.schema, { name });
+  const inline =
+    schemaResult.inline.length > 0
+      ? [...schemaResult.inline]
+      : [inlineCode(name), text(" (unknown)")];
+
+  const descriptorSummaryText =
+    descriptor.summary ?? descriptor.description ?? "";
+  const summaryText = descriptorSummaryText.trim();
+
+  if (summaryText.length > 0) {
+    inline.push(text(` - ${summaryText}`));
+  }
+
+  return {
+    inline,
+    blocks: [...schemaResult.blocks],
+  };
+}
+
+function schemaTypeLabel(schema: OpenRPCSchema | undefined): string {
+  if (!schema?.type) {
+    return "unknown";
+  }
+
+  return Array.isArray(schema.type) ? schema.type.join(" | ") : schema.type;
 }
