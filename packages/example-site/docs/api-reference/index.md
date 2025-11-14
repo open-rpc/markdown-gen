@@ -1,27 +1,123 @@
 ---
-title: "Petstore Expanded"
-description: "A sample API that uses a petstore as an example to demonstrate features in the OpenRPC specification"
-sidebar_label: "Petstore Expanded"
+title: "Flashbots JSON-RPC API"
+description: "This section provides an interactive reference for Flashbots JSON-RPC API endpoint. The API builds on a set of standard Ethereum methods with Flashbots-specific enhancements, and is designed for seamless integration into dapps."
+sidebar_label: "Flashbots JSON-RPC API"
 tags:
   - json-rpc
   - openrpc
 ---
 
-# Petstore Expanded
+# Flashbots JSON-RPC API
 
 Version: `1.0.0`
 
-A sample API that uses a petstore as an example to demonstrate features in the OpenRPC specification
+This section provides an interactive reference for Flashbots JSON-RPC API endpoint. The API builds on a set of standard Ethereum methods with Flashbots-specific enhancements, and is designed for seamless integration into dapps.
 
 
 ## Methods
 
-- [`get_pets`](./methods/get_pets.md)
-- [`create_pet`](./methods/create_pet.md)
-- [`get_pet_by_id`](./methods/get_pet_by_id.md)
-- [`delete_pet_by_id`](./methods/delete_pet_by_id.md)
+- [`net_version`](./methods/net_version.mdx)
+- [`eth_blobBaseFee`](./methods/eth_blobBaseFee.mdx)
+- [`eth_blockNumber`](./methods/eth_blockNumber.mdx)
+- [`eth_call`](./methods/eth_call.mdx)
+- [`eth_chainId`](./methods/eth_chainId.mdx)
+- [`eth_coinbase`](./methods/eth_coinbase.mdx)
+- [`eth_createAccessList`](./methods/eth_createAccessList.mdx)
+- [`eth_estimateGas`](./methods/eth_estimateGas.mdx)
+- [`eth_feeHistory`](./methods/eth_feeHistory.mdx)
+- [`eth_gasPrice`](./methods/eth_gasPrice.mdx)
+- [`eth_getBalance`](./methods/eth_getBalance.mdx)
+- [`eth_getBlockByHash`](./methods/eth_getBlockByHash.mdx)
+- [`eth_getBlockByNumber`](./methods/eth_getBlockByNumber.mdx)
+- [`eth_getBlockReceipts`](./methods/eth_getBlockReceipts.mdx)
+- [`eth_getBlockTransactionCountByHash`](./methods/eth_getBlockTransactionCountByHash.mdx)
+- [`eth_getBlockTransactionCountByNumber`](./methods/eth_getBlockTransactionCountByNumber.mdx)
+- [`eth_getCode`](./methods/eth_getCode.mdx)
+- [`eth_getFilterChanges`](./methods/eth_getFilterChanges.mdx)
+- [`eth_getFilterLogs`](./methods/eth_getFilterLogs.mdx)
+- [`eth_getLogs`](./methods/eth_getLogs.mdx)
+- [`eth_getProof`](./methods/eth_getProof.mdx)
+- [`eth_getStorageAt`](./methods/eth_getStorageAt.mdx)
+- [`eth_getTransactionByBlockHashAndIndex`](./methods/eth_getTransactionByBlockHashAndIndex.mdx)
+- [`eth_getTransactionByBlockNumberAndIndex`](./methods/eth_getTransactionByBlockNumberAndIndex.mdx)
+- [`eth_getTransactionByHash`](./methods/eth_getTransactionByHash.mdx)
+- [`eth_getTransactionCount`](./methods/eth_getTransactionCount.mdx)
+- [`eth_getTransactionReceipt`](./methods/eth_getTransactionReceipt.mdx)
+- [`eth_getUncleCountByBlockHash`](./methods/eth_getUncleCountByBlockHash.mdx)
+- [`eth_getUncleCountByBlockNumber`](./methods/eth_getUncleCountByBlockNumber.mdx)
+- [`eth_maxPriorityFeePerGas`](./methods/eth_maxPriorityFeePerGas.mdx)
+- [`eth_newBlockFilter`](./methods/eth_newBlockFilter.mdx)
+- [`eth_newFilter`](./methods/eth_newFilter.mdx)
+- [`eth_newPendingTransactionFilter`](./methods/eth_newPendingTransactionFilter.mdx)
+- [`eth_sendRawTransaction`](./methods/eth_sendRawTransaction.mdx)
+- [`eth_syncing`](./methods/eth_syncing.mdx)
+- [`eth_uninstallFilter`](./methods/eth_uninstallFilter.mdx)
 
 ## Schemas
 
-- [`Pet`](./schemas/pet.md)
-- [`NewPet`](./schemas/newpet.md)
+- [`address`](./schemas/address.md)
+- [`addresses`](./schemas/addresses.md)
+- [`byte`](./schemas/byte.md)
+- [`bytes`](./schemas/bytes.md)
+- [`bytesMax32`](./schemas/bytesmax32.md)
+- [`bytes8`](./schemas/bytes8.md)
+- [`bytes32`](./schemas/bytes32.md)
+- [`bytes48`](./schemas/bytes48.md)
+- [`bytes96`](./schemas/bytes96.md)
+- [`bytes256`](./schemas/bytes256.md)
+- [`bytes65`](./schemas/bytes65.md)
+- [`ratio`](./schemas/ratio.md)
+- [`uint`](./schemas/uint.md)
+- [`uint64`](./schemas/uint64.md)
+- [`uint256`](./schemas/uint256.md)
+- [`hash32`](./schemas/hash32.md)
+- [`notFound`](./schemas/notfound.md)
+- [`Block`](./schemas/block.md)
+- [`BlockTag`](./schemas/blocktag.md)
+- [`BlockNumberOrTag`](./schemas/blocknumberortag.md)
+- [`BlockNumberOrTagOrHash`](./schemas/blocknumberortagorhash.md)
+- [`BadBlock`](./schemas/badblock.md)
+- [`SyncingStatus`](./schemas/syncingstatus.md)
+- [`FilterResults`](./schemas/filterresults.md)
+- [`Filter`](./schemas/filter.md)
+- [`FilterTopics`](./schemas/filtertopics.md)
+- [`FilterTopic`](./schemas/filtertopic.md)
+- [`Log`](./schemas/log.md)
+- [`ReceiptInfo`](./schemas/receiptinfo.md)
+- [`AccountProof`](./schemas/accountproof.md)
+- [`StorageProof`](./schemas/storageproof.md)
+- [`Transaction4844Unsigned`](./schemas/transaction4844unsigned.md)
+- [`AccessListEntry`](./schemas/accesslistentry.md)
+- [`AccessList`](./schemas/accesslist.md)
+- [`Transaction1559Unsigned`](./schemas/transaction1559unsigned.md)
+- [`Transaction2930Unsigned`](./schemas/transaction2930unsigned.md)
+- [`TransactionLegacyUnsigned`](./schemas/transactionlegacyunsigned.md)
+- [`TransactionUnsigned`](./schemas/transactionunsigned.md)
+- [`Transaction4844Signed`](./schemas/transaction4844signed.md)
+- [`Transaction1559Signed`](./schemas/transaction1559signed.md)
+- [`Transaction2930Signed`](./schemas/transaction2930signed.md)
+- [`TransactionLegacySigned`](./schemas/transactionlegacysigned.md)
+- [`TransactionSigned`](./schemas/transactionsigned.md)
+- [`TransactionInfo`](./schemas/transactioninfo.md)
+- [`GenericTransaction`](./schemas/generictransaction.md)
+- [`Withdrawal`](./schemas/withdrawal.md)
+- [`ForkchoiceStateV1`](./schemas/forkchoicestatev1.md)
+- [`ForkchoiceUpdatedResponseV1`](./schemas/forkchoiceupdatedresponsev1.md)
+- [`PayloadAttributesV1`](./schemas/payloadattributesv1.md)
+- [`PayloadAttributesV2`](./schemas/payloadattributesv2.md)
+- [`PayloadAttributesV3`](./schemas/payloadattributesv3.md)
+- [`PayloadStatusV1`](./schemas/payloadstatusv1.md)
+- [`RestrictedPayloadStatusV1`](./schemas/restrictedpayloadstatusv1.md)
+- [`PayloadStatusNoInvalidBlockHash`](./schemas/payloadstatusnoinvalidblockhash.md)
+- [`ExecutionPayloadV1`](./schemas/executionpayloadv1.md)
+- [`WithdrawalV1`](./schemas/withdrawalv1.md)
+- [`ExecutionPayloadV2`](./schemas/executionpayloadv2.md)
+- [`ExecutionPayloadV3`](./schemas/executionpayloadv3.md)
+- [`ExecutionPayloadV4`](./schemas/executionpayloadv4.md)
+- [`ExecutionPayloadBodyV1`](./schemas/executionpayloadbodyv1.md)
+- [`ExecutionPayloadBodyV2`](./schemas/executionpayloadbodyv2.md)
+- [`BlobsBundleV1`](./schemas/blobsbundlev1.md)
+- [`DepositRequestV1`](./schemas/depositrequestv1.md)
+- [`WithdrawalRequestV1`](./schemas/withdrawalrequestv1.md)
+- [`ConsolidationRequestV1`](./schemas/consolidationrequestv1.md)
+- [`TransitionConfigurationV1`](./schemas/transitionconfigurationv1.md)

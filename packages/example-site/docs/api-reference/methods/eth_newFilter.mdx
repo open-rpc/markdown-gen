@@ -1,0 +1,170 @@
+---
+title: "eth_newFilter"
+hide_table_of_contents: true
+description: "Documentation for JSON-RPC method eth_newFilter."
+sidebar_label: "eth_newFilter"
+rpc_method: "eth_newFilter"
+tags:
+  - json-rpc
+  - openrpc
+  - method
+---
+
+import {TwoColumnLayout, RequestExample, ResponseExample} from '@open-rpc/docusaurus-plugin/components';
+
+<TwoColumnLayout 
+  sidebar={
+    <>
+      <RequestExample 
+        title="Named Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_newFilter\",\n  \"params\": {\n    \"Filter\": {\n      \"fromBlock\": \"string\",\n      \"toBlock\": \"string\",\n      \"address\": \"example\",\n      \"topics\": \"example\"\n    }\n  },\n  \"id\": 1\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 1\n}"} 
+      />
+      
+      <RequestExample 
+        title="Positional Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_newFilter\",\n  \"params\": [\n    {\n      \"fromBlock\": \"string\",\n      \"toBlock\": \"string\",\n      \"address\": \"example\",\n      \"topics\": \"example\"\n    }\n  ],\n  \"id\": 2\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 2\n}"} 
+      />
+    </>
+  }
+>
+
+# eth_newFilter
+
+
+
+---
+
+## Method
+
+- **JSON-RPC method name:** `eth_newFilter`
+- **JSON-RPC version:** `2.0`
+
+## Parameters
+
+| Name | Type | Required | Description |
+| ---- | ---- | -------- | ----------- |
+| Filter | `object` | no |  |
+
+### Parameter schema
+
+```json
+{
+  "Filter": {
+    "required": false,
+    "schema": {
+      "title": "filter",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fromBlock": {
+          "title": "from block",
+          "type": "string",
+          "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$"
+        },
+        "toBlock": {
+          "title": "to block",
+          "type": "string",
+          "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$"
+        },
+        "address": {
+          "title": "Address(es)",
+          "oneOf": [
+            {
+              "title": "Any Address",
+              "type": "null"
+            },
+            {
+              "title": "Address",
+              "type": "string",
+              "pattern": "^0x[0-9a-fA-F]{40}$"
+            },
+            {
+              "title": "Addresses",
+              "type": "array",
+              "items": {
+                "title": "hex encoded address",
+                "type": "string",
+                "pattern": "^0x[0-9a-fA-F]{40}$"
+              }
+            }
+          ]
+        },
+        "topics": {
+          "title": "Topics",
+          "oneOf": [
+            {
+              "title": "Any Topic Match",
+              "type": "null"
+            },
+            {
+              "title": "Specified Filter Topics",
+              "type": "array",
+              "items": {
+                "title": "Filter Topic List Entry",
+                "oneOf": [
+                  {
+                    "title": "Single Topic Match",
+                    "type": "string",
+                    "pattern": "^0x[0-9a-f]{64}$"
+                  },
+                  {
+                    "title": "Multiple Topic Match",
+                    "type": "array",
+                    "items": {
+                      "title": "32 hex encoded bytes",
+                      "type": "string",
+                      "pattern": "^0x[0-9a-f]{64}$"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## Result
+
+- **Name:** `Filter identifier`
+- **Type:** `string`
+
+### Result schema
+
+```json
+{
+  "title": "hex encoded unsigned integer",
+  "type": "string",
+  "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$"
+}
+```
+
+
+### Positional parameters
+
+Parameter order:
+
+1. `Filter`
+
+---
+
+## Errors
+
+This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
+
+> TODO: Document method-specific error codes and conditions.
+
+</TwoColumnLayout>

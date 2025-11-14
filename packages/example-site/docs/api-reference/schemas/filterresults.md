@@ -1,0 +1,96 @@
+---
+title: "FilterResults"
+description: "Schema definition for FilterResults."
+sidebar_label: "FilterResults"
+schema_name: "FilterResults"
+tags:
+  - json-rpc
+  - openrpc
+  - schema
+---
+
+# FilterResults
+
+---
+
+## JSON Schema
+
+```json
+{
+  "title": "Filter results",
+  "oneOf": [
+    {
+      "title": "new block or transaction hashes",
+      "type": "array",
+      "items": {
+        "title": "32 byte hex value",
+        "type": "string",
+        "pattern": "^0x[0-9a-f]{64}$"
+      }
+    },
+    {
+      "title": "new logs",
+      "type": "array",
+      "items": {
+        "title": "log",
+        "type": "object",
+        "required": [
+          "transactionHash"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "removed": {
+            "title": "removed",
+            "type": "boolean"
+          },
+          "logIndex": {
+            "title": "log index",
+            "type": "string",
+            "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$"
+          },
+          "transactionIndex": {
+            "title": "transaction index",
+            "type": "string",
+            "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$"
+          },
+          "transactionHash": {
+            "title": "transaction hash",
+            "type": "string",
+            "pattern": "^0x[0-9a-f]{64}$"
+          },
+          "blockHash": {
+            "title": "block hash",
+            "type": "string",
+            "pattern": "^0x[0-9a-f]{64}$"
+          },
+          "blockNumber": {
+            "title": "block number",
+            "type": "string",
+            "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$"
+          },
+          "address": {
+            "title": "address",
+            "type": "string",
+            "pattern": "^0x[0-9a-fA-F]{40}$"
+          },
+          "data": {
+            "title": "data",
+            "type": "string",
+            "pattern": "^0x[0-9a-f]*$"
+          },
+          "topics": {
+            "title": "topics",
+            "type": "array",
+            "items": {
+              "title": "32 hex encoded bytes",
+              "type": "string",
+              "pattern": "^0x[0-9a-f]{64}$"
+            }
+          }
+        }
+      }
+    }
+  ]
+}
+```
+

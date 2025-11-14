@@ -1,0 +1,70 @@
+---
+title: "net_version"
+hide_table_of_contents: true
+description: "Returns the current network ID."
+sidebar_label: "net_version"
+rpc_method: "net_version"
+tags:
+  - json-rpc
+  - openrpc
+  - method
+---
+
+import {TwoColumnLayout, RequestExample, ResponseExample} from '@open-rpc/docusaurus-plugin/components';
+
+<TwoColumnLayout 
+  sidebar={
+    <>
+      <RequestExample 
+        title="Named Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"net_version\",\n  \"params\": {},\n  \"id\": 1\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 1\n}"} 
+      />
+    </>
+  }
+>
+
+# net_version
+
+Returns the current network ID.
+
+
+---
+
+## Method
+
+- **JSON-RPC method name:** `net_version`
+- **JSON-RPC version:** `2.0`
+
+## Parameters
+
+_This method does not accept any parameters._
+
+## Result
+
+- **Name:** `net_version`
+- **Description:** Returns the current network ID.
+- **Type:** `string`
+
+### Result schema
+
+```json
+{
+  "type": "string"
+}
+```
+
+
+---
+
+## Errors
+
+This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
+
+> TODO: Document method-specific error codes and conditions.
+
+</TwoColumnLayout>

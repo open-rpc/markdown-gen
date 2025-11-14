@@ -1,0 +1,128 @@
+---
+title: "eth_getUncleCountByBlockNumber"
+hide_table_of_contents: true
+description: "Documentation for JSON-RPC method eth_getUncleCountByBlockNumber."
+sidebar_label: "eth_getUncleCountByBlockNumber"
+rpc_method: "eth_getUncleCountByBlockNumber"
+tags:
+  - json-rpc
+  - openrpc
+  - method
+---
+
+import {TwoColumnLayout, RequestExample, ResponseExample} from '@open-rpc/docusaurus-plugin/components';
+
+<TwoColumnLayout 
+  sidebar={
+    <>
+      <RequestExample 
+        title="Named Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_getUncleCountByBlockNumber\",\n  \"params\": {\n    \"Block\": \"example\"\n  },\n  \"id\": 1\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 1\n}"} 
+      />
+      
+      <RequestExample 
+        title="Positional Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_getUncleCountByBlockNumber\",\n  \"params\": [\n    \"example\"\n  ],\n  \"id\": 2\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 2\n}"} 
+      />
+    </>
+  }
+>
+
+# eth_getUncleCountByBlockNumber
+
+
+
+---
+
+## Method
+
+- **JSON-RPC method name:** `eth_getUncleCountByBlockNumber`
+- **JSON-RPC version:** `2.0`
+
+## Parameters
+
+| Name | Type | Required | Description |
+| ---- | ---- | -------- | ----------- |
+| Block | `oneOf` | no |  |
+
+### Parameter schema
+
+```json
+{
+  "Block": {
+    "required": false,
+    "schema": {
+      "title": "Block number or tag",
+      "oneOf": [
+        {
+          "title": "Block number",
+          "type": "string",
+          "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$"
+        },
+        {
+          "title": "Block tag",
+          "type": "string",
+          "enum": [
+            "earliest",
+            "finalized",
+            "safe",
+            "latest",
+            "pending"
+          ],
+          "description": "`earliest`: The lowest numbered block the client has available; `finalized`: The most recent crypto-economically secure block, cannot be re-orged outside of manual intervention driven by community coordination; `safe`: The most recent block that is safe from re-orgs under honest majority and certain synchronicity assumptions; `latest`: The most recent block in the canonical chain observed by the client, this block may be re-orged out of the canonical chain even under healthy/normal conditions; `pending`: A sample next block built by the client on top of `latest` and containing the set of transactions usually taken from local mempool. Before the merge transition is finalized, any call querying for `finalized` or `safe` block MUST be responded to with `-39001: Unknown block` error"
+        }
+      ]
+    }
+  }
+}
+```
+
+## Result
+
+- **Name:** `Uncle count`
+- **Type:** `oneOf`
+
+### Result schema
+
+```json
+{
+  "oneOf": [
+    {
+      "title": "Not Found (null)",
+      "type": "null"
+    },
+    {
+      "title": "Uncle count",
+      "type": "string",
+      "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$"
+    }
+  ]
+}
+```
+
+
+### Positional parameters
+
+Parameter order:
+
+1. `Block`
+
+---
+
+## Errors
+
+This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
+
+> TODO: Document method-specific error codes and conditions.
+
+</TwoColumnLayout>

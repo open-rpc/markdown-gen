@@ -1,0 +1,294 @@
+---
+title: "eth_getTransactionReceipt"
+hide_table_of_contents: true
+description: "Documentation for JSON-RPC method eth_getTransactionReceipt."
+sidebar_label: "eth_getTransactionReceipt"
+rpc_method: "eth_getTransactionReceipt"
+tags:
+  - json-rpc
+  - openrpc
+  - method
+---
+
+import {TwoColumnLayout, RequestExample, ResponseExample} from '@open-rpc/docusaurus-plugin/components';
+
+<TwoColumnLayout 
+  sidebar={
+    <>
+      <RequestExample 
+        title="Named Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_getTransactionReceipt\",\n  \"params\": {\n    \"Transaction hash\": \"string\"\n  },\n  \"id\": 1\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 1\n}"} 
+      />
+      
+      <RequestExample 
+        title="Positional Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_getTransactionReceipt\",\n  \"params\": [\n    \"string\"\n  ],\n  \"id\": 2\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 2\n}"} 
+      />
+    </>
+  }
+>
+
+# eth_getTransactionReceipt
+
+
+
+---
+
+## Method
+
+- **JSON-RPC method name:** `eth_getTransactionReceipt`
+- **JSON-RPC version:** `2.0`
+
+## Parameters
+
+| Name | Type | Required | Description |
+| ---- | ---- | -------- | ----------- |
+| Transaction hash | `string` | yes |  |
+
+### Parameter schema
+
+```json
+{
+  "Transaction hash": {
+    "required": true,
+    "schema": {
+      "title": "32 byte hex value",
+      "type": "string",
+      "pattern": "^0x[0-9a-f]{64}$"
+    }
+  }
+}
+```
+
+## Result
+
+- **Name:** `Receipt information`
+- **Type:** `oneOf`
+
+### Result schema
+
+```json
+{
+  "oneOf": [
+    {
+      "title": "Not Found (null)",
+      "type": "null"
+    },
+    {
+      "type": "object",
+      "title": "Receipt information",
+      "required": [
+        "blockHash",
+        "blockNumber",
+        "from",
+        "cumulativeGasUsed",
+        "gasUsed",
+        "logs",
+        "logsBloom",
+        "transactionHash",
+        "transactionIndex",
+        "effectiveGasPrice"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "title": "type",
+          "type": "string",
+          "pattern": "^0x([0-9a-fA-F]?){1,2}$"
+        },
+        "transactionHash": {
+          "title": "transaction hash",
+          "type": "string",
+          "pattern": "^0x[0-9a-f]{64}$"
+        },
+        "transactionIndex": {
+          "title": "transaction index",
+          "type": "string",
+          "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$"
+        },
+        "blockHash": {
+          "title": "block hash",
+          "type": "string",
+          "pattern": "^0x[0-9a-f]{64}$"
+        },
+        "blockNumber": {
+          "title": "block number",
+          "type": "string",
+          "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$"
+        },
+        "from": {
+          "title": "from",
+          "type": "string",
+          "pattern": "^0x[0-9a-fA-F]{40}$"
+        },
+        "to": {
+          "title": "to",
+          "description": "Address of the receiver or null in a contract creation transaction.",
+          "oneOf": [
+            {
+              "title": "Contract Creation (null)",
+              "type": "null"
+            },
+            {
+              "title": "Recipient Address",
+              "type": "string",
+              "pattern": "^0x[0-9a-fA-F]{40}$"
+            }
+          ]
+        },
+        "cumulativeGasUsed": {
+          "title": "cumulative gas used",
+          "type": "string",
+          "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$",
+          "description": "The sum of gas used by this transaction and all preceding transactions in the same block."
+        },
+        "gasUsed": {
+          "title": "gas used",
+          "type": "string",
+          "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$",
+          "description": "The amount of gas used for this specific transaction alone."
+        },
+        "blobGasUsed": {
+          "title": "blob gas used",
+          "type": "string",
+          "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$",
+          "description": "The amount of blob gas used for this specific transaction. Only specified for blob transactions as defined by EIP-4844."
+        },
+        "contractAddress": {
+          "title": "contract address",
+          "description": "The contract address created, if the transaction was a contract creation, otherwise null.",
+          "oneOf": [
+            {
+              "title": "hex encoded address",
+              "type": "string",
+              "pattern": "^0x[0-9a-fA-F]{40}$"
+            },
+            {
+              "title": "Null",
+              "type": "null"
+            }
+          ]
+        },
+        "logs": {
+          "title": "logs",
+          "type": "array",
+          "items": {
+            "title": "log",
+            "type": "object",
+            "required": [
+              "transactionHash"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "removed": {
+                "title": "removed",
+                "type": "boolean"
+              },
+              "logIndex": {
+                "title": "log index",
+                "type": "string",
+                "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$"
+              },
+              "transactionIndex": {
+                "title": "transaction index",
+                "type": "string",
+                "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$"
+              },
+              "transactionHash": {
+                "title": "transaction hash",
+                "type": "string",
+                "pattern": "^0x[0-9a-f]{64}$"
+              },
+              "blockHash": {
+                "title": "block hash",
+                "type": "string",
+                "pattern": "^0x[0-9a-f]{64}$"
+              },
+              "blockNumber": {
+                "title": "block number",
+                "type": "string",
+                "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$"
+              },
+              "address": {
+                "title": "address",
+                "type": "string",
+                "pattern": "^0x[0-9a-fA-F]{40}$"
+              },
+              "data": {
+                "title": "data",
+                "type": "string",
+                "pattern": "^0x[0-9a-f]*$"
+              },
+              "topics": {
+                "title": "topics",
+                "type": "array",
+                "items": {
+                  "title": "32 hex encoded bytes",
+                  "type": "string",
+                  "pattern": "^0x[0-9a-f]{64}$"
+                }
+              }
+            }
+          }
+        },
+        "logsBloom": {
+          "title": "logs bloom",
+          "type": "string",
+          "pattern": "^0x[0-9a-f]{512}$"
+        },
+        "root": {
+          "title": "state root",
+          "type": "string",
+          "pattern": "^0x[0-9a-f]{64}$",
+          "description": "The post-transaction state root. Only specified for transactions included before the Byzantium upgrade."
+        },
+        "status": {
+          "title": "status",
+          "type": "string",
+          "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$",
+          "description": "Either 1 (success) or 0 (failure). Only specified for transactions included after the Byzantium upgrade."
+        },
+        "effectiveGasPrice": {
+          "title": "effective gas price",
+          "type": "string",
+          "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$",
+          "description": "The actual value per gas deducted from the sender's account. Before EIP-1559, this is equal to the transaction's gas price. After, it is equal to baseFeePerGas + min(maxFeePerGas - baseFeePerGas, maxPriorityFeePerGas)."
+        },
+        "blobGasPrice": {
+          "title": "blob gas price",
+          "type": "string",
+          "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$",
+          "description": "The actual value per gas deducted from the sender's account for blob gas. Only specified for blob transactions as defined by EIP-4844."
+        }
+      }
+    }
+  ]
+}
+```
+
+
+### Positional parameters
+
+Parameter order:
+
+1. `Transaction hash`
+
+---
+
+## Errors
+
+This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
+
+> TODO: Document method-specific error codes and conditions.
+
+</TwoColumnLayout>

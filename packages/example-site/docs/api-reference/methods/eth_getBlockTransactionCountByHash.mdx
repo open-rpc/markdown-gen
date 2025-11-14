@@ -1,9 +1,9 @@
 ---
-title: "get_pet_by_id"
+title: "eth_getBlockTransactionCountByHash"
 hide_table_of_contents: true
-description: "Returns a user based on a single ID, if the user does not have access to the pet"
-sidebar_label: "get_pet_by_id"
-rpc_method: "get_pet_by_id"
+description: "Documentation for JSON-RPC method eth_getBlockTransactionCountByHash."
+sidebar_label: "eth_getBlockTransactionCountByHash"
+rpc_method: "eth_getBlockTransactionCountByHash"
 tags:
   - json-rpc
   - openrpc
@@ -17,7 +17,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample} from '@open-rpc/docusa
     <>
       <RequestExample 
         title="Named Parameters" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"get_pet_by_id\",\n  \"params\": {\n    \"id\": 1\n  },\n  \"id\": 1\n}"} 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_getBlockTransactionCountByHash\",\n  \"params\": {\n    \"Block hash\": \"string\"\n  },\n  \"id\": 1\n}"} 
       />
       
       <ResponseExample 
@@ -27,7 +27,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample} from '@open-rpc/docusa
       
       <RequestExample 
         title="Positional Parameters" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"get_pet_by_id\",\n  \"params\": [\n    1\n  ],\n  \"id\": 2\n}"} 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_getBlockTransactionCountByHash\",\n  \"params\": [\n    \"string\"\n  ],\n  \"id\": 2\n}"} 
       />
       
       <ResponseExample 
@@ -38,33 +38,33 @@ import {TwoColumnLayout, RequestExample, ResponseExample} from '@open-rpc/docusa
   }
 >
 
-# get_pet_by_id
+# eth_getBlockTransactionCountByHash
 
-Returns a user based on a single ID, if the user does not have access to the pet
 
 
 ---
 
 ## Method
 
-- **JSON-RPC method name:** `get_pet_by_id`
+- **JSON-RPC method name:** `eth_getBlockTransactionCountByHash`
 - **JSON-RPC version:** `2.0`
 
 ## Parameters
 
 | Name | Type | Required | Description |
 | ---- | ---- | -------- | ----------- |
-| id | `integer` | yes | ID of pet to fetch |
+| Block hash | `string` | no |  |
 
 ### Parameter schema
 
 ```json
 {
-  "id": {
-    "description": "ID of pet to fetch",
-    "required": true,
+  "Block hash": {
+    "required": false,
     "schema": {
-      "type": "integer"
+      "title": "32 byte hex value",
+      "type": "string",
+      "pattern": "^0x[0-9a-f]{64}$"
     }
   }
 }
@@ -72,38 +72,22 @@ Returns a user based on a single ID, if the user does not have access to the pet
 
 ## Result
 
-- **Name:** `pet`
-- **Description:** pet response
-- **Type:** `allOf`
+- **Name:** `Transaction count`
+- **Type:** `oneOf`
 
 ### Result schema
 
 ```json
 {
-  "allOf": [
+  "oneOf": [
     {
-      "type": "object",
-      "required": [
-        "name"
-      ],
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "tag": {
-          "type": "string"
-        }
-      }
+      "title": "Not Found (null)",
+      "type": "null"
     },
     {
-      "required": [
-        "id"
-      ],
-      "properties": {
-        "id": {
-          "type": "integer"
-        }
-      }
+      "title": "Transaction count",
+      "type": "string",
+      "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$"
     }
   ]
 }
@@ -114,7 +98,7 @@ Returns a user based on a single ID, if the user does not have access to the pet
 
 Parameter order:
 
-1. `id`
+1. `Block hash`
 
 ---
 

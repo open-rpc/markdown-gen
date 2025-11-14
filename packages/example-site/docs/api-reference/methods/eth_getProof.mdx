@@ -1,0 +1,229 @@
+---
+title: "eth_getProof"
+hide_table_of_contents: true
+description: "Documentation for JSON-RPC method eth_getProof."
+sidebar_label: "eth_getProof"
+rpc_method: "eth_getProof"
+tags:
+  - json-rpc
+  - openrpc
+  - method
+---
+
+import {TwoColumnLayout, RequestExample, ResponseExample} from '@open-rpc/docusaurus-plugin/components';
+
+<TwoColumnLayout 
+  sidebar={
+    <>
+      <RequestExample 
+        title="Named Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_getProof\",\n  \"params\": {\n    \"Address\": \"string\",\n    \"StorageKeys\": [\n      \"string\"\n    ],\n    \"Block\": \"example\"\n  },\n  \"id\": 1\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": {\n    \"address\": \"string\",\n    \"accountProof\": [\n      \"string\"\n    ],\n    \"balance\": \"string\",\n    \"codeHash\": \"string\",\n    \"nonce\": \"string\",\n    \"storageHash\": \"string\",\n    \"storageProof\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"proof\": [\n          \"string\"\n        ]\n      }\n    ]\n  },\n  \"id\": 1\n}"} 
+      />
+      
+      <RequestExample 
+        title="Positional Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_getProof\",\n  \"params\": [\n    \"string\",\n    [\n      \"string\"\n    ],\n    \"example\"\n  ],\n  \"id\": 2\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": {\n    \"address\": \"string\",\n    \"accountProof\": [\n      \"string\"\n    ],\n    \"balance\": \"string\",\n    \"codeHash\": \"string\",\n    \"nonce\": \"string\",\n    \"storageHash\": \"string\",\n    \"storageProof\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"proof\": [\n          \"string\"\n        ]\n      }\n    ]\n  },\n  \"id\": 2\n}"} 
+      />
+    </>
+  }
+>
+
+# eth_getProof
+
+
+
+---
+
+## Method
+
+- **JSON-RPC method name:** `eth_getProof`
+- **JSON-RPC version:** `2.0`
+
+## Parameters
+
+| Name | Type | Required | Description |
+| ---- | ---- | -------- | ----------- |
+| Address | `string` | yes |  |
+| StorageKeys | `string[]` | yes |  |
+| Block | `anyOf` | yes |  |
+
+### Parameter schema
+
+```json
+{
+  "Address": {
+    "required": true,
+    "schema": {
+      "title": "hex encoded address",
+      "type": "string",
+      "pattern": "^0x[0-9a-fA-F]{40}$"
+    }
+  },
+  "StorageKeys": {
+    "required": true,
+    "schema": {
+      "title": "Storage keys",
+      "type": "array",
+      "items": {
+        "title": "32 hex encoded bytes",
+        "type": "string",
+        "pattern": "^0x[0-9a-f]{0,64}$"
+      }
+    }
+  },
+  "Block": {
+    "required": true,
+    "schema": {
+      "title": "Block number, tag, or block hash",
+      "anyOf": [
+        {
+          "title": "Block number",
+          "type": "string",
+          "pattern": "^0x([1-9a-f]+[0-9a-f]*|0)$"
+        },
+        {
+          "title": "Block tag",
+          "type": "string",
+          "enum": [
+            "earliest",
+            "finalized",
+            "safe",
+            "latest",
+            "pending"
+          ],
+          "description": "`earliest`: The lowest numbered block the client has available; `finalized`: The most recent crypto-economically secure block, cannot be re-orged outside of manual intervention driven by community coordination; `safe`: The most recent block that is safe from re-orgs under honest majority and certain synchronicity assumptions; `latest`: The most recent block in the canonical chain observed by the client, this block may be re-orged out of the canonical chain even under healthy/normal conditions; `pending`: A sample next block built by the client on top of `latest` and containing the set of transactions usually taken from local mempool. Before the merge transition is finalized, any call querying for `finalized` or `safe` block MUST be responded to with `-39001: Unknown block` error"
+        },
+        {
+          "title": "Block hash",
+          "type": "string",
+          "pattern": "^0x[0-9a-f]{64}$"
+        }
+      ]
+    }
+  }
+}
+```
+
+## Result
+
+- **Name:** `Account`
+- **Type:** `object`
+
+### Result schema
+
+```json
+{
+  "title": "Account proof",
+  "type": "object",
+  "required": [
+    "address",
+    "accountProof",
+    "balance",
+    "codeHash",
+    "nonce",
+    "storageHash",
+    "storageProof"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "address": {
+      "title": "address",
+      "type": "string",
+      "pattern": "^0x[0-9a-fA-F]{40}$"
+    },
+    "accountProof": {
+      "title": "accountProof",
+      "type": "array",
+      "items": {
+        "title": "hex encoded bytes",
+        "type": "string",
+        "pattern": "^0x[0-9a-f]*$"
+      }
+    },
+    "balance": {
+      "title": "balance",
+      "type": "string",
+      "pattern": "^0x([1-9a-f]+[0-9a-f]{0,31})|0$"
+    },
+    "codeHash": {
+      "title": "codeHash",
+      "type": "string",
+      "pattern": "^0x[0-9a-f]{64}$"
+    },
+    "nonce": {
+      "title": "nonce",
+      "type": "string",
+      "pattern": "^0x([1-9a-f]+[0-9a-f]{0,15})|0$"
+    },
+    "storageHash": {
+      "title": "storageHash",
+      "type": "string",
+      "pattern": "^0x[0-9a-f]{64}$"
+    },
+    "storageProof": {
+      "title": "Storage proofs",
+      "type": "array",
+      "items": {
+        "title": "Storage proof",
+        "type": "object",
+        "required": [
+          "key",
+          "value",
+          "proof"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "key": {
+            "title": "key",
+            "type": "string",
+            "pattern": "^0x[0-9a-f]{0,64}$"
+          },
+          "value": {
+            "title": "value",
+            "type": "string",
+            "pattern": "^0x([1-9a-f]+[0-9a-f]{0,31})|0$"
+          },
+          "proof": {
+            "title": "proof",
+            "type": "array",
+            "items": {
+              "title": "hex encoded bytes",
+              "type": "string",
+              "pattern": "^0x[0-9a-f]*$"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+
+### Positional parameters
+
+Parameter order:
+
+1. `Address`
+2. `StorageKeys`
+3. `Block`
+
+---
+
+## Errors
+
+This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
+
+> TODO: Document method-specific error codes and conditions.
+
+</TwoColumnLayout>

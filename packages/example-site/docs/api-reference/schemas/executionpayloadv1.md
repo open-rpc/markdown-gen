@@ -1,0 +1,137 @@
+---
+title: "ExecutionPayloadV1"
+description: "Schema definition for ExecutionPayloadV1."
+sidebar_label: "ExecutionPayloadV1"
+schema_name: "ExecutionPayloadV1"
+tags:
+  - json-rpc
+  - openrpc
+  - schema
+---
+
+# ExecutionPayloadV1
+
+---
+
+## JSON Schema
+
+```json
+{
+  "title": "Execution payload object V1",
+  "type": "object",
+  "required": [
+    "parentHash",
+    "feeRecipient",
+    "stateRoot",
+    "receiptsRoot",
+    "logsBloom",
+    "prevRandao",
+    "blockNumber",
+    "gasLimit",
+    "gasUsed",
+    "timestamp",
+    "extraData",
+    "baseFeePerGas",
+    "blockHash",
+    "transactions"
+  ],
+  "properties": {
+    "parentHash": {
+      "title": "Parent block hash",
+      "type": "string",
+      "pattern": "^0x[0-9a-f]{64}$"
+    },
+    "feeRecipient": {
+      "title": "Recipient of transaction priority fees",
+      "type": "string",
+      "pattern": "^0x[0-9a-fA-F]{40}$"
+    },
+    "stateRoot": {
+      "title": "State root",
+      "type": "string",
+      "pattern": "^0x[0-9a-f]{64}$"
+    },
+    "receiptsRoot": {
+      "title": "Receipts root",
+      "type": "string",
+      "pattern": "^0x[0-9a-f]{64}$"
+    },
+    "logsBloom": {
+      "title": "Bloom filter",
+      "type": "string",
+      "pattern": "^0x[0-9a-f]{512}$"
+    },
+    "prevRandao": {
+      "title": "Previous randao value",
+      "type": "string",
+      "pattern": "^0x[0-9a-f]{64}$"
+    },
+    "blockNumber": {
+      "title": "Block number",
+      "type": "string",
+      "pattern": "^0x([1-9a-f]+[0-9a-f]{0,15})|0$"
+    },
+    "gasLimit": {
+      "title": "Gas limit",
+      "type": "string",
+      "pattern": "^0x([1-9a-f]+[0-9a-f]{0,15})|0$"
+    },
+    "gasUsed": {
+      "title": "Gas used",
+      "type": "string",
+      "pattern": "^0x([1-9a-f]+[0-9a-f]{0,15})|0$"
+    },
+    "timestamp": {
+      "title": "Timestamp",
+      "type": "string",
+      "pattern": "^0x([1-9a-f]+[0-9a-f]{0,15})|0$"
+    },
+    "extraData": {
+      "title": "Extra data",
+      "type": "string",
+      "pattern": "^0x[0-9a-f]{0,64}$"
+    },
+    "baseFeePerGas": {
+      "title": "Base fee per gas",
+      "type": "string",
+      "pattern": "^0x([1-9a-f]+[0-9a-f]{0,31})|0$"
+    },
+    "blockHash": {
+      "title": "Block hash",
+      "type": "string",
+      "pattern": "^0x[0-9a-f]{64}$"
+    },
+    "transactions": {
+      "title": "Transactions",
+      "type": "array",
+      "items": {
+        "title": "hex encoded bytes",
+        "type": "string",
+        "pattern": "^0x[0-9a-f]*$"
+      }
+    }
+  }
+}
+```
+
+---
+
+## Properties
+
+| Name | Type | Required | Description |
+| ---- | ---- | -------- | ----------- |
+| parentHash | `string` | yes |  |
+| feeRecipient | `string` | yes |  |
+| stateRoot | `string` | yes |  |
+| receiptsRoot | `string` | yes |  |
+| logsBloom | `string` | yes |  |
+| prevRandao | `string` | yes |  |
+| blockNumber | `string` | yes |  |
+| gasLimit | `string` | yes |  |
+| gasUsed | `string` | yes |  |
+| timestamp | `string` | yes |  |
+| extraData | `string` | yes |  |
+| baseFeePerGas | `string` | yes |  |
+| blockHash | `string` | yes |  |
+| transactions | `string[]` | yes |  |
+

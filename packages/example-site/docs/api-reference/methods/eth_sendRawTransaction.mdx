@@ -1,9 +1,9 @@
 ---
-title: "delete_pet_by_id"
+title: "eth_sendRawTransaction"
 hide_table_of_contents: true
-description: "deletes a single pet based on the ID supplied"
-sidebar_label: "delete_pet_by_id"
-rpc_method: "delete_pet_by_id"
+description: "Documentation for JSON-RPC method eth_sendRawTransaction."
+sidebar_label: "eth_sendRawTransaction"
+rpc_method: "eth_sendRawTransaction"
 tags:
   - json-rpc
   - openrpc
@@ -17,54 +17,54 @@ import {TwoColumnLayout, RequestExample, ResponseExample} from '@open-rpc/docusa
     <>
       <RequestExample 
         title="Named Parameters" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"delete_pet_by_id\",\n  \"params\": {\n    \"id\": 1\n  },\n  \"id\": 1\n}"} 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_sendRawTransaction\",\n  \"params\": {\n    \"Transaction\": \"string\"\n  },\n  \"id\": 1\n}"} 
       />
       
       <ResponseExample 
         title="Successful Response" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 1\n}"} 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 1\n}"} 
       />
       
       <RequestExample 
         title="Positional Parameters" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"delete_pet_by_id\",\n  \"params\": [\n    1\n  ],\n  \"id\": 2\n}"} 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_sendRawTransaction\",\n  \"params\": [\n    \"string\"\n  ],\n  \"id\": 2\n}"} 
       />
       
       <ResponseExample 
         title="Successful Response" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 2\n}"} 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 2\n}"} 
       />
     </>
   }
 >
 
-# delete_pet_by_id
+# eth_sendRawTransaction
 
-deletes a single pet based on the ID supplied
 
 
 ---
 
 ## Method
 
-- **JSON-RPC method name:** `delete_pet_by_id`
+- **JSON-RPC method name:** `eth_sendRawTransaction`
 - **JSON-RPC version:** `2.0`
 
 ## Parameters
 
 | Name | Type | Required | Description |
 | ---- | ---- | -------- | ----------- |
-| id | `integer` | yes | ID of pet to delete |
+| Transaction | `string` | yes |  |
 
 ### Parameter schema
 
 ```json
 {
-  "id": {
-    "description": "ID of pet to delete",
+  "Transaction": {
     "required": true,
     "schema": {
-      "type": "integer"
+      "title": "hex encoded bytes",
+      "type": "string",
+      "pattern": "^0x[0-9a-f]*$"
     }
   }
 }
@@ -72,14 +72,17 @@ deletes a single pet based on the ID supplied
 
 ## Result
 
-- **Name:** `pet`
-- **Description:** pet deleted
-- **Type:** `any`
+- **Name:** `Transaction hash`
+- **Type:** `string`
 
 ### Result schema
 
 ```json
-{}
+{
+  "title": "32 byte hex value",
+  "type": "string",
+  "pattern": "^0x[0-9a-f]{64}$"
+}
 ```
 
 
@@ -87,7 +90,7 @@ deletes a single pet based on the ID supplied
 
 Parameter order:
 
-1. `id`
+1. `Transaction`
 
 ---
 

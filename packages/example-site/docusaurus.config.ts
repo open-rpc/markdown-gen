@@ -37,7 +37,7 @@ const config: Config = {
 
   plugins: [['@open-rpc/docusaurus-plugin', 
     {
-      openRPCSpecPath: `./petstore-expanded-openrpc.json`,
+      openRPCSpecPath: `./flashbots-openrpc.json`,
       docOutputPath: `./docs/api-reference`,
 
   }]],
