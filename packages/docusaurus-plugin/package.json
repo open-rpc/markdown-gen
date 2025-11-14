@@ -8,6 +8,9 @@
     ".": "./dist/index.js",
     "./components": "./src/components.ts"
   },
+  "scripts": {
+    "build": "bun run build.ts"
+  },
   "files": [
     "dist",
     "src/components",
