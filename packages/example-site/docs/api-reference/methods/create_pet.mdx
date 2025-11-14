@@ -10,7 +10,7 @@ tags:
   - method
 ---
 
-import {TwoColumnLayout, RequestExample, ResponseExample} from '@open-rpc/docusaurus-plugin/components';
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';
 
 <TwoColumnLayout 
   sidebar={
@@ -38,6 +38,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample} from '@open-rpc/docusa
   }
 >
 
+<TryNow method={"create_pet"} openrpcDocument={{"name":"create_pet","description":"Creates a new pet in the store.  Duplicates are allowed","params":[{"name":"newPet","description":"Pet to add to the store.","schema":{"type":"object","required":["name"],"properties":{"name":{"type":"string"},"tag":{"type":"string"}}}}],"result":{"name":"pet","description":"the newly created pet","schema":{"allOf":[{"type":"object","required":["name"],"properties":{"name":{"type":"string"},"tag":{"type":"string"}}},{"required":["id"],"properties":{"id":{"type":"integer"}}}]}}}} onClick={()=>(<div>Hello</div>)} />
 # create_pet
 
 Creates a new pet in the store.  Duplicates are allowed

@@ -10,7 +10,7 @@ tags:
   - method
 ---
 
-import {TwoColumnLayout, RequestExample, ResponseExample} from '@open-rpc/docusaurus-plugin/components';
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';
 
 <TwoColumnLayout 
   sidebar={
@@ -38,6 +38,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample} from '@open-rpc/docusa
   }
 >
 
+<TryNow method={"delete_pet_by_id"} openrpcDocument={{"name":"delete_pet_by_id","description":"deletes a single pet based on the ID supplied","params":[{"name":"id","description":"ID of pet to delete","required":true,"schema":{"type":"integer"}}],"result":{"name":"pet","description":"pet deleted","schema":{}}}} onClick={()=>(<div>Hello</div>)} />
 # delete_pet_by_id
 
 deletes a single pet based on the ID supplied

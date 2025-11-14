@@ -90,3 +90,29 @@
   color: var(--ifm-color-info-light);
 }
 
+
+/* remove native dialog chrome & match Infima .dialog container */
+dialog.dialog {
+  all: unset;                  /* strip browser defaults */
+  display: block;              /* infima uses display:block + fixed positioning */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 300px;
+  max-width: 90vw;
+  max-height: 90vh;
+  background: var(--ifm-background-color);
+  border-radius: var(--ifm-pre-border-radius);
+  box-shadow: var(--ifm-shadow-xl);
+  overflow: auto;
+  padding: 0;
+  z-index: var(--ifm-z-index-dialog);
+}
+
+/* backdrop to dim the page */
+dialog.dialog::backdrop {
+  background: rgba(0, 0, 0, 0.32);
+}
+
+/* reuse Infima’s dialog__container, header, content, actions, etc. */
