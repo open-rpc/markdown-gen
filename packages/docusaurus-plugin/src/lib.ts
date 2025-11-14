@@ -81,7 +81,7 @@ function renderIndex(doc: DereffedOpenrpcDocument): string {
     methods.length === 0
       ? "_No methods defined._"
       : methods
-          .map((m) => `- [\`${m.name}\`](./methods/${m.name}.md)`)
+          .map((m) => `- [\`${m.name}\`](./methods/${m.name}.mdx)`)
           .join("\n");
 
   const schemasList =

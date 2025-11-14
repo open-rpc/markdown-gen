@@ -1,0 +1,127 @@
+---
+title: "get_pet_by_id"
+hide_table_of_contents: true
+description: "Returns a user based on a single ID, if the user does not have access to the pet"
+sidebar_label: "get_pet_by_id"
+rpc_method: "get_pet_by_id"
+tags:
+  - json-rpc
+  - openrpc
+  - method
+---
+
+import {TwoColumnLayout, RequestExample, ResponseExample} from '@open-rpc/docusaurus-plugin/components';
+
+<TwoColumnLayout 
+  sidebar={
+    <>
+      <RequestExample 
+        title="Named Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"get_pet_by_id\",\n  \"params\": {\n    \"id\": 1\n  },\n  \"id\": 1\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 1\n}"} 
+      />
+      
+      <RequestExample 
+        title="Positional Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"get_pet_by_id\",\n  \"params\": [\n    1\n  ],\n  \"id\": 2\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 2\n}"} 
+      />
+    </>
+  }
+>
+
+# get_pet_by_id
+
+Returns a user based on a single ID, if the user does not have access to the pet
+
+
+---
+
+## Method
+
+- **JSON-RPC method name:** `get_pet_by_id`
+- **JSON-RPC version:** `2.0`
+
+## Parameters
+
+| Name | Type | Required | Description |
+| ---- | ---- | -------- | ----------- |
+| id | `integer` | yes | ID of pet to fetch |
+
+### Parameter schema
+
+```json
+{
+  "id": {
+    "description": "ID of pet to fetch",
+    "required": true,
+    "schema": {
+      "type": "integer"
+    }
+  }
+}
+```
+
+## Result
+
+- **Name:** `pet`
+- **Description:** pet response
+- **Type:** `allOf`
+
+### Result schema
+
+```json
+{
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      }
+    }
+  ]
+}
+```
+
+
+### Positional parameters
+
+Parameter order:
+
+1. `id`
+
+---
+
+## Errors
+
+This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
+
+> TODO: Document method-specific error codes and conditions.
+
+</TwoColumnLayout>

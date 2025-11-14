@@ -1,0 +1,100 @@
+---
+title: "delete_pet_by_id"
+hide_table_of_contents: true
+description: "deletes a single pet based on the ID supplied"
+sidebar_label: "delete_pet_by_id"
+rpc_method: "delete_pet_by_id"
+tags:
+  - json-rpc
+  - openrpc
+  - method
+---
+
+import {TwoColumnLayout, RequestExample, ResponseExample} from '@open-rpc/docusaurus-plugin/components';
+
+<TwoColumnLayout 
+  sidebar={
+    <>
+      <RequestExample 
+        title="Named Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"delete_pet_by_id\",\n  \"params\": {\n    \"id\": 1\n  },\n  \"id\": 1\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 1\n}"} 
+      />
+      
+      <RequestExample 
+        title="Positional Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"delete_pet_by_id\",\n  \"params\": [\n    1\n  ],\n  \"id\": 2\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 2\n}"} 
+      />
+    </>
+  }
+>
+
+# delete_pet_by_id
+
+deletes a single pet based on the ID supplied
+
+
+---
+
+## Method
+
+- **JSON-RPC method name:** `delete_pet_by_id`
+- **JSON-RPC version:** `2.0`
+
+## Parameters
+
+| Name | Type | Required | Description |
+| ---- | ---- | -------- | ----------- |
+| id | `integer` | yes | ID of pet to delete |
+
+### Parameter schema
+
+```json
+{
+  "id": {
+    "description": "ID of pet to delete",
+    "required": true,
+    "schema": {
+      "type": "integer"
+    }
+  }
+}
+```
+
+## Result
+
+- **Name:** `pet`
+- **Description:** pet deleted
+- **Type:** `any`
+
+### Result schema
+
+```json
+{}
+```
+
+
+### Positional parameters
+
+Parameter order:
+
+1. `id`
+
+---
+
+## Errors
+
+This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
+
+> TODO: Document method-specific error codes and conditions.
+
+</TwoColumnLayout>

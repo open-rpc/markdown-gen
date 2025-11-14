@@ -143,4 +143,3 @@ vite.config.ts.timestamp-*
 # LLMLOG.MD
 LLMLOG.MD
 coverage
-**/*/docs/api-reference
