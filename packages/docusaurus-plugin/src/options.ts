@@ -1,0 +1,27 @@
+/**
+ * User-provided plugin options
+ */
+export type Options = {
+  // TODO: Add user-configurable options here
+
+  openRPCSpecPath: string;
+  docOutputPath: string;
+};
+
+/**
+ * Normalized plugin options with defaults applied
+ */
+export type PluginOptions = Options & {
+  // TODO: Add any computed/normalized options here
+};
+
+/**
+ * Normalize user options with defaults
+ */
+export function normalizeOptions(options: Options): PluginOptions {
+  // TODO: Apply defaults and normalize options
+  return {
+    openRPCSpecPath: options.openRPCSpecPath || "./openrpc.json",
+    docOutputPath: options.docOutputPath || "./api-reference",
+  };
+}
