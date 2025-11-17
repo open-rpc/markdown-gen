@@ -7,6 +7,7 @@ import {
 } from "@open-rpc/meta-schema";
 
 import { promises as fs } from "fs";
+
 import * as path from "path";
 
 type JSONSchema = any;
@@ -209,7 +210,7 @@ tags:
   - method
 ---
 
-import {TwoColumnLayout, RequestExample, ResponseExample} from '@open-rpc/docusaurus-plugin/components';
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';
 
 <TwoColumnLayout 
   sidebar={
@@ -241,6 +242,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample} from '@open-rpc/docusa
   }
 >
 
+<TryNow method={"${m.name}"} openrpcDocument={${JSON.stringify(m)}} onClick={()=>(<div>Hello</div>)} />
 # ${m.name}
 
 ${desc ? `${desc}\n` : ""}

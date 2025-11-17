@@ -16,10 +16,10 @@ A sample API that uses a petstore as an example to demonstrate features in the O
 
 ## Methods
 
-- [`get_pets`](./methods/get_pets.md)
-- [`create_pet`](./methods/create_pet.md)
-- [`get_pet_by_id`](./methods/get_pet_by_id.md)
-- [`delete_pet_by_id`](./methods/delete_pet_by_id.md)
+- [`get_pets`](./methods/get_pets.mdx)
+- [`create_pet`](./methods/create_pet.mdx)
+- [`get_pet_by_id`](./methods/get_pet_by_id.mdx)
+- [`delete_pet_by_id`](./methods/delete_pet_by_id.mdx)
 
 ## Schemas
 
