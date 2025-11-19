@@ -154,9 +154,18 @@ describe("renderSchema", () => {
           {
             type: "tableRow",
             children: [
-              { type: "tableCell", children: [{ type: "text", value: "Property" }] },
-              { type: "tableCell", children: [{ type: "text", value: "Type" }] },
-              { type: "tableCell", children: [{ type: "text", value: "Details" }] },
+              {
+                type: "tableCell",
+                children: [{ type: "text", value: "Property" }],
+              },
+              {
+                type: "tableCell",
+                children: [{ type: "text", value: "Type" }],
+              },
+              {
+                type: "tableCell",
+                children: [{ type: "text", value: "Details" }],
+              },
             ],
           },
           {

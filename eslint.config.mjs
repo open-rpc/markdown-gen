@@ -42,7 +42,8 @@ export default [
         project: [
           './packages/markdown-generator/tsconfig.json',
           './packages/docusaurus-plugin/tsconfig.json',
-          './packages/json-schema-renderer/tsconfig.json'
+          './packages/json-schema-renderer/tsconfig.json',
+          './packages/json-schema-renderer/tsconfig.eslint.json'
         ],
         tsconfigRootDir: __dirname,
         ecmaVersion: 2022,
