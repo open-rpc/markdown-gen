@@ -20,13 +20,14 @@
   ],
   "version": "0.0.0-development",
   "scripts": {
-    "types": "bun run types:md-gen && bun run types:plugin",
+    "types": "bun run types:md-gen && bun run types:plugin && bun run types:json-schema-renderer",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "build:md-gen": "bun run --cwd packages/markdown-generator build.ts",
     "build:plugin": "bun run --cwd packages/docusaurus-plugin build.ts",
     "types:md-gen": "bun run --cwd packages/markdown-generator tsc -p tsconfig.json",
-    "types:plugin": "bun run --cwd packages/docusaurus-plugin tsc -p tsconfig.json"
+    "types:plugin": "bun run --cwd packages/docusaurus-plugin tsc -p tsconfig.json",
+    "types:json-schema-renderer": "bun run --cwd packages/json-schema-renderer tsc -p tsconfig.json"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

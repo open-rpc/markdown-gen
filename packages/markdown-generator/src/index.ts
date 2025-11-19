@@ -1,5 +1,6 @@
 import { unified } from "unified";
 import remarkStringify from "remark-stringify";
+import type { Options as RemarkStringifyOptions } from "remark-stringify";
 import remarkGfm from "remark-gfm";
 import type {
   Content,
@@ -53,7 +54,10 @@ export async function generateMarkdownFromOpenRPC(
   const tree = toMarkdownAst(document);
   const processor = unified().use(remarkGfm).use(remarkStringify, {
     fences: true,
-    listItemIndent: "1",
+    // Coerce to satisfy types: remark-stringify currently only types `'one'`
+    // but we use the shorthand `"1"` to match existing markdown output.
+    listItemIndent:
+      "1" as unknown as RemarkStringifyOptions["listItemIndent"],
     bullet: "-",
   });
 
@@ -127,7 +131,7 @@ function paragraphFromPhrasing(children: PhrasingContent[]): Paragraph {
   };
 }
 
-function heading(depth: number, child: Text): Heading {
+function heading(depth: Heading["depth"], child: Text): Heading {
   return {
     type: "heading",
     depth,
