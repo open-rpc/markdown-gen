@@ -20,7 +20,7 @@
   ],
   "version": "0.0.0-development",
   "scripts": {
-    "types": "bun run types:md-gen && bun run types:plugin && bun run types:json-schema-renderer",
+    "types": "bun run types:json-schema-renderer && bun run types:md-gen && bun run types:plugin",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "build:md-gen": "bun run --cwd packages/markdown-generator build.ts",
