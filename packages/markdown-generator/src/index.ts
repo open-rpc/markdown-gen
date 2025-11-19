@@ -52,14 +52,16 @@ export async function generateMarkdownFromOpenRPC(
   document: OpenRPCDocument,
 ): Promise<string> {
   const tree = toMarkdownAst(document);
-  const processor = unified().use(remarkGfm).use(remarkStringify, {
-    fences: true,
-    // Coerce to satisfy types: remark-stringify currently only types `'one'`
-    // but we use the shorthand `"1"` to match existing markdown output.
-    listItemIndent:
-      "1" as unknown as RemarkStringifyOptions["listItemIndent"],
-    bullet: "-",
-  });
+  const processor = unified()
+    .use(remarkGfm)
+    .use(remarkStringify, {
+      fences: true,
+      // Coerce to satisfy types: remark-stringify currently only types `'one'`
+      // but we use the shorthand `"1"` to match existing markdown output.
+      listItemIndent:
+        "1" as unknown as RemarkStringifyOptions["listItemIndent"],
+      bullet: "-",
+    });
 
   const processed = (await processor.run(tree)) as Root;
   return processor.stringify(processed);
