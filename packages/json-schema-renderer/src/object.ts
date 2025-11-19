@@ -1,4 +1,4 @@
-import type { Content, ListItem, PhrasingContent } from "mdast";
+import type { Content, ListItem, Paragraph, PhrasingContent } from "mdast";
 
 import { buildConstraintSection } from "./base";
 import type {
@@ -73,14 +73,15 @@ export function renderObject(
         helpers,
         propertySchema,
       );
+      const detailChildren =
+        detailParagraph.children.length > 0
+          ? detailParagraph.children
+          : [text("No additional details.")];
 
       return tableRow([
         tableCell(propertyCellChildren),
         textCell(resolveTypeLabel(propertySchema)),
-        {
-          type: "tableCell",
-          children: [detailParagraph],
-        },
+        tableCell(detailChildren),
       ]);
     });
     blocks.push({
@@ -121,7 +122,7 @@ function renderPropertyDetails(
   propertyName: string,
   helpers: SchemaRendererHelpers,
   propertySchema: JsonSchema,
-) {
+): Paragraph {
   const propertyPath = `${parentPath}.properties.${propertyName}`;
   const propertyResult = helpers.getResult(propertyPath);
   const propertyContext = helpers.getContext(propertyPath);
@@ -219,6 +220,7 @@ function removeLeadingName(
 
   const [first, ...rest] = inlineChildren;
   if (
+    first &&
     first.type === "inlineCode" &&
     typeof first.value === "string" &&
     first.value === name

@@ -1,4 +1,4 @@
-import type { Content, ListItem, PhrasingContent } from "mdast";
+import type { BlockContent, Content, ListItem, PhrasingContent } from "mdast";
 
 import { buildConstraintSection } from "./base";
 import type {
@@ -76,6 +76,10 @@ export function renderArray(
 }
 
 function formatTypeLabel(type: JsonSchema["type"]): string {
+  if (!type) {
+    return "unknown";
+  }
+
   if (Array.isArray(type)) {
     return type.join(" | ");
   }
@@ -115,7 +119,7 @@ function gatherArrayConstraintItems(schema: JsonSchema): ListItem[] {
   }
 
   if (schema.contains) {
-    const requirements: Content[] = [
+    const requirements: BlockContent[] = [
       paragraphFromText("Must contain items matching the defined schema."),
     ];
 
@@ -150,7 +154,7 @@ function removeLeadingName(
   }
 
   const [first, ...rest] = inlineChildren;
-  if (first.type === "inlineCode" && first.value === name) {
+  if (first && first.type === "inlineCode" && first.value === name) {
     return rest;
   }
 

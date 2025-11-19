@@ -1,4 +1,5 @@
 import type {
+  BlockContent,
   Content,
   Heading,
   InlineCode,
@@ -59,7 +60,10 @@ export function textCell(value: string): TableCell {
   return tableCell([text(value)]);
 }
 
-export function headingFromText(depth: number, value: string): Heading {
+export function headingFromText(
+  depth: Heading["depth"],
+  value: string,
+): Heading {
   return {
     type: "heading",
     depth,
@@ -76,7 +80,7 @@ export function unorderedList(items: ListItem[]): List {
   };
 }
 
-export function listItem(children: Content[]): ListItem {
+export function listItem(children: BlockContent[]): ListItem {
   return {
     type: "listItem",
     spread: false,

@@ -223,10 +223,10 @@ function deriveContextName(path: string, parentName?: string): string {
 
   const combinatorMatch = last.match(/^(anyOf|oneOf|allOf)\[(\d+)\]$/);
   if (combinatorMatch) {
-    const [, keyword, indexStr] = combinatorMatch;
+    const keyword = combinatorMatch[1] ?? "anyOf";
+    const indexStr = combinatorMatch[2] ?? "0";
     const index = Number.parseInt(indexStr, 10) + 1;
-    const label =
-      keyword === "allOf" ? "requirement" : "option";
+    const label = keyword === "allOf" ? "requirement" : "option";
     return `${fallbackParent} ${label} ${index}`;
   }
 

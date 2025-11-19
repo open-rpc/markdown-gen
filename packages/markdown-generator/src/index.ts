@@ -13,8 +13,11 @@ import type {
   TableRow,
   Text,
 } from "mdast";
-import { renderSchema } from "./json-schema";
-import type { SchemaRenderResult, JsonSchema } from "./json-schema";
+import { renderSchema } from "@open-rpc/json-schema-renderer";
+import type {
+  SchemaRenderResult,
+  JsonSchema,
+} from "@open-rpc/json-schema-renderer";
 
 export interface OpenRPCInfo {
   title?: string;
@@ -54,7 +57,7 @@ export async function generateMarkdownFromOpenRPC(
     bullet: "-",
   });
 
-  const processed = await processor.run(tree);
+  const processed = (await processor.run(tree)) as Root;
   return processor.stringify(processed);
 }
 
