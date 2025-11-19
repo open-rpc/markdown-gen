@@ -19,7 +19,5 @@ export function renderBoolean(
     summarySuffix.push(text(` - ${schema.description.trim()}`));
   }
 
-  return summarySuffix.length
-    ? { summarySuffix }
-    : {};
+  return summarySuffix.length ? { summarySuffix } : {};
 }

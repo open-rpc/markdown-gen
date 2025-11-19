@@ -46,18 +46,12 @@ function gatherNumericConstraintItems(schema: JsonSchema): ListItem[] {
   const items: ListItem[] = [];
 
   if (typeof schema.multipleOf === "number") {
-    items.push(
-      listItemFromText(
-        `Must be a multiple of ${schema.multipleOf}.`,
-      ),
-    );
+    items.push(listItemFromText(`Must be a multiple of ${schema.multipleOf}.`));
   }
 
   if (typeof schema.minimum === "number") {
     items.push(
-      listItemFromText(
-        `Must be greater than or equal to ${schema.minimum}.`,
-      ),
+      listItemFromText(`Must be greater than or equal to ${schema.minimum}.`),
     );
   }
 
@@ -71,9 +65,7 @@ function gatherNumericConstraintItems(schema: JsonSchema): ListItem[] {
 
   if (typeof schema.maximum === "number") {
     items.push(
-      listItemFromText(
-        `Must be less than or equal to ${schema.maximum}.`,
-      ),
+      listItemFromText(`Must be less than or equal to ${schema.maximum}.`),
     );
   }
 

@@ -41,9 +41,7 @@ export function renderObject(
   if (properties.length > 0) {
     summarySuffix.push(
       text(
-        ` - ${properties.length} propert${
-          properties.length > 1 ? "ies" : "y"
-        }`,
+        ` - ${properties.length} propert${properties.length > 1 ? "ies" : "y"}`,
       ),
     );
   } else {
@@ -95,7 +93,9 @@ export function renderObject(
 
   const constraintItems = gatherObjectConstraintItems(schema);
   if (constraintItems.length > 0) {
-    blocks.push(...buildConstraintSection("Object Constraints", constraintItems));
+    blocks.push(
+      ...buildConstraintSection("Object Constraints", constraintItems),
+    );
   }
 
   return {
@@ -196,7 +196,9 @@ function gatherObjectConstraintItems(schema: JsonSchema): ListItem[] {
   if (schema.dependentRequired) {
     for (const [key, deps] of Object.entries(schema.dependentRequired)) {
       if (Array.isArray(deps) && deps.length > 0) {
-        const dependentItems = deps.map((dep) => listItemFromText(`\`${dep}\``));
+        const dependentItems = deps.map((dep) =>
+          listItemFromText(`\`${dep}\``),
+        );
         items.push(
           listItem([
             paragraphFromText(`When \`${key}\` is present, must also include:`),

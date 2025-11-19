@@ -23,7 +23,9 @@ export function renderString(
 
   if (Array.isArray(schema.enum) && schema.enum.length > 0) {
     summarySuffix.push(
-      text(` - ${schema.enum.length} allowed value${schema.enum.length > 1 ? "s" : ""}`),
+      text(
+        ` - ${schema.enum.length} allowed value${schema.enum.length > 1 ? "s" : ""}`,
+      ),
     );
   }
 

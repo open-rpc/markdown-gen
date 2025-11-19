@@ -34,9 +34,7 @@ export function renderArray(
   const summarySuffix: PhrasingContent[] = [];
 
   if (firstItemSchema?.type) {
-    summarySuffix.push(
-      text(` of ${formatTypeLabel(firstItemSchema.type)}`),
-    );
+    summarySuffix.push(text(` of ${formatTypeLabel(firstItemSchema.type)}`));
   }
 
   const blocks: Content[] = [];
@@ -66,7 +64,9 @@ export function renderArray(
 
   const constraintItems = gatherArrayConstraintItems(schema);
   if (constraintItems.length > 0) {
-    blocks.push(...buildConstraintSection("Array Constraints", constraintItems));
+    blocks.push(
+      ...buildConstraintSection("Array Constraints", constraintItems),
+    );
   }
 
   return {
@@ -111,11 +111,7 @@ function gatherArrayConstraintItems(schema: JsonSchema): ListItem[] {
   }
 
   if (schema.uniqueItems) {
-    items.push(
-      listItemFromText(
-        "All items must be unique.",
-      ),
-    );
+    items.push(listItemFromText("All items must be unique."));
   }
 
   if (schema.contains) {
@@ -126,12 +122,16 @@ function gatherArrayConstraintItems(schema: JsonSchema): ListItem[] {
     const detailConstraints: ListItem[] = [];
     if (typeof schema.minContains === "number") {
       detailConstraints.push(
-        listItemFromText(`At least ${schema.minContains} matching item${schema.minContains === 1 ? "" : "s"}.`),
+        listItemFromText(
+          `At least ${schema.minContains} matching item${schema.minContains === 1 ? "" : "s"}.`,
+        ),
       );
     }
     if (typeof schema.maxContains === "number") {
       detailConstraints.push(
-        listItemFromText(`At most ${schema.maxContains} matching item${schema.maxContains === 1 ? "" : "s"}.`),
+        listItemFromText(
+          `At most ${schema.maxContains} matching item${schema.maxContains === 1 ? "" : "s"}.`,
+        ),
       );
     }
 

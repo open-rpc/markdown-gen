@@ -47,12 +47,11 @@ export function buildGenericConstraintBlocks(schema: JsonSchema): Content[] {
   const items: ListItem[] = [];
 
   if (Array.isArray(schema.enum) && schema.enum.length > 0) {
-    const values = schema.enum.map((value) => listItemFromText(formatValue(value)));
+    const values = schema.enum.map((value) =>
+      listItemFromText(formatValue(value)),
+    );
     items.push(
-      listItem([
-        paragraphFromText("Must be one of:"),
-        unorderedList(values),
-      ]),
+      listItem([paragraphFromText("Must be one of:"), unorderedList(values)]),
     );
   }
 

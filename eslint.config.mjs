@@ -17,15 +17,15 @@ export default [
   {
     ignores: [
       "package.json",
-      "node_modules/", 
+      "node_modules/",
       "**/dist/",
-      "dist/", 
+      "dist/",
       "docs/",  // This will now work
-      "build/", 
+      "build/",
       "coverage/",
-      "*.config.js", 
-      "**/*.config.ts", 
-      "vitest.config.ts", 
+      "*.config.js",
+      "**/*.config.ts",
+      "vitest.config.ts",
       "vite.config.ts",
       "build.ts",
       "**/build.ts",
@@ -39,8 +39,11 @@ export default [
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        project: ['./packages/markdown-generator/tsconfig.json', './packages/docusaurus-plugin/tsconfig.json'],
-
+        project: [
+          './packages/markdown-generator/tsconfig.json',
+          './packages/docusaurus-plugin/tsconfig.json',
+          './packages/json-schema-renderer/tsconfig.json'
+        ],
         tsconfigRootDir: __dirname,
         ecmaVersion: 2022,
         sourceType: 'module',
@@ -69,4 +72,4 @@ export default [
     settings: { }
   },
   prettierConfig
-]; 
+];

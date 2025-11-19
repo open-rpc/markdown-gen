@@ -31,8 +31,7 @@ type InternalRenderer = (
 const traverse: typeof traverseModule =
   typeof (traverseModule as unknown as { default?: unknown }).default ===
   "function"
-    ? ((traverseModule as unknown as { default: typeof traverseModule })
-        .default)
+    ? (traverseModule as unknown as { default: typeof traverseModule }).default
     : (traverseModule as unknown as typeof traverseModule);
 
 const RENDERERS: Partial<Record<JsonSchemaType, InternalRenderer>> = {
@@ -85,7 +84,9 @@ export function renderSchema(
   traverse(schema, (current, isCycle, path) => {
     const normalizedPath = normalizePath(path);
     const parentPath = parentSchemaPath(normalizedPath);
-    const parentContext = parentPath ? contextByPath.get(parentPath) : undefined;
+    const parentContext = parentPath
+      ? contextByPath.get(parentPath)
+      : undefined;
     const currentContext = ensureContextForPath(
       normalizedPath,
       contextByPath,
@@ -100,7 +101,12 @@ export function renderSchema(
       !isCycle && normalizedType ? RENDERERS[normalizedType] : undefined;
 
     const typeDetails = renderer
-      ? renderer(jsonSchema as JsonSchema, currentContext, normalizedPath, helpers)
+      ? renderer(
+          jsonSchema as JsonSchema,
+          currentContext,
+          normalizedPath,
+          helpers,
+        )
       : renderUnknown(
           jsonSchema as JsonSchema,
           currentContext,
@@ -134,9 +140,7 @@ export function renderSchema(
   );
 }
 
-function normalizeType(
-  type: JsonSchema["type"],
-): JsonSchemaType | undefined {
+function normalizeType(type: JsonSchema["type"]): JsonSchemaType | undefined {
   if (!type) {
     return undefined;
   }

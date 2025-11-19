@@ -33,9 +33,7 @@ export function paragraphFromText(value: string): Paragraph {
   };
 }
 
-export function paragraphFromPhrasing(
-  children: PhrasingContent[],
-): Paragraph {
+export function paragraphFromPhrasing(children: PhrasingContent[]): Paragraph {
   return {
     type: "paragraph",
     children,
