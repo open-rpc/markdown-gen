@@ -1,0 +1,102 @@
+---
+title: "eth_uninstallFilter"
+hide_table_of_contents: true
+description: "Documentation for JSON-RPC method eth_uninstallFilter."
+sidebar_label: "eth_uninstallFilter"
+rpc_method: "eth_uninstallFilter"
+tags:
+  - json-rpc
+  - openrpc
+  - method
+---
+
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';
+
+<TwoColumnLayout 
+  sidebar={
+    <>
+      <RequestExample 
+        title="Named Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_uninstallFilter\",\n  \"params\": {\n    \"Filter identifier\": \"string\"\n  },\n  \"id\": 1\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": true,\n  \"id\": 1\n}"} 
+      />
+      
+      <RequestExample 
+        title="Positional Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_uninstallFilter\",\n  \"params\": [\n    \"string\"\n  ],\n  \"id\": 2\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": true,\n  \"id\": 2\n}"} 
+      />
+    </>
+  }
+>
+
+<TryNow method={"eth_uninstallFilter"} openrpcDocument={{"name":"eth_uninstallFilter","summary":"Uninstalls a filter with given id.","params":[{"name":"Filter identifier","schema":{"title":"hex encoded unsigned integer","type":"string","pattern":"^0x(0|[1-9a-f][0-9a-f]*)$"},"required":true}],"result":{"name":"Success","schema":{"type":"boolean"}},"examples":[{"name":"eth_uninstallFilter example","params":[{"name":"Filter identifier","value":"0x01"}],"result":{"name":"Success","value":true}}]}} onClick={()=>(<div>Hello</div>)} />
+# eth_uninstallFilter
+
+
+
+---
+
+## Method
+
+- **JSON-RPC method name:** `eth_uninstallFilter`
+- **JSON-RPC version:** `2.0`
+
+## Parameters
+
+| Name | Type | Required | Description |
+| ---- | ---- | -------- | ----------- |
+| Filter identifier | `string` | yes |  |
+
+### Parameter schema
+
+```json
+{
+  "Filter identifier": {
+    "required": true,
+    "schema": {
+      "title": "hex encoded unsigned integer",
+      "type": "string",
+      "pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
+    }
+  }
+}
+```
+
+## Result
+
+- **Name:** `Success`
+- **Type:** `boolean`
+
+### Result schema
+
+```json
+{
+  "type": "boolean"
+}
+```
+
+
+### Positional parameters
+
+Parameter order:
+
+1. `Filter identifier`
+
+---
+
+## Errors
+
+This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
+
+> TODO: Document method-specific error codes and conditions.
+
+</TwoColumnLayout>

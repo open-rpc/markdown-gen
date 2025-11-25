@@ -1,0 +1,71 @@
+---
+title: "eth_newBlockFilter"
+hide_table_of_contents: true
+description: "Documentation for JSON-RPC method eth_newBlockFilter."
+sidebar_label: "eth_newBlockFilter"
+rpc_method: "eth_newBlockFilter"
+tags:
+  - json-rpc
+  - openrpc
+  - method
+---
+
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';
+
+<TwoColumnLayout 
+  sidebar={
+    <>
+      <RequestExample 
+        title="Named Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_newBlockFilter\",\n  \"params\": {},\n  \"id\": 1\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 1\n}"} 
+      />
+    </>
+  }
+>
+
+<TryNow method={"eth_newBlockFilter"} openrpcDocument={{"name":"eth_newBlockFilter","summary":"Creates a filter in the node, allowing for later polling. Registers client interest in new blocks, and returns an identifier.","params":[],"result":{"name":"Filter identifier","schema":{"title":"hex encoded unsigned integer","type":"string","pattern":"^0x(0|[1-9a-f][0-9a-f]*)$"}},"examples":[{"name":"eth_newBlockFilter example","params":[],"result":{"name":"Filter identifier","value":"0x01"}}]}} onClick={()=>(<div>Hello</div>)} />
+# eth_newBlockFilter
+
+
+
+---
+
+## Method
+
+- **JSON-RPC method name:** `eth_newBlockFilter`
+- **JSON-RPC version:** `2.0`
+
+## Parameters
+
+_This method does not accept any parameters._
+
+## Result
+
+- **Name:** `Filter identifier`
+- **Type:** `string`
+
+### Result schema
+
+```json
+{
+  "title": "hex encoded unsigned integer",
+  "type": "string",
+  "pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
+}
+```
+
+
+---
+
+## Errors
+
+This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
+
+> TODO: Document method-specific error codes and conditions.
+
+</TwoColumnLayout>

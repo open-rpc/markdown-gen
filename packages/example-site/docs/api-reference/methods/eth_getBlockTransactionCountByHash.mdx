@@ -1,0 +1,112 @@
+---
+title: "eth_getBlockTransactionCountByHash"
+hide_table_of_contents: true
+description: "Documentation for JSON-RPC method eth_getBlockTransactionCountByHash."
+sidebar_label: "eth_getBlockTransactionCountByHash"
+rpc_method: "eth_getBlockTransactionCountByHash"
+tags:
+  - json-rpc
+  - openrpc
+  - method
+---
+
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';
+
+<TwoColumnLayout 
+  sidebar={
+    <>
+      <RequestExample 
+        title="Named Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_getBlockTransactionCountByHash\",\n  \"params\": {\n    \"Block hash\": \"string\"\n  },\n  \"id\": 1\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 1\n}"} 
+      />
+      
+      <RequestExample 
+        title="Positional Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_getBlockTransactionCountByHash\",\n  \"params\": [\n    \"string\"\n  ],\n  \"id\": 2\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 2\n}"} 
+      />
+    </>
+  }
+>
+
+<TryNow method={"eth_getBlockTransactionCountByHash"} openrpcDocument={{"name":"eth_getBlockTransactionCountByHash","summary":"Returns the number of transactions in a block from a block matching the given block hash.","params":[{"name":"Block hash","schema":{"title":"32 byte hex value","type":"string","pattern":"^0x[0-9a-f]{64}$"}}],"result":{"name":"Transaction count","schema":{"oneOf":[{"title":"Not Found (null)","type":"null"},{"title":"Transaction count","type":"string","pattern":"^0x(0|[1-9a-f][0-9a-f]*)$"}]}},"errors":[{"code":4444,"message":"Pruned history unavailable"}],"examples":[{"name":"eth_getBlockTransactionCountByHash example","params":[{"name":"Block hash","value":"0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238"}],"result":{"name":"Transaction count","value":"0x8"}}]}} onClick={()=>(<div>Hello</div>)} />
+# eth_getBlockTransactionCountByHash
+
+
+
+---
+
+## Method
+
+- **JSON-RPC method name:** `eth_getBlockTransactionCountByHash`
+- **JSON-RPC version:** `2.0`
+
+## Parameters
+
+| Name | Type | Required | Description |
+| ---- | ---- | -------- | ----------- |
+| Block hash | `string` | no |  |
+
+### Parameter schema
+
+```json
+{
+  "Block hash": {
+    "required": false,
+    "schema": {
+      "title": "32 byte hex value",
+      "type": "string",
+      "pattern": "^0x[0-9a-f]{64}$"
+    }
+  }
+}
+```
+
+## Result
+
+- **Name:** `Transaction count`
+- **Type:** `oneOf`
+
+### Result schema
+
+```json
+{
+  "oneOf": [
+    {
+      "title": "Not Found (null)",
+      "type": "null"
+    },
+    {
+      "title": "Transaction count",
+      "type": "string",
+      "pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
+    }
+  ]
+}
+```
+
+
+### Positional parameters
+
+Parameter order:
+
+1. `Block hash`
+
+---
+
+## Errors
+
+This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
+
+> TODO: Document method-specific error codes and conditions.
+
+</TwoColumnLayout>

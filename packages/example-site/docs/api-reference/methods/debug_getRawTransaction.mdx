@@ -1,0 +1,104 @@
+---
+title: "debug_getRawTransaction"
+hide_table_of_contents: true
+description: "Documentation for JSON-RPC method debug_getRawTransaction."
+sidebar_label: "debug_getRawTransaction"
+rpc_method: "debug_getRawTransaction"
+tags:
+  - json-rpc
+  - openrpc
+  - method
+---
+
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';
+
+<TwoColumnLayout 
+  sidebar={
+    <>
+      <RequestExample 
+        title="Named Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"debug_getRawTransaction\",\n  \"params\": {\n    \"Transaction hash\": \"string\"\n  },\n  \"id\": 1\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 1\n}"} 
+      />
+      
+      <RequestExample 
+        title="Positional Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"debug_getRawTransaction\",\n  \"params\": [\n    \"string\"\n  ],\n  \"id\": 2\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 2\n}"} 
+      />
+    </>
+  }
+>
+
+<TryNow method={"debug_getRawTransaction"} openrpcDocument={{"name":"debug_getRawTransaction","summary":"Returns an array of EIP-2718 binary-encoded transactions.","params":[{"name":"Transaction hash","required":true,"schema":{"title":"32 byte hex value","type":"string","pattern":"^0x[0-9a-f]{64}$"}}],"errors":[{"code":4444,"message":"Pruned history unavailable"}],"result":{"name":"EIP-2718 binary-encoded transaction","schema":{"title":"hex encoded bytes","type":"string","pattern":"^0x[0-9a-f]*$"}},"examples":[{"name":"debug_getRawTransaction example","params":[{"name":"Transaction hash","value":"0x3a2fd1a5ea9ffee477f449be53a49398533d2c006a5815023920d1c397298df3"}],"result":{"name":"EIP-2718 binary-encoded transaction","value":"0xf8678084342770c182520894658bdf435d810c91414ec09147daa6db624063798203e880820a95a0af5fc351b9e457a31f37c84e5cd99dd3c5de60af3de33c6f4160177a2c786a60a0201da7a21046af55837330a2c52fc1543cd4d9ead00ddf178dd96935b607ff9b"}}]}} onClick={()=>(<div>Hello</div>)} />
+# debug_getRawTransaction
+
+
+
+---
+
+## Method
+
+- **JSON-RPC method name:** `debug_getRawTransaction`
+- **JSON-RPC version:** `2.0`
+
+## Parameters
+
+| Name | Type | Required | Description |
+| ---- | ---- | -------- | ----------- |
+| Transaction hash | `string` | yes |  |
+
+### Parameter schema
+
+```json
+{
+  "Transaction hash": {
+    "required": true,
+    "schema": {
+      "title": "32 byte hex value",
+      "type": "string",
+      "pattern": "^0x[0-9a-f]{64}$"
+    }
+  }
+}
+```
+
+## Result
+
+- **Name:** `EIP-2718 binary-encoded transaction`
+- **Type:** `string`
+
+### Result schema
+
+```json
+{
+  "title": "hex encoded bytes",
+  "type": "string",
+  "pattern": "^0x[0-9a-f]*$"
+}
+```
+
+
+### Positional parameters
+
+Parameter order:
+
+1. `Transaction hash`
+
+---
+
+## Errors
+
+This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
+
+> TODO: Document method-specific error codes and conditions.
+
+</TwoColumnLayout>

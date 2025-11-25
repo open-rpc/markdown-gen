@@ -1,0 +1,71 @@
+---
+title: "eth_blockNumber"
+hide_table_of_contents: true
+description: "Documentation for JSON-RPC method eth_blockNumber."
+sidebar_label: "eth_blockNumber"
+rpc_method: "eth_blockNumber"
+tags:
+  - json-rpc
+  - openrpc
+  - method
+---
+
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';
+
+<TwoColumnLayout 
+  sidebar={
+    <>
+      <RequestExample 
+        title="Named Parameters" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_blockNumber\",\n  \"params\": {},\n  \"id\": 1\n}"} 
+      />
+      
+      <ResponseExample 
+        title="Successful Response" 
+        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 1\n}"} 
+      />
+    </>
+  }
+>
+
+<TryNow method={"eth_blockNumber"} openrpcDocument={{"name":"eth_blockNumber","summary":"Returns the number of most recent block.","params":[],"result":{"name":"Block number","schema":{"title":"hex encoded unsigned integer","type":"string","pattern":"^0x(0|[1-9a-f][0-9a-f]*)$"}},"examples":[{"name":"eth_blockNumber example","params":[],"result":{"name":"Block number","value":"0x2377"}}]}} onClick={()=>(<div>Hello</div>)} />
+# eth_blockNumber
+
+
+
+---
+
+## Method
+
+- **JSON-RPC method name:** `eth_blockNumber`
+- **JSON-RPC version:** `2.0`
+
+## Parameters
+
+_This method does not accept any parameters._
+
+## Result
+
+- **Name:** `Block number`
+- **Type:** `string`
+
+### Result schema
+
+```json
+{
+  "title": "hex encoded unsigned integer",
+  "type": "string",
+  "pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
+}
+```
+
+
+---
+
+## Errors
+
+This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
+
+> TODO: Document method-specific error codes and conditions.
+
+</TwoColumnLayout>
