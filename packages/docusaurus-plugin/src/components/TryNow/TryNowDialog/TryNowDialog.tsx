@@ -9,7 +9,7 @@ type IParams = {
 export const TryNowDialog: React.FC<IParams> = (params) => {
   return (
     <dialog ref={params.ref} onClose={params.onClose}>
-      <h2>Try It Now Dialog</h2>
+      <h2>Try It Now Super Dialog</h2>
       <form method="dialog" onSubmit={() => params.ref.current?.close()}>
         <button type="submit" onClick={params.onClose}>
           Close

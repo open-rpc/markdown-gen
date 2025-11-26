@@ -10,11 +10,17 @@ tags:
   - method
 ---
 
-import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';
+import {
+  TwoColumnLayout,
+  RequestExample,
+  ResponseExample,
+  TryNow,
+} from "@open-rpc/docusaurus-plugin/components";
 
 <TwoColumnLayout 
   sidebar={
     <>
+      <div> Hello World</div>
       <RequestExample 
         title="Named Parameters" 
         code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_uninstallFilter\",\n  \"params\": {\n    \"Filter identifier\": \"string\"\n  },\n  \"id\": 1\n}"} 
@@ -40,8 +46,6 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 <TryNow />
 # eth_uninstallFilter
 
-
-
 ---
 
 ## Method
@@ -51,9 +55,9 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
 ## Parameters
 
-| Name | Type | Required | Description |
-| ---- | ---- | -------- | ----------- |
-| Filter identifier | `string` | yes |  |
+| Name              | Type     | Required | Description |
+| ----------------- | -------- | -------- | ----------- |
+| Filter identifier | `string` | yes      |             |
 
 ### Parameter schema
 
@@ -82,7 +86,6 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
   "type": "boolean"
 }
 ```
-
 
 ### Positional parameters
 
