@@ -34,7 +34,13 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+  plugins: [['../docusaurus-plugin/src/index.ts', 
+    {
+      openRPCSpecPath: `./execution-apis.json`,
+      docOutputPath: `./docs/api-reference`,
 
+  }]],
+/*
   plugins: [['@open-rpc/docusaurus-plugin', 
     {
       openRPCSpecPath: `./execution-apis.json`,
@@ -42,6 +48,7 @@ const config: Config = {
 
   }]],
 
+  */
   presets: [
     [
       'classic',

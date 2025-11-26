@@ -3,5 +3,3 @@
 coverage = true
 coverageReporter = ["lcov","text"]
 
-[alias]
-"@open-rpc/json-schema-renderer" = "./packages/json-schema-renderer/src/index.ts"

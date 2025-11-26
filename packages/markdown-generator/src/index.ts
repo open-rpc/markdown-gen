@@ -1,310 +1,56 @@
-import { unified } from "unified";
-import remarkStringify from "remark-stringify";
-import type { Options as RemarkStringifyOptions } from "remark-stringify";
-import remarkGfm from "remark-gfm";
-import type {
-  Heading,
-  InlineCode,
-  Paragraph,
-  PhrasingContent,
-  Root,
-  RootContent,
-  Table,
-  TableCell,
-  TableRow,
-  Text,
-} from "mdast";
-import { renderSchema } from "@open-rpc/json-schema-renderer";
-import type {
-  SchemaRenderResult,
-  JsonSchema,
-} from "@open-rpc/json-schema-renderer";
-import type {
-  DereffedMethodObject,
-  DereffedMethodObjectParam,
-  Edits,
+export { renderMethod, identityEdits, identitySchemaEdits } from "./schema";
+export type {
   SchemaEdits,
+  Edits,
+  DereffedOpenrpcDocument,
+  DereffedMethodObject,
+  DereffedMethodObjectParams,
+  NoRefs,
 } from "./type";
-import type { MdxJsxFlowElement } from "mdast-util-mdx";
 
-export interface OpenRPCInfo {
-  title?: string;
-  description?: string;
-  version?: string;
+import {
+  dereferenceDocument,
+  parseOpenRPCDocument,
+} from "@open-rpc/schema-utils-js";
+import type { DereffedMethodObject, Edits, NoRefs, SchemaEdits } from "./type";
+import { identitySchemaEdits, renderMethod } from "./schema";
+import { toMarkdown } from "mdast-util-to-markdown";
+import { gfmToMarkdown } from "mdast-util-gfm";
+import { mdxToMarkdown } from "mdast-util-mdx";
+import { frontmatterToMarkdown } from "mdast-util-frontmatter";
+export type { OpenRPCMdContent } from "./type";
+
+import type { Root } from "mdast";
+import type { MethodObject, OpenrpcDocument } from "@open-rpc/meta-schema";
+
+interface MethodToMarkdown {
+  methodName: string;
+  markdown: string;
 }
 
-export type OpenRPCSchema = JsonSchema;
+export async function renderMethodsToMarkdown(
+  document: OpenrpcDocument,
+  edits: Edits,
+  _schemaEdits: SchemaEdits,
+): Promise<MethodToMarkdown[]> {
+  const dereferencedDocument = await dereferenceDocument(document);
+  const parsedDocument = await parseOpenRPCDocument(dereferencedDocument);
 
-export interface OpenRPCContentDescriptor {
-  name?: string;
-  summary?: string;
-  description?: string;
-  schema?: OpenRPCSchema;
-}
-
-export interface OpenRPCMethod {
-  name: string;
-  summary?: string;
-  description?: string;
-  params?: OpenRPCContentDescriptor[];
-  result?: OpenRPCContentDescriptor;
-}
-
-export interface OpenRPCDocument {
-  info?: OpenRPCInfo;
-  methods?: OpenRPCMethod[];
-}
-
-export async function generateMarkdownFromOpenRPC(
-  document: OpenRPCDocument,
-): Promise<string> {
-  const tree = toMarkdownAst(document);
-  const processor = unified()
-    .use(remarkGfm)
-    .use(remarkStringify, {
-      fences: true,
-      // Coerce to satisfy types: remark-stringify currently only types `'one'`
-      // but we use the shorthand `"1"` to match existing markdown output.
-      listItemIndent:
-        "1" as unknown as RemarkStringifyOptions["listItemIndent"],
-      bullet: "-",
-    });
-
-  const processed = (await processor.run(tree)) as Root;
-  return processor.stringify(processed);
-}
-
-export function renderMethod(
-  method: DereffedMethodObject,
-  edits?: Edits,
-  schemaEdits?: SchemaEdits,
-): Root {
-  let children: (RootContent | MdxJsxFlowElement)[] = [];
-
-  const methodSummary = method.summary ?? method.description;
-
-  children.push(heading(3, text(method.name)));
-  if (methodSummary) {
-    children.push(paragraphFromText(methodSummary));
-  }
-
-  if (edits?.editMethodParam) {
-    children = edits?.editMethodParam(
-      children,
-      method.params[0] as unknown as DereffedMethodObjectParam,
+  return parsedDocument.methods.map((method) => {
+    const methodContent = renderMethod(
+      method as NoRefs<MethodObject>,
+      identitySchemaEdits,
+      edits,
     );
-  }
-
-  if (method.params && method.params.length > 0) {
-    children.push(heading(4, text("Parameters")));
-    children.push(parameterTable(method.params as OpenRPCContentDescriptor[]));
-  }
-
-  if (edits?.editMethodParamsParent) {
-    children = edits?.editMethodParamsParent(children, method.params);
-  }
-
-  if (method.result) {
-    if (edits?.editMethodResultParent)
-      children.push(heading(4, text("Result")));
-    const renderedResult = renderDescriptor(
-      method.result as OpenRPCContentDescriptor,
-      "result",
-    );
-
-    if (renderedResult.inline.length > 0) {
-      children.push(paragraphFromPhrasing(renderedResult.inline));
-    }
-
-    if (renderedResult.blocks.length > 0) {
-      children.push(...renderedResult.blocks);
-    }
-  }
-
-  if (edits?.editMethod) children = edits?.editMethod(children, method);
-
-  let root: Root = {
-    type: "root",
-    children,
-  };
-  if (edits?.editMethodParent) root = edits?.editMethodParent(root, method);
-  return root;
-}
-
-function toMarkdownAst(document: OpenRPCDocument): Root {
-  const children: RootContent[] = [];
-
-  const title = document.info?.title ?? "OpenRPC Document";
-  children.push(heading(1, text(title)));
-
-  if (document.info?.description) {
-    children.push(paragraphFromText(document.info.description));
-  }
-
-  if (document.info?.version) {
-    children.push(paragraphFromText(`Version: ${document.info.version}`));
-  }
-
-  const methods = document.methods ?? [];
-  if (methods.length > 0) {
-    children.push(heading(2, text("Methods")));
-  }
-
-  for (const method of methods) {
-    children.push(heading(3, text(method.name)));
-
-    const methodSummary = method.summary ?? method.description;
-    if (methodSummary) {
-      children.push(paragraphFromText(methodSummary));
-    }
-
-    if (method.params && method.params.length > 0) {
-      children.push(heading(4, text("Parameters")));
-      children.push(parameterTable(method.params));
-    }
-
-    if (method.result) {
-      children.push(heading(4, text("Result")));
-      const renderedResult = renderDescriptor(method.result, "result");
-
-      if (renderedResult.inline.length > 0) {
-        children.push(paragraphFromPhrasing(renderedResult.inline));
-      }
-
-      if (renderedResult.blocks.length > 0) {
-        children.push(...renderedResult.blocks);
-      }
-    }
-  }
-
-  return {
-    type: "root",
-    children,
-  };
-}
-
-function paragraphFromText(value: string): Paragraph {
-  return {
-    type: "paragraph",
-    children: [text(value)],
-  };
-}
-
-function paragraphFromPhrasing(children: PhrasingContent[]): Paragraph {
-  return {
-    type: "paragraph",
-    children,
-  };
-}
-
-function heading(depth: Heading["depth"], child: Text): Heading {
-  return {
-    type: "heading",
-    depth,
-    children: [child],
-  };
-}
-
-function text(value: string): Text {
-  return {
-    type: "text",
-    value,
-  };
-}
-
-function inlineCode(value: string): InlineCode {
-  return {
-    type: "inlineCode",
-    value,
-  };
-}
-
-function parameterTable(descriptors: OpenRPCContentDescriptor[]): Table {
-  const headerRow = tableRow([
-    textCell("Name"),
-    textCell("Type"),
-    textCell("Description"),
-  ]);
-  const rows = descriptors.map((descriptor, index) => {
-    const fallbackName = `param${index + 1}`;
-    const displayName = descriptorDisplayName(descriptor, fallbackName);
-    const renderedDescriptor = renderDescriptor(descriptor, fallbackName);
-
-    return tableRow([
-      textCell(displayName),
-      textCell(schemaTypeLabel(descriptor.schema)),
-      descriptorCell(renderedDescriptor),
-    ]);
+    const rootDocument: Root = {
+      type: "root",
+      children: methodContent,
+    };
+    return {
+      methodName: (method as DereffedMethodObject).name,
+      markdown: toMarkdown(rootDocument, {
+        extensions: [gfmToMarkdown(), mdxToMarkdown(), frontmatterToMarkdown()],
+      }),
+    };
   });
-  return {
-    type: "table",
-    align: [null, null, null],
-    children: [headerRow, ...rows],
-  };
-}
-
-function tableRow(cells: TableCell[]): TableRow {
-  return {
-    type: "tableRow",
-    children: cells,
-  };
-}
-
-function textCell(value: string): TableCell {
-  return {
-    type: "tableCell",
-    children: [text(value)],
-  };
-}
-
-function descriptorCell(renderedDescriptor: SchemaRenderResult): TableCell {
-  const children =
-    renderedDescriptor.inline.length > 0
-      ? renderedDescriptor.inline
-      : [text("unknown")];
-  return {
-    type: "tableCell",
-    children,
-  };
-}
-
-function descriptorDisplayName(
-  descriptor: OpenRPCContentDescriptor,
-  fallbackName: string,
-): string {
-  const name = descriptor.name?.trim();
-  return name && name.length > 0 ? name : fallbackName;
-}
-
-function renderDescriptor(
-  descriptor: OpenRPCContentDescriptor,
-  fallbackName: string,
-): SchemaRenderResult {
-  const name = descriptorDisplayName(descriptor, fallbackName);
-  const schemaResult = renderSchema(descriptor.schema, { name });
-  const inline =
-    schemaResult.inline.length > 0
-      ? [...schemaResult.inline]
-      : [inlineCode(name), text(" (unknown)")];
-
-  const descriptorSummaryText =
-    descriptor.summary ?? descriptor.description ?? "";
-  const summaryText = descriptorSummaryText.trim();
-
-  if (summaryText.length > 0) {
-    inline.push(text(` - ${summaryText}`));
-  }
-
-  return {
-    inline,
-    blocks: [...schemaResult.blocks],
-  };
-}
-
-function schemaTypeLabel(schema: OpenRPCSchema | undefined): string {
-  if (!schema?.type) {
-    return "unknown";
-  }
-
-  return Array.isArray(schema.type) ? schema.type.join(" | ") : schema.type;
 }

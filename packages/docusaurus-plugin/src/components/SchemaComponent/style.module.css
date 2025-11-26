@@ -1,0 +1,31 @@
+.schemaComponent details {
+  background-color: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+}
+
+.schemaComponent details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+  list-style: none;
+}
+
+.schemaComponent details summary::-webkit-details-marker {
+  display: none;
+}
+
+.schemaComponent details[open] summary {
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+ /* border-bottom: 1px solid var(--ifm-color-emphasis-300);*/
+}
+
+[data-theme='dark'] .schemaComponent details {
+  border-color: var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] .schemaComponent details[open] summary {
+  border-bottom-color: var(--ifm-color-emphasis-200);
+}
