@@ -265,10 +265,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
     </>
   }
 >
-<TryNowContainer>
-  <TryNowDialog method={"${m.name}"} openrpcDocument={${JSON.stringify(m)}} show={showDialog} />
-  <TryNow method={"${m.name}"} openrpcDocument={${JSON.stringify(m)}} onClick={()=>(<div>Hello</div>)} />
-</TryNowContainer>
+<TryNow />
 # ${m.name}
 
 ${desc ? `${desc}\n` : ""}
