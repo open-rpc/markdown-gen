@@ -12,6 +12,7 @@
   list-style: none;
 }
 
+
 .schemaComponent details summary::-webkit-details-marker {
   display: none;
 }
@@ -19,7 +20,7 @@
 .schemaComponent details[open] summary {
   margin-bottom: 0.5rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+ /* border-bottom: 1px solid var(--ifm-color-emphasis-300);*/
 }
 
 [data-theme='dark'] .schemaComponent details {
