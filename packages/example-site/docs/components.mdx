@@ -28,17 +28,19 @@ import {
 ## Result
 
   <SchemaComponent>
-    **success** `number`
+    **success** `number`  
     Indicates whether the call was successful. `1` if successful, `0` if not.
 
     ---
 
     **new_team** `boolean`
+
     Indicates whether a new team was created.
 
     ---
 
     **team** `object`
+
     The contents of the team.
 
     <details>
@@ -47,39 +49,50 @@ import {
       #### `team` fields
 
       - **id** `string`
+
         Unique identifier for the team.
 
       - **name** `string`
+
         Unique name for the team.
 
       - **members** `array<object>`
+
         Members belonging to the team.
 
         <details>
           <summary>Show <code>member</code> object</summary>
 
           - **id** `string`
+
             Unique identifier for the member.
           - **email** `string`
+
             Email address of the member.
           - **role** `string`
+
             Role of the member within the team.
 
         </details>
 
       - **config** `object`
+
         Configuration object.
 
         <details>
           <summary>Show <code>config</code> object</summary>
-
+          #### `config` fields
           - **id** `string`
+
             Unique identifier for the config.
           - **name** `string`
+
             Unique name for the config.
           - **retry_count** `number`
+
             Number of retry attempts.
           - **timeout_ms** `number`
+
             Timeout in milliseconds.
 
         </details>
