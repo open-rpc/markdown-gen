@@ -25,17 +25,58 @@ import {
 </div>
 <div>
 
-## Result
+## Params
 
   <SchemaComponent>
-    **success** `number`  
-    Indicates whether the call was successful. `1` if successful, `0` if not.
+    
+    **age** `number`  
+    Age of the person. between `0` and `2000`.
 
     ---
 
-    **new_team** `boolean`
+    **name** `string`
 
-    Indicates whether a new team was created.
+    Name of the coach.
+
+    **teamMetadata** *oneof* `object or object or string`
+    The team metadata
+    <details>
+      <summary> Show Option 1 <code>teamMetadata</code> object</summary>
+
+        #### `teamMetadata` fields
+
+        - **id** `string`
+
+          Unique identifier for the team.
+
+        - **name** `string`
+
+          Unique name for the team.
+    </details>
+    <details>
+      <summary> Show Option 2 <code>teamMetadata</code> object</summary>
+
+        #### `teamMetadata` fields
+
+        - **label** `string`
+
+          Unique label for the team.
+
+        - **funnyName** `string`
+
+          Unique funny name for the team.
+    </details>
+    <details>
+      <summary> Show Option 3 <code>teamMetadata</code> string</summary>
+
+      `string`
+
+      An arbitrary json string
+
+    </details>
+
+
+
 
     ---
 
@@ -62,6 +103,7 @@ import {
 
         <details>
           <summary>Show <code>member</code> object</summary>
+          #### `member` fields
 
           - **id** `string`
 
@@ -99,8 +141,83 @@ import {
 
     </details>
 
-    ---
-
   </SchemaComponent>
 
+## Result
+
+  <SchemaComponent>
+    
+    **success** `number`  
+    Indicates whether the call was successful. `1` if successful, `0` if not.
+
+    ---
+
+    **new_team** `boolean`
+
+    Indicates whether a new team was created.
+
+    ---
+
+    **team** `object`
+
+    The contents of the team.
+
+    <details>
+      <summary>Show <code>team</code> object</summary>
+
+      #### `team` fields
+
+      - **id** `string`
+
+        Unique identifier for the team.
+
+      - **name** `string`
+
+        Unique name for the team.
+
+      - **members** `array<object>`
+
+        Members belonging to the team.
+
+        <details>
+          <summary>Show <code>member</code> object</summary>
+          #### `member` fields
+
+          - **id** `string`
+
+            Unique identifier for the member.
+          - **email** `string`
+
+            Email address of the member.
+          - **role** `string`
+
+            Role of the member within the team.
+
+        </details>
+
+      - **config** `object`
+
+        Configuration object.
+
+        <details>
+          <summary>Show <code>config</code> object</summary>
+          #### `config` fields
+          - **id** `string`
+
+            Unique identifier for the config.
+          - **name** `string`
+
+            Unique name for the config.
+          - **retry_count** `number`
+
+            Number of retry attempts.
+          - **timeout_ms** `number`
+
+            Timeout in milliseconds.
+
+        </details>
+
+    </details>
+
+  </SchemaComponent>
 </div>

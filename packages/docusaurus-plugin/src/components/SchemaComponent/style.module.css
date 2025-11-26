@@ -12,7 +12,6 @@
   list-style: none;
 }
 
-
 .schemaComponent details summary::-webkit-details-marker {
   display: none;
 }
