@@ -39,6 +39,7 @@ import {
     Name of the coach.
 
     **teamMetadata** *oneof* `object or object or string`
+
     The team metadata
     <details>
       <summary> Show Option 1 <code>teamMetadata</code> object</summary>
@@ -108,6 +109,17 @@ import {
           - **id** `string`
 
             Unique identifier for the member.
+            <details>
+              <summary> Schema Details</summary>
+
+              ```json
+              {
+                field: "therawschema"
+              }
+              ```
+            </details>
+
+
           - **email** `string`
 
             Email address of the member.
@@ -220,4 +232,70 @@ import {
     </details>
 
   </SchemaComponent>
+
+## Errors
+
+<!-- just a style thing for right now -->
+
+<SchemaComponent>
+
+  <details>
+    <summary>Error code: 2000</summary>
+      - **msg**
+
+        "Bad team member not found"
+
+  </details>
+
+  <details>
+    <summary>Error code: 4000</summary>
+
+      Error for missing team member injured
+      - **msg**
+
+        "Bad data"
+
+      - **data**
+
+        "Data was missing
+
+  </details>
+
+</SchemaComponent>
+
+## Examples
+
+<SchemaComponent>
+
+ <details> 
+ 
+   <summary>ListTeamExample</summary>
+
+    List team example lists the entire team
+    #### Request
+
+    ```json
+    {
+      "params": [
+        {
+          "name": "limit",
+          "value": 1
+        }
+      ]
+    }
+    ```
+
+    #### Response
+
+    ```json
+    {
+      "id": 7,
+      "name": "fluffy",
+      "tag": "poodle"
+    }
+    ```
+
+   </details>
+
+</SchemaComponent>
 </div>
