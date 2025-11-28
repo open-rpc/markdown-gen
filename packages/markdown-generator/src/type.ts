@@ -7,7 +7,7 @@ import type {
   ContentDescriptorOrReference,
   JSONSchema,
 } from "@open-rpc/meta-schema";
-import type { Root, RootContent } from "mdast";
+import type { BlockContent, DefinitionContent, Root, RootContent } from "mdast";
 import type { MdxJsxFlowElement } from "mdast-util-mdx";
 
 export type RefNode = { $ref: string };
@@ -33,6 +33,11 @@ export type DereffedMethodObjectParamSchema = NoRefs<JSONSchema>;
 export type DereffedMethodObjectResultSchema = NoRefs<JSONSchema>;
 export type DereffedMethods = NoRefs<Methods>;
 export type DereffedMethodObjectResult = NoRefs<MethodObjectResult>;
+
+export type OpenRPCMdContent =
+  | BlockContent
+  | DefinitionContent
+  | MdxJsxFlowElement;
 
 export interface SchemaEdits {
   editSchemaNumber?: (
