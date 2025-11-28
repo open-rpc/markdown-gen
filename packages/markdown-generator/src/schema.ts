@@ -5,6 +5,7 @@ import type {
 import type { NoRefs, OpenRPCMdContent, SchemaEdits } from "./type";
 import type { MdxJsxFlowElement } from "mdast-util-mdx";
 import type { BlockContent, DefinitionContent, RootContent } from "mdast";
+import type { OpenRPCContentDescriptor } from ".";
 
 export const identitySchemaEdits: SchemaEdits = {
   editSchemaNumber: (content, schemaNumber) => content,
@@ -90,7 +91,6 @@ const renderAtomicHelper = (
 export function renderAtomicSchema(
   schema: NoRefs<JSONSchema>,
   editSchema: SchemaEdits,
-  descriptor?: ContentDescriptorObject,
 ): OpenRPCMdContent[] {
   if (typeof schema !== "object" || schema === null) {
     return [];
@@ -114,10 +114,52 @@ export function renderAtomicSchema(
   return [];
 }
 
+function isComplexSchema(schema: NoRefs<JSONSchema>): boolean {
+  if (!schema || schema === null || schema === undefined) return false;
+  if (typeof schema === "boolean") return false;
+  if (schema?.allOf || schema?.oneOf || schema?.anyOf) return true;
+  if (
+    (typeof schema === "object" && schema.type === "object") ||
+    schema.type === "array"
+  )
+    return true;
+
+  return false;
+}
+
+export function renderParams(
+  params: ContentDescriptorObject[],
+  editSchema: SchemaEdits,
+): OpenRPCMdContent[] {
+  return (
+    params
+      .map((param) => {
+        if (isComplexSchema(param.schema)) {
+          return renderSchema(param.schema, editSchema);
+        }
+        if (param.schema === null || param.schema === undefined) return [];
+        if (typeof param.schema === "boolean") return [];
+        if (
+          param.schema &&
+          typeof param.schema === "object" &&
+          param.schema !== null
+        ) {
+          return renderAtomicHelper(
+            param.name,
+            param.schema.type as string,
+            param.description ?? param.schema.description ?? "",
+          );
+        }
+        return [];
+      })
+      // TODO this is temporary until we get here
+      .flat()
+  );
+}
+
 export function renderSchema(
   schema: NoRefs<JSONSchema>,
   editSchema: SchemaEdits,
-  descriptor?: ContentDescriptorObject,
 ): OpenRPCMdContent[] {
   let children: OpenRPCMdContent[] = [];
 
