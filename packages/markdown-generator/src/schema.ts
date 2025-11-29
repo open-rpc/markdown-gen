@@ -24,7 +24,34 @@ export interface DetailData {
   summaryType: string;
   summaryContent: (BlockContent | DefinitionContent | MdxJsxFlowElement)[];
 }
+/*  Render heading helpers */
 
+export function objectFieldList(
+  fields: OpenRPCMdContent[][],
+): OpenRPCMdContent {
+  // Do not indent the details element
+  return {
+    type: "list",
+    ordered: false,
+    spread: true,
+    children: fields.map((field) => ({
+      type: "listItem",
+      spread: true,
+      children: field,
+    })),
+  };
+}
+
+export function objectSubHeading(title: string): OpenRPCMdContent {
+  return {
+    type: "heading",
+    depth: 4,
+    children: [
+      { type: "inlineCode", value: title },
+      { type: "text", value: " fields" },
+    ],
+  };
+}
 export function details(detailData: DetailData): MdxJsxFlowElement {
   const summary: MdxJsxFlowElement = {
     type: "mdxJsxFlowElement",
@@ -41,7 +68,7 @@ export function details(detailData: DetailData): MdxJsxFlowElement {
             children: [
               {
                 type: "text",
-                value: `Show ${detailData.summaryTitle}`,
+                value: `${detailData.summaryTitle} `,
               },
               {
                 type: "inlineCode",
@@ -55,13 +82,10 @@ export function details(detailData: DetailData): MdxJsxFlowElement {
           },
         ],
       },
+      objectSubHeading(detailData.summaryCode),
       {
         type: "paragraph",
         children: [
-          {
-            // TODO: check the break element makes sense and isn't a conditional render here
-            type: "break",
-          },
           {
             type: "text",
             value: detailData.detailDescription,
@@ -85,8 +109,12 @@ const renderAtomicHelper = (
       type: "paragraph",
       children: [
         {
+          type: "strong",
+          children: [{ type: "text", value: `${title}` }],
+        },
+        {
           type: "text",
-          value: `${title}`,
+          value: ` `,
         },
         {
           type: "inlineCode",
@@ -174,11 +202,7 @@ export function renderParams(
       .map((param) => {
         if (isComplexSchema(param.schema)) {
           // TODO: add title to param
-          return renderSchema(
-            { name: param.name, description: param.description },
-            param.schema,
-            editSchema,
-          );
+          return renderSchema(param, param.schema, editSchema);
         }
         if (param.schema === null || param.schema === undefined) return [];
         if (typeof param.schema === "boolean") return [];
@@ -208,16 +232,26 @@ export function renderObjectSchema(
   if (schema === null || schema === undefined || typeof schema !== "object")
     return [];
   const children: OpenRPCMdContent[] = [];
-
+  const fieldData: OpenRPCMdContent[][] = [];
   for (const [key, value] of Object.entries(schema.properties ?? {})) {
-    children.push(
-      ...renderSchema(
+    if (key === "config") {
+      console.log("-----value-----", JSON.stringify(value, null, 2));
+      const check = renderSchema(
+        { name: key, description: value.description },
+        value,
+        editSchema,
+      );
+      console.log("-----check-----", JSON.stringify(check, null, 2));
+    }
+    fieldData.push(
+      renderSchema(
         { name: key, description: value.description },
         value,
         editSchema,
       ),
     );
   }
+  children.push(objectFieldList(fieldData));
   // aggregate the children into a details element
   const detailData: DetailData = {
     summaryTitle: "Show",
@@ -228,6 +262,11 @@ export function renderObjectSchema(
   };
   const result = [details(detailData)];
   return [
+    ...renderAtomicHelper(
+      contentDescriptor?.name ?? "",
+      "object",
+      contentDescriptor?.description ?? "",
+    ),
     {
       type: "mdxJsxFlowElement",
       name: "div",

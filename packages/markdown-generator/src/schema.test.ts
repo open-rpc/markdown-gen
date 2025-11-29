@@ -67,14 +67,94 @@ describe("schema", () => {
     console.log(markdown);
   });
 
-  it("should render a schema", () => {
+  it("should render object schema", () => {
     const result = renderSchema(
-      { name: "Team Object", description: "A team object" },
+      { name: "teamObject" },
+      {
+        type: "object",
+        properties: {
+          name: { type: "string", description: "The name of the user" },
+        },
+      },
+      identitySchemaEdits,
+    );
+    const root: Root = {
+      type: "root",
+      children: result,
+    };
+    const markdown = toMarkdown(root, {
+      extensions: [gfmToMarkdown(), mdxToMarkdown()],
+    });
+    console.log(markdown);
+  });
+
+  it("should render nested object schema", () => {
+    const result = renderSchema(
+      { name: "teamObject" },
+      {
+        type: "object",
+        properties: {
+          config: { type: "object", properties: { id: { type: "string" } } },
+        },
+      },
+      identitySchemaEdits,
+    );
+    const root: Root = {
+      type: "root",
+      children: result,
+    };
+    const markdown = toMarkdown(root, {
+      extensions: [gfmToMarkdown(), mdxToMarkdown()],
+    });
+    console.log(markdown);
+  });
+
+  it.only("should render a schema", () => {
+    const result = renderSchema(
+      { name: "teamObject" },
       {
         type: "object",
         properties: {
           name: { type: "string", description: "The name of the user" },
           age: { type: "integer", description: "The age of the user" },
+          nickname: { type: "string", description: "The nickname of the user" },
+          config: {
+            type: "object",
+            properties: {
+              id: { type: "string", description: "The id of the config" },
+              name: { type: "string", description: "The name of the config" },
+              retry_count: {
+                type: "integer",
+                description: "The retry count of the config",
+              },
+              timeout_ms: {
+                type: "integer",
+                description: "The timeout in milliseconds of the config",
+              },
+              altConfig: {
+                type: "object",
+                properties: {
+                  id: {
+                    type: "string",
+                    description: "The id of the super config",
+                  },
+                  name: {
+                    type: "string",
+                    description: "The name of the super config",
+                  },
+                  retry_count: {
+                    type: "integer",
+                    description: "The retry count of the super config",
+                  },
+                  timeout_ms: {
+                    type: "integer",
+                    description:
+                      "The timeout in milliseconds of the super config",
+                  },
+                },
+              },
+            },
+          },
         },
       },
       identitySchemaEdits,
