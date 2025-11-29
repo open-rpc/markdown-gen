@@ -2,9 +2,19 @@ import type {
   JSONSchema,
   ContentDescriptorObject,
   ErrorObject,
-  ExampleObject,
+  MethodObjectExamples,
+  ExamplePairingOrReference,
+  MethodObjectParamStructure,
+  MethodObjectErrors,
+  ErrorOrReference,
 } from "@open-rpc/meta-schema";
-import type { NoRefs, OpenRPCMdContent, SchemaEdits } from "./type";
+import type {
+  DereffedMethodObject,
+  DereffedMethodObjectResult,
+  NoRefs,
+  OpenRPCMdContent,
+  SchemaEdits,
+} from "./type";
 import type { MdxJsxFlowElement } from "mdast-util-mdx";
 import type { BlockContent, DefinitionContent, RootContent } from "mdast";
 import type { OpenRPCContentDescriptor } from ".";
@@ -52,6 +62,33 @@ export function objectSubHeading(title: string): OpenRPCMdContent {
     ],
   };
 }
+
+// Add this new helper function
+export function simpleDetails(
+  summaryText: string,
+  children: OpenRPCMdContent[],
+): MdxJsxFlowElement {
+  return {
+    type: "mdxJsxFlowElement",
+    name: "details",
+    attributes: [],
+    children: [
+      {
+        type: "mdxJsxFlowElement",
+        name: "summary",
+        attributes: [],
+        children: [
+          {
+            type: "paragraph",
+            children: [{ type: "text", value: summaryText }],
+          },
+        ],
+      },
+      ...children,
+    ],
+  };
+}
+
 export function details(detailData: DetailData): MdxJsxFlowElement {
   const summary: MdxJsxFlowElement = {
     type: "mdxJsxFlowElement",
@@ -172,56 +209,299 @@ function isComplexSchema(schema: NoRefs<JSONSchema>): boolean {
   return false;
 }
 
-export function renderExamples(
-  examples: ExampleObject[],
+export function renderExample(
+  example: NoRefs<ExamplePairingOrReference>,
+  paramStructure: MethodObjectParamStructure,
   editSchema: SchemaEdits,
 ): OpenRPCMdContent[] {
-  return [];
+  if (!example || typeof example !== "object") return [];
+
+  const isByName = paramStructure === "by-name";
+
+  const requestJson = {
+    params: isByName
+      ? Object.fromEntries(
+          example.params?.map((param) => [param.name, param.value]) || [],
+        )
+      : example.params?.map((param) => param.value) || [],
+  };
+
+  // Wrap result in an object with its name as the key
+  const responseJson = example.result
+    ? { [example.result.name]: example.result.value }
+    : undefined;
+
+  const children: OpenRPCMdContent[] = [];
+
+  // Add description if it exists
+  if (example.description) {
+    children.push({
+      type: "paragraph",
+      children: [{ type: "text", value: example.description }],
+    });
+  }
+
+  // Add Request section
+  children.push(
+    {
+      type: "heading",
+      depth: 4,
+      children: [{ type: "text", value: "Request" }],
+    },
+    {
+      type: "code",
+      lang: "json",
+      value: JSON.stringify(requestJson, null, 2),
+    },
+  );
+
+  // Add Response section
+  children.push(
+    {
+      type: "heading",
+      depth: 4,
+      children: [{ type: "text", value: "Response" }],
+    },
+    {
+      type: "code",
+      lang: "json",
+      value: JSON.stringify(responseJson, null, 2),
+    },
+  );
+
+  return [simpleDetails(example.name, children)];
+}
+
+export function renderExamples(
+  examples: NoRefs<MethodObjectExamples> | undefined = undefined,
+  paramStructure: MethodObjectParamStructure = "either",
+  editSchema: SchemaEdits,
+): OpenRPCMdContent[] {
+  if (examples === undefined) return [];
+  const exampleContent = examples.map((example) => {
+    return renderExample(example, paramStructure, editSchema);
+  });
+  return [
+    {
+      type: "mdxJsxFlowElement",
+      name: "div",
+      attributes: [],
+      children: [
+        {
+          type: "heading",
+          depth: 2,
+          children: [{ type: "text", value: "Examples" }],
+        },
+        ...exampleContent.flat(),
+      ],
+    },
+  ];
+}
+
+export function renderError(
+  error: NoRefs<ErrorOrReference>,
+  editSchema: SchemaEdits,
+): OpenRPCMdContent[] {
+  if (!error || typeof error !== "object") return [];
+
+  const children: OpenRPCMdContent[] = [];
+
+  const listItems: any[] = [];
+
+  // Add code as a list item with bold "code"
+  listItems.push({
+    type: "listItem",
+    spread: false,
+    children: [
+      {
+        type: "paragraph",
+        children: [
+          { type: "strong", children: [{ type: "text", value: "code" }] },
+        ],
+      },
+      {
+        type: "paragraph",
+        children: [{ type: "text", value: String(error.code) }],
+      },
+    ],
+  });
+
+  // Add message as a list item with bold "message"
+  if (error.message) {
+    listItems.push({
+      type: "listItem",
+      spread: false,
+      children: [
+        {
+          type: "paragraph",
+          children: [
+            { type: "strong", children: [{ type: "text", value: "message" }] },
+          ],
+        },
+        {
+          type: "paragraph",
+          children: [{ type: "text", value: error.message }],
+        },
+      ],
+    });
+  }
+
+  // Add data as a list item with bold "data" if present (inline code)
+  if (error.data !== undefined) {
+    const dataValue =
+      typeof error.data === "string" ? error.data : JSON.stringify(error.data);
+
+    listItems.push({
+      type: "listItem",
+      spread: false,
+      children: [
+        {
+          type: "paragraph",
+          children: [
+            { type: "strong", children: [{ type: "text", value: "data" }] },
+          ],
+        },
+        {
+          type: "paragraph",
+          children: [{ type: "text", value: dataValue }],
+        },
+      ],
+    });
+  }
+
+  // Add the list of code/message/data fields
+  children.push({
+    type: "list",
+    ordered: false,
+    spread: false,
+    children: listItems,
+  });
+
+  return [simpleDetails(`Error code: ${error.code}`, children)];
 }
 
 export function renderErrors(
-  errors: ErrorObject[],
+  errors: NoRefs<MethodObjectErrors> | undefined,
   editSchema: SchemaEdits,
 ): OpenRPCMdContent[] {
-  return [];
+  if (errors === undefined) return [];
+  return [
+    {
+      type: "mdxJsxFlowElement",
+      name: "div",
+      attributes: [],
+      children: [
+        {
+          type: "heading",
+          depth: 2,
+          children: [{ type: "text", value: "Errors" }],
+        },
+        ...errors.map((error) => renderError(error, editSchema)).flat(),
+      ],
+    },
+  ];
 }
 
 export function renderResults(
-  result: ContentDescriptorObject,
+  result: DereffedMethodObjectResult | undefined,
   editSchema: SchemaEdits,
 ): OpenRPCMdContent[] {
-  return [];
+  return [
+    {
+      type: "mdxJsxFlowElement",
+      name: "div",
+      attributes: [],
+      children: [
+        {
+          type: "heading",
+          depth: 2,
+          children: [{ type: "text", value: "Result" }],
+        },
+        ...renderSchema(result, result?.schema, editSchema),
+      ],
+    },
+  ];
+}
+
+export function renderMethod(
+  method: DereffedMethodObject,
+  editSchema: SchemaEdits,
+): OpenRPCMdContent[] {
+  const content = renderParams(method.params, editSchema);
+  return [
+    {
+      type: "mdxJsxFlowElement",
+      name: "div",
+      attributes: [],
+      children: [
+        {
+          type: "heading",
+          depth: 1,
+          children: [{ type: "text", value: `${method.name}` }],
+        },
+        {
+          type: "paragraph",
+          children: [{ type: "text", value: method.description ?? "" }],
+        },
+        {
+          type: "paragraph",
+          children: [{ type: "text", value: method.summary ?? "" }],
+        },
+        ...content,
+        ...renderResults(method.result, editSchema),
+        ...renderErrors(method.errors, editSchema),
+        ...renderExamples(
+          method.examples,
+          method.paramStructure ?? "either",
+          editSchema,
+        ),
+      ],
+    },
+  ];
 }
 
 export function renderParams(
   params: ContentDescriptorObject[],
   editSchema: SchemaEdits,
 ): OpenRPCMdContent[] {
-  return (
-    params
-      .map((param) => {
-        if (isComplexSchema(param.schema)) {
-          // TODO: add title to param
-          return renderSchema(param, param.schema, editSchema);
-        }
-        if (param.schema === null || param.schema === undefined) return [];
-        if (typeof param.schema === "boolean") return [];
-        if (
-          param.schema &&
-          typeof param.schema === "object" &&
-          param.schema !== null
-        ) {
-          return renderAtomicHelper(
-            param.name,
-            param.schema.type as string,
-            param.description ?? param.schema.description ?? "",
-          );
-        }
-        return [];
-      })
-      // TODO this is temporary until we get here
-      .flat()
-  );
+  const parameterContent = params
+    .map((param) => {
+      if (isComplexSchema(param.schema)) {
+        // TODO: add title to param
+        return renderSchema(param, param.schema, editSchema);
+      }
+      if (param.schema === null || param.schema === undefined) return [];
+      if (typeof param.schema === "boolean") return [];
+      if (
+        param.schema &&
+        typeof param.schema === "object" &&
+        param.schema !== null
+      ) {
+        return renderAtomicHelper(
+          param.name,
+          param.schema.type as string,
+          param.description ?? param.schema.description ?? "",
+        );
+      }
+      return [];
+    })
+    // TODO this is temporary until we get here
+    .flat();
+  return [
+    {
+      type: "mdxJsxFlowElement",
+      name: "div",
+      attributes: [],
+      children: [
+        {
+          type: "heading",
+          depth: 2,
+          children: [{ type: "text", value: "Parameters" }],
+        },
+        ...parameterContent,
+      ],
+    },
+  ];
 }
 
 export function renderObjectSchema(
@@ -278,11 +558,11 @@ export function renderObjectSchema(
 
 export function renderSchema(
   contentDescriptor: Partial<ContentDescriptorObject> | undefined = undefined,
-  schema: NoRefs<JSONSchema>,
+  schema: NoRefs<JSONSchema> | undefined = undefined,
   editSchema: SchemaEdits,
 ): OpenRPCMdContent[] {
   let children: OpenRPCMdContent[] = [];
-
+  if (schema === null || schema === undefined) return [];
   if (typeof schema === "object" && schema !== null) {
     if (schema.allOf) {
       schema.allOf.map((schema) =>
