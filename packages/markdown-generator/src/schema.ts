@@ -1,6 +1,8 @@
 import type {
   JSONSchema,
   ContentDescriptorObject,
+  ErrorObject,
+  ExampleObject,
 } from "@open-rpc/meta-schema";
 import type { NoRefs, OpenRPCMdContent, SchemaEdits } from "./type";
 import type { MdxJsxFlowElement } from "mdast-util-mdx";
@@ -15,12 +17,15 @@ export const identitySchemaEdits: SchemaEdits = {
   editSchemaAllOf: (content, allOf) => content,
 };
 
-export function details(
-  summaryTitle: string = "Show",
-  summaryCode: string,
-  summaryType: string,
-  summaryContent: (BlockContent | DefinitionContent | MdxJsxFlowElement)[],
-): MdxJsxFlowElement {
+export interface DetailData {
+  detailDescription: string;
+  summaryTitle: string;
+  summaryCode: string;
+  summaryType: string;
+  summaryContent: (BlockContent | DefinitionContent | MdxJsxFlowElement)[];
+}
+
+export function details(detailData: DetailData): MdxJsxFlowElement {
   const summary: MdxJsxFlowElement = {
     type: "mdxJsxFlowElement",
     name: "details",
@@ -36,21 +41,34 @@ export function details(
             children: [
               {
                 type: "text",
-                value: `Show ${summaryTitle}`,
+                value: `Show ${detailData.summaryTitle}`,
               },
               {
                 type: "inlineCode",
-                value: summaryCode,
+                value: detailData.summaryCode,
               },
               {
                 type: "text",
-                value: ` ${summaryType}`,
+                value: ` ${detailData.summaryType}`,
               },
             ],
           },
         ],
       },
-      ...summaryContent,
+      {
+        type: "paragraph",
+        children: [
+          {
+            // TODO: check the break element makes sense and isn't a conditional render here
+            type: "break",
+          },
+          {
+            type: "text",
+            value: detailData.detailDescription,
+          },
+        ],
+      },
+      ...detailData.summaryContent,
     ],
   };
 
@@ -89,15 +107,14 @@ const renderAtomicHelper = (
 };
 
 export function renderAtomicSchema(
+  title: string | undefined = undefined,
+  description: string | undefined = undefined,
   schema: NoRefs<JSONSchema>,
   editSchema: SchemaEdits,
 ): OpenRPCMdContent[] {
   if (typeof schema !== "object" || schema === null) {
     return [];
   }
-
-  const title = descriptor?.title ?? schema.title ?? "";
-  const description = descriptor?.description ?? schema.description ?? "";
 
   switch (schema.type) {
     case "integer":
@@ -106,9 +123,9 @@ export function renderAtomicSchema(
     case "boolean":
     case "null":
       return renderAtomicHelper(
-        schema.title ?? "",
+        title ?? schema.title ?? "",
         schema.type,
-        schema.description ?? "",
+        description ?? schema.description ?? "",
       );
   }
   return [];
@@ -127,6 +144,27 @@ function isComplexSchema(schema: NoRefs<JSONSchema>): boolean {
   return false;
 }
 
+export function renderExamples(
+  examples: ExampleObject[],
+  editSchema: SchemaEdits,
+): OpenRPCMdContent[] {
+  return [];
+}
+
+export function renderErrors(
+  errors: ErrorObject[],
+  editSchema: SchemaEdits,
+): OpenRPCMdContent[] {
+  return [];
+}
+
+export function renderResults(
+  result: ContentDescriptorObject,
+  editSchema: SchemaEdits,
+): OpenRPCMdContent[] {
+  return [];
+}
+
 export function renderParams(
   params: ContentDescriptorObject[],
   editSchema: SchemaEdits,
@@ -135,7 +173,12 @@ export function renderParams(
     params
       .map((param) => {
         if (isComplexSchema(param.schema)) {
-          return renderSchema(param.schema, editSchema);
+          // TODO: add title to param
+          return renderSchema(
+            { name: param.name, description: param.description },
+            param.schema,
+            editSchema,
+          );
         }
         if (param.schema === null || param.schema === undefined) return [];
         if (typeof param.schema === "boolean") return [];
@@ -157,7 +200,45 @@ export function renderParams(
   );
 }
 
+export function renderObjectSchema(
+  contentDescriptor: Partial<ContentDescriptorObject> | undefined = undefined,
+  schema: NoRefs<JSONSchema>,
+  editSchema: SchemaEdits,
+): OpenRPCMdContent[] {
+  if (schema === null || schema === undefined || typeof schema !== "object")
+    return [];
+  const children: OpenRPCMdContent[] = [];
+
+  for (const [key, value] of Object.entries(schema.properties ?? {})) {
+    children.push(
+      ...renderSchema(
+        { name: key, description: value.description },
+        value,
+        editSchema,
+      ),
+    );
+  }
+  // aggregate the children into a details element
+  const detailData: DetailData = {
+    summaryTitle: "Show",
+    summaryCode: contentDescriptor?.name ?? "",
+    summaryType: "object",
+    summaryContent: children,
+    detailDescription: contentDescriptor?.description ?? "",
+  };
+  const result = [details(detailData)];
+  return [
+    {
+      type: "mdxJsxFlowElement",
+      name: "div",
+      attributes: [],
+      children: result as OpenRPCMdContent[],
+    },
+  ];
+}
+
 export function renderSchema(
+  contentDescriptor: Partial<ContentDescriptorObject> | undefined = undefined,
   schema: NoRefs<JSONSchema>,
   editSchema: SchemaEdits,
 ): OpenRPCMdContent[] {
@@ -165,22 +246,30 @@ export function renderSchema(
 
   if (typeof schema === "object" && schema !== null) {
     if (schema.allOf) {
-      schema.allOf.map((schema) => renderSchema(schema, editSchema));
+      schema.allOf.map((schema) =>
+        renderSchema(contentDescriptor, schema, editSchema),
+      );
     }
     if (schema.oneOf) {
-      schema.oneOf.map((schema) => renderSchema(schema, editSchema));
+      schema.oneOf.map((schema) =>
+        renderSchema(contentDescriptor, schema, editSchema),
+      );
       //children.push(...editSchema.editSchemaOneOf(children, schema.oneOf));
     }
     if (schema.anyOf) {
-      schema.anyOf.map((schema) => renderSchema(schema, editSchema));
+      schema.anyOf.map((schema) =>
+        renderSchema(contentDescriptor, schema, editSchema),
+      );
       //children.push(...editSchema.editSchemaAnyOf(children, schema.anyOf));
     }
     if (schema.type === "array") {
       if (typeof schema.items === "object") {
-        renderSchema(schema.items, editSchema);
+        renderSchema(contentDescriptor, schema.items, editSchema);
       }
       if (Array.isArray(schema.items)) {
-        schema.items.map((item) => renderSchema(item, editSchema));
+        schema.items.map((item) =>
+          renderSchema(contentDescriptor, item, editSchema),
+        );
       }
     }
     switch (schema.type) {
@@ -189,9 +278,14 @@ export function renderSchema(
       case "string":
       case "null":
       case "boolean":
-        return renderAtomicSchema(schema, editSchema);
+        return renderAtomicSchema(
+          contentDescriptor?.name,
+          contentDescriptor?.description,
+          schema,
+          editSchema,
+        );
       case "object":
-        return renderObjectSchema(schema, editSchema);
+        return renderObjectSchema(contentDescriptor, schema, editSchema);
     }
   }
 
