@@ -6,6 +6,13 @@ import {
   MethodObjectParams,
 } from "@open-rpc/meta-schema";
 
+import type { Edits, SchemaEdits } from "@open-rpc/markdown-generator";
+import {
+  identityEdits,
+  identitySchemaEdits,
+  renderMethodsToMarkdown,
+} from "@open-rpc/markdown-generator";
+
 import { promises as fs } from "fs";
 
 import * as path from "path";
@@ -63,6 +70,12 @@ export async function generateDocs(inputPath: string, outputPath: string) {
     raw,
   )) as DereffedOpenrpcDocument;
 
+  const methods = await renderMethodsToMarkdown(
+    doc,
+    identityEdits,
+    identitySchemaEdits,
+  );
+
   const outDir = outputPath;
   const methodsDir = path.join(outDir, "methods");
   const schemasDir = path.join(outDir, "schemas");
@@ -73,10 +86,10 @@ export async function generateDocs(inputPath: string, outputPath: string) {
 
   await fs.writeFile(path.join(outDir, "index.md"), renderIndex(doc), "utf8");
 
-  for (const m of doc.methods) {
+  for (const m of methods) {
     await fs.writeFile(
-      path.join(methodsDir, `${m.name}.mdx`),
-      renderMethod(m),
+      path.join(methodsDir, `${m.methodName}.mdx`),
+      m.markdown,
       "utf8",
     );
   }
