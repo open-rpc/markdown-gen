@@ -507,13 +507,21 @@ export function renderParams(
         return renderAtomicHelper(
           param.name,
           param.schema.type as string,
-          param.description ?? param.schema.description ?? "",
+          param.description ?? param.schema.description ?? param.summary ?? "",
         );
       }
       return [];
     })
     // TODO this is temporary until we get here
     .flat();
+  if (params.length === 0) {
+    parameterContent.push({
+      type: "paragraph",
+      children: [
+        { type: "text", value: "This method does not accept any parameters." },
+      ],
+    });
+  }
   return [
     {
       type: "mdxJsxFlowElement",
