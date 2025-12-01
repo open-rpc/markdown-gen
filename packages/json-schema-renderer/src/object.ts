@@ -132,9 +132,7 @@ function renderPropertyDetails(
       propertyResult.inline,
       propertyContext.name,
     );
-    if (inlineChildren.length > 0) {
-      return paragraphFromPhrasing(inlineChildren);
-    }
+    if (inlineChildren.length > 0) return paragraphFromPhrasing(inlineChildren);
   }
 
   if (typeof propertySchema.description === "string") {
@@ -216,10 +214,6 @@ function removeLeadingName(
   inlineChildren: PhrasingContent[],
   name: string,
 ): PhrasingContent[] {
-  if (inlineChildren.length === 0) {
-    return inlineChildren;
-  }
-
   const [first, ...rest] = inlineChildren;
   if (
     first &&
@@ -232,3 +226,8 @@ function removeLeadingName(
 
   return inlineChildren;
 }
+
+export const __objectInternals = {
+  renderPropertyDetails,
+  removeLeadingName,
+};

@@ -155,6 +155,10 @@ function inlineCode(value: string): InlineCode {
   };
 }
 
+export const __internals = {
+  inlineCode,
+};
+
 function parameterTable(descriptors: OpenRPCContentDescriptor[]): Table {
   const headerRow = tableRow([
     textCell("Name"),

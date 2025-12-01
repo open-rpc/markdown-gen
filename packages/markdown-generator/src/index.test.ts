@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 
 import type { OpenRPCDocument } from "./index";
-import { generateMarkdownFromOpenRPC } from "./index";
+import { generateMarkdownFromOpenRPC, __internals } from "./index";
 
 describe("generateMarkdownFromOpenRPC", () => {
   test("creates a markdown document for an OpenRPC spec", async () => {
@@ -109,5 +109,35 @@ describe("generateMarkdownFromOpenRPC", () => {
     expect(markdown.startsWith("# OpenRPC Document")).toBe(true);
     expect(markdown).toContain("### ping");
     expect(markdown).toContain("`pong` (string)");
+  });
+
+  test("renders parameter entries even when schema information is missing", async () => {
+    const document: OpenRPCDocument = {
+      methods: [
+        {
+          name: "echo",
+          params: [
+            {
+              name: "payload",
+              summary: "Opaque input.",
+            },
+          ],
+          result: {
+            name: "response",
+          },
+        },
+      ],
+    };
+
+    const markdown = await generateMarkdownFromOpenRPC(document);
+    expect(markdown).toContain("`payload` (unknown) - Opaque input.");
+    expect(markdown).toContain("`response` (unknown)");
+  });
+
+  test("inline helper produces mdast inline code nodes", () => {
+    expect(__internals.inlineCode("token")).toEqual({
+      type: "inlineCode",
+      value: "token",
+    });
   });
 });

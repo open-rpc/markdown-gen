@@ -747,4 +747,53 @@ describe("renderSchema", () => {
       }
     `);
   });
+
+  it("normalizes array type declarations to the first entry", () => {
+    const schema: JsonSchema = {
+      type: ["string", "null"],
+    };
+    const result = renderSchema(schema, { name: "value" });
+    expect(result.inline).toEqual([
+      { type: "inlineCode", value: "value" },
+      { type: "text", value: " (string)" },
+    ]);
+  });
+
+  it("indicates invalid schemas when schema equals false", () => {
+    const result = renderSchema(false as unknown as JsonSchema, {
+      name: "deny",
+    });
+    expect(result.inline).toEqual([
+      { type: "inlineCode", value: "deny" },
+      { type: "text", value: " (unknown)" },
+      { type: "text", value: " - always invalid" },
+    ]);
+  });
+
+  it("renders null schemas with an explicit note", () => {
+    const result = renderSchema({ type: "null" }, { name: "maybe" });
+    expect(result.inline).toEqual([
+      { type: "inlineCode", value: "maybe" },
+      { type: "text", value: " (null)" },
+      { type: "text", value: " - must be null" },
+    ]);
+  });
+
+  it("detects circular references while traversing schemas", () => {
+    const recursive: JsonSchema & {
+      properties?: Record<string, JsonSchema>;
+    } = {
+      type: "object",
+    };
+    recursive.properties = {
+      self: recursive,
+    };
+
+    const result = renderSchema(recursive, { name: "loop" });
+    expect(result.inline).toEqual([
+      { type: "inlineCode", value: "loop" },
+      { type: "text", value: " (object)" },
+      { type: "text", value: " - circular reference" },
+    ]);
+  });
 });

@@ -74,7 +74,7 @@ export function renderSchema(
 
   const resultsByPath = new Map<string, SchemaRenderResult>();
   const contextByPath = new Map<string, SchemaRenderContext>();
-  contextByPath.set("$", context);
+  ensureContextForPath("$", contextByPath, context);
 
   const helpers: SchemaRendererHelpers = {
     getResult: (path) => resultsByPath.get(path),
@@ -286,3 +286,12 @@ function parentSchemaPath(path: string): string | undefined {
   const parentTokens = tokens.slice(0, -1);
   return parentTokens.length === 0 ? "$" : parentTokens.join(".");
 }
+
+export const __internals = {
+  normalizePath,
+  ensureContextForPath,
+  deriveContextName,
+  splitPath,
+  parentSchemaPath,
+  normalizeType,
+};

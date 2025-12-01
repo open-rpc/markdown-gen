@@ -149,10 +149,6 @@ function removeLeadingName(
   inlineChildren: PhrasingContent[],
   name: string,
 ): PhrasingContent[] {
-  if (!inlineChildren.length) {
-    return inlineChildren;
-  }
-
   const [first, ...rest] = inlineChildren;
   if (first && first.type === "inlineCode" && first.value === name) {
     return rest;
