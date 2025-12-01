@@ -1,145 +1,107 @@
----
-title: "engine_exchangeTransitionConfigurationV1"
-hide_table_of_contents: true
-description: "Documentation for JSON-RPC method engine_exchangeTransitionConfigurationV1."
-sidebar_label: "engine_exchangeTransitionConfigurationV1"
-rpc_method: "engine_exchangeTransitionConfigurationV1"
-tags:
-  - json-rpc
-  - openrpc
-  - method
----
-
-import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';
-
-<TwoColumnLayout 
-  sidebar={
-    <>
-      <RequestExample 
-        title="Named Parameters" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"engine_exchangeTransitionConfigurationV1\",\n  \"params\": {\n    \"Consensus client configuration\": {\n      \"terminalTotalDifficulty\": \"string\",\n      \"terminalBlockHash\": \"string\",\n      \"terminalBlockNumber\": \"string\"\n    }\n  },\n  \"id\": 1\n}"} 
-      />
-      
-      <ResponseExample 
-        title="Successful Response" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": {\n    \"terminalTotalDifficulty\": \"string\",\n    \"terminalBlockHash\": \"string\",\n    \"terminalBlockNumber\": \"string\"\n  },\n  \"id\": 1\n}"} 
-      />
-      
-      <RequestExample 
-        title="Positional Parameters" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"engine_exchangeTransitionConfigurationV1\",\n  \"params\": [\n    {\n      \"terminalTotalDifficulty\": \"string\",\n      \"terminalBlockHash\": \"string\",\n      \"terminalBlockNumber\": \"string\"\n    }\n  ],\n  \"id\": 2\n}"} 
-      />
-      
-      <ResponseExample 
-        title="Successful Response" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": {\n    \"terminalTotalDifficulty\": \"string\",\n    \"terminalBlockHash\": \"string\",\n    \"terminalBlockNumber\": \"string\"\n  },\n  \"id\": 2\n}"} 
-      />
-    </>
-  }
->
-<TryNow />
-# engine_exchangeTransitionConfigurationV1
+<div>
+  # engine\_exchangeTransitionConfigurationV1
 
 
 
----
+  Exchanges transition configuration
 
-## Method
+  <div>
+    ## Parameters
 
-- **JSON-RPC method name:** `engine_exchangeTransitionConfigurationV1`
-- **JSON-RPC version:** `2.0`
+    **Consensus client configuration** `object`
 
-## Parameters
 
-| Name | Type | Required | Description |
-| ---- | ---- | -------- | ----------- |
-| Consensus client configuration | `object` | yes |  |
 
-### Parameter schema
+    <div>
+      <details>
+        <summary>
+          Show `Consensus client configuration` object
+        </summary>
 
-```json
-{
-  "Consensus client configuration": {
-    "required": true,
-    "schema": {
-      "title": "Transition configuration object",
-      "type": "object",
-      "required": [
-        "terminalTotalDifficulty",
-        "terminalBlockHash",
-        "terminalBlockNumber"
-      ],
-      "properties": {
-        "terminalTotalDifficulty": {
-          "title": "Terminal total difficulty",
-          "type": "string",
-          "pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$"
-        },
-        "terminalBlockHash": {
-          "title": "Terminal block hash",
-          "type": "string",
-          "pattern": "^0x[0-9a-f]{64}$"
-        },
-        "terminalBlockNumber": {
-          "title": "Terminal block number",
-          "type": "string",
-          "pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
+        #### `Consensus client configuration` fields
+
+
+
+        * **terminalTotalDifficulty** `string`
+
+
+
+        * **terminalBlockHash** `string`
+
+
+
+        * **terminalBlockNumber** `string`
+
+
+      </details>
+    </div>
+  </div>
+
+  <div>
+    ## Result
+
+    **Execution client configuration** `object`
+
+
+
+    <div>
+      <details>
+        <summary>
+          Show `Execution client configuration` object
+        </summary>
+
+        #### `Execution client configuration` fields
+
+
+
+        * **terminalTotalDifficulty** `string`
+
+
+
+        * **terminalBlockHash** `string`
+
+
+
+        * **terminalBlockNumber** `string`
+
+
+      </details>
+    </div>
+  </div>
+
+  <div>
+    ## Examples
+
+    <details>
+      <summary>
+        engine\_exchangeTransitionConfigurationV1 example
+      </summary>
+
+      #### Request
+
+      ```json
+      {
+        "params": [
+          {
+            "terminalTotalDifficulty": 0,
+            "terminalBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "terminalBlockNumber": "0x1"
+          }
+        ]
+      }
+      ```
+
+      #### Response
+
+      ```json
+      {
+        "Execution client configuration": {
+          "terminalTotalDifficulty": 0,
+          "terminalBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "terminalBlockNumber": "0x1"
         }
       }
-    }
-  }
-}
-```
-
-## Result
-
-- **Name:** `Execution client configuration`
-- **Type:** `object`
-
-### Result schema
-
-```json
-{
-  "title": "Transition configuration object",
-  "type": "object",
-  "required": [
-    "terminalTotalDifficulty",
-    "terminalBlockHash",
-    "terminalBlockNumber"
-  ],
-  "properties": {
-    "terminalTotalDifficulty": {
-      "title": "Terminal total difficulty",
-      "type": "string",
-      "pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$"
-    },
-    "terminalBlockHash": {
-      "title": "Terminal block hash",
-      "type": "string",
-      "pattern": "^0x[0-9a-f]{64}$"
-    },
-    "terminalBlockNumber": {
-      "title": "Terminal block number",
-      "type": "string",
-      "pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-    }
-  }
-}
-```
-
-
-### Positional parameters
-
-Parameter order:
-
-1. `Consensus client configuration`
-
----
-
-## Errors
-
-This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
-
-> TODO: Document method-specific error codes and conditions.
-
-</TwoColumnLayout>
+      ```
+    </details>
+  </div>
+</div>

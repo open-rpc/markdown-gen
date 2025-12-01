@@ -10,6 +10,8 @@ tags:
   - method
 ---
 
+# Widget Library
+
 import {
   TwoColumnLayout,
   RequestExample,
@@ -18,8 +20,16 @@ import {
   SchemaComponent,
 } from "@open-rpc/docusaurus-plugin/components";
 
-<SchemaComponent>
 <div>
+  <TryNow />
+</div>
+<div>
+
+## Params
+
+  <SchemaComponent>
+    
+    <div>
   # getTeam
 
 Get a team by id
@@ -32,6 +42,20 @@ Get a team by id. The method returns a team object, and can be called with a tea
     **id** `string`
 
     The id of the team
+
+    <div>
+      **md\_name** *allOf* `string or integer`
+
+      The name of the team
+
+      **md\_name** `string`
+
+      The name of the team
+
+      **md\_name** `integer`
+
+      The name of the team
+    </div>
 
     **teamObject** `object`
 
@@ -327,4 +351,617 @@ Get a team by id. The method returns a team object, and can be called with a tea
 
   </div>
 </div>
+
+    <div>
+
+# getTeam
+
+Get a team by id
+
+Get a team by id. The method returns a team object, and can be called with a team object.
+
+  <div>
+    ## Parameters
+
+    **id** `string`
+
+    The id of the team
+
+    <div>
+      **md\_name** *allOf* `string or integer`
+
+      The name of the team
+
+      <details>
+        <summary>
+          Show Option 1 `md_name` string
+        </summary>
+
+        #### `md_name` fields
+
+        The name of the team
+
+        **md\_name** `string`
+
+        The name of the team
+      </details>
+
+      <details>
+        <summary>
+          Show Option 2 `md_name` integer
+        </summary>
+
+        #### `md_name` fields
+
+        The name of the team
+
+        **md\_name** `integer`
+
+        The name of the team
+      </details>
+    </div>
+
+    **teamObject** `object`
+
+    The team object
+
+    <div>
+      <details>
+        <summary>
+          Show `teamObject` object
+        </summary>
+
+        #### `teamObject` fields
+
+        The team object
+
+        * **name** `string`
+
+          The name of the user
+
+        * **age** `integer`
+
+          The age of the user
+
+        * **nickname** `string`
+
+          The nickname of the user
+
+        * **config** `object`
+
+
+
+          <div>
+            <details>
+              <summary>
+                Show `config` object
+              </summary>
+
+              #### `config` fields
+
+
+
+              * **id** `string`
+
+                The id of the config
+
+              * **name** `string`
+
+                The name of the config
+
+              * **retry\_count** `integer`
+
+                The retry count of the config
+
+              * **timeout\_ms** `integer`
+
+                The timeout in milliseconds of the config
+
+              * **altConfig** `object`
+
+
+
+                <div>
+                  <details>
+                    <summary>
+                      Show `altConfig` object
+                    </summary>
+
+                    #### `altConfig` fields
+
+
+
+                    * **id** `string`
+
+                      The id of the super config
+
+                    * **name** `string`
+
+                      The name of the super config
+
+                    * **retry\_count** `integer`
+
+                      The retry count of the super config
+
+                    * **timeout\_ms** `integer`
+
+                      The timeout in milliseconds of the super config
+                  </details>
+                </div>
+            </details>
+          </div>
+      </details>
+    </div>
+
+  </div>
+
+  <div>
+    ## Result
+
+    **teamObject** `object`
+
+    The team object
+
+    <div>
+      <details>
+        <summary>
+          Show `teamObject` object
+        </summary>
+
+        #### `teamObject` fields
+
+        The team object
+
+        * **name** `string`
+
+          The name of the user
+
+        * **age** `integer`
+
+          The age of the user
+
+        * **nickname** `string`
+
+          The nickname of the user
+
+        * **config** `object`
+
+
+
+          <div>
+            <details>
+              <summary>
+                Show `config` object
+              </summary>
+
+              #### `config` fields
+
+
+
+              * **id** `string`
+
+                The id of the config
+
+              * **name** `string`
+
+                The name of the config
+
+              * **retry\_count** `integer`
+
+                The retry count of the config
+
+              * **timeout\_ms** `integer`
+
+                The timeout in milliseconds of the config
+
+              * **altConfig** `object`
+
+
+
+                <div>
+                  <details>
+                    <summary>
+                      Show `altConfig` object
+                    </summary>
+
+                    #### `altConfig` fields
+
+
+
+                    * **id** `string`
+
+                      The id of the super config
+
+                    * **name** `string`
+
+                      The name of the super config
+
+                    * **retry\_count** `integer`
+
+                      The retry count of the super config
+
+                    * **timeout\_ms** `integer`
+
+                      The timeout in milliseconds of the super config
+                  </details>
+                </div>
+            </details>
+          </div>
+      </details>
+    </div>
+
+  </div>
+
+  <div>
+    ## Errors
+
+    <details>
+      <summary>
+        Error code: 4000
+      </summary>
+
+      * **code**
+
+        4000
+      * **message**
+
+        Bad Request
+      * **data**
+
+        \{"message":"Team not found"}
+    </details>
+
+    <details>
+      <summary>
+        Error code: 5000
+      </summary>
+
+      * **code**
+
+        5000
+      * **message**
+
+        Internal Server Error
+      * **data**
+
+        asdfjkalsgj;awigejoa null pointer Stack Trace
+    </details>
+
+  </div>
+
+  <div>
+    ## Examples
+
+    <details>
+      <summary>
+        getTeam
+      </summary>
+
+      Get a team by id
+
+      #### Request
+
+      ```json
+      {
+        "params": {
+          "id": "123",
+          "teamObject": {
+            "id": "123",
+            "name": "Team 1"
+          }
+        }
+      }
+      ```
+
+      #### Response
+
+      ```json
+      {
+        "teamObject": {
+          "id": "123",
+          "name": "Team 1"
+        }
+      }
+      ```
+    </details>
+
+    <details>
+      <summary>
+        getTeam
+      </summary>
+
+      Get a team by id
+
+      #### Request
+
+      ```json
+      {
+        "params": {
+          "id": "456"
+        }
+      }
+      ```
+
+      #### Response
+
+      ```json
+      {
+        "teamObject": {
+          "id": "456"
+        }
+      }
+      ```
+    </details>
+
+  </div>
+</div>
+    **age** `number`  
+    Age of the person. between `0` and `2000`.
+
+    ---
+
+    **name** `string`
+
+    Name of the coach.
+
+    **teamMetadata** *oneof* `object or object or string`
+
+    The team metadata
+    <details>
+      <summary> Show Option 1 <code>teamMetadata</code> object</summary>
+
+        #### `teamMetadata` fields
+
+        - **id** `string`
+
+          Unique identifier for the team.
+
+        - **name** `string`
+
+          Unique name for the team.
+    </details>
+    <details>
+      <summary> Show Option 2 <code>teamMetadata</code> object</summary>
+
+        #### `teamMetadata` fields
+
+        - **label** `string`
+
+          Unique label for the team.
+
+        - **funnyName** `string`
+
+          Unique funny name for the team.
+    </details>
+    <details>
+      <summary> Show Option 3 <code>teamMetadata</code> string</summary>
+
+      `string`
+
+      An arbitrary json string
+
+    </details>
+
+
+
+
+    ---
+
+    **team** `object`
+
+    The contents of the team.
+
+    <details>
+      <summary>Show <code>team</code> object</summary>
+
+      #### `team` fields
+
+      - **id** `string`
+
+        Unique identifier for the team.
+
+      - **name** `string`
+
+        Unique name for the team.
+
+      - **members** `array<object>`
+
+        Members belonging to the team.
+
+        <details>
+          <summary>Show <code>member</code> object</summary>
+          #### `member` fields
+
+          - **id** `string`
+
+            Unique identifier for the member.
+            <details>
+              <summary> Schema Details</summary>
+
+              ```json
+              {
+                field: "therawschema"
+              }
+              ```
+            </details>
+
+
+          - **email** `string`
+
+            Email address of the member.
+          - **role** `string`
+
+            Role of the member within the team.
+
+        </details>
+
+      - **config** `object`
+
+        Configuration object.
+
+        <details>
+          <summary>Show <code>config</code> object</summary>
+          #### `config` fields
+          - **id** `string`
+
+            Unique identifier for the config.
+          - **name** `string`
+
+            Unique name for the config.
+          - **retry_count** `number`
+
+            Number of retry attempts.
+          - **timeout_ms** `number`
+
+            Timeout in milliseconds.
+
+        </details>
+
+    </details>
+
+  </SchemaComponent>
+
+## Result
+
+  <SchemaComponent>
+    
+    **success** `number`  
+    Indicates whether the call was successful. `1` if successful, `0` if not.
+
+    ---
+
+    **new_team** `boolean`
+
+    Indicates whether a new team was created.
+
+    ---
+
+    **team** `object`
+
+    The contents of the team.
+
+    <details>
+      <summary>Show <code>team</code> object</summary>
+
+      #### `team` fields
+
+      - **id** `string`
+
+        Unique identifier for the team.
+
+      - **name** `string`
+
+        Unique name for the team.
+
+      - **members** `array<object>`
+
+        Members belonging to the team.
+
+        <details>
+          <summary>Show <code>member</code> object</summary>
+          #### `member` fields
+
+          - **id** `string`
+
+            Unique identifier for the member.
+          - **email** `string`
+
+            Email address of the member.
+          - **role** `string`
+
+            Role of the member within the team.
+
+        </details>
+
+      - **config** `object`
+
+        Configuration object.
+
+        <details>
+          <summary>Show <code>config</code> object</summary>
+          #### `config` fields
+          - **id** `string`
+
+            Unique identifier for the config.
+          - **name** `string`
+
+            Unique name for the config.
+          - **retry_count** `number`
+
+            Number of retry attempts.
+          - **timeout_ms** `number`
+
+            Timeout in milliseconds.
+
+        </details>
+
+    </details>
+
+  </SchemaComponent>
+
+## Errors
+
+<!-- just a style thing for right now -->
+
+<SchemaComponent>
+
+  <details>
+    <summary>Error code: 2000</summary>
+      - **msg**
+
+        "Bad team member not found"
+
+  </details>
+
+  <details>
+    <summary>Error code: 4000</summary>
+
+      Error for missing team member injured
+      - **msg**
+
+        "Bad data"
+
+      - **data**
+
+        "Data was missing
+
+  </details>
+
 </SchemaComponent>
+
+## Examples
+
+<SchemaComponent>
+
+ <details> 
+ 
+   <summary>ListTeamExample</summary>
+
+    List team example lists the entire team
+    #### Request
+
+    ```json
+    {
+      "params": [
+        {
+          "name": "limit",
+          "value": 1
+        }
+      ]
+    }
+    ```
+
+    #### Response
+
+    ```json
+    {
+      "id": 7,
+      "name": "fluffy",
+      "tag": "poodle"
+    }
+    ```
+
+   </details>
+
+</SchemaComponent>
+</div>

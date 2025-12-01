@@ -1,321 +1,350 @@
----
-title: "eth_getLogs"
-hide_table_of_contents: true
-description: "Documentation for JSON-RPC method eth_getLogs."
-sidebar_label: "eth_getLogs"
-rpc_method: "eth_getLogs"
-tags:
-  - json-rpc
-  - openrpc
-  - method
----
-
-import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';
-
-<TwoColumnLayout 
-  sidebar={
-    <>
-      <RequestExample 
-        title="Named Parameters" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_getLogs\",\n  \"params\": {\n    \"Filter\": {}\n  },\n  \"id\": 1\n}"} 
-      />
-      
-      <ResponseExample 
-        title="Successful Response" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 1\n}"} 
-      />
-      
-      <RequestExample 
-        title="Positional Parameters" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_getLogs\",\n  \"params\": [\n    {}\n  ],\n  \"id\": 2\n}"} 
-      />
-      
-      <ResponseExample 
-        title="Successful Response" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 2\n}"} 
-      />
-    </>
-  }
->
-<TryNow />
-# eth_getLogs
+<div>
+  # eth\_getLogs
 
 
 
----
+  Returns an array of all logs matching the specified filter.
 
-## Method
+  <div>
+    ## Parameters
 
-- **JSON-RPC method name:** `eth_getLogs`
-- **JSON-RPC version:** `2.0`
+    <div>
+      **Filter** *oneOf* `object or object`
 
-## Parameters
 
-| Name | Type | Required | Description |
-| ---- | ---- | -------- | ----------- |
-| Filter | `object` | yes |  |
 
-### Parameter schema
+      <details>
+        <summary>
+          Show Option 1 `Filter` object
+        </summary>
 
-```json
-{
-  "Filter": {
-    "required": true,
-    "schema": {
-      "title": "filter",
-      "type": "object",
-      "oneOf": [
-        {
-          "title": "Filter by block range",
-          "type": "object",
-          "properties": {
-            "fromBlock": {
-              "title": "from block",
-              "type": "string",
-              "pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
-            },
-            "toBlock": {
-              "title": "to block",
-              "type": "string",
-              "pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
-            },
-            "address": {
-              "title": "Address(es)",
-              "oneOf": [
-                {
-                  "title": "Any Address",
-                  "type": "null"
-                },
-                {
-                  "title": "Address",
-                  "type": "string",
-                  "pattern": "^0x[0-9a-fA-F]{40}$"
-                },
-                {
-                  "title": "Addresses",
-                  "type": "array",
-                  "items": {
-                    "title": "hex encoded address",
-                    "type": "string",
-                    "pattern": "^0x[0-9a-fA-F]{40}$"
-                  }
-                }
-              ]
-            },
-            "topics": {
-              "title": "Topics",
-              "oneOf": [
-                {
-                  "title": "Any Topic Match",
-                  "type": "null"
-                },
-                {
-                  "title": "Specified Filter Topics",
-                  "type": "array",
-                  "items": {
-                    "title": "Filter Topic List Entry",
-                    "oneOf": [
-                      {
-                        "title": "Single Topic Match",
-                        "type": "string",
-                        "pattern": "^0x[0-9a-f]{64}$"
-                      },
-                      {
-                        "title": "Multiple Topic Match",
-                        "type": "array",
-                        "items": {
-                          "title": "32 hex encoded bytes",
-                          "type": "string",
-                          "pattern": "^0x[0-9a-f]{64}$"
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
+        #### `Filter` fields
+
+
+
+        **Filter** `object`
+
+
+
+        <div>
+          <details>
+            <summary>
+              Show `Filter` object
+            </summary>
+
+            #### `Filter` fields
+
+
+
+            * **fromBlock** `string`
+
+
+
+            * **toBlock** `string`
+
+
+
+            * <div>
+                **address** *oneOf* `null or string or array`
+
+
+
+                <details>
+                  <summary>
+                    Show Option 1 `address` null
+                  </summary>
+
+                  #### `address` fields
+
+
+
+                  **address** `null`
+
+
+                </details>
+
+                <details>
+                  <summary>
+                    Show Option 2 `address` string
+                  </summary>
+
+                  #### `address` fields
+
+
+
+                  **address** `string`
+
+
+                </details>
+
+                <details>
+                  <summary>
+                    Show Option 3 `address` array
+                  </summary>
+
+                  #### `address` fields
+
+
+
+                  <div />
+                </details>
+              </div>
+
+            * <div>
+                **topics** *oneOf* `null or array`
+
+
+
+                <details>
+                  <summary>
+                    Show Option 1 `topics` null
+                  </summary>
+
+                  #### `topics` fields
+
+
+
+                  **topics** `null`
+
+
+                </details>
+
+                <details>
+                  <summary>
+                    Show Option 2 `topics` array
+                  </summary>
+
+                  #### `topics` fields
+
+
+
+                  <div />
+                </details>
+              </div>
+          </details>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          Show Option 2 `Filter` object
+        </summary>
+
+        #### `Filter` fields
+
+
+
+        **Filter** `object`
+
+
+
+        <div>
+          <details>
+            <summary>
+              Show `Filter` object
+            </summary>
+
+            #### `Filter` fields
+
+
+
+            * **blockHash** `string`
+
+
+
+            * <div>
+                **address** *oneOf* `null or string or array`
+
+
+
+                <details>
+                  <summary>
+                    Show Option 1 `address` null
+                  </summary>
+
+                  #### `address` fields
+
+
+
+                  **address** `null`
+
+
+                </details>
+
+                <details>
+                  <summary>
+                    Show Option 2 `address` string
+                  </summary>
+
+                  #### `address` fields
+
+
+
+                  **address** `string`
+
+
+                </details>
+
+                <details>
+                  <summary>
+                    Show Option 3 `address` array
+                  </summary>
+
+                  #### `address` fields
+
+
+
+                  <div />
+                </details>
+              </div>
+
+            * <div>
+                **topics** *oneOf* `null or array`
+
+
+
+                <details>
+                  <summary>
+                    Show Option 1 `topics` null
+                  </summary>
+
+                  #### `topics` fields
+
+
+
+                  **topics** `null`
+
+
+                </details>
+
+                <details>
+                  <summary>
+                    Show Option 2 `topics` array
+                  </summary>
+
+                  #### `topics` fields
+
+
+
+                  <div />
+                </details>
+              </div>
+          </details>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div>
+    ## Result
+
+    <div>
+      **Log objects** *oneOf* `array or array`
+
+
+
+      <details>
+        <summary>
+          Show Option 1 `Log objects` array
+        </summary>
+
+        #### `Log objects` fields
+
+
+
+        <div />
+      </details>
+
+      <details>
+        <summary>
+          Show Option 2 `Log objects` array
+        </summary>
+
+        #### `Log objects` fields
+
+
+
+        <div />
+      </details>
+    </div>
+  </div>
+
+  <div>
+    ## Errors
+
+    <details>
+      <summary>
+        Error code: 4444
+      </summary>
+
+      * **code**
+
+        4444
+      * **message**
+
+        Pruned history unavailable
+    </details>
+  </div>
+
+  <div>
+    ## Examples
+
+    <details>
+      <summary>
+        eth\_getLogs example
+      </summary>
+
+      #### Request
+
+      ```json
+      {
+        "params": [
+          {
+            "fromBlock": "0x137d3c2",
+            "toBlock": "0x137d3c3",
+            "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+            "topics": []
           }
-        },
-        {
-          "title": "Filter by block hash",
-          "type": "object",
-          "properties": {
-            "blockHash": {
-              "title": "block hash",
-              "type": "string",
-              "pattern": "^0x[0-9a-f]{64}$"
-            },
-            "address": {
-              "title": "Address(es)",
-              "oneOf": [
-                {
-                  "title": "Any Address",
-                  "type": "null"
-                },
-                {
-                  "title": "Address",
-                  "type": "string",
-                  "pattern": "^0x[0-9a-fA-F]{40}$"
-                },
-                {
-                  "title": "Addresses",
-                  "type": "array",
-                  "items": {
-                    "title": "hex encoded address",
-                    "type": "string",
-                    "pattern": "^0x[0-9a-fA-F]{40}$"
-                  }
-                }
-              ]
-            },
-            "topics": {
-              "title": "Topics",
-              "oneOf": [
-                {
-                  "title": "Any Topic Match",
-                  "type": "null"
-                },
-                {
-                  "title": "Specified Filter Topics",
-                  "type": "array",
-                  "items": {
-                    "title": "Filter Topic List Entry",
-                    "oneOf": [
-                      {
-                        "title": "Single Topic Match",
-                        "type": "string",
-                        "pattern": "^0x[0-9a-f]{64}$"
-                      },
-                      {
-                        "title": "Multiple Topic Match",
-                        "type": "array",
-                        "items": {
-                          "title": "32 hex encoded bytes",
-                          "type": "string",
-                          "pattern": "^0x[0-9a-f]{64}$"
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          "required": [
-            "blockHash"
-          ]
-        }
-      ],
-      "additionalProperties": false
-    }
-  }
-}
-```
-
-## Result
-
-- **Name:** `Log objects`
-- **Type:** `oneOf`
-
-### Result schema
-
-```json
-{
-  "title": "Filter results",
-  "oneOf": [
-    {
-      "title": "new block or transaction hashes",
-      "type": "array",
-      "items": {
-        "title": "32 byte hex value",
-        "type": "string",
-        "pattern": "^0x[0-9a-f]{64}$"
+        ]
       }
-    },
-    {
-      "title": "new logs",
-      "type": "array",
-      "items": {
-        "title": "log",
-        "type": "object",
-        "required": [
-          "transactionHash"
-        ],
-        "additionalProperties": false,
-        "properties": {
-          "removed": {
-            "title": "removed",
-            "type": "boolean"
+      ```
+
+      #### Response
+
+      ```json
+      {
+        "Log objects": [
+          {
+            "logIndex": "0x0",
+            "removed": false,
+            "blockNumber": "0x233",
+            "blockTimestamp": "0x11",
+            "blockHash": "0xfc139f5e2edee9e9c888d8df9a2d2226133a9bd87c88ccbd9c930d3d4c9f9ef5",
+            "transactionHash": "0x66e7a140c8fa27fe98fde923defea7562c3ca2d6bb89798aabec65782c08f63d",
+            "transactionIndex": "0x0",
+            "address": "0x42699a7612a82f1d9c36148af9c77354759b210b",
+            "data": "0x0000000000000000000000000000000000000000000000000000000000000004",
+            "topics": [
+              "0x04474795f5b996ff80cb47c148d4c5ccdbe09ef27551820caa9c2f8ed149cce3"
+            ]
           },
-          "logIndex": {
-            "title": "log index",
-            "type": "string",
-            "pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
-          },
-          "transactionIndex": {
-            "title": "transaction index",
-            "type": "string",
-            "pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
-          },
-          "transactionHash": {
-            "title": "transaction hash",
-            "type": "string",
-            "pattern": "^0x[0-9a-f]{64}$"
-          },
-          "blockHash": {
-            "title": "block hash",
-            "type": "string",
-            "pattern": "^0x[0-9a-f]{64}$"
-          },
-          "blockNumber": {
-            "title": "block number",
-            "type": "string",
-            "pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
-          },
-          "blockTimestamp": {
-            "title": "block timestamp",
-            "type": "string",
-            "pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
-          },
-          "address": {
-            "title": "address",
-            "type": "string",
-            "pattern": "^0x[0-9a-fA-F]{40}$"
-          },
-          "data": {
-            "title": "data",
-            "type": "string",
-            "pattern": "^0x[0-9a-f]*$"
-          },
-          "topics": {
-            "title": "topics",
-            "type": "array",
-            "items": {
-              "title": "32 hex encoded bytes",
-              "type": "string",
-              "pattern": "^0x[0-9a-f]{64}$"
-            }
+          {
+            "logIndex": "0x0",
+            "removed": false,
+            "blockNumber": "0x238",
+            "blockTimestamp": "0x22",
+            "blockHash": "0x98b0ec0f9fea0018a644959accbe69cd046a8582e89402e1ab0ada91cad644ed",
+            "transactionHash": "0xdb17aa1c2ce609132f599155d384c0bc5334c988a6c368056d7e167e23eee058",
+            "transactionIndex": "0x0",
+            "address": "0x42699a7612a82f1d9c36148af9c77354759b210b",
+            "data": "0x0000000000000000000000000000000000000000000000000000000000000007",
+            "topics": [
+              "0x04474795f5b996ff80cb47c148d4c5ccdbe09ef27551820caa9c2f8ed149cce3"
+            ]
           }
-        }
+        ]
       }
-    }
-  ]
-}
-```
-
-
-### Positional parameters
-
-Parameter order:
-
-1. `Filter`
-
----
-
-## Errors
-
-This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
-
-> TODO: Document method-specific error codes and conditions.
-
-</TwoColumnLayout>
+      ```
+    </details>
+  </div>
+</div>

@@ -1,105 +1,65 @@
----
-title: "engine_exchangeCapabilities"
-hide_table_of_contents: true
-description: "Documentation for JSON-RPC method engine_exchangeCapabilities."
-sidebar_label: "engine_exchangeCapabilities"
-rpc_method: "engine_exchangeCapabilities"
-tags:
-  - json-rpc
-  - openrpc
-  - method
----
-
-import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';
-
-<TwoColumnLayout 
-  sidebar={
-    <>
-      <RequestExample 
-        title="Named Parameters" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"engine_exchangeCapabilities\",\n  \"params\": {\n    \"Consensus client methods\": [\n      \"string\"\n    ]\n  },\n  \"id\": 1\n}"} 
-      />
-      
-      <ResponseExample 
-        title="Successful Response" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": [\n    \"string\"\n  ],\n  \"id\": 1\n}"} 
-      />
-      
-      <RequestExample 
-        title="Positional Parameters" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"engine_exchangeCapabilities\",\n  \"params\": [\n    [\n      \"string\"\n    ]\n  ],\n  \"id\": 2\n}"} 
-      />
-      
-      <ResponseExample 
-        title="Successful Response" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": [\n    \"string\"\n  ],\n  \"id\": 2\n}"} 
-      />
-    </>
-  }
->
-<TryNow />
-# engine_exchangeCapabilities
+<div>
+  # engine\_exchangeCapabilities
 
 
 
----
+  Exchanges list of supported Engine API methods
 
-## Method
+  <div>
+    ## Parameters
 
-- **JSON-RPC method name:** `engine_exchangeCapabilities`
-- **JSON-RPC version:** `2.0`
+    <div />
+  </div>
 
-## Parameters
+  <div>
+    ## Result
 
-| Name | Type | Required | Description |
-| ---- | ---- | -------- | ----------- |
-| Consensus client methods | `string[]` | yes |  |
+    <div />
+  </div>
 
-### Parameter schema
+  <div>
+    ## Examples
 
-```json
-{
-  "Consensus client methods": {
-    "required": true,
-    "schema": {
-      "type": "array",
-      "items": {
-        "type": "string"
+    <details>
+      <summary>
+        engine\_exchangeCapabilities example
+      </summary>
+
+      #### Request
+
+      ```json
+      {
+        "params": [
+          [
+            "engine_exchangeTransitionConfigurationV1",
+            "engine_forkchoiceUpdatedV1",
+            "engine_getPayloadBodiesByHashV1",
+            "engine_getPayloadBodiesByRangeV1",
+            "engine_getPayloadV1",
+            "engine_newPayloadV1"
+          ]
+        ]
       }
-    }
-  }
-}
-```
+      ```
 
-## Result
+      #### Response
 
-- **Name:** `Execution client methods`
-- **Type:** `string[]`
-
-### Result schema
-
-```json
-{
-  "type": "array",
-  "items": {
-    "type": "string"
-  }
-}
-```
-
-
-### Positional parameters
-
-Parameter order:
-
-1. `Consensus client methods`
-
----
-
-## Errors
-
-This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
-
-> TODO: Document method-specific error codes and conditions.
-
-</TwoColumnLayout>
+      ```json
+      {
+        "Execution client methods": [
+          "engine_getPayloadV1",
+          "engine_getPayloadV2",
+          "engine_executePayloadV1",
+          "engine_newPayloadV1",
+          "engine_newPayloadV2",
+          "engine_forkchoiceUpdatedV1",
+          "engine_forkchoiceUpdatedV2",
+          "engine_exchangeTransitionConfigurationV1",
+          "engine_getPayloadBodiesByHashV1",
+          "engine_getPayloadBodiesByRangeV1"
+        ]
+      }
+      ```
+    </details>
+  </div>
+</div>

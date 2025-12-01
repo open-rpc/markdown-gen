@@ -1,192 +1,193 @@
----
-title: "engine_forkchoiceUpdatedV1"
-hide_table_of_contents: true
-description: "Documentation for JSON-RPC method engine_forkchoiceUpdatedV1."
-sidebar_label: "engine_forkchoiceUpdatedV1"
-rpc_method: "engine_forkchoiceUpdatedV1"
-tags:
-  - json-rpc
-  - openrpc
-  - method
----
-
-import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';
-
-<TwoColumnLayout 
-  sidebar={
-    <>
-      <RequestExample 
-        title="Named Parameters" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"engine_forkchoiceUpdatedV1\",\n  \"params\": {\n    \"Forkchoice state\": {\n      \"headBlockHash\": \"string\",\n      \"safeBlockHash\": \"string\",\n      \"finalizedBlockHash\": \"string\"\n    },\n    \"Payload attributes\": {\n      \"timestamp\": \"string\",\n      \"prevRandao\": \"string\",\n      \"suggestedFeeRecipient\": \"string\"\n    }\n  },\n  \"id\": 1\n}"} 
-      />
-      
-      <ResponseExample 
-        title="Successful Response" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": {\n    \"payloadStatus\": {\n      \"status\": \"string\",\n      \"latestValidHash\": \"string\",\n      \"validationError\": \"string\"\n    },\n    \"payloadId\": \"string\"\n  },\n  \"id\": 1\n}"} 
-      />
-      
-      <RequestExample 
-        title="Positional Parameters" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"engine_forkchoiceUpdatedV1\",\n  \"params\": [\n    {\n      \"headBlockHash\": \"string\",\n      \"safeBlockHash\": \"string\",\n      \"finalizedBlockHash\": \"string\"\n    },\n    {\n      \"timestamp\": \"string\",\n      \"prevRandao\": \"string\",\n      \"suggestedFeeRecipient\": \"string\"\n    }\n  ],\n  \"id\": 2\n}"} 
-      />
-      
-      <ResponseExample 
-        title="Successful Response" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": {\n    \"payloadStatus\": {\n      \"status\": \"string\",\n      \"latestValidHash\": \"string\",\n      \"validationError\": \"string\"\n    },\n    \"payloadId\": \"string\"\n  },\n  \"id\": 2\n}"} 
-      />
-    </>
-  }
->
-<TryNow />
-# engine_forkchoiceUpdatedV1
+<div>
+  # engine\_forkchoiceUpdatedV1
 
 
 
----
+  Updates the forkchoice state
 
-## Method
+  <div>
+    ## Parameters
 
-- **JSON-RPC method name:** `engine_forkchoiceUpdatedV1`
-- **JSON-RPC version:** `2.0`
+    **Forkchoice state** `object`
 
-## Parameters
 
-| Name | Type | Required | Description |
-| ---- | ---- | -------- | ----------- |
-| Forkchoice state | `object` | yes |  |
-| Payload attributes | `object` | no |  |
 
-### Parameter schema
+    <div>
+      <details>
+        <summary>
+          Show `Forkchoice state` object
+        </summary>
 
-```json
-{
-  "Forkchoice state": {
-    "required": true,
-    "schema": {
-      "title": "Forkchoice state object V1",
-      "type": "object",
-      "required": [
-        "headBlockHash",
-        "safeBlockHash",
-        "finalizedBlockHash"
-      ],
-      "properties": {
-        "headBlockHash": {
-          "title": "Head block hash",
-          "type": "string",
-          "pattern": "^0x[0-9a-f]{64}$"
-        },
-        "safeBlockHash": {
-          "title": "Safe block hash",
-          "type": "string",
-          "pattern": "^0x[0-9a-f]{64}$"
-        },
-        "finalizedBlockHash": {
-          "title": "Finalized block hash",
-          "type": "string",
-          "pattern": "^0x[0-9a-f]{64}$"
+        #### `Forkchoice state` fields
+
+
+
+        * **headBlockHash** `string`
+
+
+
+        * **safeBlockHash** `string`
+
+
+
+        * **finalizedBlockHash** `string`
+
+
+      </details>
+    </div>
+
+    **Payload attributes** `object`
+
+
+
+    <div>
+      <details>
+        <summary>
+          Show `Payload attributes` object
+        </summary>
+
+        #### `Payload attributes` fields
+
+
+
+        * **timestamp** `string`
+
+
+
+        * **prevRandao** `string`
+
+
+
+        * **suggestedFeeRecipient** `string`
+
+
+      </details>
+    </div>
+  </div>
+
+  <div>
+    ## Result
+
+    **Response object** `object`
+
+
+
+    <div>
+      <details>
+        <summary>
+          Show `Response object` object
+        </summary>
+
+        #### `Response object` fields
+
+
+
+        * **payloadStatus** `object`
+
+
+
+          <div>
+            <details>
+              <summary>
+                Show `payloadStatus` object
+              </summary>
+
+              #### `payloadStatus` fields
+
+
+
+              * **status** `string`
+
+                Set of possible values is restricted to VALID, INVALID, SYNCING
+
+              * **latestValidHash** `string`
+
+
+
+              * **validationError** `string`
+
+
+            </details>
+          </div>
+
+        * **payloadId** `string`
+
+
+      </details>
+    </div>
+  </div>
+
+  <div>
+    ## Errors
+
+    <details>
+      <summary>
+        Error code: -38002
+      </summary>
+
+      * **code**
+
+        -38002
+      * **message**
+
+        Invalid forkchoice state
+    </details>
+
+    <details>
+      <summary>
+        Error code: -38003
+      </summary>
+
+      * **code**
+
+        -38003
+      * **message**
+
+        Invalid payload attributes
+    </details>
+  </div>
+
+  <div>
+    ## Examples
+
+    <details>
+      <summary>
+        engine\_forkchoiceUpdatedV1 example
+      </summary>
+
+      #### Request
+
+      ```json
+      {
+        "params": [
+          {
+            "headBlockHash": "0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858",
+            "safeBlockHash": "0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858",
+            "finalizedBlockHash": "0x3b8fb240d288781d4aac94d3fd16809ee413bc99294a085798a589dae51ddd4a"
+          },
+          {
+            "timestamp": "0x5",
+            "prevRandao": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "suggestedFeeRecipient": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b"
+          }
+        ]
+      }
+      ```
+
+      #### Response
+
+      ```json
+      {
+        "Response object": {
+          "payloadStatus": {
+            "status": "VALID",
+            "latestValidHash": "0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858",
+            "validationError": null
+          },
+          "payloadId": "0x0000000021f32cc1"
         }
       }
-    }
-  },
-  "Payload attributes": {
-    "required": false,
-    "schema": {
-      "title": "Payload attributes object V1",
-      "type": "object",
-      "required": [
-        "timestamp",
-        "prevRandao",
-        "suggestedFeeRecipient"
-      ],
-      "properties": {
-        "timestamp": {
-          "title": "Timestamp",
-          "type": "string",
-          "pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-        },
-        "prevRandao": {
-          "title": "Previous randao value",
-          "type": "string",
-          "pattern": "^0x[0-9a-f]{64}$"
-        },
-        "suggestedFeeRecipient": {
-          "title": "Suggested fee recipient",
-          "type": "string",
-          "pattern": "^0x[0-9a-fA-F]{40}$"
-        }
-      }
-    }
-  }
-}
-```
-
-## Result
-
-- **Name:** `Response object`
-- **Type:** `object`
-
-### Result schema
-
-```json
-{
-  "title": "Forkchoice updated response",
-  "type": "object",
-  "required": [
-    "payloadStatus"
-  ],
-  "properties": {
-    "payloadStatus": {
-      "title": "Payload status",
-      "type": "object",
-      "required": [
-        "status"
-      ],
-      "properties": {
-        "status": {
-          "title": "Payload validation status",
-          "type": "string",
-          "enum": [
-            "VALID",
-            "INVALID",
-            "SYNCING"
-          ],
-          "description": "Set of possible values is restricted to VALID, INVALID, SYNCING"
-        },
-        "latestValidHash": {
-          "title": "The hash of the most recent valid block",
-          "type": "string",
-          "pattern": "^0x[0-9a-f]{64}$"
-        },
-        "validationError": {
-          "title": "Validation error message",
-          "type": "string"
-        }
-      }
-    },
-    "payloadId": {
-      "title": "Payload id",
-      "type": "string",
-      "pattern": "^0x[0-9a-f]{16}$"
-    }
-  }
-}
-```
-
-
-### Positional parameters
-
-Parameter order:
-
-1. `Forkchoice state`
-2. `Payload attributes`
-
----
-
-## Errors
-
-This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
-
-> TODO: Document method-specific error codes and conditions.
-
-</TwoColumnLayout>
+      ```
+    </details>
+  </div>
+</div>

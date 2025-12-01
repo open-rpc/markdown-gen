@@ -1,70 +1,45 @@
----
-title: "eth_gasPrice"
-hide_table_of_contents: true
-description: "Documentation for JSON-RPC method eth_gasPrice."
-sidebar_label: "eth_gasPrice"
-rpc_method: "eth_gasPrice"
-tags:
-  - json-rpc
-  - openrpc
-  - method
----
-
-import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';
-
-<TwoColumnLayout 
-  sidebar={
-    <>
-      <RequestExample 
-        title="Named Parameters" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_gasPrice\",\n  \"params\": {},\n  \"id\": 1\n}"} 
-      />
-      
-      <ResponseExample 
-        title="Successful Response" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 1\n}"} 
-      />
-    </>
-  }
->
-<TryNow />
-# eth_gasPrice
+<div>
+  # eth\_gasPrice
 
 
 
----
+  Returns the current price per gas in wei.
 
-## Method
+  <div>
+    ## Parameters
+  </div>
 
-- **JSON-RPC method name:** `eth_gasPrice`
-- **JSON-RPC version:** `2.0`
+  <div>
+    ## Result
 
-## Parameters
-
-_This method does not accept any parameters._
-
-## Result
-
-- **Name:** `Gas price`
-- **Type:** `string`
-
-### Result schema
-
-```json
-{
-  "title": "Gas price",
-  "type": "string",
-  "pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
-}
-```
+    **Gas price** `string`
 
 
----
+  </div>
 
-## Errors
+  <div>
+    ## Examples
 
-This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
+    <details>
+      <summary>
+        eth\_gasPrice example
+      </summary>
 
-> TODO: Document method-specific error codes and conditions.
+      #### Request
 
-</TwoColumnLayout>
+      ```json
+      {
+        "params": []
+      }
+      ```
+
+      #### Response
+
+      ```json
+      {
+        "Gas price": "0x3e8"
+      }
+      ```
+    </details>
+  </div>
+</div>

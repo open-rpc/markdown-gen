@@ -1,70 +1,45 @@
----
-title: "eth_coinbase"
-hide_table_of_contents: true
-description: "Documentation for JSON-RPC method eth_coinbase."
-sidebar_label: "eth_coinbase"
-rpc_method: "eth_coinbase"
-tags:
-  - json-rpc
-  - openrpc
-  - method
----
-
-import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';
-
-<TwoColumnLayout 
-  sidebar={
-    <>
-      <RequestExample 
-        title="Named Parameters" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_coinbase\",\n  \"params\": {},\n  \"id\": 1\n}"} 
-      />
-      
-      <ResponseExample 
-        title="Successful Response" 
-        code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 1\n}"} 
-      />
-    </>
-  }
->
-<TryNow />
-# eth_coinbase
+<div>
+  # eth\_coinbase
 
 
 
----
+  Returns the client coinbase address.
 
-## Method
+  <div>
+    ## Parameters
+  </div>
 
-- **JSON-RPC method name:** `eth_coinbase`
-- **JSON-RPC version:** `2.0`
+  <div>
+    ## Result
 
-## Parameters
-
-_This method does not accept any parameters._
-
-## Result
-
-- **Name:** `Coinbase address`
-- **Type:** `string`
-
-### Result schema
-
-```json
-{
-  "title": "hex encoded address",
-  "type": "string",
-  "pattern": "^0x[0-9a-fA-F]{40}$"
-}
-```
+    **Coinbase address** `string`
 
 
----
+  </div>
 
-## Errors
+  <div>
+    ## Examples
 
-This method may return JSON-RPC standard errors (e.g. `-32600`, `-32601`, `-32602`, `-32603`) as well as application-specific errors.
+    <details>
+      <summary>
+        eth\_coinbase example
+      </summary>
 
-> TODO: Document method-specific error codes and conditions.
+      #### Request
 
-</TwoColumnLayout>
+      ```json
+      {
+        "params": []
+      }
+      ```
+
+      #### Response
+
+      ```json
+      {
+        "Coinbase address": "0xfe3b557e8fb62b89f4916b721be55ceb828dbd73"
+      }
+      ```
+    </details>
+  </div>
+</div>
