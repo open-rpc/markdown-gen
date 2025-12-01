@@ -35,7 +35,6 @@
     "eslint-plugin-prettier": "^5.5.4"
   },
   "dependencies": {
-    "@open-rpc/json-schema-renderer": "workspace:*",
     "@open-rpc/schema-utils-js": "^2.1.2",
     "@types/mdast": "^4.0.4"
   }
