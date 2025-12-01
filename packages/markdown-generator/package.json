@@ -23,6 +23,7 @@
     "types": "tsc -p tsconfig.json",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "dev:watch": "bun build.ts --watch",
     "build": "bun build.ts && bun run types"
   },
   "devDependencies": {

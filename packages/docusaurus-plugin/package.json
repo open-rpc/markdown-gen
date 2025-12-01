@@ -9,7 +9,8 @@
     "./components": "./src/components.ts"
   },
   "scripts": {
-    "build": "bun run build.ts"
+    "build": "bun run build.ts",
+    "dev:watch": "bun build.ts --watch"
   },
   "files": [
     "dist",

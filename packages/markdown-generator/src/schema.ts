@@ -17,12 +17,7 @@ import type {
   SchemaEdits,
 } from "./type";
 import type { MdxJsxFlowElement } from "mdast-util-mdx";
-import type {
-  BlockContent,
-  DefinitionContent,
-  PhrasingContent,
-  RootContent,
-} from "mdast";
+import type { BlockContent, DefinitionContent, PhrasingContent } from "mdast";
 
 export const identitySchemaEdits: SchemaEdits = {
   editSchemaNumber: (content, schemaNumber) => content,

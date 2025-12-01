@@ -68,7 +68,7 @@ export default function openRPCDocusaurusPlugin(
      * Useful for cross-plugin coordination
      */
     async allContentLoaded({ allContent, actions }): Promise<void> {
-      logger.info(`[${PluginName}] allContentLoaded called`);
+      //logger.info(`[${PluginName}] allContentLoaded called`);
       // TODO: Coordinate with other plugins if needed
     },
 
