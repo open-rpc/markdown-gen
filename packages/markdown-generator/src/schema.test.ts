@@ -206,7 +206,7 @@ describe("schema", () => {
     console.log(markdown);
   });
 
-  it.only("should render method", () => {
+  it("should render method", () => {
     const result = renderMethod(
       {
         name: "getTeam",
