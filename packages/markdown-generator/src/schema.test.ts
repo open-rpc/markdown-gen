@@ -221,6 +221,14 @@ describe("schema", () => {
             schema: { type: "string" },
           },
           {
+            name: "md_name",
+            required: false,
+            description: "The name of the team",
+            schema: {
+              allOf: [{ type: "string" }, { type: "integer" }],
+            },
+          },
+          {
             name: "teamObject",
             required: true,
             description: "The team object",

@@ -11,13 +11,19 @@ import type {
 import type {
   DereffedMethodObject,
   DereffedMethodObjectResult,
+  Edits,
   NoRefs,
   OpenRPCMdContent,
   SchemaEdits,
 } from "./type";
 import type { MdxJsxFlowElement } from "mdast-util-mdx";
-import type { BlockContent, DefinitionContent, RootContent } from "mdast";
-import type { OpenRPCContentDescriptor } from ".";
+import type {
+  BlockContent,
+  DefinitionContent,
+  PhrasingContent,
+  RootContent,
+} from "mdast";
+import type { OpenRPCContentDescriptor } from "./old.index";
 
 export const identitySchemaEdits: SchemaEdits = {
   editSchemaNumber: (content, schemaNumber) => content,
@@ -25,6 +31,20 @@ export const identitySchemaEdits: SchemaEdits = {
   editSchemaAnyOf: (content, anyOf) => content,
   editSchemaOneOf: (content, oneOf) => content,
   editSchemaAllOf: (content, allOf) => content,
+};
+
+export const identityEdits: Edits = {
+  editMethod: (content, method) => content,
+  editMethodParam: (content, methodParam) => content,
+  editMethodParamSchema: (content, methodParamSchema, methodParam) => content,
+  editMethodParamSchemaParent: (content, methodParamSchema, methodParam) =>
+    content,
+  editMethodResult: (content, methodResult) => content,
+  editMethodResultParent: (content, methodResult) => content,
+  editMethodResultSchema: (content, methodResultSchema, methodResult) =>
+    content,
+  editMethodResultSchemaParent: (content, methodResultSchema, methodResult) =>
+    content,
 };
 
 export interface DetailData {
@@ -140,6 +160,7 @@ const renderAtomicHelper = (
   title: string,
   type: string,
   desc: string,
+  ofType: string | undefined = undefined,
 ): OpenRPCMdContent[] => {
   return [
     {
@@ -153,6 +174,18 @@ const renderAtomicHelper = (
           type: "text",
           value: ` `,
         },
+        ...((ofType
+          ? [
+              {
+                type: "emphasis",
+                children: [{ type: "text", value: `${ofType}` }],
+              },
+              {
+                type: "text",
+                value: ` `,
+              },
+            ]
+          : []) as PhrasingContent[]),
         {
           type: "inlineCode",
           value: `${type}`,
@@ -556,6 +589,61 @@ export function renderObjectSchema(
   ];
 }
 
+export function renderOfTypeSchema(
+  contentDescriptor: Partial<ContentDescriptorObject> | undefined = undefined,
+  ofType: "allOf" | "oneOf" | "anyOf",
+  schema: NoRefs<JSONSchema>,
+  editSchema: SchemaEdits,
+): OpenRPCMdContent[] {
+  if (!schema || typeof schema !== "object" || !schema[ofType]) return [];
+  if (schema === null || schema === undefined) return [];
+  // TODO handle arrays
+  if (!(schema[ofType] || Array.isArray(schema[ofType]))) return [];
+  if (typeof schema === "object" && schema !== null) {
+    const allofChildren: OpenRPCMdContent[][] = schema[ofType].map(
+      (schema, idx: number) => {
+        const schemaContent = renderSchema(
+          contentDescriptor,
+          schema,
+          editSchema,
+        );
+        if (typeof schema !== "object" || schema == null) {
+          return schemaContent;
+        }
+
+        return [
+          details({
+            summaryTitle: `Show Option ${idx + 1}`,
+            summaryCode: contentDescriptor?.name ?? "",
+            // TODO: schema can actually be an array
+            summaryType: (schema.type as string) ?? "",
+            summaryContent: schemaContent.flat(),
+            detailDescription: contentDescriptor?.description ?? "",
+          }),
+        ];
+      },
+    );
+    return [
+      {
+        type: "mdxJsxFlowElement",
+        name: "div",
+        attributes: [],
+        children: [
+          ...renderAtomicHelper(
+            contentDescriptor?.name ?? "",
+            // TODO schema can also just be a bool
+            `${schema[ofType]?.map((schema) => (schema && typeof schema === "object" ? (schema.type ?? schema) : "")).join(" or ")}`,
+            contentDescriptor?.description ?? "",
+            ofType,
+          ),
+          ...(allofChildren.flat() as OpenRPCMdContent[]),
+        ],
+      },
+    ];
+  }
+  return [];
+}
+
 export function renderSchema(
   contentDescriptor: Partial<ContentDescriptorObject> | undefined = undefined,
   schema: NoRefs<JSONSchema> | undefined = undefined,
@@ -565,21 +653,13 @@ export function renderSchema(
   if (schema === null || schema === undefined) return [];
   if (typeof schema === "object" && schema !== null) {
     if (schema.allOf) {
-      schema.allOf.map((schema) =>
-        renderSchema(contentDescriptor, schema, editSchema),
-      );
+      return renderOfTypeSchema(contentDescriptor, "allOf", schema, editSchema);
     }
     if (schema.oneOf) {
-      schema.oneOf.map((schema) =>
-        renderSchema(contentDescriptor, schema, editSchema),
-      );
-      //children.push(...editSchema.editSchemaOneOf(children, schema.oneOf));
+      return renderOfTypeSchema(contentDescriptor, "oneOf", schema, editSchema);
     }
     if (schema.anyOf) {
-      schema.anyOf.map((schema) =>
-        renderSchema(contentDescriptor, schema, editSchema),
-      );
-      //children.push(...editSchema.editSchemaAnyOf(children, schema.anyOf));
+      return renderOfTypeSchema(contentDescriptor, "anyOf", schema, editSchema);
     }
     if (schema.type === "array") {
       if (typeof schema.items === "object") {

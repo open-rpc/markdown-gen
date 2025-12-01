@@ -6,7 +6,7 @@ import { mdxToMarkdown } from "mdast-util-mdx";
 import { gfmToMarkdown } from "mdast-util-gfm";
 
 import type { DereffedOpenrpcDocument } from "./type";
-import { renderMethod } from ".";
+import { renderMethod } from "./old.index";
 
 interface Baz {
   name: string;

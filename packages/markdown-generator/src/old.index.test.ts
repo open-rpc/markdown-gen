@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 
-import type { OpenRPCDocument } from "./index";
-import { generateMarkdownFromOpenRPC } from "./index";
+import type { OpenRPCDocument } from "./old.index";
+import { generateMarkdownFromOpenRPC } from "./old.index";
 
 describe("generateMarkdownFromOpenRPC", () => {
   test("creates a markdown document for an OpenRPC spec", async () => {
