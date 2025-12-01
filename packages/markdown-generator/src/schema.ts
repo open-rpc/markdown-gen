@@ -23,7 +23,6 @@ import type {
   PhrasingContent,
   RootContent,
 } from "mdast";
-import type { OpenRPCContentDescriptor } from "./old.index";
 
 export const identitySchemaEdits: SchemaEdits = {
   editSchemaNumber: (content, schemaNumber) => content,
@@ -547,15 +546,6 @@ export function renderObjectSchema(
   const children: OpenRPCMdContent[] = [];
   const fieldData: OpenRPCMdContent[][] = [];
   for (const [key, value] of Object.entries(schema.properties ?? {})) {
-    if (key === "config") {
-      console.log("-----value-----", JSON.stringify(value, null, 2));
-      const check = renderSchema(
-        { name: key, description: value.description },
-        value,
-        editSchema,
-      );
-      console.log("-----check-----", JSON.stringify(check, null, 2));
-    }
     fieldData.push(
       renderSchema(
         { name: key, description: value.description },
