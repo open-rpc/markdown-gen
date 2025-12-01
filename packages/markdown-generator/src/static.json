@@ -1,0 +1,109 @@
+[
+  [
+    {
+      "type": "mdxJsxFlowElement",
+      "name": "div",
+      "attributes": [],
+      "children": [
+        {
+          "type": "mdxJsxFlowElement",
+          "name": "details",
+          "attributes": [],
+          "children": [
+            {
+              "type": "mdxJsxFlowElement",
+              "name": "summary",
+              "attributes": [],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Show "
+                    },
+                    {
+                      "type": "inlineCode",
+                      "value": "config"
+                    },
+                    {
+                      "type": "text",
+                      "value": " object"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "heading",
+              "depth": 4,
+              "children": [
+                {
+                  "type": "inlineCode",
+                  "value": "config"
+                },
+                {
+                  "type": "text",
+                  "value": " fields"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "ordered": false,
+              "spread": true,
+              "children": [
+                {
+                  "type": "listItem",
+                  "spread": true,
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "strong",
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "id"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "value": " "
+                        },
+                        {
+                          "type": "inlineCode",
+                          "value": "string"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+]

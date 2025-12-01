@@ -23,7 +23,8 @@
     "@docusaurus/utils-common": "3.9.2",
     "@docusaurus/utils-validation": "3.9.2",
     "@open-rpc/meta-schema": "^1.14.9",
-    "@open-rpc/schema-utils-js": "^2.1.2"
+    "@open-rpc/schema-utils-js": "^2.1.2",
+    "@open-rpc/markdown-generator": "workspace:*"
   },
   "devDependencies": {
     "@docusaurus/types": "3.9.2",
