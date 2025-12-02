@@ -1,3 +1,13 @@
+---
+title: "engine_newPayloadV3"
+hide_table_of_contents: true
+description: "asdfasdf"
+tags:
+  - json-rpc
+    - openrpc
+    - method
+---
+
 <div>
   # engine\_newPayloadV3
 
@@ -74,9 +84,41 @@
 
 
 
-        * <div />
+        * **transactions** `string`
 
-        * <div />
+
+
+        * **withdrawals** `object`
+
+
+
+          <div>
+            <details>
+              <summary>
+                Show `withdrawals` object
+              </summary>
+
+              #### `withdrawals` fields
+
+
+
+              * **index** `string`
+
+
+
+              * **validatorIndex** `string`
+
+
+
+              * **address** `string`
+
+
+
+              * **amount** `string`
+
+
+            </details>
+          </div>
 
         * **blobGasUsed** `string`
 
@@ -88,7 +130,9 @@
       </details>
     </div>
 
-    <div />
+    **Expected blob versioned hashes** `string`
+
+
 
     **Root of the parent beacon block** `string`
 

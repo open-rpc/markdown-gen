@@ -1,3 +1,13 @@
+---
+title: "eth_feeHistory"
+hide_table_of_contents: true
+description: "Returns transaction base fee per gas and effective priority fee per gas for the requested/supported block range."
+tags:
+  - json-rpc
+    - openrpc
+    - method
+---
+
 <div>
   # eth\_feeHistory
 
@@ -46,7 +56,9 @@
       </details>
     </div>
 
-    <div />
+    **rewardPercentiles** `number`
+
+    A monotonically increasing list of percentile values. For each block in the requested range, the transactions will be sorted in ascending order by effective tip per gas and the corresponding effective tip for the percentile will be determined, accounting for gas consumed.
   </div>
 
   <div>
@@ -70,15 +82,25 @@
 
           Lowest number block of returned range.
 
-        * <div />
+        * **baseFeePerGas** `string`
 
-        * <div />
+          An array of block base fees per gas. This includes the next block after the newest of the returned range, because this value can be derived from the newest block. Zeroes are returned for pre-EIP-1559 blocks.
 
-        * <div />
+        * **baseFeePerBlobGas** `string`
 
-        * <div />
+          An array of block base fees per blob gas. This includes the next block after the newest of the returned range, because this value can be derived from the newest block. Zeroes are returned for pre-EIP-4844 blocks.
 
-        * <div />
+        * **gasUsedRatio** `number`
+
+          An array of block gas used ratios. These are calculated as the ratio of gasUsed and gasLimit.
+
+        * **blobGasUsedRatio** `number`
+
+          An array of block blob gas used ratios. These are calculated as the ratio of blobGasUsed and the max blob gas per block.
+
+        * **reward** `string`
+
+          A two-dimensional array of effective priority fees per gas at the requested block percentiles.
       </details>
     </div>
   </div>

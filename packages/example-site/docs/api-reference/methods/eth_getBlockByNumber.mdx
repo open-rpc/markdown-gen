@@ -1,3 +1,13 @@
+---
+title: "eth_getBlockByNumber"
+hide_table_of_contents: true
+description: "asdfasdf"
+tags:
+  - json-rpc
+    - openrpc
+    - method
+---
+
 <div>
   # eth\_getBlockByNumber
 
@@ -194,7 +204,9 @@
 
 
 
-                  <div />
+                  **transactions** `string`
+
+
                 </details>
 
                 <details>
@@ -206,13 +218,673 @@
 
 
 
-                  <div />
+                  <div>
+                    **transactions** *oneOf* `object or object or object or object or object`
+
+
+
+                    <details>
+                      <summary>
+                        Show Option 1 `transactions` object
+                      </summary>
+
+                      #### `transactions` fields
+
+
+
+                      **transactions** `object`
+
+
+
+                      <div>
+                        <details>
+                          <summary>
+                            Show `transactions` object
+                          </summary>
+
+                          #### `transactions` fields
+
+
+
+                          * **type** `string`
+
+
+
+                          * **nonce** `string`
+
+
+
+                          * **to** `string`
+
+
+
+                          * **gas** `string`
+
+
+
+                          * **value** `string`
+
+
+
+                          * **input** `string`
+
+
+
+                          * **maxPriorityFeePerGas** `string`
+
+                            Maximum fee per gas the sender is willing to pay to miners in wei
+
+                          * **maxFeePerGas** `string`
+
+                            The maximum total fee per gas the sender is willing to pay (includes the network / base fee and miner / priority fee) in wei
+
+                          * **gasPrice** `string`
+
+                            The effective gas price paid by the sender in wei. For transactions not yet included in a block, this value should be set equal to the max fee per gas. This field is DEPRECATED, please transition to using effectiveGasPrice in the receipt object going forward.
+
+                          * **accessList** `object`
+
+                            EIP-2930 access lists
+
+                            <div>
+                              <details>
+                                <summary>
+                                  Show `accessList` object
+                                </summary>
+
+                                #### `accessList` fields
+
+                                EIP-2930 access lists
+
+                                * **address** `string`
+
+
+
+                                * **storageKeys** `string`
+
+
+                              </details>
+                            </div>
+
+                          * **chainId** `string`
+
+                            Chain ID that this transaction is valid on
+
+                          * **authorizationList** `object`
+
+                            List of authorizations for the transaction
+
+                            <div>
+                              <details>
+                                <summary>
+                                  Show `authorizationList` object
+                                </summary>
+
+                                #### `authorizationList` fields
+
+                                List of authorizations for the transaction
+
+                                * **chainId** `string`
+
+                                  Chain ID on which this transaction is valid
+
+                                * **nonce** `string`
+
+
+
+                                * **address** `string`
+
+
+
+                                * **yParity** `string`
+
+                                  The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature
+
+                                * **r** `string`
+
+
+
+                                * **s** `string`
+
+
+                              </details>
+                            </div>
+
+                          * **yParity** `string`
+
+                            The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature.
+
+                          * **v** `string`
+
+                            For backwards compatibility, \`v\` is optionally provided as an alternative to \`yParity\`. This field is DEPRECATED and all use of it should migrate to \`yParity\`.
+
+                          * **r** `string`
+
+
+
+                          * **s** `string`
+
+
+                        </details>
+                      </div>
+                    </details>
+
+                    <details>
+                      <summary>
+                        Show Option 2 `transactions` object
+                      </summary>
+
+                      #### `transactions` fields
+
+
+
+                      **transactions** `object`
+
+
+
+                      <div>
+                        <details>
+                          <summary>
+                            Show `transactions` object
+                          </summary>
+
+                          #### `transactions` fields
+
+
+
+                          * **type** `string`
+
+
+
+                          * **nonce** `string`
+
+
+
+                          * **to** `string`
+
+
+
+                          * **gas** `string`
+
+
+
+                          * **value** `string`
+
+
+
+                          * **input** `string`
+
+
+
+                          * **maxPriorityFeePerGas** `string`
+
+                            Maximum fee per gas the sender is willing to pay to miners in wei
+
+                          * **maxFeePerGas** `string`
+
+                            The maximum total fee per gas the sender is willing to pay (includes the network / base fee and miner / priority fee) in wei
+
+                          * **maxFeePerBlobGas** `string`
+
+                            The maximum total fee per gas the sender is willing to pay for blob gas in wei
+
+                          * **gasPrice** `string`
+
+                            The effective gas price paid by the sender in wei. For transactions not yet included in a block, this value should be set equal to the max fee per gas. This field is DEPRECATED, please transition to using effectiveGasPrice in the receipt object going forward.
+
+                          * **accessList** `object`
+
+                            EIP-2930 access list
+
+                            <div>
+                              <details>
+                                <summary>
+                                  Show `accessList` object
+                                </summary>
+
+                                #### `accessList` fields
+
+                                EIP-2930 access list
+
+                                * **address** `string`
+
+
+
+                                * **storageKeys** `string`
+
+
+                              </details>
+                            </div>
+
+                          * **blobVersionedHashes** `string`
+
+                            List of versioned blob hashes associated with the transaction's EIP-4844 data blobs
+
+                          * **chainId** `string`
+
+                            Chain ID that this transaction is valid on
+
+                          * **yParity** `string`
+
+                            The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature.
+
+                          * **v** `string`
+
+                            For backwards compatibility, \`v\` is optionally provided as an alternative to \`yParity\`. This field is DEPRECATED and all use of it should migrate to \`yParity\`.
+
+                          * **r** `string`
+
+
+
+                          * **s** `string`
+
+
+                        </details>
+                      </div>
+                    </details>
+
+                    <details>
+                      <summary>
+                        Show Option 3 `transactions` object
+                      </summary>
+
+                      #### `transactions` fields
+
+
+
+                      **transactions** `object`
+
+
+
+                      <div>
+                        <details>
+                          <summary>
+                            Show `transactions` object
+                          </summary>
+
+                          #### `transactions` fields
+
+
+
+                          * **type** `string`
+
+
+
+                          * **nonce** `string`
+
+
+
+                          * <div>
+                              **to** *oneOf* `null or string`
+
+
+
+                              <details>
+                                <summary>
+                                  Show Option 1 `to` null
+                                </summary>
+
+                                #### `to` fields
+
+
+
+                                **to** `null`
+
+
+                              </details>
+
+                              <details>
+                                <summary>
+                                  Show Option 2 `to` string
+                                </summary>
+
+                                #### `to` fields
+
+
+
+                                **to** `string`
+
+
+                              </details>
+                            </div>
+
+                          * **gas** `string`
+
+
+
+                          * **value** `string`
+
+
+
+                          * **input** `string`
+
+
+
+                          * **maxPriorityFeePerGas** `string`
+
+                            Maximum fee per gas the sender is willing to pay to miners in wei
+
+                          * **maxFeePerGas** `string`
+
+                            The maximum total fee per gas the sender is willing to pay (includes the network / base fee and miner / priority fee) in wei
+
+                          * **gasPrice** `string`
+
+                            The effective gas price paid by the sender in wei. For transactions not yet included in a block, this value should be set equal to the max fee per gas. This field is DEPRECATED, please transition to using effectiveGasPrice in the receipt object going forward.
+
+                          * **accessList** `object`
+
+                            EIP-2930 access list
+
+                            <div>
+                              <details>
+                                <summary>
+                                  Show `accessList` object
+                                </summary>
+
+                                #### `accessList` fields
+
+                                EIP-2930 access list
+
+                                * **address** `string`
+
+
+
+                                * **storageKeys** `string`
+
+
+                              </details>
+                            </div>
+
+                          * **chainId** `string`
+
+                            Chain ID that this transaction is valid on.
+
+                          * **yParity** `string`
+
+                            The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature.
+
+                          * **v** `string`
+
+                            For backwards compatibility, \`v\` is optionally provided as an alternative to \`yParity\`. This field is DEPRECATED and all use of it should migrate to \`yParity\`.
+
+                          * **r** `string`
+
+
+
+                          * **s** `string`
+
+
+                        </details>
+                      </div>
+                    </details>
+
+                    <details>
+                      <summary>
+                        Show Option 4 `transactions` object
+                      </summary>
+
+                      #### `transactions` fields
+
+
+
+                      **transactions** `object`
+
+
+
+                      <div>
+                        <details>
+                          <summary>
+                            Show `transactions` object
+                          </summary>
+
+                          #### `transactions` fields
+
+
+
+                          * **type** `string`
+
+
+
+                          * **nonce** `string`
+
+
+
+                          * <div>
+                              **to** *oneOf* `null or string`
+
+
+
+                              <details>
+                                <summary>
+                                  Show Option 1 `to` null
+                                </summary>
+
+                                #### `to` fields
+
+
+
+                                **to** `null`
+
+
+                              </details>
+
+                              <details>
+                                <summary>
+                                  Show Option 2 `to` string
+                                </summary>
+
+                                #### `to` fields
+
+
+
+                                **to** `string`
+
+
+                              </details>
+                            </div>
+
+                          * **gas** `string`
+
+
+
+                          * **value** `string`
+
+
+
+                          * **input** `string`
+
+
+
+                          * **gasPrice** `string`
+
+                            The gas price willing to be paid by the sender in wei
+
+                          * **accessList** `object`
+
+                            EIP-2930 access list
+
+                            <div>
+                              <details>
+                                <summary>
+                                  Show `accessList` object
+                                </summary>
+
+                                #### `accessList` fields
+
+                                EIP-2930 access list
+
+                                * **address** `string`
+
+
+
+                                * **storageKeys** `string`
+
+
+                              </details>
+                            </div>
+
+                          * **chainId** `string`
+
+                            Chain ID that this transaction is valid on.
+
+                          * **yParity** `string`
+
+                            The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature.
+
+                          * **v** `string`
+
+                            For backwards compatibility, \`v\` is optionally provided as an alternative to \`yParity\`. This field is DEPRECATED and all use of it should migrate to \`yParity\`.
+
+                          * **r** `string`
+
+
+
+                          * **s** `string`
+
+
+                        </details>
+                      </div>
+                    </details>
+
+                    <details>
+                      <summary>
+                        Show Option 5 `transactions` object
+                      </summary>
+
+                      #### `transactions` fields
+
+
+
+                      **transactions** `object`
+
+
+
+                      <div>
+                        <details>
+                          <summary>
+                            Show `transactions` object
+                          </summary>
+
+                          #### `transactions` fields
+
+
+
+                          * **type** `string`
+
+
+
+                          * **nonce** `string`
+
+
+
+                          * <div>
+                              **to** *oneOf* `null or string`
+
+
+
+                              <details>
+                                <summary>
+                                  Show Option 1 `to` null
+                                </summary>
+
+                                #### `to` fields
+
+
+
+                                **to** `null`
+
+
+                              </details>
+
+                              <details>
+                                <summary>
+                                  Show Option 2 `to` string
+                                </summary>
+
+                                #### `to` fields
+
+
+
+                                **to** `string`
+
+
+                              </details>
+                            </div>
+
+                          * **gas** `string`
+
+
+
+                          * **value** `string`
+
+
+
+                          * **input** `string`
+
+
+
+                          * **gasPrice** `string`
+
+                            The gas price willing to be paid by the sender in wei
+
+                          * **chainId** `string`
+
+                            Chain ID that this transaction is valid on.
+
+                          * **v** `string`
+
+
+
+                          * **r** `string`
+
+
+
+                          * **s** `string`
+
+
+                        </details>
+                      </div>
+                    </details>
+                  </div>
                 </details>
               </div>
 
-            * <div />
+            * **withdrawals** `object`
 
-            * <div />
+
+
+              <div>
+                <details>
+                  <summary>
+                    Show `withdrawals` object
+                  </summary>
+
+                  #### `withdrawals` fields
+
+
+
+                  * **index** `string`
+
+
+
+                  * **validatorIndex** `string`
+
+
+
+                  * **address** `string`
+
+
+
+                  * **amount** `string`
+
+
+                </details>
+              </div>
+
+            * **uncles** `string`
+
+
 
             * **requestsHash** `string`
 

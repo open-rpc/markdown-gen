@@ -17,7 +17,12 @@ import type {
   SchemaEdits,
 } from "./type";
 import type { MdxJsxFlowElement } from "mdast-util-mdx";
-import type { BlockContent, DefinitionContent, PhrasingContent } from "mdast";
+import type {
+  BlockContent,
+  DefinitionContent,
+  PhrasingContent,
+  RootContent,
+} from "mdast";
 
 export const identitySchemaEdits: SchemaEdits = {
   editSchemaNumber: (content, schemaNumber) => content,
@@ -450,12 +455,40 @@ export function renderResults(
   ];
 }
 
+function escapeYaml(str: string): string {
+  return str.replace(/"/g, '\\"').replace(/\n/g, " ");
+}
+
+export function renderFrontMatter(
+  title: string,
+  description: string,
+  tags: string[],
+): RootContent[] {
+  const frontMatterTemplate = `title: "${title}"
+hide_table_of_contents: true
+description: "${escapeYaml(description)}"
+tags:
+  - ${tags.join("\n    - ")}`;
+  return [
+    {
+      type: "yaml",
+      value: frontMatterTemplate,
+    },
+  ];
+}
+
 export function renderMethod(
   method: DereffedMethodObject,
   editSchema: SchemaEdits,
-): OpenRPCMdContent[] {
+): RootContent[] {
   const content = renderParams(method.params, editSchema);
+
   return [
+    ...renderFrontMatter(method.name, method.description ?? "asdfasdf", [
+      "json-rpc",
+      "openrpc",
+      "method",
+    ]),
     {
       type: "mdxJsxFlowElement",
       name: "div",
@@ -656,7 +689,7 @@ export function renderSchema(
     }
     if (schema.type === "array") {
       if (typeof schema.items === "object") {
-        renderSchema(contentDescriptor, schema.items, editSchema);
+        return renderSchema(contentDescriptor, schema.items, editSchema);
       }
       if (Array.isArray(schema.items)) {
         schema.items.map((item) =>

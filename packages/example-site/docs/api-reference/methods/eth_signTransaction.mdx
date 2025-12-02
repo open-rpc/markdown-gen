@@ -1,3 +1,13 @@
+---
+title: "eth_signTransaction"
+hide_table_of_contents: true
+description: "asdfasdf"
+tags:
+  - json-rpc
+    - openrpc
+    - method
+---
+
 <div>
   # eth\_signTransaction
 
@@ -96,17 +106,81 @@
 
           The maximum total fee per gas the sender is willing to pay for blob gas in wei
 
-        * <div />
+        * **accessList** `object`
 
-        * <div />
+          EIP-2930 access list
 
-        * <div />
+          <div>
+            <details>
+              <summary>
+                Show `accessList` object
+              </summary>
+
+              #### `accessList` fields
+
+              EIP-2930 access list
+
+              * **address** `string`
+
+
+
+              * **storageKeys** `string`
+
+
+            </details>
+          </div>
+
+        * **blobVersionedHashes** `string`
+
+          List of versioned blob hashes associated with the transaction's EIP-4844 data blobs.
+
+        * **blobs** `string`
+
+          Raw blob data.
 
         * **chainId** `string`
 
           Chain ID that this transaction is valid on.
 
-        * <div />
+        * **authorizationList** `object`
+
+          EIP-7702 authorization list
+
+          <div>
+            <details>
+              <summary>
+                Show `authorizationList` object
+              </summary>
+
+              #### `authorizationList` fields
+
+              EIP-7702 authorization list
+
+              * **chainId** `string`
+
+                Chain ID on which this transaction is valid
+
+              * **nonce** `string`
+
+
+
+              * **address** `string`
+
+
+
+              * **yParity** `string`
+
+                The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature
+
+              * **r** `string`
+
+
+
+              * **s** `string`
+
+
+            </details>
+          </div>
       </details>
     </div>
   </div>

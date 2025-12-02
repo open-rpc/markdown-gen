@@ -21,6 +21,8 @@ import { identitySchemaEdits, renderMethod } from "./schema";
 import { toMarkdown } from "mdast-util-to-markdown";
 import { gfmToMarkdown } from "mdast-util-gfm";
 import { mdxToMarkdown } from "mdast-util-mdx";
+import { frontmatterToMarkdown } from "mdast-util-frontmatter";
+
 import type { Root } from "mdast";
 import type {
   MethodObject,
@@ -53,7 +55,7 @@ export async function renderMethodsToMarkdown(
     return {
       methodName: (method as DereffedMethodObject).name,
       markdown: toMarkdown(rootDocument, {
-        extensions: [gfmToMarkdown(), mdxToMarkdown()],
+        extensions: [gfmToMarkdown(), mdxToMarkdown(), frontmatterToMarkdown()],
       }),
     };
   });

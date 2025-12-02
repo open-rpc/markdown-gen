@@ -1,3 +1,13 @@
+---
+title: "eth_getProof"
+hide_table_of_contents: true
+description: "asdfasdf"
+tags:
+  - json-rpc
+    - openrpc
+    - method
+---
+
 <div>
   # eth\_getProof
 
@@ -12,7 +22,9 @@
 
 
 
-    <div />
+    **StorageKeys** `string`
+
+
 
     <div>
       **Block** *anyOf* `string or string or string`
@@ -84,7 +96,9 @@
 
 
 
-        * <div />
+        * **accountProof** `string`
+
+
 
         * **balance** `string`
 
@@ -102,7 +116,33 @@
 
 
 
-        * <div />
+        * **storageProof** `object`
+
+
+
+          <div>
+            <details>
+              <summary>
+                Show `storageProof` object
+              </summary>
+
+              #### `storageProof` fields
+
+
+
+              * **key** `string`
+
+
+
+              * **value** `string`
+
+
+
+              * **proof** `string`
+
+
+            </details>
+          </div>
       </details>
     </div>
   </div>

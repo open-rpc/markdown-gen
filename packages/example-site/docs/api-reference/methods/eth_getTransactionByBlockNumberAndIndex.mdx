@@ -1,3 +1,13 @@
+---
+title: "eth_getTransactionByBlockNumberAndIndex"
+hide_table_of_contents: true
+description: "asdfasdf"
+tags:
+  - json-rpc
+    - openrpc
+    - method
+---
+
 <div>
   # eth\_getTransactionByBlockNumberAndIndex
 
@@ -142,13 +152,73 @@
 
                   The effective gas price paid by the sender in wei. For transactions not yet included in a block, this value should be set equal to the max fee per gas. This field is DEPRECATED, please transition to using effectiveGasPrice in the receipt object going forward.
 
-                * <div />
+                * **accessList** `object`
+
+                  EIP-2930 access lists
+
+                  <div>
+                    <details>
+                      <summary>
+                        Show `accessList` object
+                      </summary>
+
+                      #### `accessList` fields
+
+                      EIP-2930 access lists
+
+                      * **address** `string`
+
+
+
+                      * **storageKeys** `string`
+
+
+                    </details>
+                  </div>
 
                 * **chainId** `string`
 
                   Chain ID that this transaction is valid on
 
-                * <div />
+                * **authorizationList** `object`
+
+                  List of authorizations for the transaction
+
+                  <div>
+                    <details>
+                      <summary>
+                        Show `authorizationList` object
+                      </summary>
+
+                      #### `authorizationList` fields
+
+                      List of authorizations for the transaction
+
+                      * **chainId** `string`
+
+                        Chain ID on which this transaction is valid
+
+                      * **nonce** `string`
+
+
+
+                      * **address** `string`
+
+
+
+                      * **yParity** `string`
+
+                        The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature
+
+                      * **r** `string`
+
+
+
+                      * **s** `string`
+
+
+                    </details>
+                  </div>
 
                 * **yParity** `string`
 
@@ -232,9 +302,33 @@
 
                   The effective gas price paid by the sender in wei. For transactions not yet included in a block, this value should be set equal to the max fee per gas. This field is DEPRECATED, please transition to using effectiveGasPrice in the receipt object going forward.
 
-                * <div />
+                * **accessList** `object`
 
-                * <div />
+                  EIP-2930 access list
+
+                  <div>
+                    <details>
+                      <summary>
+                        Show `accessList` object
+                      </summary>
+
+                      #### `accessList` fields
+
+                      EIP-2930 access list
+
+                      * **address** `string`
+
+
+
+                      * **storageKeys** `string`
+
+
+                    </details>
+                  </div>
+
+                * **blobVersionedHashes** `string`
+
+                  List of versioned blob hashes associated with the transaction's EIP-4844 data blobs
 
                 * **chainId** `string`
 
@@ -348,7 +442,29 @@
 
                   The effective gas price paid by the sender in wei. For transactions not yet included in a block, this value should be set equal to the max fee per gas. This field is DEPRECATED, please transition to using effectiveGasPrice in the receipt object going forward.
 
-                * <div />
+                * **accessList** `object`
+
+                  EIP-2930 access list
+
+                  <div>
+                    <details>
+                      <summary>
+                        Show `accessList` object
+                      </summary>
+
+                      #### `accessList` fields
+
+                      EIP-2930 access list
+
+                      * **address** `string`
+
+
+
+                      * **storageKeys** `string`
+
+
+                    </details>
+                  </div>
 
                 * **chainId** `string`
 
@@ -454,7 +570,29 @@
 
                   The gas price willing to be paid by the sender in wei
 
-                * <div />
+                * **accessList** `object`
+
+                  EIP-2930 access list
+
+                  <div>
+                    <details>
+                      <summary>
+                        Show `accessList` object
+                      </summary>
+
+                      #### `accessList` fields
+
+                      EIP-2930 access list
+
+                      * **address** `string`
+
+
+
+                      * **storageKeys** `string`
+
+
+                    </details>
+                  </div>
 
                 * **chainId** `string`
 

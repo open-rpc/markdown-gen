@@ -29,3 +29,4 @@ bun watch.ts
 - So we'll have the examples on the right with the example switching
 - Stretch goal editor for requests
 - top right over the sidebar will be were we put the server widget
+- plugin
