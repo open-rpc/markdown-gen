@@ -497,7 +497,11 @@ export function renderMethod(
   method: DereffedMethodObject,
   editSchema: SchemaEdits,
 ): RootContent[] {
-  const content = renderParams(method.params, editSchema);
+  const content = renderParams(
+    method.params,
+    method.paramStructure ?? "by-position",
+    editSchema,
+  );
 
   return [
     ...renderFrontMatter(method.name, method.description ?? "asdfasdf", [
@@ -538,6 +542,7 @@ export function renderMethod(
 
 export function renderParams(
   params: ContentDescriptorObject[],
+  paramStructure: MethodObjectParamStructure,
   editSchema: SchemaEdits,
 ): OpenRPCMdContent[] {
   const parameterContent = params
@@ -571,6 +576,10 @@ export function renderParams(
       ],
     });
   }
+  const paramStructureLabel =
+    paramStructure === "either"
+      ? "by name or by position"
+      : paramStructure.split("-").join(" ");
   return [
     {
       type: "mdxJsxFlowElement",
@@ -580,7 +589,9 @@ export function renderParams(
         {
           type: "heading",
           depth: 2,
-          children: [{ type: "text", value: "Parameters" }],
+          children: [
+            { type: "text", value: `Parameters (${paramStructureLabel})` },
+          ],
         },
         ...parameterContent,
       ],

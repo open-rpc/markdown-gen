@@ -1226,6 +1226,7 @@ describe("schema", () => {
           schema: teamObjectSchema as NoRefs<JSONSchema>,
         },
       ],
+      "by-name",
       identitySchemaEdits,
     );
     const root: Root = {
