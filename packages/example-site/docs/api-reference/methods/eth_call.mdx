@@ -8,286 +8,309 @@ tags:
     - method
 ---
 
-<div>
-  # eth\_call
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components'
 
-
-
-  Executes a new message call immediately without creating a transaction on the block chain.
-
+<TwoColumnLayout
+  sidebar={<>
+              <RequestExample 
+                title="Named Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_call\",\n  \"params\": {\n    \"Transaction\": {\n      \"type\": \"string\",\n      \"nonce\": \"string\",\n      \"to\": \"example\",\n      \"from\": \"string\",\n      \"gas\": \"string\",\n      \"value\": \"string\",\n      \"input\": \"string\",\n      \"gasPrice\": \"string\",\n      \"maxPriorityFeePerGas\": \"string\",\n      \"maxFeePerGas\": \"string\",\n      \"maxFeePerBlobGas\": \"string\",\n      \"accessList\": [\n        {\n          \"address\": \"string\",\n          \"storageKeys\": [\n            \"string\"\n          ]\n        }\n      ],\n      \"blobVersionedHashes\": [\n        \"string\"\n      ],\n      \"blobs\": [\n        \"string\"\n      ],\n      \"chainId\": \"string\",\n      \"authorizationList\": [\n        {\n          \"chainId\": \"string\",\n          \"nonce\": \"string\",\n          \"address\": \"string\",\n          \"yParity\": \"string\",\n          \"r\": \"string\",\n          \"s\": \"string\"\n        }\n      ]\n    },\n    \"Block\": \"example\"\n  },\n  \"id\": 1\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 1\n}"} 
+              />
+              <RequestExample 
+                title="Positional Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_call\",\n  \"params\": [\n    {\n      \"type\": \"string\",\n      \"nonce\": \"string\",\n      \"to\": \"example\",\n      \"from\": \"string\",\n      \"gas\": \"string\",\n      \"value\": \"string\",\n      \"input\": \"string\",\n      \"gasPrice\": \"string\",\n      \"maxPriorityFeePerGas\": \"string\",\n      \"maxFeePerGas\": \"string\",\n      \"maxFeePerBlobGas\": \"string\",\n      \"accessList\": [\n        {\n          \"address\": \"string\",\n          \"storageKeys\": [\n            \"string\"\n          ]\n        }\n      ],\n      \"blobVersionedHashes\": [\n        \"string\"\n      ],\n      \"blobs\": [\n        \"string\"\n      ],\n      \"chainId\": \"string\",\n      \"authorizationList\": [\n        {\n          \"chainId\": \"string\",\n          \"nonce\": \"string\",\n          \"address\": \"string\",\n          \"yParity\": \"string\",\n          \"r\": \"string\",\n          \"s\": \"string\"\n        }\n      ]\n    },\n    \"example\"\n  ],\n  \"id\": 2\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 2\n}"} 
+              />
+            </>}
+>
   <div>
-    ## Parameters
-
-    **Transaction** `object`
+    # eth\_call
 
 
+
+    Executes a new message call immediately without creating a transaction on the block chain.
 
     <div>
+      ## Parameters (by position)
+
+      **Transaction** `object`
+
+
+
+      <div>
+        <details>
+          <summary>
+            Show `Transaction` object
+          </summary>
+
+          #### `Transaction` fields
+
+
+
+          * **type** `string`
+
+
+
+          * **nonce** `string`
+
+
+
+          * <div>
+              **to** *oneOf* `null or string`
+
+
+
+              <details>
+                <summary>
+                  Show Option 1 `to` null
+                </summary>
+
+                #### `to` fields
+
+
+
+                **to** `null`
+
+
+              </details>
+
+              <details>
+                <summary>
+                  Show Option 2 `to` string
+                </summary>
+
+                #### `to` fields
+
+
+
+                **to** `string`
+
+
+              </details>
+            </div>
+
+          * **from** `string`
+
+
+
+          * **gas** `string`
+
+
+
+          * **value** `string`
+
+
+
+          * **input** `string`
+
+
+
+          * **gasPrice** `string`
+
+            The gas price willing to be paid by the sender in wei
+
+          * **maxPriorityFeePerGas** `string`
+
+            Maximum fee per gas the sender is willing to pay to miners in wei
+
+          * **maxFeePerGas** `string`
+
+            The maximum total fee per gas the sender is willing to pay (includes the network / base fee and miner / priority fee) in wei
+
+          * **maxFeePerBlobGas** `string`
+
+            The maximum total fee per gas the sender is willing to pay for blob gas in wei
+
+          * **accessList** `array<object>`
+
+            EIP-2930 access list
+
+            <div>
+              <details>
+                <summary>
+                  Show `accessList` object
+                </summary>
+
+                #### `accessList` fields
+
+                EIP-2930 access list
+
+                * **address** `string`
+
+
+
+                * **storageKeys** `array<string>`
+
+
+              </details>
+            </div>
+
+          * **blobVersionedHashes** `array<string>`
+
+            List of versioned blob hashes associated with the transaction's EIP-4844 data blobs.
+
+          * **blobs** `array<string>`
+
+            Raw blob data.
+
+          * **chainId** `string`
+
+            Chain ID that this transaction is valid on.
+
+          * **authorizationList** `array<object>`
+
+            EIP-7702 authorization list
+
+            <div>
+              <details>
+                <summary>
+                  Show `authorizationList` object
+                </summary>
+
+                #### `authorizationList` fields
+
+                EIP-7702 authorization list
+
+                * **chainId** `string`
+
+                  Chain ID on which this transaction is valid
+
+                * **nonce** `string`
+
+
+
+                * **address** `string`
+
+
+
+                * **yParity** `string`
+
+                  The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature
+
+                * **r** `string`
+
+
+
+                * **s** `string`
+
+
+              </details>
+            </div>
+        </details>
+      </div>
+
+      <div>
+        **Block** *anyOf* `string or string or string`
+
+
+
+        <details>
+          <summary>
+            Show Option 1 `Block` string
+          </summary>
+
+          #### `Block` fields
+
+
+
+          **Block** `string`
+
+
+        </details>
+
+        <details>
+          <summary>
+            Show Option 2 `Block` string
+          </summary>
+
+          #### `Block` fields
+
+
+
+          **Block** `string`
+
+          \`earliest\`: The lowest numbered block the client has available; \`finalized\`: The most recent crypto-economically secure block, cannot be re-orged outside of manual intervention driven by community coordination; \`safe\`: The most recent block that is safe from re-orgs under honest majority and certain synchronicity assumptions; \`latest\`: The most recent block in the canonical chain observed by the client, this block may be re-orged out of the canonical chain even under healthy/normal conditions; \`pending\`: A sample next block built by the client on top of \`latest\` and containing the set of transactions usually taken from local mempool. Before the merge transition is finalized, any call querying for \`finalized\` or \`safe\` block MUST be responded to with \`-39001: Unknown block\` error
+        </details>
+
+        <details>
+          <summary>
+            Show Option 3 `Block` string
+          </summary>
+
+          #### `Block` fields
+
+
+
+          **Block** `string`
+
+
+        </details>
+      </div>
+    </div>
+
+    <div>
+      ## Result
+
+      **Return data** `string`
+
+
+    </div>
+
+    <div>
+      ## Errors
+
       <details>
         <summary>
-          Show `Transaction` object
+          Error code: 3
         </summary>
 
-        #### `Transaction` fields
+        * **code**
 
+          3
+        * **message**
 
+          execution reverted
+        * **data**
 
-        * **type** `string`
-
-
-
-        * **nonce** `string`
-
-
-
-        * <div>
-            **to** *oneOf* `null or string`
-
-
-
-            <details>
-              <summary>
-                Show Option 1 `to` null
-              </summary>
-
-              #### `to` fields
-
-
-
-              **to** `null`
-
-
-            </details>
-
-            <details>
-              <summary>
-                Show Option 2 `to` string
-              </summary>
-
-              #### `to` fields
-
-
-
-              **to** `string`
-
-
-            </details>
-          </div>
-
-        * **from** `string`
-
-
-
-        * **gas** `string`
-
-
-
-        * **value** `string`
-
-
-
-        * **input** `string`
-
-
-
-        * **gasPrice** `string`
-
-          The gas price willing to be paid by the sender in wei
-
-        * **maxPriorityFeePerGas** `string`
-
-          Maximum fee per gas the sender is willing to pay to miners in wei
-
-        * **maxFeePerGas** `string`
-
-          The maximum total fee per gas the sender is willing to pay (includes the network / base fee and miner / priority fee) in wei
-
-        * **maxFeePerBlobGas** `string`
-
-          The maximum total fee per gas the sender is willing to pay for blob gas in wei
-
-        * **accessList** `array<object>`
-
-          EIP-2930 access list
-
-          <div>
-            <details>
-              <summary>
-                Show `accessList` object
-              </summary>
-
-              #### `accessList` fields
-
-              EIP-2930 access list
-
-              * **address** `string`
-
-
-
-              * **storageKeys** `array<string>`
-
-
-            </details>
-          </div>
-
-        * **blobVersionedHashes** `array<string>`
-
-          List of versioned blob hashes associated with the transaction's EIP-4844 data blobs.
-
-        * **blobs** `array<string>`
-
-          Raw blob data.
-
-        * **chainId** `string`
-
-          Chain ID that this transaction is valid on.
-
-        * **authorizationList** `array<object>`
-
-          EIP-7702 authorization list
-
-          <div>
-            <details>
-              <summary>
-                Show `authorizationList` object
-              </summary>
-
-              #### `authorizationList` fields
-
-              EIP-7702 authorization list
-
-              * **chainId** `string`
-
-                Chain ID on which this transaction is valid
-
-              * **nonce** `string`
-
-
-
-              * **address** `string`
-
-
-
-              * **yParity** `string`
-
-                The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature
-
-              * **r** `string`
-
-
-
-              * **s** `string`
-
-
-            </details>
-          </div>
+          \{"title":"raw EVM revert data","$ref":"#/components/schemas/bytes"}
       </details>
     </div>
 
     <div>
-      **Block** *anyOf* `string or string or string`
-
-
+      ## Examples
 
       <details>
         <summary>
-          Show Option 1 `Block` string
+          eth\_call example
         </summary>
 
-        #### `Block` fields
+        #### Request
 
+        ```json
+        {
+          "params": [
+            {
+              "to": "0x69498dd54bd25aa0c886cf1f8b8ae0856d55ff13",
+              "value": "0x1"
+            },
+            "latest"
+          ]
+        }
+        ```
 
+        #### Response
 
-        **Block** `string`
-
-
-      </details>
-
-      <details>
-        <summary>
-          Show Option 2 `Block` string
-        </summary>
-
-        #### `Block` fields
-
-
-
-        **Block** `string`
-
-        \`earliest\`: The lowest numbered block the client has available; \`finalized\`: The most recent crypto-economically secure block, cannot be re-orged outside of manual intervention driven by community coordination; \`safe\`: The most recent block that is safe from re-orgs under honest majority and certain synchronicity assumptions; \`latest\`: The most recent block in the canonical chain observed by the client, this block may be re-orged out of the canonical chain even under healthy/normal conditions; \`pending\`: A sample next block built by the client on top of \`latest\` and containing the set of transactions usually taken from local mempool. Before the merge transition is finalized, any call querying for \`finalized\` or \`safe\` block MUST be responded to with \`-39001: Unknown block\` error
-      </details>
-
-      <details>
-        <summary>
-          Show Option 3 `Block` string
-        </summary>
-
-        #### `Block` fields
-
-
-
-        **Block** `string`
-
-
+        ```json
+        "0x"
+        ```
       </details>
     </div>
   </div>
-
-  <div>
-    ## Result
-
-    **Return data** `string`
-
-
-  </div>
-
-  <div>
-    ## Errors
-
-    <details>
-      <summary>
-        Error code: 3
-      </summary>
-
-      * **code**
-
-        3
-      * **message**
-
-        execution reverted
-      * **data**
-
-        \{"title":"raw EVM revert data","$ref":"#/components/schemas/bytes"}
-    </details>
-  </div>
-
-  <div>
-    ## Examples
-
-    <details>
-      <summary>
-        eth\_call example
-      </summary>
-
-      #### Request
-
-      ```json
-      {
-        "params": [
-          {
-            "to": "0x69498dd54bd25aa0c886cf1f8b8ae0856d55ff13",
-            "value": "0x1"
-          },
-          "latest"
-        ]
-      }
-      ```
-
-      #### Response
-
-      ```json
-      "0x"
-      ```
-    </details>
-  </div>
-</div>
+</TwoColumnLayout>

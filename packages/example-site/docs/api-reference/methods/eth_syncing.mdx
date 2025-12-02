@@ -8,106 +8,121 @@ tags:
     - method
 ---
 
-<div>
-  # eth\_syncing
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components'
 
-
-
-  Returns an object with data about the sync status or false.
-
+<TwoColumnLayout
+  sidebar={<>
+              <RequestExample 
+                title="Named Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_syncing\",\n  \"params\": {},\n  \"id\": 1\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 1\n}"} 
+              />
+            </>}
+>
   <div>
-    ## Parameters
+    # eth\_syncing
 
-    This method does not accept any parameters.
-  </div>
 
-  <div>
-    ## Result
+
+    Returns an object with data about the sync status or false.
 
     <div>
-      **Syncing status** *oneOf* `object or unknown`
+      ## Parameters (by position)
+
+      This method does not accept any parameters.
+    </div>
+
+    <div>
+      ## Result
+
+      <div>
+        **Syncing status** *oneOf* `object or unknown`
 
 
+
+        <details>
+          <summary>
+            Show Option 1 `Syncing status` object
+          </summary>
+
+          #### `Syncing status` fields
+
+
+
+          **Syncing status** `object`
+
+
+
+          <div>
+            <details>
+              <summary>
+                Show `Syncing status` object
+              </summary>
+
+              #### `Syncing status` fields
+
+
+
+              * **startingBlock** `string`
+
+
+
+              * **currentBlock** `string`
+
+
+
+              * **highestBlock** `string`
+
+
+            </details>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            Show Option 2 `Syncing status` boolean
+          </summary>
+
+          #### `Syncing status` fields
+
+
+
+          **Syncing status** `boolean`
+
+          Should always return false if not syncing.
+        </details>
+      </div>
+    </div>
+
+    <div>
+      ## Examples
 
       <details>
         <summary>
-          Show Option 1 `Syncing status` object
+          eth\_syncing example
         </summary>
 
-        #### `Syncing status` fields
+        #### Request
 
+        ```json
+        {
+          "params": []
+        }
+        ```
 
+        #### Response
 
-        **Syncing status** `object`
-
-
-
-        <div>
-          <details>
-            <summary>
-              Show `Syncing status` object
-            </summary>
-
-            #### `Syncing status` fields
-
-
-
-            * **startingBlock** `string`
-
-
-
-            * **currentBlock** `string`
-
-
-
-            * **highestBlock** `string`
-
-
-          </details>
-        </div>
-      </details>
-
-      <details>
-        <summary>
-          Show Option 2 `Syncing status` boolean
-        </summary>
-
-        #### `Syncing status` fields
-
-
-
-        **Syncing status** `boolean`
-
-        Should always return false if not syncing.
+        ```json
+        {
+          "startingBlock": "0x0",
+          "currentBlock": "0x1518",
+          "highestBlock": "0x9567a3"
+        }
+        ```
       </details>
     </div>
   </div>
-
-  <div>
-    ## Examples
-
-    <details>
-      <summary>
-        eth\_syncing example
-      </summary>
-
-      #### Request
-
-      ```json
-      {
-        "params": []
-      }
-      ```
-
-      #### Response
-
-      ```json
-      {
-        "startingBlock": "0x0",
-        "currentBlock": "0x1518",
-        "highestBlock": "0x9567a3"
-      }
-      ```
-    </details>
-  </div>
-</div>
+</TwoColumnLayout>

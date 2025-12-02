@@ -8,99 +8,122 @@ tags:
     - method
 ---
 
-<div>
-  # eth\_getBlockTransactionCountByHash
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components'
 
-
-
-  Returns the number of transactions in a block from a block matching the given block hash.
-
+<TwoColumnLayout
+  sidebar={<>
+              <RequestExample 
+                title="Named Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_getBlockTransactionCountByHash\",\n  \"params\": {\n    \"Block hash\": \"string\"\n  },\n  \"id\": 1\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 1\n}"} 
+              />
+              <RequestExample 
+                title="Positional Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_getBlockTransactionCountByHash\",\n  \"params\": [\n    \"string\"\n  ],\n  \"id\": 2\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 2\n}"} 
+              />
+            </>}
+>
   <div>
-    ## Parameters
-
-    **Block hash** `string`
+    # eth\_getBlockTransactionCountByHash
 
 
-  </div>
 
-  <div>
-    ## Result
+    Returns the number of transactions in a block from a block matching the given block hash.
 
     <div>
-      **Transaction count** *oneOf* `null or string`
+      ## Parameters (by position)
+
+      **Block hash** `string`
 
 
+    </div>
+
+    <div>
+      ## Result
+
+      <div>
+        **Transaction count** *oneOf* `null or string`
+
+
+
+        <details>
+          <summary>
+            Show Option 1 `Transaction count` null
+          </summary>
+
+          #### `Transaction count` fields
+
+
+
+          **Transaction count** `null`
+
+
+        </details>
+
+        <details>
+          <summary>
+            Show Option 2 `Transaction count` string
+          </summary>
+
+          #### `Transaction count` fields
+
+
+
+          **Transaction count** `string`
+
+
+        </details>
+      </div>
+    </div>
+
+    <div>
+      ## Errors
 
       <details>
         <summary>
-          Show Option 1 `Transaction count` null
+          Error code: 4444
         </summary>
 
-        #### `Transaction count` fields
+        * **code**
 
+          4444
+        * **message**
 
-
-        **Transaction count** `null`
-
-
+          Pruned history unavailable
       </details>
+    </div>
+
+    <div>
+      ## Examples
 
       <details>
         <summary>
-          Show Option 2 `Transaction count` string
+          eth\_getBlockTransactionCountByHash example
         </summary>
 
-        #### `Transaction count` fields
+        #### Request
 
+        ```json
+        {
+          "params": [
+            "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238"
+          ]
+        }
+        ```
 
+        #### Response
 
-        **Transaction count** `string`
-
-
+        ```json
+        "0x8"
+        ```
       </details>
     </div>
   </div>
-
-  <div>
-    ## Errors
-
-    <details>
-      <summary>
-        Error code: 4444
-      </summary>
-
-      * **code**
-
-        4444
-      * **message**
-
-        Pruned history unavailable
-    </details>
-  </div>
-
-  <div>
-    ## Examples
-
-    <details>
-      <summary>
-        eth\_getBlockTransactionCountByHash example
-      </summary>
-
-      #### Request
-
-      ```json
-      {
-        "params": [
-          "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238"
-        ]
-      }
-      ```
-
-      #### Response
-
-      ```json
-      "0x8"
-      ```
-    </details>
-  </div>
-</div>
+</TwoColumnLayout>

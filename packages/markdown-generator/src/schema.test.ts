@@ -6,6 +6,7 @@ import {
   renderMethod,
   renderParams,
   renderSchema,
+  identityEdits,
 } from "./schema";
 import { toMarkdown } from "mdast-util-to-markdown";
 import { gfmToMarkdown } from "mdast-util-gfm";
@@ -1312,6 +1313,7 @@ describe("schema", () => {
         ],
       },
       identitySchemaEdits,
+			identityEdits,
     );
     const root: Root = {
       type: "root",
@@ -1327,6 +1329,7 @@ describe("schema", () => {
     const result = renderMethod(
       debugMethod as DereffedMethodObject,
       identitySchemaEdits,
+      identityEdits,
     );
     const root: Root = {
       type: "root",

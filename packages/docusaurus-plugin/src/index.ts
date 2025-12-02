@@ -11,7 +11,6 @@ import type { PluginContent } from "./types";
 import type { Options } from "./options";
 import { normalizeOptions } from "./options";
 import { generateDocs } from "./lib";
-import fs from "fs/promises";
 
 const PluginName = "@open-rpc/docusaurus-plugin";
 

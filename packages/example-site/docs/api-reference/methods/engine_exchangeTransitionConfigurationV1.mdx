@@ -8,108 +8,131 @@ tags:
     - method
 ---
 
-<div>
-  # engine\_exchangeTransitionConfigurationV1
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components'
 
-
-
-  Exchanges transition configuration
-
+<TwoColumnLayout
+  sidebar={<>
+              <RequestExample 
+                title="Named Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"engine_exchangeTransitionConfigurationV1\",\n  \"params\": {\n    \"Consensus client configuration\": {\n      \"terminalTotalDifficulty\": \"string\",\n      \"terminalBlockHash\": \"string\",\n      \"terminalBlockNumber\": \"string\"\n    }\n  },\n  \"id\": 1\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": {\n    \"terminalTotalDifficulty\": \"string\",\n    \"terminalBlockHash\": \"string\",\n    \"terminalBlockNumber\": \"string\"\n  },\n  \"id\": 1\n}"} 
+              />
+              <RequestExample 
+                title="Positional Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"engine_exchangeTransitionConfigurationV1\",\n  \"params\": [\n    {\n      \"terminalTotalDifficulty\": \"string\",\n      \"terminalBlockHash\": \"string\",\n      \"terminalBlockNumber\": \"string\"\n    }\n  ],\n  \"id\": 2\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": {\n    \"terminalTotalDifficulty\": \"string\",\n    \"terminalBlockHash\": \"string\",\n    \"terminalBlockNumber\": \"string\"\n  },\n  \"id\": 2\n}"} 
+              />
+            </>}
+>
   <div>
-    ## Parameters
-
-    **Consensus client configuration** `object`
+    # engine\_exchangeTransitionConfigurationV1
 
 
+
+    Exchanges transition configuration
 
     <div>
+      ## Parameters (by position)
+
+      **Consensus client configuration** `object`
+
+
+
+      <div>
+        <details>
+          <summary>
+            Show `Consensus client configuration` object
+          </summary>
+
+          #### `Consensus client configuration` fields
+
+
+
+          * **terminalTotalDifficulty** `string`
+
+
+
+          * **terminalBlockHash** `string`
+
+
+
+          * **terminalBlockNumber** `string`
+
+
+        </details>
+      </div>
+    </div>
+
+    <div>
+      ## Result
+
+      **Execution client configuration** `object`
+
+
+
+      <div>
+        <details>
+          <summary>
+            Show `Execution client configuration` object
+          </summary>
+
+          #### `Execution client configuration` fields
+
+
+
+          * **terminalTotalDifficulty** `string`
+
+
+
+          * **terminalBlockHash** `string`
+
+
+
+          * **terminalBlockNumber** `string`
+
+
+        </details>
+      </div>
+    </div>
+
+    <div>
+      ## Examples
+
       <details>
         <summary>
-          Show `Consensus client configuration` object
+          engine\_exchangeTransitionConfigurationV1 example
         </summary>
 
-        #### `Consensus client configuration` fields
+        #### Request
 
+        ```json
+        {
+          "params": [
+            {
+              "terminalTotalDifficulty": 0,
+              "terminalBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "terminalBlockNumber": "0x1"
+            }
+          ]
+        }
+        ```
 
+        #### Response
 
-        * **terminalTotalDifficulty** `string`
-
-
-
-        * **terminalBlockHash** `string`
-
-
-
-        * **terminalBlockNumber** `string`
-
-
+        ```json
+        {
+          "terminalTotalDifficulty": 0,
+          "terminalBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "terminalBlockNumber": "0x1"
+        }
+        ```
       </details>
     </div>
   </div>
-
-  <div>
-    ## Result
-
-    **Execution client configuration** `object`
-
-
-
-    <div>
-      <details>
-        <summary>
-          Show `Execution client configuration` object
-        </summary>
-
-        #### `Execution client configuration` fields
-
-
-
-        * **terminalTotalDifficulty** `string`
-
-
-
-        * **terminalBlockHash** `string`
-
-
-
-        * **terminalBlockNumber** `string`
-
-
-      </details>
-    </div>
-  </div>
-
-  <div>
-    ## Examples
-
-    <details>
-      <summary>
-        engine\_exchangeTransitionConfigurationV1 example
-      </summary>
-
-      #### Request
-
-      ```json
-      {
-        "params": [
-          {
-            "terminalTotalDifficulty": 0,
-            "terminalBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-            "terminalBlockNumber": "0x1"
-          }
-        ]
-      }
-      ```
-
-      #### Response
-
-      ```json
-      {
-        "terminalTotalDifficulty": 0,
-        "terminalBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-        "terminalBlockNumber": "0x1"
-      }
-      ```
-    </details>
-  </div>
-</div>
+</TwoColumnLayout>

@@ -8,48 +8,63 @@ tags:
     - method
 ---
 
-<div>
-  # eth\_gasPrice
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components'
 
-
-
-  Returns the current price per gas in wei.
-
+<TwoColumnLayout
+  sidebar={<>
+              <RequestExample 
+                title="Named Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_gasPrice\",\n  \"params\": {},\n  \"id\": 1\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 1\n}"} 
+              />
+            </>}
+>
   <div>
-    ## Parameters
+    # eth\_gasPrice
 
-    This method does not accept any parameters.
+
+
+    Returns the current price per gas in wei.
+
+    <div>
+      ## Parameters (by position)
+
+      This method does not accept any parameters.
+    </div>
+
+    <div>
+      ## Result
+
+      **Gas price** `string`
+
+
+    </div>
+
+    <div>
+      ## Examples
+
+      <details>
+        <summary>
+          eth\_gasPrice example
+        </summary>
+
+        #### Request
+
+        ```json
+        {
+          "params": []
+        }
+        ```
+
+        #### Response
+
+        ```json
+        "0x3e8"
+        ```
+      </details>
+    </div>
   </div>
-
-  <div>
-    ## Result
-
-    **Gas price** `string`
-
-
-  </div>
-
-  <div>
-    ## Examples
-
-    <details>
-      <summary>
-        eth\_gasPrice example
-      </summary>
-
-      #### Request
-
-      ```json
-      {
-        "params": []
-      }
-      ```
-
-      #### Response
-
-      ```json
-      "0x3e8"
-      ```
-    </details>
-  </div>
-</div>
+</TwoColumnLayout>

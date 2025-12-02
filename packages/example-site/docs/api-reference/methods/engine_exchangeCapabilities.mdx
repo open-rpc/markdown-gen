@@ -8,70 +8,93 @@ tags:
     - method
 ---
 
-<div>
-  # engine\_exchangeCapabilities
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components'
 
-
-
-  Exchanges list of supported Engine API methods
-
+<TwoColumnLayout
+  sidebar={<>
+              <RequestExample 
+                title="Named Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"engine_exchangeCapabilities\",\n  \"params\": {\n    \"Consensus client methods\": [\n      \"string\"\n    ]\n  },\n  \"id\": 1\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": [\n    \"string\"\n  ],\n  \"id\": 1\n}"} 
+              />
+              <RequestExample 
+                title="Positional Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"engine_exchangeCapabilities\",\n  \"params\": [\n    [\n      \"string\"\n    ]\n  ],\n  \"id\": 2\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": [\n    \"string\"\n  ],\n  \"id\": 2\n}"} 
+              />
+            </>}
+>
   <div>
-    ## Parameters
-
-    **Consensus client methods** `array<string>`
+    # engine\_exchangeCapabilities
 
 
-  </div>
 
-  <div>
-    ## Result
+    Exchanges list of supported Engine API methods
 
-    **Execution client methods** `array<string>`
+    <div>
+      ## Parameters (by position)
+
+      **Consensus client methods** `array<string>`
 
 
-  </div>
+    </div>
 
-  <div>
-    ## Examples
+    <div>
+      ## Result
 
-    <details>
-      <summary>
-        engine\_exchangeCapabilities example
-      </summary>
+      **Execution client methods** `array<string>`
 
-      #### Request
 
-      ```json
-      {
-        "params": [
-          [
-            "engine_exchangeTransitionConfigurationV1",
-            "engine_forkchoiceUpdatedV1",
-            "engine_getPayloadBodiesByHashV1",
-            "engine_getPayloadBodiesByRangeV1",
-            "engine_getPayloadV1",
-            "engine_newPayloadV1"
+    </div>
+
+    <div>
+      ## Examples
+
+      <details>
+        <summary>
+          engine\_exchangeCapabilities example
+        </summary>
+
+        #### Request
+
+        ```json
+        {
+          "params": [
+            [
+              "engine_exchangeTransitionConfigurationV1",
+              "engine_forkchoiceUpdatedV1",
+              "engine_getPayloadBodiesByHashV1",
+              "engine_getPayloadBodiesByRangeV1",
+              "engine_getPayloadV1",
+              "engine_newPayloadV1"
+            ]
           ]
+        }
+        ```
+
+        #### Response
+
+        ```json
+        [
+          "engine_getPayloadV1",
+          "engine_getPayloadV2",
+          "engine_executePayloadV1",
+          "engine_newPayloadV1",
+          "engine_newPayloadV2",
+          "engine_forkchoiceUpdatedV1",
+          "engine_forkchoiceUpdatedV2",
+          "engine_exchangeTransitionConfigurationV1",
+          "engine_getPayloadBodiesByHashV1",
+          "engine_getPayloadBodiesByRangeV1"
         ]
-      }
-      ```
-
-      #### Response
-
-      ```json
-      [
-        "engine_getPayloadV1",
-        "engine_getPayloadV2",
-        "engine_executePayloadV1",
-        "engine_newPayloadV1",
-        "engine_newPayloadV2",
-        "engine_forkchoiceUpdatedV1",
-        "engine_forkchoiceUpdatedV2",
-        "engine_exchangeTransitionConfigurationV1",
-        "engine_getPayloadBodiesByHashV1",
-        "engine_getPayloadBodiesByRangeV1"
-      ]
-      ```
-    </details>
+        ```
+      </details>
+    </div>
   </div>
-</div>
+</TwoColumnLayout>

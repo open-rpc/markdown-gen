@@ -8,185 +8,208 @@ tags:
     - method
 ---
 
-<div>
-  # eth\_feeHistory
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components'
 
-  Returns transaction base fee per gas and effective priority fee per gas for the requested/supported block range.
-
-  Transaction fee history
-
+<TwoColumnLayout
+  sidebar={<>
+              <RequestExample 
+                title="Named Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_feeHistory\",\n  \"params\": {\n    \"blockCount\": \"string\",\n    \"newestBlock\": \"example\",\n    \"rewardPercentiles\": [\n      1\n    ]\n  },\n  \"id\": 1\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": {\n    \"oldestBlock\": \"string\",\n    \"baseFeePerGas\": [\n      \"string\"\n    ],\n    \"baseFeePerBlobGas\": [\n      \"string\"\n    ],\n    \"gasUsedRatio\": [\n      1\n    ],\n    \"blobGasUsedRatio\": [\n      1\n    ],\n    \"reward\": [\n      [\n        \"string\"\n      ]\n    ]\n  },\n  \"id\": 1\n}"} 
+              />
+              <RequestExample 
+                title="Positional Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_feeHistory\",\n  \"params\": [\n    \"string\",\n    \"example\",\n    [\n      1\n    ]\n  ],\n  \"id\": 2\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": {\n    \"oldestBlock\": \"string\",\n    \"baseFeePerGas\": [\n      \"string\"\n    ],\n    \"baseFeePerBlobGas\": [\n      \"string\"\n    ],\n    \"gasUsedRatio\": [\n      1\n    ],\n    \"blobGasUsedRatio\": [\n      1\n    ],\n    \"reward\": [\n      [\n        \"string\"\n      ]\n    ]\n  },\n  \"id\": 2\n}"} 
+              />
+            </>}
+>
   <div>
-    ## Parameters
+    # eth\_feeHistory
 
-    **blockCount** `string`
+    Returns transaction base fee per gas and effective priority fee per gas for the requested/supported block range.
 
-    Requested range of blocks. Clients will return less than the requested range if not all blocks are available.
+    Transaction fee history
 
     <div>
-      **newestBlock** *oneOf* `string or string`
+      ## Parameters (by position)
 
-      Highest block of the requested range.
+      **blockCount** `string`
 
-      <details>
-        <summary>
-          Show Option 1 `newestBlock` string
-        </summary>
+      Requested range of blocks. Clients will return less than the requested range if not all blocks are available.
 
-        #### `newestBlock` fields
+      <div>
+        **newestBlock** *oneOf* `string or string`
 
         Highest block of the requested range.
 
-        **newestBlock** `string`
+        <details>
+          <summary>
+            Show Option 1 `newestBlock` string
+          </summary>
 
-        Highest block of the requested range.
-      </details>
+          #### `newestBlock` fields
 
-      <details>
-        <summary>
-          Show Option 2 `newestBlock` string
-        </summary>
+          Highest block of the requested range.
 
-        #### `newestBlock` fields
+          **newestBlock** `string`
 
-        Highest block of the requested range.
+          Highest block of the requested range.
+        </details>
 
-        **newestBlock** `string`
+        <details>
+          <summary>
+            Show Option 2 `newestBlock` string
+          </summary>
 
-        Highest block of the requested range.
-      </details>
+          #### `newestBlock` fields
+
+          Highest block of the requested range.
+
+          **newestBlock** `string`
+
+          Highest block of the requested range.
+        </details>
+      </div>
+
+      **rewardPercentiles** `array<number>`
+
+      A monotonically increasing list of percentile values. For each block in the requested range, the transactions will be sorted in ascending order by effective tip per gas and the corresponding effective tip for the percentile will be determined, accounting for gas consumed.
     </div>
-
-    **rewardPercentiles** `array<number>`
-
-    A monotonically increasing list of percentile values. For each block in the requested range, the transactions will be sorted in ascending order by effective tip per gas and the corresponding effective tip for the percentile will be determined, accounting for gas consumed.
-  </div>
-
-  <div>
-    ## Result
-
-    **Fee history result** `object`
-
-    Fee history for the returned block range. This can be a subsection of the requested range if not all blocks are available.
 
     <div>
+      ## Result
+
+      **Fee history result** `object`
+
+      Fee history for the returned block range. This can be a subsection of the requested range if not all blocks are available.
+
+      <div>
+        <details>
+          <summary>
+            Show `Fee history result` object
+          </summary>
+
+          #### `Fee history result` fields
+
+          Fee history for the returned block range. This can be a subsection of the requested range if not all blocks are available.
+
+          * **oldestBlock** `string`
+
+            Lowest number block of returned range.
+
+          * **baseFeePerGas** `array<string>`
+
+            An array of block base fees per gas. This includes the next block after the newest of the returned range, because this value can be derived from the newest block. Zeroes are returned for pre-EIP-1559 blocks.
+
+          * **baseFeePerBlobGas** `array<string>`
+
+            An array of block base fees per blob gas. This includes the next block after the newest of the returned range, because this value can be derived from the newest block. Zeroes are returned for pre-EIP-4844 blocks.
+
+          * **gasUsedRatio** `array<number>`
+
+            An array of block gas used ratios. These are calculated as the ratio of gasUsed and gasLimit.
+
+          * **blobGasUsedRatio** `array<number>`
+
+            An array of block blob gas used ratios. These are calculated as the ratio of blobGasUsed and the max blob gas per block.
+
+          * **reward** `array<string>`
+
+            A two-dimensional array of effective priority fees per gas at the requested block percentiles.
+        </details>
+      </div>
+    </div>
+
+    <div>
+      ## Examples
+
       <details>
         <summary>
-          Show `Fee history result` object
+          eth\_feeHistory example
         </summary>
 
-        #### `Fee history result` fields
+        #### Request
 
-        Fee history for the returned block range. This can be a subsection of the requested range if not all blocks are available.
+        ```json
+        {
+          "params": [
+            "0x5",
+            "latest",
+            [
+              20,
+              30
+            ]
+          ]
+        }
+        ```
 
-        * **oldestBlock** `string`
+        #### Response
 
-          Lowest number block of returned range.
-
-        * **baseFeePerGas** `array<string>`
-
-          An array of block base fees per gas. This includes the next block after the newest of the returned range, because this value can be derived from the newest block. Zeroes are returned for pre-EIP-1559 blocks.
-
-        * **baseFeePerBlobGas** `array<string>`
-
-          An array of block base fees per blob gas. This includes the next block after the newest of the returned range, because this value can be derived from the newest block. Zeroes are returned for pre-EIP-4844 blocks.
-
-        * **gasUsedRatio** `array<number>`
-
-          An array of block gas used ratios. These are calculated as the ratio of gasUsed and gasLimit.
-
-        * **blobGasUsedRatio** `array<number>`
-
-          An array of block blob gas used ratios. These are calculated as the ratio of blobGasUsed and the max blob gas per block.
-
-        * **reward** `array<string>`
-
-          A two-dimensional array of effective priority fees per gas at the requested block percentiles.
+        ```json
+        {
+          "oldestblock": "0x10b52f",
+          "baseFeePerGas": [
+            "0x3fa63a3f",
+            "0x37f999ee",
+            "0x3e36f20a",
+            "0x4099f79a",
+            "0x430d532d",
+            "0x46fcd4a4"
+          ],
+          "baseFeePerBlobGas": [
+            "0x7b7609c19",
+            "0x6dbe41789",
+            "0x7223341d4",
+            "0x6574a002c",
+            "0x7223341d4",
+            "0x6574a002c"
+          ],
+          "gasUsedRatio": [
+            0.017712333333333333,
+            0.9458865666666667,
+            0.6534561,
+            0.6517375666666667,
+            0.7347769666666667
+          ],
+          "blobGasUsedRatio": [
+            0,
+            0.6666666666666666,
+            0,
+            1,
+            0
+          ],
+          "reward": [
+            [
+              "0x3b9aca00",
+              "0x59682f00"
+            ],
+            [
+              "0x3a13012",
+              "0x3a13012"
+            ],
+            [
+              "0x3a13012",
+              "0x3a13012"
+            ],
+            [
+              "0xf4240",
+              "0xf4240"
+            ],
+            [
+              "0xf4240",
+              "0xf4240"
+            ]
+          ]
+        }
+        ```
       </details>
     </div>
   </div>
-
-  <div>
-    ## Examples
-
-    <details>
-      <summary>
-        eth\_feeHistory example
-      </summary>
-
-      #### Request
-
-      ```json
-      {
-        "params": [
-          "0x5",
-          "latest",
-          [
-            20,
-            30
-          ]
-        ]
-      }
-      ```
-
-      #### Response
-
-      ```json
-      {
-        "oldestblock": "0x10b52f",
-        "baseFeePerGas": [
-          "0x3fa63a3f",
-          "0x37f999ee",
-          "0x3e36f20a",
-          "0x4099f79a",
-          "0x430d532d",
-          "0x46fcd4a4"
-        ],
-        "baseFeePerBlobGas": [
-          "0x7b7609c19",
-          "0x6dbe41789",
-          "0x7223341d4",
-          "0x6574a002c",
-          "0x7223341d4",
-          "0x6574a002c"
-        ],
-        "gasUsedRatio": [
-          0.017712333333333333,
-          0.9458865666666667,
-          0.6534561,
-          0.6517375666666667,
-          0.7347769666666667
-        ],
-        "blobGasUsedRatio": [
-          0,
-          0.6666666666666666,
-          0,
-          1,
-          0
-        ],
-        "reward": [
-          [
-            "0x3b9aca00",
-            "0x59682f00"
-          ],
-          [
-            "0x3a13012",
-            "0x3a13012"
-          ],
-          [
-            "0x3a13012",
-            "0x3a13012"
-          ],
-          [
-            "0xf4240",
-            "0xf4240"
-          ],
-          [
-            "0xf4240",
-            "0xf4240"
-          ]
-        ]
-      }
-      ```
-    </details>
-  </div>
-</div>
+</TwoColumnLayout>

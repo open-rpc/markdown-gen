@@ -8,48 +8,63 @@ tags:
     - method
 ---
 
-<div>
-  # eth\_blobBaseFee
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components'
 
-
-
-  Returns the base fee per blob gas in wei.
-
+<TwoColumnLayout
+  sidebar={<>
+              <RequestExample 
+                title="Named Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_blobBaseFee\",\n  \"params\": {},\n  \"id\": 1\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 1\n}"} 
+              />
+            </>}
+>
   <div>
-    ## Parameters
+    # eth\_blobBaseFee
 
-    This method does not accept any parameters.
+
+
+    Returns the base fee per blob gas in wei.
+
+    <div>
+      ## Parameters (by position)
+
+      This method does not accept any parameters.
+    </div>
+
+    <div>
+      ## Result
+
+      **Blob gas base fee** `string`
+
+
+    </div>
+
+    <div>
+      ## Examples
+
+      <details>
+        <summary>
+          eth\_blobBaseFee example
+        </summary>
+
+        #### Request
+
+        ```json
+        {
+          "params": []
+        }
+        ```
+
+        #### Response
+
+        ```json
+        "0x3f5694c1f"
+        ```
+      </details>
+    </div>
   </div>
-
-  <div>
-    ## Result
-
-    **Blob gas base fee** `string`
-
-
-  </div>
-
-  <div>
-    ## Examples
-
-    <details>
-      <summary>
-        eth\_blobBaseFee example
-      </summary>
-
-      #### Request
-
-      ```json
-      {
-        "params": []
-      }
-      ```
-
-      #### Response
-
-      ```json
-      "0x3f5694c1f"
-      ```
-    </details>
-  </div>
-</div>
+</TwoColumnLayout>

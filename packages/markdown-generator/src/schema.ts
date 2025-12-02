@@ -496,6 +496,7 @@ tags:
 export function renderMethod(
   method: DereffedMethodObject,
   editSchema: SchemaEdits,
+  edits: Edits,
 ): RootContent[] {
   const content = renderParams(
     method.params,
@@ -503,12 +504,15 @@ export function renderMethod(
     editSchema,
   );
 
-  return [
+  const methodFrontMatterContent: (OpenRPCMdContent | RootContent)[] = [
     ...renderFrontMatter(method.name, method.description ?? "asdfasdf", [
       "json-rpc",
       "openrpc",
       "method",
     ]),
+  ];
+
+  const methodContent: (OpenRPCMdContent | RootContent)[] = [
     {
       type: "mdxJsxFlowElement",
       name: "div",
@@ -537,6 +541,10 @@ export function renderMethod(
         ),
       ],
     },
+  ];
+  return [
+    ...methodFrontMatterContent,
+    ...(edits.editMethod?.(methodContent, method) ?? methodContent),
   ];
 }
 

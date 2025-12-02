@@ -8,194 +8,217 @@ tags:
     - method
 ---
 
-<div>
-  # engine\_forkchoiceUpdatedV1
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components'
 
-
-
-  Updates the forkchoice state
-
+<TwoColumnLayout
+  sidebar={<>
+              <RequestExample 
+                title="Named Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"engine_forkchoiceUpdatedV1\",\n  \"params\": {\n    \"Forkchoice state\": {\n      \"headBlockHash\": \"string\",\n      \"safeBlockHash\": \"string\",\n      \"finalizedBlockHash\": \"string\"\n    },\n    \"Payload attributes\": {\n      \"timestamp\": \"string\",\n      \"prevRandao\": \"string\",\n      \"suggestedFeeRecipient\": \"string\"\n    }\n  },\n  \"id\": 1\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": {\n    \"payloadStatus\": {\n      \"status\": \"string\",\n      \"latestValidHash\": \"string\",\n      \"validationError\": \"string\"\n    },\n    \"payloadId\": \"string\"\n  },\n  \"id\": 1\n}"} 
+              />
+              <RequestExample 
+                title="Positional Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"engine_forkchoiceUpdatedV1\",\n  \"params\": [\n    {\n      \"headBlockHash\": \"string\",\n      \"safeBlockHash\": \"string\",\n      \"finalizedBlockHash\": \"string\"\n    },\n    {\n      \"timestamp\": \"string\",\n      \"prevRandao\": \"string\",\n      \"suggestedFeeRecipient\": \"string\"\n    }\n  ],\n  \"id\": 2\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": {\n    \"payloadStatus\": {\n      \"status\": \"string\",\n      \"latestValidHash\": \"string\",\n      \"validationError\": \"string\"\n    },\n    \"payloadId\": \"string\"\n  },\n  \"id\": 2\n}"} 
+              />
+            </>}
+>
   <div>
-    ## Parameters
-
-    **Forkchoice state** `object`
+    # engine\_forkchoiceUpdatedV1
 
 
+
+    Updates the forkchoice state
 
     <div>
+      ## Parameters (by position)
+
+      **Forkchoice state** `object`
+
+
+
+      <div>
+        <details>
+          <summary>
+            Show `Forkchoice state` object
+          </summary>
+
+          #### `Forkchoice state` fields
+
+
+
+          * **headBlockHash** `string`
+
+
+
+          * **safeBlockHash** `string`
+
+
+
+          * **finalizedBlockHash** `string`
+
+
+        </details>
+      </div>
+
+      **Payload attributes** `object`
+
+
+
+      <div>
+        <details>
+          <summary>
+            Show `Payload attributes` object
+          </summary>
+
+          #### `Payload attributes` fields
+
+
+
+          * **timestamp** `string`
+
+
+
+          * **prevRandao** `string`
+
+
+
+          * **suggestedFeeRecipient** `string`
+
+
+        </details>
+      </div>
+    </div>
+
+    <div>
+      ## Result
+
+      **Response object** `object`
+
+
+
+      <div>
+        <details>
+          <summary>
+            Show `Response object` object
+          </summary>
+
+          #### `Response object` fields
+
+
+
+          * **payloadStatus** `object`
+
+
+
+            <div>
+              <details>
+                <summary>
+                  Show `payloadStatus` object
+                </summary>
+
+                #### `payloadStatus` fields
+
+
+
+                * **status** `string`
+
+                  Set of possible values is restricted to VALID, INVALID, SYNCING
+
+                * **latestValidHash** `string`
+
+
+
+                * **validationError** `string`
+
+
+              </details>
+            </div>
+
+          * **payloadId** `string`
+
+
+        </details>
+      </div>
+    </div>
+
+    <div>
+      ## Errors
+
       <details>
         <summary>
-          Show `Forkchoice state` object
+          Error code: -38002
         </summary>
 
-        #### `Forkchoice state` fields
+        * **code**
 
+          -38002
+        * **message**
 
+          Invalid forkchoice state
+      </details>
 
-        * **headBlockHash** `string`
+      <details>
+        <summary>
+          Error code: -38003
+        </summary>
 
+        * **code**
 
+          -38003
+        * **message**
 
-        * **safeBlockHash** `string`
-
-
-
-        * **finalizedBlockHash** `string`
-
-
+          Invalid payload attributes
       </details>
     </div>
 
-    **Payload attributes** `object`
-
-
-
     <div>
+      ## Examples
+
       <details>
         <summary>
-          Show `Payload attributes` object
+          engine\_forkchoiceUpdatedV1 example
         </summary>
 
-        #### `Payload attributes` fields
+        #### Request
 
+        ```json
+        {
+          "params": [
+            {
+              "headBlockHash": "0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858",
+              "safeBlockHash": "0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858",
+              "finalizedBlockHash": "0x3b8fb240d288781d4aac94d3fd16809ee413bc99294a085798a589dae51ddd4a"
+            },
+            {
+              "timestamp": "0x5",
+              "prevRandao": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "suggestedFeeRecipient": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b"
+            }
+          ]
+        }
+        ```
 
+        #### Response
 
-        * **timestamp** `string`
-
-
-
-        * **prevRandao** `string`
-
-
-
-        * **suggestedFeeRecipient** `string`
-
-
-      </details>
-    </div>
-  </div>
-
-  <div>
-    ## Result
-
-    **Response object** `object`
-
-
-
-    <div>
-      <details>
-        <summary>
-          Show `Response object` object
-        </summary>
-
-        #### `Response object` fields
-
-
-
-        * **payloadStatus** `object`
-
-
-
-          <div>
-            <details>
-              <summary>
-                Show `payloadStatus` object
-              </summary>
-
-              #### `payloadStatus` fields
-
-
-
-              * **status** `string`
-
-                Set of possible values is restricted to VALID, INVALID, SYNCING
-
-              * **latestValidHash** `string`
-
-
-
-              * **validationError** `string`
-
-
-            </details>
-          </div>
-
-        * **payloadId** `string`
-
-
-      </details>
-    </div>
-  </div>
-
-  <div>
-    ## Errors
-
-    <details>
-      <summary>
-        Error code: -38002
-      </summary>
-
-      * **code**
-
-        -38002
-      * **message**
-
-        Invalid forkchoice state
-    </details>
-
-    <details>
-      <summary>
-        Error code: -38003
-      </summary>
-
-      * **code**
-
-        -38003
-      * **message**
-
-        Invalid payload attributes
-    </details>
-  </div>
-
-  <div>
-    ## Examples
-
-    <details>
-      <summary>
-        engine\_forkchoiceUpdatedV1 example
-      </summary>
-
-      #### Request
-
-      ```json
-      {
-        "params": [
-          {
-            "headBlockHash": "0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858",
-            "safeBlockHash": "0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858",
-            "finalizedBlockHash": "0x3b8fb240d288781d4aac94d3fd16809ee413bc99294a085798a589dae51ddd4a"
+        ```json
+        {
+          "payloadStatus": {
+            "status": "VALID",
+            "latestValidHash": "0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858",
+            "validationError": null
           },
-          {
-            "timestamp": "0x5",
-            "prevRandao": "0x0000000000000000000000000000000000000000000000000000000000000000",
-            "suggestedFeeRecipient": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b"
-          }
-        ]
-      }
-      ```
-
-      #### Response
-
-      ```json
-      {
-        "payloadStatus": {
-          "status": "VALID",
-          "latestValidHash": "0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858",
-          "validationError": null
-        },
-        "payloadId": "0x0000000021f32cc1"
-      }
-      ```
-    </details>
+          "payloadId": "0x0000000021f32cc1"
+        }
+        ```
+      </details>
+    </div>
   </div>
-</div>
+</TwoColumnLayout>

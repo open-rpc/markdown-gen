@@ -15,7 +15,12 @@ import type {
   RootContent,
   Yaml,
 } from "mdast";
-import type { MdxJsxFlowElement } from "mdast-util-mdx";
+import type {
+  MdxFlowExpression,
+  MdxJsxAttributeValueExpression,
+  MdxJsxExpressionAttribute,
+  MdxJsxFlowElement,
+} from "mdast-util-mdx";
 
 export type RefNode = { $ref: string };
 
@@ -49,7 +54,9 @@ export interface ContentContainerDescriptor
 export type OpenRPCMdContent =
   | BlockContent
   | DefinitionContent
-  | MdxJsxFlowElement;
+  | MdxFlowExpression
+  | MdxJsxFlowElement
+  | MdxJsxExpressionAttribute;
 
 export interface SchemaEdits {
   editSchemaNumber?: (
@@ -77,9 +84,9 @@ export interface SchemaEdits {
 export interface Edits {
   editMethodParent?: (content: Root, method: DereffedMethodObject) => Root;
   editMethod?: (
-    content: (RootContent | MdxJsxFlowElement)[],
+    content: (OpenRPCMdContent | RootContent)[],
     method: DereffedMethodObject,
-  ) => (RootContent | MdxJsxFlowElement)[];
+  ) => (OpenRPCMdContent | RootContent)[];
 
   editMethodParamsParent?: (
     content: (RootContent | MdxJsxFlowElement)[],

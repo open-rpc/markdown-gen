@@ -8,347 +8,370 @@ tags:
     - method
 ---
 
-<div>
-  # eth\_newFilter
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components'
 
-
-
-  Install a log filter in the server, allowing for later polling. Registers client interest in logs matching the filter, and returns an identifier.
-
+<TwoColumnLayout
+  sidebar={<>
+              <RequestExample 
+                title="Named Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_newFilter\",\n  \"params\": {\n    \"Filter\": {}\n  },\n  \"id\": 1\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 1\n}"} 
+              />
+              <RequestExample 
+                title="Positional Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_newFilter\",\n  \"params\": [\n    {}\n  ],\n  \"id\": 2\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 2\n}"} 
+              />
+            </>}
+>
   <div>
-    ## Parameters
+    # eth\_newFilter
+
+
+
+    Install a log filter in the server, allowing for later polling. Registers client interest in logs matching the filter, and returns an identifier.
 
     <div>
-      **Filter** *oneOf* `object or object`
+      ## Parameters (by position)
+
+      <div>
+        **Filter** *oneOf* `object or object`
 
 
+
+        <details>
+          <summary>
+            Show Option 1 `Filter` object
+          </summary>
+
+          #### `Filter` fields
+
+
+
+          **Filter** `object`
+
+
+
+          <div>
+            <details>
+              <summary>
+                Show `Filter` object
+              </summary>
+
+              #### `Filter` fields
+
+
+
+              * **fromBlock** `string`
+
+
+
+              * **toBlock** `string`
+
+
+
+              * <div>
+                  **address** *oneOf* `null or string or array<string>`
+
+
+
+                  <details>
+                    <summary>
+                      Show Option 1 `address` null
+                    </summary>
+
+                    #### `address` fields
+
+
+
+                    **address** `null`
+
+
+                  </details>
+
+                  <details>
+                    <summary>
+                      Show Option 2 `address` string
+                    </summary>
+
+                    #### `address` fields
+
+
+
+                    **address** `string`
+
+
+                  </details>
+
+                  <details>
+                    <summary>
+                      Show Option 3 `address` array
+                    </summary>
+
+                    #### `address` fields
+
+
+
+                    **address** `array<string>`
+
+
+                  </details>
+                </div>
+
+              * <div>
+                  **topics** *oneOf* `null or array<unknown>`
+
+
+
+                  <details>
+                    <summary>
+                      Show Option 1 `topics` null
+                    </summary>
+
+                    #### `topics` fields
+
+
+
+                    **topics** `null`
+
+
+                  </details>
+
+                  <details>
+                    <summary>
+                      Show Option 2 `topics` array
+                    </summary>
+
+                    #### `topics` fields
+
+
+
+                    <div>
+                      **topics** *oneOf* `string or array<string>`
+
+
+
+                      <details>
+                        <summary>
+                          Show Option 1 `topics` string
+                        </summary>
+
+                        #### `topics` fields
+
+
+
+                        **topics** `array<string>`
+
+
+                      </details>
+
+                      <details>
+                        <summary>
+                          Show Option 2 `topics` array
+                        </summary>
+
+                        #### `topics` fields
+
+
+
+                        **topics** `array<string>`
+
+
+                      </details>
+                    </div>
+                  </details>
+                </div>
+            </details>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            Show Option 2 `Filter` object
+          </summary>
+
+          #### `Filter` fields
+
+
+
+          **Filter** `object`
+
+
+
+          <div>
+            <details>
+              <summary>
+                Show `Filter` object
+              </summary>
+
+              #### `Filter` fields
+
+
+
+              * **blockHash** `string`
+
+
+
+              * <div>
+                  **address** *oneOf* `null or string or array<string>`
+
+
+
+                  <details>
+                    <summary>
+                      Show Option 1 `address` null
+                    </summary>
+
+                    #### `address` fields
+
+
+
+                    **address** `null`
+
+
+                  </details>
+
+                  <details>
+                    <summary>
+                      Show Option 2 `address` string
+                    </summary>
+
+                    #### `address` fields
+
+
+
+                    **address** `string`
+
+
+                  </details>
+
+                  <details>
+                    <summary>
+                      Show Option 3 `address` array
+                    </summary>
+
+                    #### `address` fields
+
+
+
+                    **address** `array<string>`
+
+
+                  </details>
+                </div>
+
+              * <div>
+                  **topics** *oneOf* `null or array<unknown>`
+
+
+
+                  <details>
+                    <summary>
+                      Show Option 1 `topics` null
+                    </summary>
+
+                    #### `topics` fields
+
+
+
+                    **topics** `null`
+
+
+                  </details>
+
+                  <details>
+                    <summary>
+                      Show Option 2 `topics` array
+                    </summary>
+
+                    #### `topics` fields
+
+
+
+                    <div>
+                      **topics** *oneOf* `string or array<string>`
+
+
+
+                      <details>
+                        <summary>
+                          Show Option 1 `topics` string
+                        </summary>
+
+                        #### `topics` fields
+
+
+
+                        **topics** `array<string>`
+
+
+                      </details>
+
+                      <details>
+                        <summary>
+                          Show Option 2 `topics` array
+                        </summary>
+
+                        #### `topics` fields
+
+
+
+                        **topics** `array<string>`
+
+
+                      </details>
+                    </div>
+                  </details>
+                </div>
+            </details>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div>
+      ## Result
+
+      **Filter identifier** `string`
+
+
+    </div>
+
+    <div>
+      ## Examples
 
       <details>
         <summary>
-          Show Option 1 `Filter` object
+          eth\_newFilter example
         </summary>
 
-        #### `Filter` fields
-
-
-
-        **Filter** `object`
-
-
-
-        <div>
-          <details>
-            <summary>
-              Show `Filter` object
-            </summary>
-
-            #### `Filter` fields
-
-
-
-            * **fromBlock** `string`
-
-
-
-            * **toBlock** `string`
-
-
-
-            * <div>
-                **address** *oneOf* `null or string or array<string>`
-
-
-
-                <details>
-                  <summary>
-                    Show Option 1 `address` null
-                  </summary>
-
-                  #### `address` fields
-
-
-
-                  **address** `null`
-
-
-                </details>
-
-                <details>
-                  <summary>
-                    Show Option 2 `address` string
-                  </summary>
-
-                  #### `address` fields
-
-
-
-                  **address** `string`
-
-
-                </details>
-
-                <details>
-                  <summary>
-                    Show Option 3 `address` array
-                  </summary>
-
-                  #### `address` fields
-
-
-
-                  **address** `array<string>`
-
-
-                </details>
-              </div>
-
-            * <div>
-                **topics** *oneOf* `null or array<unknown>`
-
-
-
-                <details>
-                  <summary>
-                    Show Option 1 `topics` null
-                  </summary>
-
-                  #### `topics` fields
-
-
-
-                  **topics** `null`
-
-
-                </details>
-
-                <details>
-                  <summary>
-                    Show Option 2 `topics` array
-                  </summary>
-
-                  #### `topics` fields
-
-
-
-                  <div>
-                    **topics** *oneOf* `string or array<string>`
-
-
-
-                    <details>
-                      <summary>
-                        Show Option 1 `topics` string
-                      </summary>
-
-                      #### `topics` fields
-
-
-
-                      **topics** `array<string>`
-
-
-                    </details>
-
-                    <details>
-                      <summary>
-                        Show Option 2 `topics` array
-                      </summary>
-
-                      #### `topics` fields
-
-
-
-                      **topics** `array<string>`
-
-
-                    </details>
-                  </div>
-                </details>
-              </div>
-          </details>
-        </div>
-      </details>
-
-      <details>
-        <summary>
-          Show Option 2 `Filter` object
-        </summary>
-
-        #### `Filter` fields
-
-
-
-        **Filter** `object`
-
-
-
-        <div>
-          <details>
-            <summary>
-              Show `Filter` object
-            </summary>
-
-            #### `Filter` fields
-
-
-
-            * **blockHash** `string`
-
-
-
-            * <div>
-                **address** *oneOf* `null or string or array<string>`
-
-
-
-                <details>
-                  <summary>
-                    Show Option 1 `address` null
-                  </summary>
-
-                  #### `address` fields
-
-
-
-                  **address** `null`
-
-
-                </details>
-
-                <details>
-                  <summary>
-                    Show Option 2 `address` string
-                  </summary>
-
-                  #### `address` fields
-
-
-
-                  **address** `string`
-
-
-                </details>
-
-                <details>
-                  <summary>
-                    Show Option 3 `address` array
-                  </summary>
-
-                  #### `address` fields
-
-
-
-                  **address** `array<string>`
-
-
-                </details>
-              </div>
-
-            * <div>
-                **topics** *oneOf* `null or array<unknown>`
-
-
-
-                <details>
-                  <summary>
-                    Show Option 1 `topics` null
-                  </summary>
-
-                  #### `topics` fields
-
-
-
-                  **topics** `null`
-
-
-                </details>
-
-                <details>
-                  <summary>
-                    Show Option 2 `topics` array
-                  </summary>
-
-                  #### `topics` fields
-
-
-
-                  <div>
-                    **topics** *oneOf* `string or array<string>`
-
-
-
-                    <details>
-                      <summary>
-                        Show Option 1 `topics` string
-                      </summary>
-
-                      #### `topics` fields
-
-
-
-                      **topics** `array<string>`
-
-
-                    </details>
-
-                    <details>
-                      <summary>
-                        Show Option 2 `topics` array
-                      </summary>
-
-                      #### `topics` fields
-
-
-
-                      **topics** `array<string>`
-
-
-                    </details>
-                  </div>
-                </details>
-              </div>
-          </details>
-        </div>
+        #### Request
+
+        ```json
+        {
+          "params": [
+            {
+              "fromBlock": "0x137d3c2",
+              "toBlock": "0x137d3c3",
+              "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+              "topics": []
+            }
+          ]
+        }
+        ```
+
+        #### Response
+
+        ```json
+        "0x01"
+        ```
       </details>
     </div>
   </div>
-
-  <div>
-    ## Result
-
-    **Filter identifier** `string`
-
-
-  </div>
-
-  <div>
-    ## Examples
-
-    <details>
-      <summary>
-        eth\_newFilter example
-      </summary>
-
-      #### Request
-
-      ```json
-      {
-        "params": [
-          {
-            "fromBlock": "0x137d3c2",
-            "toBlock": "0x137d3c3",
-            "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-            "topics": []
-          }
-        ]
-      }
-      ```
-
-      #### Response
-
-      ```json
-      "0x01"
-      ```
-    </details>
-  </div>
-</div>
+</TwoColumnLayout>

@@ -8,389 +8,412 @@ tags:
     - method
 ---
 
-<div>
-  # eth\_getBlockReceipts
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components'
 
-
-
-  Returns the receipts of a block by number or hash.
-
+<TwoColumnLayout
+  sidebar={<>
+              <RequestExample 
+                title="Named Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_getBlockReceipts\",\n  \"params\": {\n    \"Block\": \"example\"\n  },\n  \"id\": 1\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 1\n}"} 
+              />
+              <RequestExample 
+                title="Positional Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_getBlockReceipts\",\n  \"params\": [\n    \"example\"\n  ],\n  \"id\": 2\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"example\",\n  \"id\": 2\n}"} 
+              />
+            </>}
+>
   <div>
-    ## Parameters
+    # eth\_getBlockReceipts
+
+
+
+    Returns the receipts of a block by number or hash.
 
     <div>
-      **Block** *anyOf* `string or string or string`
+      ## Parameters (by position)
+
+      <div>
+        **Block** *anyOf* `string or string or string`
 
 
 
-      <details>
-        <summary>
-          Show Option 1 `Block` string
-        </summary>
+        <details>
+          <summary>
+            Show Option 1 `Block` string
+          </summary>
 
-        #### `Block` fields
-
-
-
-        **Block** `string`
-
-
-      </details>
-
-      <details>
-        <summary>
-          Show Option 2 `Block` string
-        </summary>
-
-        #### `Block` fields
+          #### `Block` fields
 
 
 
-        **Block** `string`
-
-        \`earliest\`: The lowest numbered block the client has available; \`finalized\`: The most recent crypto-economically secure block, cannot be re-orged outside of manual intervention driven by community coordination; \`safe\`: The most recent block that is safe from re-orgs under honest majority and certain synchronicity assumptions; \`latest\`: The most recent block in the canonical chain observed by the client, this block may be re-orged out of the canonical chain even under healthy/normal conditions; \`pending\`: A sample next block built by the client on top of \`latest\` and containing the set of transactions usually taken from local mempool. Before the merge transition is finalized, any call querying for \`finalized\` or \`safe\` block MUST be responded to with \`-39001: Unknown block\` error
-      </details>
-
-      <details>
-        <summary>
-          Show Option 3 `Block` string
-        </summary>
-
-        #### `Block` fields
+          **Block** `string`
 
 
+        </details>
 
-        **Block** `string`
+        <details>
+          <summary>
+            Show Option 2 `Block` string
+          </summary>
+
+          #### `Block` fields
 
 
-      </details>
+
+          **Block** `string`
+
+          \`earliest\`: The lowest numbered block the client has available; \`finalized\`: The most recent crypto-economically secure block, cannot be re-orged outside of manual intervention driven by community coordination; \`safe\`: The most recent block that is safe from re-orgs under honest majority and certain synchronicity assumptions; \`latest\`: The most recent block in the canonical chain observed by the client, this block may be re-orged out of the canonical chain even under healthy/normal conditions; \`pending\`: A sample next block built by the client on top of \`latest\` and containing the set of transactions usually taken from local mempool. Before the merge transition is finalized, any call querying for \`finalized\` or \`safe\` block MUST be responded to with \`-39001: Unknown block\` error
+        </details>
+
+        <details>
+          <summary>
+            Show Option 3 `Block` string
+          </summary>
+
+          #### `Block` fields
+
+
+
+          **Block** `string`
+
+
+        </details>
+      </div>
     </div>
-  </div>
-
-  <div>
-    ## Result
 
     <div>
-      **Receipts information** *oneOf* `null or array<object>`
+      ## Result
+
+      <div>
+        **Receipts information** *oneOf* `null or array<object>`
 
 
+
+        <details>
+          <summary>
+            Show Option 1 `Receipts information` null
+          </summary>
+
+          #### `Receipts information` fields
+
+
+
+          **Receipts information** `null`
+
+
+        </details>
+
+        <details>
+          <summary>
+            Show Option 2 `Receipts information` array
+          </summary>
+
+          #### `Receipts information` fields
+
+
+
+          **Receipts information** `array<object>`
+
+
+
+          <div>
+            <details>
+              <summary>
+                Show `Receipts information` object
+              </summary>
+
+              #### `Receipts information` fields
+
+
+
+              * **type** `string`
+
+
+
+              * **transactionHash** `string`
+
+
+
+              * **transactionIndex** `string`
+
+
+
+              * **blockHash** `string`
+
+
+
+              * **blockNumber** `string`
+
+
+
+              * **from** `string`
+
+
+
+              * <div>
+                  **to** *oneOf* `null or string`
+
+                  Address of the receiver or null in a contract creation transaction.
+
+                  <details>
+                    <summary>
+                      Show Option 1 `to` null
+                    </summary>
+
+                    #### `to` fields
+
+                    Address of the receiver or null in a contract creation transaction.
+
+                    **to** `null`
+
+                    Address of the receiver or null in a contract creation transaction.
+                  </details>
+
+                  <details>
+                    <summary>
+                      Show Option 2 `to` string
+                    </summary>
+
+                    #### `to` fields
+
+                    Address of the receiver or null in a contract creation transaction.
+
+                    **to** `string`
+
+                    Address of the receiver or null in a contract creation transaction.
+                  </details>
+                </div>
+
+              * **cumulativeGasUsed** `string`
+
+                The sum of gas used by this transaction and all preceding transactions in the same block.
+
+              * **gasUsed** `string`
+
+                The amount of gas used for this specific transaction alone.
+
+              * **blobGasUsed** `string`
+
+                The amount of blob gas used for this specific transaction. Only specified for blob transactions as defined by EIP-4844.
+
+              * <div>
+                  **contractAddress** *oneOf* `string or null`
+
+                  The contract address created, if the transaction was a contract creation, otherwise null.
+
+                  <details>
+                    <summary>
+                      Show Option 1 `contractAddress` string
+                    </summary>
+
+                    #### `contractAddress` fields
+
+                    The contract address created, if the transaction was a contract creation, otherwise null.
+
+                    **contractAddress** `string`
+
+                    The contract address created, if the transaction was a contract creation, otherwise null.
+                  </details>
+
+                  <details>
+                    <summary>
+                      Show Option 2 `contractAddress` null
+                    </summary>
+
+                    #### `contractAddress` fields
+
+                    The contract address created, if the transaction was a contract creation, otherwise null.
+
+                    **contractAddress** `null`
+
+                    The contract address created, if the transaction was a contract creation, otherwise null.
+                  </details>
+                </div>
+
+              * **logs** `array<object>`
+
+
+
+                <div>
+                  <details>
+                    <summary>
+                      Show `logs` object
+                    </summary>
+
+                    #### `logs` fields
+
+
+
+                    * **removed** `boolean`
+
+
+
+                    * **logIndex** `string`
+
+
+
+                    * **transactionIndex** `string`
+
+
+
+                    * **transactionHash** `string`
+
+
+
+                    * **blockHash** `string`
+
+
+
+                    * **blockNumber** `string`
+
+
+
+                    * **blockTimestamp** `string`
+
+
+
+                    * **address** `string`
+
+
+
+                    * **data** `string`
+
+
+
+                    * **topics** `array<string>`
+
+
+                  </details>
+                </div>
+
+              * **logsBloom** `string`
+
+
+
+              * **root** `string`
+
+                The post-transaction state root. Only specified for transactions included before the Byzantium upgrade.
+
+              * **status** `string`
+
+                Either 1 (success) or 0 (failure). Only specified for transactions included after the Byzantium upgrade.
+
+              * **effectiveGasPrice** `string`
+
+                The actual value per gas deducted from the sender's account. Before EIP-1559, this is equal to the transaction's gas price. After, it is equal to baseFeePerGas + min(maxFeePerGas - baseFeePerGas, maxPriorityFeePerGas).
+
+              * **blobGasPrice** `string`
+
+                The actual value per gas deducted from the sender's account for blob gas. Only specified for blob transactions as defined by EIP-4844.
+            </details>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div>
+      ## Errors
 
       <details>
         <summary>
-          Show Option 1 `Receipts information` null
+          Error code: 4444
         </summary>
 
-        #### `Receipts information` fields
+        * **code**
 
+          4444
+        * **message**
 
-
-        **Receipts information** `null`
-
-
-      </details>
-
-      <details>
-        <summary>
-          Show Option 2 `Receipts information` array
-        </summary>
-
-        #### `Receipts information` fields
-
-
-
-        **Receipts information** `array<object>`
-
-
-
-        <div>
-          <details>
-            <summary>
-              Show `Receipts information` object
-            </summary>
-
-            #### `Receipts information` fields
-
-
-
-            * **type** `string`
-
-
-
-            * **transactionHash** `string`
-
-
-
-            * **transactionIndex** `string`
-
-
-
-            * **blockHash** `string`
-
-
-
-            * **blockNumber** `string`
-
-
-
-            * **from** `string`
-
-
-
-            * <div>
-                **to** *oneOf* `null or string`
-
-                Address of the receiver or null in a contract creation transaction.
-
-                <details>
-                  <summary>
-                    Show Option 1 `to` null
-                  </summary>
-
-                  #### `to` fields
-
-                  Address of the receiver or null in a contract creation transaction.
-
-                  **to** `null`
-
-                  Address of the receiver or null in a contract creation transaction.
-                </details>
-
-                <details>
-                  <summary>
-                    Show Option 2 `to` string
-                  </summary>
-
-                  #### `to` fields
-
-                  Address of the receiver or null in a contract creation transaction.
-
-                  **to** `string`
-
-                  Address of the receiver or null in a contract creation transaction.
-                </details>
-              </div>
-
-            * **cumulativeGasUsed** `string`
-
-              The sum of gas used by this transaction and all preceding transactions in the same block.
-
-            * **gasUsed** `string`
-
-              The amount of gas used for this specific transaction alone.
-
-            * **blobGasUsed** `string`
-
-              The amount of blob gas used for this specific transaction. Only specified for blob transactions as defined by EIP-4844.
-
-            * <div>
-                **contractAddress** *oneOf* `string or null`
-
-                The contract address created, if the transaction was a contract creation, otherwise null.
-
-                <details>
-                  <summary>
-                    Show Option 1 `contractAddress` string
-                  </summary>
-
-                  #### `contractAddress` fields
-
-                  The contract address created, if the transaction was a contract creation, otherwise null.
-
-                  **contractAddress** `string`
-
-                  The contract address created, if the transaction was a contract creation, otherwise null.
-                </details>
-
-                <details>
-                  <summary>
-                    Show Option 2 `contractAddress` null
-                  </summary>
-
-                  #### `contractAddress` fields
-
-                  The contract address created, if the transaction was a contract creation, otherwise null.
-
-                  **contractAddress** `null`
-
-                  The contract address created, if the transaction was a contract creation, otherwise null.
-                </details>
-              </div>
-
-            * **logs** `array<object>`
-
-
-
-              <div>
-                <details>
-                  <summary>
-                    Show `logs` object
-                  </summary>
-
-                  #### `logs` fields
-
-
-
-                  * **removed** `boolean`
-
-
-
-                  * **logIndex** `string`
-
-
-
-                  * **transactionIndex** `string`
-
-
-
-                  * **transactionHash** `string`
-
-
-
-                  * **blockHash** `string`
-
-
-
-                  * **blockNumber** `string`
-
-
-
-                  * **blockTimestamp** `string`
-
-
-
-                  * **address** `string`
-
-
-
-                  * **data** `string`
-
-
-
-                  * **topics** `array<string>`
-
-
-                </details>
-              </div>
-
-            * **logsBloom** `string`
-
-
-
-            * **root** `string`
-
-              The post-transaction state root. Only specified for transactions included before the Byzantium upgrade.
-
-            * **status** `string`
-
-              Either 1 (success) or 0 (failure). Only specified for transactions included after the Byzantium upgrade.
-
-            * **effectiveGasPrice** `string`
-
-              The actual value per gas deducted from the sender's account. Before EIP-1559, this is equal to the transaction's gas price. After, it is equal to baseFeePerGas + min(maxFeePerGas - baseFeePerGas, maxPriorityFeePerGas).
-
-            * **blobGasPrice** `string`
-
-              The actual value per gas deducted from the sender's account for blob gas. Only specified for blob transactions as defined by EIP-4844.
-          </details>
-        </div>
+          Pruned history unavailable
       </details>
     </div>
-  </div>
 
-  <div>
-    ## Errors
+    <div>
+      ## Examples
 
-    <details>
-      <summary>
-        Error code: 4444
-      </summary>
+      <details>
+        <summary>
+          eth\_getBlockReceipts example
+        </summary>
 
-      * **code**
+        #### Request
 
-        4444
-      * **message**
-
-        Pruned history unavailable
-    </details>
-  </div>
-
-  <div>
-    ## Examples
-
-    <details>
-      <summary>
-        eth\_getBlockReceipts example
-      </summary>
-
-      #### Request
-
-      ```json
-      {
-        "params": [
-          "latest"
-        ]
-      }
-      ```
-
-      #### Response
-
-      ```json
-      [
+        ```json
         {
-          "blockHash": "0x19514ce955c65e4dd2cd41f435a75a46a08535b8fc16bc660f8092b32590b182",
-          "blockNumber": "0x6f55",
-          "contractAddress": null,
-          "cumulativeGasUsed": "0x18c36",
-          "from": "0x22896bfc68814bfd855b1a167255ee497006e730",
-          "gasUsed": "0x18c36",
-          "blobGasUsed": "0x20000",
-          "effectiveGasPrice": "0x9502f907",
-          "blobGasPrice": "0x32",
-          "logs": [
-            {
-              "address": "0xfd584430cafa2f451b4e2ebcf3986a21fff04350",
-              "topics": [
-                "0x2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d",
-                "0x4be29e0e4eb91f98f709d98803cba271592782e293b84a625e025cbb40197ba8",
-                "0x000000000000000000000000835281a2563db4ebf1b626172e085dc406bfc7d2",
-                "0x00000000000000000000000022896bfc68814bfd855b1a167255ee497006e730"
-              ],
-              "data": "0x",
-              "blockNumber": "0x6f55",
-              "transactionHash": "0x4a481e4649da999d92db0585c36cba94c18a33747e95dc235330e6c737c6f975",
-              "transactionIndex": "0x0",
-              "blockHash": "0x19514ce955c65e4dd2cd41f435a75a46a08535b8fc16bc660f8092b32590b182",
-              "logIndex": "0x0",
-              "removed": false
-            }
-          ],
-          "logsBloom": "0x00000004000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000080020000000000000200010000000000000000000001000000800000000000000000000000000000000000000000000000000000100100000000000000000000008000000000000000000000000000000002000000000000000000000",
-          "status": "0x1",
-          "to": "0xfd584430cafa2f451b4e2ebcf3986a21fff04350",
-          "transactionHash": "0x4a481e4649da999d92db0585c36cba94c18a33747e95dc235330e6c737c6f975",
-          "transactionIndex": "0x0",
-          "type": "0x0"
-        },
-        {
-          "blockHash": "0x19514ce955c65e4dd2cd41f435a75a46a08535b8fc16bc660f8092b32590b182",
-          "blockNumber": "0x6f55",
-          "contractAddress": null,
-          "cumulativeGasUsed": "0x1de3e",
-          "from": "0x712e3a792c974b3e3dbe41229ad4290791c75a82",
-          "gasUsed": "0x5208",
-          "blobGasUsed": "0x20000",
-          "effectiveGasPrice": "0x9502f907",
-          "blobGasPrice": "0x32",
-          "logs": [],
-          "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-          "status": "0x1",
-          "to": "0xd42e2b1c14d02f1df5369a9827cb8e6f3f75f338",
-          "transactionHash": "0xefb83b4e3f1c317e8da0f8e2fbb2fe964f34ee184466032aeecac79f20eacaf6",
-          "transactionIndex": "0x1",
-          "type": "0x2"
+          "params": [
+            "latest"
+          ]
         }
-      ]
-      ```
-    </details>
+        ```
+
+        #### Response
+
+        ```json
+        [
+          {
+            "blockHash": "0x19514ce955c65e4dd2cd41f435a75a46a08535b8fc16bc660f8092b32590b182",
+            "blockNumber": "0x6f55",
+            "contractAddress": null,
+            "cumulativeGasUsed": "0x18c36",
+            "from": "0x22896bfc68814bfd855b1a167255ee497006e730",
+            "gasUsed": "0x18c36",
+            "blobGasUsed": "0x20000",
+            "effectiveGasPrice": "0x9502f907",
+            "blobGasPrice": "0x32",
+            "logs": [
+              {
+                "address": "0xfd584430cafa2f451b4e2ebcf3986a21fff04350",
+                "topics": [
+                  "0x2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d",
+                  "0x4be29e0e4eb91f98f709d98803cba271592782e293b84a625e025cbb40197ba8",
+                  "0x000000000000000000000000835281a2563db4ebf1b626172e085dc406bfc7d2",
+                  "0x00000000000000000000000022896bfc68814bfd855b1a167255ee497006e730"
+                ],
+                "data": "0x",
+                "blockNumber": "0x6f55",
+                "transactionHash": "0x4a481e4649da999d92db0585c36cba94c18a33747e95dc235330e6c737c6f975",
+                "transactionIndex": "0x0",
+                "blockHash": "0x19514ce955c65e4dd2cd41f435a75a46a08535b8fc16bc660f8092b32590b182",
+                "logIndex": "0x0",
+                "removed": false
+              }
+            ],
+            "logsBloom": "0x00000004000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000080020000000000000200010000000000000000000001000000800000000000000000000000000000000000000000000000000000100100000000000000000000008000000000000000000000000000000002000000000000000000000",
+            "status": "0x1",
+            "to": "0xfd584430cafa2f451b4e2ebcf3986a21fff04350",
+            "transactionHash": "0x4a481e4649da999d92db0585c36cba94c18a33747e95dc235330e6c737c6f975",
+            "transactionIndex": "0x0",
+            "type": "0x0"
+          },
+          {
+            "blockHash": "0x19514ce955c65e4dd2cd41f435a75a46a08535b8fc16bc660f8092b32590b182",
+            "blockNumber": "0x6f55",
+            "contractAddress": null,
+            "cumulativeGasUsed": "0x1de3e",
+            "from": "0x712e3a792c974b3e3dbe41229ad4290791c75a82",
+            "gasUsed": "0x5208",
+            "blobGasUsed": "0x20000",
+            "effectiveGasPrice": "0x9502f907",
+            "blobGasPrice": "0x32",
+            "logs": [],
+            "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "status": "0x1",
+            "to": "0xd42e2b1c14d02f1df5369a9827cb8e6f3f75f338",
+            "transactionHash": "0xefb83b4e3f1c317e8da0f8e2fbb2fe964f34ee184466032aeecac79f20eacaf6",
+            "transactionIndex": "0x1",
+            "type": "0x2"
+          }
+        ]
+        ```
+      </details>
+    </div>
   </div>
-</div>
+</TwoColumnLayout>

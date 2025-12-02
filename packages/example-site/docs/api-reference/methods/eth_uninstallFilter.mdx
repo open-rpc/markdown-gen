@@ -8,52 +8,75 @@ tags:
     - method
 ---
 
-<div>
-  # eth\_uninstallFilter
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components'
 
-
-
-  Uninstalls a filter with given id.
-
+<TwoColumnLayout
+  sidebar={<>
+              <RequestExample 
+                title="Named Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_uninstallFilter\",\n  \"params\": {\n    \"Filter identifier\": \"string\"\n  },\n  \"id\": 1\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": true,\n  \"id\": 1\n}"} 
+              />
+              <RequestExample 
+                title="Positional Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_uninstallFilter\",\n  \"params\": [\n    \"string\"\n  ],\n  \"id\": 2\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": true,\n  \"id\": 2\n}"} 
+              />
+            </>}
+>
   <div>
-    ## Parameters
-
-    **Filter identifier** `string`
+    # eth\_uninstallFilter
 
 
+
+    Uninstalls a filter with given id.
+
+    <div>
+      ## Parameters (by position)
+
+      **Filter identifier** `string`
+
+
+    </div>
+
+    <div>
+      ## Result
+
+      **Success** `boolean`
+
+
+    </div>
+
+    <div>
+      ## Examples
+
+      <details>
+        <summary>
+          eth\_uninstallFilter example
+        </summary>
+
+        #### Request
+
+        ```json
+        {
+          "params": [
+            "0x01"
+          ]
+        }
+        ```
+
+        #### Response
+
+        ```json
+        true
+        ```
+      </details>
+    </div>
   </div>
-
-  <div>
-    ## Result
-
-    **Success** `boolean`
-
-
-  </div>
-
-  <div>
-    ## Examples
-
-    <details>
-      <summary>
-        eth\_uninstallFilter example
-      </summary>
-
-      #### Request
-
-      ```json
-      {
-        "params": [
-          "0x01"
-        ]
-      }
-      ```
-
-      #### Response
-
-      ```json
-      true
-      ```
-    </details>
-  </div>
-</div>
+</TwoColumnLayout>

@@ -8,48 +8,63 @@ tags:
     - method
 ---
 
-<div>
-  # eth\_maxPriorityFeePerGas
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components'
 
-
-
-  Returns the current maxPriorityFeePerGas per gas in wei.
-
+<TwoColumnLayout
+  sidebar={<>
+              <RequestExample 
+                title="Named Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_maxPriorityFeePerGas\",\n  \"params\": {},\n  \"id\": 1\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 1\n}"} 
+              />
+            </>}
+>
   <div>
-    ## Parameters
+    # eth\_maxPriorityFeePerGas
 
-    This method does not accept any parameters.
+
+
+    Returns the current maxPriorityFeePerGas per gas in wei.
+
+    <div>
+      ## Parameters (by position)
+
+      This method does not accept any parameters.
+    </div>
+
+    <div>
+      ## Result
+
+      **Max priority fee per gas** `string`
+
+
+    </div>
+
+    <div>
+      ## Examples
+
+      <details>
+        <summary>
+          eth\_maxPriorityFeePerGas example
+        </summary>
+
+        #### Request
+
+        ```json
+        {
+          "params": []
+        }
+        ```
+
+        #### Response
+
+        ```json
+        "0x773c23ba"
+        ```
+      </details>
+    </div>
   </div>
-
-  <div>
-    ## Result
-
-    **Max priority fee per gas** `string`
-
-
-  </div>
-
-  <div>
-    ## Examples
-
-    <details>
-      <summary>
-        eth\_maxPriorityFeePerGas example
-      </summary>
-
-      #### Request
-
-      ```json
-      {
-        "params": []
-      }
-      ```
-
-      #### Response
-
-      ```json
-      "0x773c23ba"
-      ```
-    </details>
-  </div>
-</div>
+</TwoColumnLayout>

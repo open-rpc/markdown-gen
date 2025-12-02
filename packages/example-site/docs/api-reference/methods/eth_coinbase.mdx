@@ -8,48 +8,63 @@ tags:
     - method
 ---
 
-<div>
-  # eth\_coinbase
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components'
 
-
-
-  Returns the client coinbase address.
-
+<TwoColumnLayout
+  sidebar={<>
+              <RequestExample 
+                title="Named Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_coinbase\",\n  \"params\": {},\n  \"id\": 1\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 1\n}"} 
+              />
+            </>}
+>
   <div>
-    ## Parameters
+    # eth\_coinbase
 
-    This method does not accept any parameters.
+
+
+    Returns the client coinbase address.
+
+    <div>
+      ## Parameters (by position)
+
+      This method does not accept any parameters.
+    </div>
+
+    <div>
+      ## Result
+
+      **Coinbase address** `string`
+
+
+    </div>
+
+    <div>
+      ## Examples
+
+      <details>
+        <summary>
+          eth\_coinbase example
+        </summary>
+
+        #### Request
+
+        ```json
+        {
+          "params": []
+        }
+        ```
+
+        #### Response
+
+        ```json
+        "0xfe3b557e8fb62b89f4916b721be55ceb828dbd73"
+        ```
+      </details>
+    </div>
   </div>
-
-  <div>
-    ## Result
-
-    **Coinbase address** `string`
-
-
-  </div>
-
-  <div>
-    ## Examples
-
-    <details>
-      <summary>
-        eth\_coinbase example
-      </summary>
-
-      #### Request
-
-      ```json
-      {
-        "params": []
-      }
-      ```
-
-      #### Response
-
-      ```json
-      "0xfe3b557e8fb62b89f4916b721be55ceb828dbd73"
-      ```
-    </details>
-  </div>
-</div>
+</TwoColumnLayout>

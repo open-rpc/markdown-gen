@@ -17,11 +17,12 @@ import type {
   NoRefs,
   SchemaEdits,
 } from "./type";
-import { identitySchemaEdits, renderMethod } from "./schema";
+import { identitySchemaEdits, renderMethod, identityEdits } from "./schema";
 import { toMarkdown } from "mdast-util-to-markdown";
 import { gfmToMarkdown } from "mdast-util-gfm";
 import { mdxToMarkdown } from "mdast-util-mdx";
 import { frontmatterToMarkdown } from "mdast-util-frontmatter";
+export type { OpenRPCMdContent } from "./type";
 
 import type { Root } from "mdast";
 import type {
@@ -47,6 +48,7 @@ export async function renderMethodsToMarkdown(
     const methodContent = renderMethod(
       method as NoRefs<MethodObject>,
       identitySchemaEdits,
+      edits,
     );
     const rootDocument: Root = {
       type: "root",

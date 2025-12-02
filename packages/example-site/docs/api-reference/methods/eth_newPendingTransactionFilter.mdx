@@ -8,48 +8,63 @@ tags:
     - method
 ---
 
-<div>
-  # eth\_newPendingTransactionFilter
+import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components'
 
-
-
-  Creates a filter in the node, allowing for later polling. Registers client interest in new transactions, and returns an identifier.
-
+<TwoColumnLayout
+  sidebar={<>
+              <RequestExample 
+                title="Named Parameters" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_newPendingTransactionFilter\",\n  \"params\": {},\n  \"id\": 1\n}"} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={"{\n  \"jsonrpc\": \"2.0\",\n  \"result\": \"string\",\n  \"id\": 1\n}"} 
+              />
+            </>}
+>
   <div>
-    ## Parameters
+    # eth\_newPendingTransactionFilter
 
-    This method does not accept any parameters.
+
+
+    Creates a filter in the node, allowing for later polling. Registers client interest in new transactions, and returns an identifier.
+
+    <div>
+      ## Parameters (by position)
+
+      This method does not accept any parameters.
+    </div>
+
+    <div>
+      ## Result
+
+      **Filter identifier** `string`
+
+
+    </div>
+
+    <div>
+      ## Examples
+
+      <details>
+        <summary>
+          eth\_newPendingTransactionFilter example
+        </summary>
+
+        #### Request
+
+        ```json
+        {
+          "params": []
+        }
+        ```
+
+        #### Response
+
+        ```json
+        "0x01"
+        ```
+      </details>
+    </div>
   </div>
-
-  <div>
-    ## Result
-
-    **Filter identifier** `string`
-
-
-  </div>
-
-  <div>
-    ## Examples
-
-    <details>
-      <summary>
-        eth\_newPendingTransactionFilter example
-      </summary>
-
-      #### Request
-
-      ```json
-      {
-        "params": []
-      }
-      ```
-
-      #### Response
-
-      ```json
-      "0x01"
-      ```
-    </details>
-  </div>
-</div>
+</TwoColumnLayout>

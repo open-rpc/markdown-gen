@@ -12,10 +12,9 @@ import {
   identitySchemaEdits,
   renderMethodsToMarkdown,
 } from "@open-rpc/markdown-generator";
-
 import { promises as fs } from "fs";
-
 import * as path from "path";
+import { OpenRPCMdContent } from "@open-rpc/markdown-generator";
 
 type JSONSchema = any;
 
@@ -40,30 +39,59 @@ type DereffedMethodObject = NoRefs<MethodObject>;
 
 type DereffedMethodObjectParams = NoRefs<MethodObjectParams>;
 
-export async function generateDocs2(inputPath: string, outputPath: string) {
-  const raw = await fs.readFile(inputPath, "utf8");
-  const doc: DereffedOpenrpcDocument = (await parseOpenRPCDocument(
-    raw,
-  )) as DereffedOpenrpcDocument;
-  const outDir = outputPath;
-  const methodsDir = path.join(outDir, "methods");
-  const schemasDir = path.join(outDir, "schemas");
+const reactComponent: string = `import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components'`;
+const methodEdits: Edits = { ...identityEdits };
 
-  await fs.mkdir(outDir, { recursive: true });
-  await fs.mkdir(methodsDir, { recursive: true });
-  await fs.mkdir(schemasDir, { recursive: true });
+methodEdits.editMethod = (content, method) => {
+  const m = method as DereffedMethodObject;
+  const params = (m.params || []) as DereffedMethodObjectParams;
 
-  await fs.writeFile(path.join(outDir, "index.md"), renderIndex(doc), "utf8");
+  const exampleNamed = renderExample(m, params, "named");
+  const examplePositional = renderExample(m, params, "positional");
 
-  for (const m of doc.methods) {
-    await fs.writeFile(
-      path.join(methodsDir, `${m.name}.mdx`),
-      renderMethod(m),
-      "utf8",
-    );
-  }
-}
-
+  return [
+    {
+      type: "mdxjsEsm",
+      value: `${reactComponent}`,
+    },
+    {
+      type: "mdxJsxFlowElement",
+      name: "TwoColumnLayout",
+      attributes: [
+        {
+          type: "mdxJsxAttribute",
+          name: "sidebar",
+          value: {
+            type: "mdxJsxAttributeValueExpression",
+            value: `<>
+              <RequestExample 
+                title="Named Parameters" 
+                code={${JSON.stringify(JSON.stringify(exampleNamed.request, null, 2))}} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={${JSON.stringify(JSON.stringify(exampleNamed.response, null, 2))}} 
+              />${
+                params.length > 0
+                  ? `
+              <RequestExample 
+                title="Positional Parameters" 
+                code={${JSON.stringify(JSON.stringify(examplePositional.request, null, 2))}} 
+              />
+              <ResponseExample 
+                title="Successful Response" 
+                code={${JSON.stringify(JSON.stringify(examplePositional.response, null, 2))}} 
+              />`
+                  : ""
+              }
+            </>`,
+          },
+        },
+      ],
+      children: [...content],
+    },
+  ] as OpenRPCMdContent[];
+};
 export async function generateDocs(inputPath: string, outputPath: string) {
   const raw = await fs.readFile(inputPath, "utf8");
   const doc: DereffedOpenrpcDocument = (await parseOpenRPCDocument(
@@ -72,7 +100,7 @@ export async function generateDocs(inputPath: string, outputPath: string) {
 
   const methods = await renderMethodsToMarkdown(
     doc,
-    identityEdits,
+    methodEdits,
     identitySchemaEdits,
   );
 
