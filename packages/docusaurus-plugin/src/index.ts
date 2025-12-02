@@ -11,6 +11,7 @@ import type { PluginContent } from "./types";
 import type { Options } from "./options";
 import { normalizeOptions } from "./options";
 import { generateDocs } from "./lib";
+import fs from "fs/promises";
 
 const PluginName = "@open-rpc/docusaurus-plugin";
 
@@ -38,6 +39,14 @@ export default function openRPCDocusaurusPlugin(
      */
     async loadContent(): Promise<PluginContent> {
       logger.info(`[${PluginName}] loadContent called`);
+
+      /*
+      if (normalizedOptions.docOutputPath) {
+        await fs.rm(normalizedOptions.docOutputPath, {
+          recursive: true,
+          force: true,
+        });
+      }*/
       await generateDocs(
         normalizedOptions.openRPCSpecPath,
         normalizedOptions.docOutputPath,

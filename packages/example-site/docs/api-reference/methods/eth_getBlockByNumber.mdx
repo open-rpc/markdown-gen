@@ -191,7 +191,7 @@ tags:
 
 
             * <div>
-                **transactions** *anyOf* `array or array`
+                **transactions** *anyOf* `array<string> or array<object>`
 
 
 
@@ -204,7 +204,7 @@ tags:
 
 
 
-                  **transactions** `string`
+                  **transactions** `array<string>`
 
 
                 </details>
@@ -232,7 +232,7 @@ tags:
 
 
 
-                      **transactions** `object`
+                      **transactions** `array<object>`
 
 
 
@@ -282,7 +282,7 @@ tags:
 
                             The effective gas price paid by the sender in wei. For transactions not yet included in a block, this value should be set equal to the max fee per gas. This field is DEPRECATED, please transition to using effectiveGasPrice in the receipt object going forward.
 
-                          * **accessList** `object`
+                          * **accessList** `array<object>`
 
                             EIP-2930 access lists
 
@@ -300,7 +300,7 @@ tags:
 
 
 
-                                * **storageKeys** `string`
+                                * **storageKeys** `array<string>`
 
 
                               </details>
@@ -310,7 +310,7 @@ tags:
 
                             Chain ID that this transaction is valid on
 
-                          * **authorizationList** `object`
+                          * **authorizationList** `array<object>`
 
                             List of authorizations for the transaction
 
@@ -378,7 +378,7 @@ tags:
 
 
 
-                      **transactions** `object`
+                      **transactions** `array<object>`
 
 
 
@@ -432,7 +432,7 @@ tags:
 
                             The effective gas price paid by the sender in wei. For transactions not yet included in a block, this value should be set equal to the max fee per gas. This field is DEPRECATED, please transition to using effectiveGasPrice in the receipt object going forward.
 
-                          * **accessList** `object`
+                          * **accessList** `array<object>`
 
                             EIP-2930 access list
 
@@ -450,13 +450,13 @@ tags:
 
 
 
-                                * **storageKeys** `string`
+                                * **storageKeys** `array<string>`
 
 
                               </details>
                             </div>
 
-                          * **blobVersionedHashes** `string`
+                          * **blobVersionedHashes** `array<string>`
 
                             List of versioned blob hashes associated with the transaction's EIP-4844 data blobs
 
@@ -492,7 +492,7 @@ tags:
 
 
 
-                      **transactions** `object`
+                      **transactions** `array<object>`
 
 
 
@@ -572,7 +572,7 @@ tags:
 
                             The effective gas price paid by the sender in wei. For transactions not yet included in a block, this value should be set equal to the max fee per gas. This field is DEPRECATED, please transition to using effectiveGasPrice in the receipt object going forward.
 
-                          * **accessList** `object`
+                          * **accessList** `array<object>`
 
                             EIP-2930 access list
 
@@ -590,7 +590,7 @@ tags:
 
 
 
-                                * **storageKeys** `string`
+                                * **storageKeys** `array<string>`
 
 
                               </details>
@@ -628,7 +628,7 @@ tags:
 
 
 
-                      **transactions** `object`
+                      **transactions** `array<object>`
 
 
 
@@ -700,7 +700,7 @@ tags:
 
                             The gas price willing to be paid by the sender in wei
 
-                          * **accessList** `object`
+                          * **accessList** `array<object>`
 
                             EIP-2930 access list
 
@@ -718,7 +718,7 @@ tags:
 
 
 
-                                * **storageKeys** `string`
+                                * **storageKeys** `array<string>`
 
 
                               </details>
@@ -756,7 +756,7 @@ tags:
 
 
 
-                      **transactions** `object`
+                      **transactions** `array<object>`
 
 
 
@@ -850,7 +850,7 @@ tags:
                 </details>
               </div>
 
-            * **withdrawals** `object`
+            * **withdrawals** `array<object>`
 
 
 
@@ -882,7 +882,7 @@ tags:
                 </details>
               </div>
 
-            * **uncles** `string`
+            * **uncles** `array<string>`
 
 
 

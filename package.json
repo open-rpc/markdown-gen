@@ -30,6 +30,7 @@
     "types:md-gen": "bun run --cwd packages/markdown-generator tsc -p tsconfig.json",
     "types:plugin": "bun run --cwd packages/docusaurus-plugin tsc -p tsconfig.json",
     "types:all": "bun run types:md-gen && bun run types:plugin"
+
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

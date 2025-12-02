@@ -9,6 +9,7 @@ import type {
   ErrorOrReference,
 } from "@open-rpc/meta-schema";
 import type {
+  ContentContainerDescriptor,
   DereffedMethodObject,
   DereffedMethodObjectResult,
   Edits,
@@ -80,6 +81,20 @@ export function objectSubHeading(title: string): OpenRPCMdContent {
       { type: "text", value: " fields" },
     ],
   };
+}
+export function labelTypeStringForSchema(schema: NoRefs<JSONSchema>): string {
+  if (typeof schema === "boolean") return "boolean";
+  if (schema === null || schema === undefined) return "null";
+  if (typeof schema === "object" && schema !== null) {
+    if (schema.type === "array")
+      return `array<${labelTypeStringForSchema(schema.items as NoRefs<JSONSchema>)}>`;
+    if (schema.type === "object") return "object";
+    if (schema.type === "string") return "string";
+    if (schema.type === "number") return "number";
+    if (schema.type === "integer") return "integer";
+    if (schema.type === "null") return "null";
+  }
+  return "unknown";
 }
 
 // Add this new helper function
@@ -204,8 +219,9 @@ const renderAtomicHelper = (
 };
 
 export function renderAtomicSchema(
-  title: string | undefined = undefined,
-  description: string | undefined = undefined,
+  contentContainerDescriptor:
+    | ContentContainerDescriptor
+    | undefined = undefined,
   schema: NoRefs<JSONSchema>,
   editSchema: SchemaEdits,
 ): OpenRPCMdContent[] {
@@ -220,9 +236,11 @@ export function renderAtomicSchema(
     case "boolean":
     case "null":
       return renderAtomicHelper(
-        title ?? schema.title ?? "",
-        schema.type,
-        description ?? schema.description ?? "",
+        contentContainerDescriptor?.name ?? schema.title ?? "",
+        contentContainerDescriptor?.isArray
+          ? `array<${schema.type}>`
+          : (schema.type ?? "null"),
+        contentContainerDescriptor?.description ?? schema.description ?? "",
       );
   }
   return [];
@@ -573,7 +591,7 @@ export function renderParams(
 }
 
 export function renderObjectSchema(
-  contentDescriptor: Partial<ContentDescriptorObject> | undefined = undefined,
+  contentDescriptor: ContentContainerDescriptor | undefined = undefined,
   schema: NoRefs<JSONSchema>,
   editSchema: SchemaEdits,
 ): OpenRPCMdContent[] {
@@ -603,7 +621,7 @@ export function renderObjectSchema(
   return [
     ...renderAtomicHelper(
       contentDescriptor?.name ?? "",
-      "object",
+      contentDescriptor?.isArray ? `array<object>` : "object",
       contentDescriptor?.description ?? "",
     ),
     {
@@ -658,7 +676,7 @@ export function renderOfTypeSchema(
           ...renderAtomicHelper(
             contentDescriptor?.name ?? "",
             // TODO schema can also just be a bool
-            `${schema[ofType]?.map((schema) => (schema && typeof schema === "object" ? (schema.type ?? schema) : "")).join(" or ")}`,
+            `${schema[ofType]?.map((schema) => labelTypeStringForSchema(schema as NoRefs<JSONSchema>)).join(" or ")}`,
             contentDescriptor?.description ?? "",
             ofType,
           ),
@@ -671,7 +689,7 @@ export function renderOfTypeSchema(
 }
 
 export function renderSchema(
-  contentDescriptor: Partial<ContentDescriptorObject> | undefined = undefined,
+  contentDescriptor: ContentContainerDescriptor | undefined = undefined,
   schema: NoRefs<JSONSchema> | undefined = undefined,
   editSchema: SchemaEdits,
 ): OpenRPCMdContent[] {
@@ -689,7 +707,8 @@ export function renderSchema(
     }
     if (schema.type === "array") {
       if (typeof schema.items === "object") {
-        return renderSchema(contentDescriptor, schema.items, editSchema);
+        const containingContent = { ...contentDescriptor, isArray: true };
+        return renderSchema(containingContent, schema.items, editSchema);
       }
       if (Array.isArray(schema.items)) {
         schema.items.map((item) =>
@@ -703,12 +722,7 @@ export function renderSchema(
       case "string":
       case "null":
       case "boolean":
-        return renderAtomicSchema(
-          contentDescriptor?.name,
-          contentDescriptor?.description,
-          schema,
-          editSchema,
-        );
+        return renderAtomicSchema(contentDescriptor, schema, editSchema);
       case "object":
         return renderObjectSchema(contentDescriptor, schema, editSchema);
     }

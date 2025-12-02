@@ -106,7 +106,7 @@ tags:
 
           The maximum total fee per gas the sender is willing to pay for blob gas in wei
 
-        * **accessList** `object`
+        * **accessList** `array<object>`
 
           EIP-2930 access list
 
@@ -124,17 +124,17 @@ tags:
 
 
 
-              * **storageKeys** `string`
+              * **storageKeys** `array<string>`
 
 
             </details>
           </div>
 
-        * **blobVersionedHashes** `string`
+        * **blobVersionedHashes** `array<string>`
 
           List of versioned blob hashes associated with the transaction's EIP-4844 data blobs.
 
-        * **blobs** `string`
+        * **blobs** `array<string>`
 
           Raw blob data.
 
@@ -142,7 +142,7 @@ tags:
 
           Chain ID that this transaction is valid on.
 
-        * **authorizationList** `object`
+        * **authorizationList** `array<object>`
 
           EIP-7702 authorization list
 
