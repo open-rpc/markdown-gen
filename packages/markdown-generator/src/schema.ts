@@ -277,9 +277,7 @@ export function renderExample(
   };
 
   // Wrap result in an object with its name as the key
-  const responseJson = example.result
-    ? { [example.result.name]: example.result.value }
-    : undefined;
+  const responseJson = example.result ? example.result.value : undefined;
 
   const children: OpenRPCMdContent[] = [];
 
