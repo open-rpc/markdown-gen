@@ -41,7 +41,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
       ## Parameters (by position)
 
       <div>
-        **Block** *oneOf* `string or string`
+        **Block** `string or string` *required*
 
 
 
@@ -54,9 +54,9 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
 
 
-          **Block** `string`
+          **Block** `string` *required*
 
-
+          Block number
         </details>
 
         <details>
@@ -68,22 +68,24 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
 
 
-          **Block** `string`
+          **Block** `string` *required*
 
           \`earliest\`: The lowest numbered block the client has available; \`finalized\`: The most recent crypto-economically secure block, cannot be re-orged outside of manual intervention driven by community coordination; \`safe\`: The most recent block that is safe from re-orgs under honest majority and certain synchronicity assumptions; \`latest\`: The most recent block in the canonical chain observed by the client, this block may be re-orged out of the canonical chain even under healthy/normal conditions; \`pending\`: A sample next block built by the client on top of \`latest\` and containing the set of transactions usually taken from local mempool. Before the merge transition is finalized, any call querying for \`finalized\` or \`safe\` block MUST be responded to with \`-39001: Unknown block\` error
         </details>
       </div>
 
-      **Transaction index** `string`
+      **Transaction index** `string` *required*
 
 
+
+      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
     </div>
 
     <div>
       ## Result
 
       <div>
-        **Transaction information** *oneOf* `null or object`
+        **Transaction information** `null or object`
 
 
 
@@ -98,7 +100,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           **Transaction information** `null`
 
-
+          Not Found (null)
         </details>
 
         <details>
@@ -111,7 +113,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
 
           <div>
-            **Transaction information** *oneOf* `object or object or object or object or object`
+            **Transaction information** `object or object or object or object or object`
 
 
 
@@ -126,7 +128,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
               **Transaction information** `object`
 
-
+              Signed 7702 Transaction
 
               <div>
                 <details>
@@ -140,27 +142,27 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                   * **type** `string`
 
-
+                    type
 
                   * **nonce** `string`
 
-
+                    nonce
 
                   * **to** `string`
 
-
+                    to address
 
                   * **gas** `string`
 
-
+                    gas limit
 
                   * **value** `string`
 
-
+                    value
 
                   * **input** `string`
 
-
+                    input data
 
                   * **maxPriorityFeePerGas** `string`
 
@@ -190,11 +192,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         * **address** `string`
 
-
+                          hex encoded address
 
                         * **storageKeys** `array<string>`
 
-
+                          32 byte hex value
                       </details>
                     </div>
 
@@ -222,11 +224,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         * **nonce** `string`
 
-
+                          nonce
 
                         * **address** `string`
 
-
+                          hex encoded address
 
                         * **yParity** `string`
 
@@ -234,11 +236,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         * **r** `string`
 
-
+                          r
 
                         * **s** `string`
 
-
+                          s
                       </details>
                     </div>
 
@@ -252,11 +254,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                   * **r** `string`
 
-
+                    r
 
                   * **s** `string`
 
-
+                    s
                 </details>
               </div>
             </details>
@@ -272,7 +274,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
               **Transaction information** `object`
 
-
+              Signed 4844 Transaction
 
               <div>
                 <details>
@@ -286,27 +288,27 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                   * **type** `string`
 
-
+                    type
 
                   * **nonce** `string`
 
-
+                    nonce
 
                   * **to** `string`
 
-
+                    to address
 
                   * **gas** `string`
 
-
+                    gas limit
 
                   * **value** `string`
 
-
+                    value
 
                   * **input** `string`
 
-
+                    input data
 
                   * **maxPriorityFeePerGas** `string`
 
@@ -340,11 +342,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         * **address** `string`
 
-
+                          hex encoded address
 
                         * **storageKeys** `array<string>`
 
-
+                          32 byte hex value
                       </details>
                     </div>
 
@@ -366,11 +368,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                   * **r** `string`
 
-
+                    r
 
                   * **s** `string`
 
-
+                    s
                 </details>
               </div>
             </details>
@@ -386,7 +388,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
               **Transaction information** `object`
 
-
+              Signed 1559 Transaction
 
               <div>
                 <details>
@@ -400,14 +402,14 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                   * **type** `string`
 
-
+                    type
 
                   * **nonce** `string`
 
-
+                    nonce
 
                   * <div>
-                      **to** *oneOf* `null or string`
+                      **to** `null or string`
 
 
 
@@ -422,7 +424,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         **to** `null`
 
-
+                        Contract Creation (null)
                       </details>
 
                       <details>
@@ -436,21 +438,21 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         **to** `string`
 
-
+                        Address
                       </details>
                     </div>
 
                   * **gas** `string`
 
-
+                    gas limit
 
                   * **value** `string`
 
-
+                    value
 
                   * **input** `string`
 
-
+                    input data
 
                   * **maxPriorityFeePerGas** `string`
 
@@ -480,11 +482,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         * **address** `string`
 
-
+                          hex encoded address
 
                         * **storageKeys** `array<string>`
 
-
+                          32 byte hex value
                       </details>
                     </div>
 
@@ -502,11 +504,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                   * **r** `string`
 
-
+                    r
 
                   * **s** `string`
 
-
+                    s
                 </details>
               </div>
             </details>
@@ -522,7 +524,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
               **Transaction information** `object`
 
-
+              Signed 2930 Transaction
 
               <div>
                 <details>
@@ -536,14 +538,14 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                   * **type** `string`
 
-
+                    type
 
                   * **nonce** `string`
 
-
+                    nonce
 
                   * <div>
-                      **to** *oneOf* `null or string`
+                      **to** `null or string`
 
 
 
@@ -558,7 +560,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         **to** `null`
 
-
+                        Contract Creation (null)
                       </details>
 
                       <details>
@@ -572,21 +574,21 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         **to** `string`
 
-
+                        Address
                       </details>
                     </div>
 
                   * **gas** `string`
 
-
+                    gas limit
 
                   * **value** `string`
 
-
+                    value
 
                   * **input** `string`
 
-
+                    input data
 
                   * **gasPrice** `string`
 
@@ -608,11 +610,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         * **address** `string`
 
-
+                          hex encoded address
 
                         * **storageKeys** `array<string>`
 
-
+                          32 byte hex value
                       </details>
                     </div>
 
@@ -630,11 +632,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                   * **r** `string`
 
-
+                    r
 
                   * **s** `string`
 
-
+                    s
                 </details>
               </div>
             </details>
@@ -650,7 +652,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
               **Transaction information** `object`
 
-
+              Signed Legacy Transaction
 
               <div>
                 <details>
@@ -664,14 +666,14 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                   * **type** `string`
 
-
+                    type
 
                   * **nonce** `string`
 
-
+                    nonce
 
                   * <div>
-                      **to** *oneOf* `null or string`
+                      **to** `null or string`
 
 
 
@@ -686,7 +688,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         **to** `null`
 
-
+                        Contract Creation (null)
                       </details>
 
                       <details>
@@ -700,21 +702,21 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         **to** `string`
 
-
+                        Address
                       </details>
                     </div>
 
                   * **gas** `string`
 
-
+                    gas limit
 
                   * **value** `string`
 
-
+                    value
 
                   * **input** `string`
 
-
+                    input data
 
                   * **gasPrice** `string`
 
@@ -726,15 +728,15 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                   * **v** `string`
 
-
+                    v
 
                   * **r** `string`
 
-
+                    r
 
                   * **s** `string`
 
-
+                    s
                 </details>
               </div>
             </details>

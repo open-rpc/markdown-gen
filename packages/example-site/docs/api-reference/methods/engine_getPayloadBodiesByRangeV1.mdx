@@ -40,13 +40,17 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
     <div>
       ## Parameters (by position)
 
-      **Starting block number** `string`
+      **Starting block number** `string` *required*
 
 
 
-      **Number of blocks to return** `string`
+      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
+
+      **Number of blocks to return** `string` *required*
 
 
+
+      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
     </div>
 
     <div>
@@ -54,7 +58,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
       **Execution payload bodies** `array<object>`
 
-
+      Execution payload body object V1
 
       <div>
         <details>
@@ -68,7 +72,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           * **transactions** `array<string>`
 
-
+            hex encoded bytes
 
           * <div />
         </details>

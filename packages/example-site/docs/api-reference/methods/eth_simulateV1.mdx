@@ -40,12 +40,12 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
     <div>
       ## Parameters (by position)
 
-      **Payload** `undefined`
+      **Payload** `undefined` *required*
 
 
 
       <div>
-        **Block tag** *anyOf* `string or string or string`
+        **Block tag** `string or string or string`
 
         default: 'latest'
 
@@ -98,7 +98,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
       **Result of calls** `array<object>`
 
-
+      Result of eth\_simulate block-level, with array of calls
 
       <div>
         <details>
@@ -112,94 +112,94 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           * **hash** `string`
 
-
+            Hash
 
           * **parentHash** `string`
 
-
+            Parent block hash
 
           * **sha3Uncles** `string`
 
-
+            Ommers hash
 
           * **miner** `string`
 
-
+            Coinbase
 
           * **stateRoot** `string`
 
-
+            State root
 
           * **transactionsRoot** `string`
 
-
+            Transactions root
 
           * **receiptsRoot** `string`
 
-
+            Receipts root
 
           * **logsBloom** `string`
 
-
+            Bloom filter
 
           * **difficulty** `string`
 
-
+            Difficulty
 
           * **number** `string`
 
-
+            Number
 
           * **gasLimit** `string`
 
-
+            Gas limit
 
           * **gasUsed** `string`
 
-
+            Gas used
 
           * **timestamp** `string`
 
-
+            Timestamp
 
           * **extraData** `string`
 
-
+            Extra data
 
           * **mixHash** `string`
 
-
+            Mix hash
 
           * **nonce** `string`
 
-
+            Nonce
 
           * **baseFeePerGas** `string`
 
-
+            Base fee per gas
 
           * **withdrawalsRoot** `string`
 
-
+            Withdrawals root
 
           * **blobGasUsed** `string`
 
-
+            Blob gas used
 
           * **excessBlobGas** `string`
 
-
+            Excess blob gas
 
           * **parentBeaconBlockRoot** `string`
 
-
+            Parent Beacon Block Root
 
           * **size** `string`
 
-
+            Block size
 
           * <div>
-              **transactions** *anyOf* `array<string> or array<object>`
+              **transactions** `array<string> or array<object>`
 
 
 
@@ -214,7 +214,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                 **transactions** `array<string>`
 
-
+                32 byte hex value
               </details>
 
               <details>
@@ -227,7 +227,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
 
                 <div>
-                  **transactions** *oneOf* `object or object or object or object or object`
+                  **transactions** `object or object or object or object or object`
 
 
 
@@ -242,7 +242,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     **transactions** `array<object>`
 
-
+                    Signed 7702 Transaction
 
                     <div>
                       <details>
@@ -256,27 +256,27 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         * **type** `string`
 
-
+                          type
 
                         * **nonce** `string`
 
-
+                          nonce
 
                         * **to** `string`
 
-
+                          to address
 
                         * **gas** `string`
 
-
+                          gas limit
 
                         * **value** `string`
 
-
+                          value
 
                         * **input** `string`
 
-
+                          input data
 
                         * **maxPriorityFeePerGas** `string`
 
@@ -306,11 +306,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                               * **address** `string`
 
-
+                                hex encoded address
 
                               * **storageKeys** `array<string>`
 
-
+                                32 byte hex value
                             </details>
                           </div>
 
@@ -338,11 +338,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                               * **nonce** `string`
 
-
+                                nonce
 
                               * **address** `string`
 
-
+                                hex encoded address
 
                               * **yParity** `string`
 
@@ -350,11 +350,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                               * **r** `string`
 
-
+                                r
 
                               * **s** `string`
 
-
+                                s
                             </details>
                           </div>
 
@@ -368,11 +368,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         * **r** `string`
 
-
+                          r
 
                         * **s** `string`
 
-
+                          s
                       </details>
                     </div>
                   </details>
@@ -388,7 +388,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     **transactions** `array<object>`
 
-
+                    Signed 4844 Transaction
 
                     <div>
                       <details>
@@ -402,27 +402,27 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         * **type** `string`
 
-
+                          type
 
                         * **nonce** `string`
 
-
+                          nonce
 
                         * **to** `string`
 
-
+                          to address
 
                         * **gas** `string`
 
-
+                          gas limit
 
                         * **value** `string`
 
-
+                          value
 
                         * **input** `string`
 
-
+                          input data
 
                         * **maxPriorityFeePerGas** `string`
 
@@ -456,11 +456,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                               * **address** `string`
 
-
+                                hex encoded address
 
                               * **storageKeys** `array<string>`
 
-
+                                32 byte hex value
                             </details>
                           </div>
 
@@ -482,11 +482,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         * **r** `string`
 
-
+                          r
 
                         * **s** `string`
 
-
+                          s
                       </details>
                     </div>
                   </details>
@@ -502,7 +502,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     **transactions** `array<object>`
 
-
+                    Signed 1559 Transaction
 
                     <div>
                       <details>
@@ -516,14 +516,14 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         * **type** `string`
 
-
+                          type
 
                         * **nonce** `string`
 
-
+                          nonce
 
                         * <div>
-                            **to** *oneOf* `null or string`
+                            **to** `null or string`
 
 
 
@@ -538,7 +538,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                               **to** `null`
 
-
+                              Contract Creation (null)
                             </details>
 
                             <details>
@@ -552,21 +552,21 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                               **to** `string`
 
-
+                              Address
                             </details>
                           </div>
 
                         * **gas** `string`
 
-
+                          gas limit
 
                         * **value** `string`
 
-
+                          value
 
                         * **input** `string`
 
-
+                          input data
 
                         * **maxPriorityFeePerGas** `string`
 
@@ -596,11 +596,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                               * **address** `string`
 
-
+                                hex encoded address
 
                               * **storageKeys** `array<string>`
 
-
+                                32 byte hex value
                             </details>
                           </div>
 
@@ -618,11 +618,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         * **r** `string`
 
-
+                          r
 
                         * **s** `string`
 
-
+                          s
                       </details>
                     </div>
                   </details>
@@ -638,7 +638,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     **transactions** `array<object>`
 
-
+                    Signed 2930 Transaction
 
                     <div>
                       <details>
@@ -652,14 +652,14 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         * **type** `string`
 
-
+                          type
 
                         * **nonce** `string`
 
-
+                          nonce
 
                         * <div>
-                            **to** *oneOf* `null or string`
+                            **to** `null or string`
 
 
 
@@ -674,7 +674,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                               **to** `null`
 
-
+                              Contract Creation (null)
                             </details>
 
                             <details>
@@ -688,21 +688,21 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                               **to** `string`
 
-
+                              Address
                             </details>
                           </div>
 
                         * **gas** `string`
 
-
+                          gas limit
 
                         * **value** `string`
 
-
+                          value
 
                         * **input** `string`
 
-
+                          input data
 
                         * **gasPrice** `string`
 
@@ -724,11 +724,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                               * **address** `string`
 
-
+                                hex encoded address
 
                               * **storageKeys** `array<string>`
 
-
+                                32 byte hex value
                             </details>
                           </div>
 
@@ -746,11 +746,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         * **r** `string`
 
-
+                          r
 
                         * **s** `string`
 
-
+                          s
                       </details>
                     </div>
                   </details>
@@ -766,7 +766,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     **transactions** `array<object>`
 
-
+                    Signed Legacy Transaction
 
                     <div>
                       <details>
@@ -780,14 +780,14 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         * **type** `string`
 
-
+                          type
 
                         * **nonce** `string`
 
-
+                          nonce
 
                         * <div>
-                            **to** *oneOf* `null or string`
+                            **to** `null or string`
 
 
 
@@ -802,7 +802,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                               **to** `null`
 
-
+                              Contract Creation (null)
                             </details>
 
                             <details>
@@ -816,21 +816,21 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                               **to** `string`
 
-
+                              Address
                             </details>
                           </div>
 
                         * **gas** `string`
 
-
+                          gas limit
 
                         * **value** `string`
 
-
+                          value
 
                         * **input** `string`
 
-
+                          input data
 
                         * **gasPrice** `string`
 
@@ -842,15 +842,15 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         * **v** `string`
 
-
+                          v
 
                         * **r** `string`
 
-
+                          r
 
                         * **s** `string`
 
-
+                          s
                       </details>
                     </div>
                   </details>
@@ -860,7 +860,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           * **withdrawals** `array<object>`
 
-
+            Validator withdrawal
 
             <div>
               <details>
@@ -874,32 +874,32 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                 * **index** `string`
 
-
+                  index of withdrawal
 
                 * **validatorIndex** `string`
 
-
+                  index of validator that generated withdrawal
 
                 * **address** `string`
 
-
+                  recipient address for withdrawal value
 
                 * **amount** `string`
 
-
+                  value contained in withdrawal
               </details>
             </div>
 
           * **uncles** `array<string>`
 
-
+            32 byte hex value
 
           * **requestsHash** `string`
 
-
+            EIP-7685 requests hash
 
           * <div>
-              **calls** *oneOf* `object or object`
+              **calls** `object or object`
 
 
 
@@ -914,7 +914,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                 **calls** `array<object>`
 
-
+                The error messages are suggestions, and clients might implement different error messages. However, the error codes are enforced by the spec.
 
                 <div>
                   <details>
@@ -928,18 +928,18 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     * **status** `string`
 
-
+                      Call Status Failure
 
                     * **returnData** `string`
 
-
+                      Return data
 
                     * **gasUsed** `string`
 
-
+                      Return gasUsed
 
                     * <div>
-                        **error** *oneOf* `object or object`
+                        **error** `object or object`
 
 
 
@@ -1022,7 +1022,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                 **calls** `array<object>`
 
-
+                Result of call success
 
                 <div>
                   <details>
@@ -1036,19 +1036,19 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     * **status** `string`
 
-
+                      Call Status Success
 
                     * **returnData** `string`
 
-
+                      Return data
 
                     * **gasUsed** `string`
 
-
+                      Return gasUsed
 
                     * **logs** `array<object>`
 
-
+                      log
 
                       <div>
                         <details>
@@ -1062,43 +1062,43 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                           * **removed** `boolean`
 
-
+                            removed
 
                           * **logIndex** `string`
 
-
+                            log index
 
                           * **transactionIndex** `string`
 
-
+                            transaction index
 
                           * **transactionHash** `string`
 
-
+                            transaction hash
 
                           * **blockHash** `string`
 
-
+                            block hash
 
                           * **blockNumber** `string`
 
-
+                            block number
 
                           * **blockTimestamp** `string`
 
-
+                            block timestamp
 
                           * **address** `string`
 
-
+                            address
 
                           * **data** `string`
 
-
+                            data
 
                           * **topics** `array<string>`
 
-
+                            32 hex encoded bytes
                         </details>
                       </div>
                   </details>

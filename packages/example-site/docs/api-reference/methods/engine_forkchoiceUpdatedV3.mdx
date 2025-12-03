@@ -40,9 +40,9 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
     <div>
       ## Parameters (by position)
 
-      **Forkchoice state** `object`
+      **Forkchoice state** `object` *required*
 
-
+      Forkchoice state object V1
 
       <div>
         <details>
@@ -56,21 +56,21 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           * **headBlockHash** `string`
 
-
+            Head block hash
 
           * **safeBlockHash** `string`
 
-
+            Safe block hash
 
           * **finalizedBlockHash** `string`
 
-
+            Finalized block hash
         </details>
       </div>
 
       **Payload attributes** `object`
 
-
+      Payload attributes object V3
 
       <div>
         <details>
@@ -84,19 +84,19 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           * **timestamp** `string`
 
-
+            Timestamp
 
           * **prevRandao** `string`
 
-
+            Previous randao value
 
           * **suggestedFeeRecipient** `string`
 
-
+            Suggested fee recipient
 
           * **withdrawals** `array<object>`
 
-
+            Withdrawal object V1
 
             <div>
               <details>
@@ -110,25 +110,25 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                 * **index** `string`
 
-
+                  Withdrawal index
 
                 * **validatorIndex** `string`
 
-
+                  Validator index
 
                 * **address** `string`
 
-
+                  Withdrawal address
 
                 * **amount** `string`
 
-
+                  Withdrawal amount
               </details>
             </div>
 
           * **parentBeaconBlockRoot** `string`
 
-
+            Parent beacon block root
         </details>
       </div>
     </div>
@@ -138,7 +138,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
       **Response object** `object`
 
-
+      Forkchoice updated response
 
       <div>
         <details>
@@ -152,7 +152,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           * **payloadStatus** `object`
 
-
+            Payload status
 
             <div>
               <details>
@@ -170,17 +170,17 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                 * **latestValidHash** `string`
 
-
+                  The hash of the most recent valid block
 
                 * **validationError** `string`
 
-
+                  Validation error message
               </details>
             </div>
 
           * **payloadId** `string`
 
-
+            Payload id
         </details>
       </div>
     </div>

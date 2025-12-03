@@ -49,14 +49,15 @@ export type DereffedMethodObjectResult = NoRefs<MethodObjectResult>;
 export interface ContentContainerDescriptor
   extends Partial<ContentDescriptorObject> {
   isArray?: boolean;
+  ofType?: "allOf" | "oneOf" | "anyOf";
+  constraintsSchema?: NoRefs<JSONSchema>;
 }
 
 export type OpenRPCMdContent =
   | BlockContent
   | DefinitionContent
   | MdxFlowExpression
-  | MdxJsxFlowElement
-  | MdxJsxExpressionAttribute;
+  | MdxJsxFlowElement;
 
 export interface SchemaEdits {
   editSchemaNumber?: (

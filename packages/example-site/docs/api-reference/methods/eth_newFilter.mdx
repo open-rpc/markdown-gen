@@ -41,7 +41,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
       ## Parameters (by position)
 
       <div>
-        **Filter** *oneOf* `object or object`
+        **Filter** `object or object` *required*
 
 
 
@@ -54,9 +54,9 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
 
 
-          **Filter** `object`
+          **Filter** `object` *required*
 
-
+          Filter by block range
 
           <div>
             <details>
@@ -70,14 +70,14 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
               * **fromBlock** `string`
 
-
+                from block
 
               * **toBlock** `string`
 
-
+                to block
 
               * <div>
-                  **address** *oneOf* `null or string or array<string>`
+                  **address** `null or string or array<string>`
 
 
 
@@ -92,7 +92,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     **address** `null`
 
-
+                    Any Address
                   </details>
 
                   <details>
@@ -106,7 +106,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     **address** `string`
 
-
+                    Address
                   </details>
 
                   <details>
@@ -120,12 +120,12 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     **address** `array<string>`
 
-
+                    hex encoded address
                   </details>
                 </div>
 
               * <div>
-                  **topics** *oneOf* `null or array<unknown>`
+                  **topics** `null or array<unknown>`
 
 
 
@@ -140,7 +140,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     **topics** `null`
 
-
+                    Any Topic Match
                   </details>
 
                   <details>
@@ -153,7 +153,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
 
                     <div>
-                      **topics** *oneOf* `string or array<string>`
+                      **topics** `string or array<string>`
 
 
 
@@ -168,7 +168,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         **topics** `array<string>`
 
-
+                        Single Topic Match
                       </details>
 
                       <details>
@@ -182,7 +182,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         **topics** `array<string>`
 
-
+                        32 hex encoded bytes
                       </details>
                     </div>
                   </details>
@@ -200,9 +200,9 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
 
 
-          **Filter** `object`
+          **Filter** `object` *required*
 
-
+          Filter by block hash
 
           <div>
             <details>
@@ -216,10 +216,10 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
               * **blockHash** `string`
 
-
+                block hash
 
               * <div>
-                  **address** *oneOf* `null or string or array<string>`
+                  **address** `null or string or array<string>`
 
 
 
@@ -234,7 +234,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     **address** `null`
 
-
+                    Any Address
                   </details>
 
                   <details>
@@ -248,7 +248,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     **address** `string`
 
-
+                    Address
                   </details>
 
                   <details>
@@ -262,12 +262,12 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     **address** `array<string>`
 
-
+                    hex encoded address
                   </details>
                 </div>
 
               * <div>
-                  **topics** *oneOf* `null or array<unknown>`
+                  **topics** `null or array<unknown>`
 
 
 
@@ -282,7 +282,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     **topics** `null`
 
-
+                    Any Topic Match
                   </details>
 
                   <details>
@@ -295,7 +295,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
 
                     <div>
-                      **topics** *oneOf* `string or array<string>`
+                      **topics** `string or array<string>`
 
 
 
@@ -310,7 +310,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         **topics** `array<string>`
 
-
+                        Single Topic Match
                       </details>
 
                       <details>
@@ -324,7 +324,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                         **topics** `array<string>`
 
-
+                        32 hex encoded bytes
                       </details>
                     </div>
                   </details>
@@ -340,7 +340,9 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
       **Filter identifier** `string`
 
+      hex encoded unsigned integer
 
+      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
     </div>
 
     <div>

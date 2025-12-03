@@ -20,10 +20,12 @@ import type {
 import type { MdxJsxFlowElement } from "mdast-util-mdx";
 import type {
   BlockContent,
+  Content,
   DefinitionContent,
   PhrasingContent,
   RootContent,
 } from "mdast";
+import { humanizeSchemaConstraints } from "./humanize";
 
 export const identitySchemaEdits: SchemaEdits = {
   editSchemaNumber: (content, schemaNumber) => content,
@@ -170,11 +172,110 @@ export function details(detailData: DetailData): MdxJsxFlowElement {
   return summary;
 }
 
+const getParamDescription = (contentMd: ContentContainerDescriptor): string => {
+  if (contentMd.description) {
+    return contentMd.description;
+  }
+  if (contentMd.summary) {
+    return contentMd.summary;
+  }
+  if (
+    contentMd.schema &&
+    typeof contentMd.schema === "object" &&
+    contentMd.schema !== null &&
+    contentMd.schema.description
+  ) {
+    return contentMd.schema.description;
+  }
+  return "";
+};
+
+const getSchemaDescription = (
+  contentMd: ContentContainerDescriptor,
+  schema: NoRefs<JSONSchema>,
+): string => {
+  if (contentMd.description) {
+    return contentMd.description;
+  }
+  if (!schema || typeof schema !== "object" || schema === null) {
+    return "";
+  }
+  if (schema.description) {
+    return schema.description;
+  }
+  if (schema.title) return schema.title;
+
+  return "";
+};
+
+interface Constraints {
+  label: string;
+  value: string;
+}
+
+const renderSchemaLengthConstraint = (
+  schema: NoRefs<JSONSchema>,
+): OpenRPCMdContent[] => {
+  const constraints: OpenRPCMdContent[] = [];
+  const whiteSpace = () => {
+    constraints.push({
+      type: "paragraph",
+      children: [
+        {
+          type: "text",
+          value: ` `,
+        },
+      ],
+    });
+  };
+  if (!schema || typeof schema !== "object" || schema === null) {
+    return [];
+  }
+  if (schema.minLength) {
+    constraints.push({
+      type: "paragraph",
+      children: [
+        {
+          type: "emphasis",
+          children: [{ type: "text", value: `Minimum length:` }],
+        },
+        { type: "inlineCode", value: String(schema.minLength) },
+      ],
+    });
+  }
+
+  if (schema.maxLength) {
+    if (schema.minLength) {
+      whiteSpace();
+    }
+    constraints.push({
+      type: "paragraph",
+      children: [
+        {
+          type: "emphasis",
+          children: [{ type: "text", value: `Maximum length:` }],
+        },
+        { type: "inlineCode", value: String(schema.maxLength) },
+      ],
+    });
+  }
+  return constraints;
+};
+
+const renderSchemaConstraints = (
+  schema: NoRefs<JSONSchema>,
+): OpenRPCMdContent[] => {
+  if (!schema || typeof schema !== "object" || schema === null) {
+    return [];
+  }
+  return humanizeSchemaConstraints(schema).flat();
+};
+
 const renderAtomicHelper = (
   title: string,
   type: string,
   desc: string,
-  ofType: string | undefined = undefined,
+  contentMd: ContentContainerDescriptor,
 ): OpenRPCMdContent[] => {
   return [
     {
@@ -188,11 +289,11 @@ const renderAtomicHelper = (
           type: "text",
           value: ` `,
         },
-        ...((ofType
+        ...((contentMd.ofType
           ? [
               {
                 type: "emphasis",
-                children: [{ type: "text", value: `${ofType}` }],
+                children: [{ type: "text", value: `${contentMd?.ofType}` }],
               },
               {
                 type: "text",
@@ -204,6 +305,18 @@ const renderAtomicHelper = (
           type: "inlineCode",
           value: `${type}`,
         },
+        ...((contentMd.required
+          ? [
+              {
+                type: "text",
+                value: ` `,
+              },
+              {
+                type: "emphasis",
+                children: [{ type: "text", value: `required` }],
+              },
+            ]
+          : []) as PhrasingContent[]),
       ],
     },
     {
@@ -215,6 +328,7 @@ const renderAtomicHelper = (
         },
       ],
     },
+    ...renderSchemaConstraints(contentMd.schema ?? {}),
   ];
 };
 
@@ -225,6 +339,10 @@ export function renderAtomicSchema(
   schema: NoRefs<JSONSchema>,
   editSchema: SchemaEdits,
 ): OpenRPCMdContent[] {
+  const container = {
+    ...contentContainerDescriptor,
+    constraintsSchema: schema,
+  } as ContentContainerDescriptor;
   if (typeof schema !== "object" || schema === null) {
     return [];
   }
@@ -240,7 +358,8 @@ export function renderAtomicSchema(
         contentContainerDescriptor?.isArray
           ? `array<${schema.type}>`
           : (schema.type ?? "null"),
-        contentContainerDescriptor?.description ?? schema.description ?? "",
+        getSchemaDescription(container ?? {}, schema),
+        container ?? {},
       );
   }
   return [];
@@ -498,6 +617,9 @@ export function renderMethod(
   editSchema: SchemaEdits,
   edits: Edits,
 ): RootContent[] {
+  if (method.name?.toString() === "debug_getRawTransaction") {
+    console.log(method, "<-----debug_getRawTransaction");
+  }
   const content = renderParams(
     method.params,
     method.paramStructure ?? "by-position",
@@ -569,7 +691,8 @@ export function renderParams(
         return renderAtomicHelper(
           param.name,
           param.schema.type as string,
-          param.description ?? param.schema.description ?? param.summary ?? "",
+          getParamDescription(param),
+          param,
         );
       }
       return [];
@@ -607,6 +730,15 @@ export function renderParams(
   ];
 }
 
+const requiredField = (
+  schema: NoRefs<JSONSchema>,
+  fieldName: string,
+): boolean => {
+  if (schema === null || schema === undefined || typeof schema !== "object")
+    return false;
+  return schema.required?.includes(fieldName) ?? false;
+};
+
 export function renderObjectSchema(
   contentDescriptor: ContentContainerDescriptor | undefined = undefined,
   schema: NoRefs<JSONSchema>,
@@ -619,7 +751,12 @@ export function renderObjectSchema(
   for (const [key, value] of Object.entries(schema.properties ?? {})) {
     fieldData.push(
       renderSchema(
-        { name: key, description: value.description },
+        {
+          name: key,
+          description: value.description,
+          required: requiredField(value, key),
+          constraintsSchema: value,
+        },
         value,
         editSchema,
       ),
@@ -635,11 +772,16 @@ export function renderObjectSchema(
     detailDescription: contentDescriptor?.description ?? "",
   };
   const result = [details(detailData)];
+  const container = {
+    ...contentDescriptor,
+    constraintsSchema: schema,
+  };
   return [
     ...renderAtomicHelper(
-      contentDescriptor?.name ?? "",
-      contentDescriptor?.isArray ? `array<object>` : "object",
-      contentDescriptor?.description ?? "",
+      container?.name ?? "",
+      container?.isArray ? `array<object>` : "object",
+      getSchemaDescription(container ?? {}, schema),
+      container ?? {},
     ),
     {
       type: "mdxJsxFlowElement",
@@ -664,7 +806,10 @@ export function renderOfTypeSchema(
     const allofChildren: OpenRPCMdContent[][] = schema[ofType].map(
       (schema, idx: number) => {
         const schemaContent = renderSchema(
-          contentDescriptor,
+          {
+            ...contentDescriptor,
+            constraintsSchema: schema,
+          },
           schema,
           editSchema,
         );
@@ -684,6 +829,10 @@ export function renderOfTypeSchema(
         ];
       },
     );
+    const container = {
+      ...contentDescriptor,
+      constraintsSchema: contentDescriptor?.schema,
+    } as ContentContainerDescriptor;
     return [
       {
         type: "mdxJsxFlowElement",
@@ -691,11 +840,12 @@ export function renderOfTypeSchema(
         attributes: [],
         children: [
           ...renderAtomicHelper(
-            contentDescriptor?.name ?? "",
+            container?.name ?? "",
             // TODO schema can also just be a bool
             `${schema[ofType]?.map((schema) => labelTypeStringForSchema(schema as NoRefs<JSONSchema>)).join(" or ")}`,
-            contentDescriptor?.description ?? "",
-            ofType,
+            // NOTE special case for OneOfs can only be one of the 2 options
+            container?.description ?? container?.summary ?? "",
+            container ?? {},
           ),
           ...(allofChildren.flat() as OpenRPCMdContent[]),
         ],
@@ -724,7 +874,11 @@ export function renderSchema(
     }
     if (schema.type === "array") {
       if (typeof schema.items === "object") {
-        const containingContent = { ...contentDescriptor, isArray: true };
+        const containingContent = {
+          ...contentDescriptor,
+          isArray: true,
+          constraintsSchema: schema.items,
+        };
         return renderSchema(containingContent, schema.items, editSchema);
       }
       if (Array.isArray(schema.items)) {
@@ -739,6 +893,9 @@ export function renderSchema(
       case "string":
       case "null":
       case "boolean":
+        if (contentDescriptor?.name?.toString() === "Transaction hash") {
+          console.log(contentDescriptor, "<-----Transaction hash");
+        }
         return renderAtomicSchema(contentDescriptor, schema, editSchema);
       case "object":
         return renderObjectSchema(contentDescriptor, schema, editSchema);

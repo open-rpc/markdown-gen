@@ -40,9 +40,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
     <div>
       ## Parameters (by position)
 
-      **Payload id** `string`
+      **Payload id** `string` *required*
 
 
+
+      *Match pattern:* `^0x[0-9a-f]{16}$`
     </div>
 
     <div>
@@ -63,7 +65,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
 
           * <div>
-              **executionPayload** *oneOf* `object or object`
+              **executionPayload** `object or object`
 
 
 
@@ -78,7 +80,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                 **executionPayload** `object`
 
-
+                Execution payload object V1
 
                 <div>
                   <details>
@@ -92,59 +94,59 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     * **parentHash** `string`
 
-
+                      Parent block hash
 
                     * **feeRecipient** `string`
 
-
+                      Recipient of transaction priority fees
 
                     * **stateRoot** `string`
 
-
+                      State root
 
                     * **receiptsRoot** `string`
 
-
+                      Receipts root
 
                     * **logsBloom** `string`
 
-
+                      Bloom filter
 
                     * **prevRandao** `string`
 
-
+                      Previous randao value
 
                     * **blockNumber** `string`
 
-
+                      Block number
 
                     * **gasLimit** `string`
 
-
+                      Gas limit
 
                     * **gasUsed** `string`
 
-
+                      Gas used
 
                     * **timestamp** `string`
 
-
+                      Timestamp
 
                     * **extraData** `string`
 
-
+                      Extra data
 
                     * **baseFeePerGas** `string`
 
-
+                      Base fee per gas
 
                     * **blockHash** `string`
 
-
+                      Block hash
 
                     * **transactions** `array<string>`
 
-
+                      hex encoded bytes
                   </details>
                 </div>
               </details>
@@ -160,7 +162,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                 **executionPayload** `object`
 
-
+                Execution payload object V2
 
                 <div>
                   <details>
@@ -174,63 +176,63 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     * **parentHash** `string`
 
-
+                      Parent block hash
 
                     * **feeRecipient** `string`
 
-
+                      Recipient of transaction priority fees
 
                     * **stateRoot** `string`
 
-
+                      State root
 
                     * **receiptsRoot** `string`
 
-
+                      Receipts root
 
                     * **logsBloom** `string`
 
-
+                      Bloom filter
 
                     * **prevRandao** `string`
 
-
+                      Previous randao value
 
                     * **blockNumber** `string`
 
-
+                      Block number
 
                     * **gasLimit** `string`
 
-
+                      Gas limit
 
                     * **gasUsed** `string`
 
-
+                      Gas used
 
                     * **timestamp** `string`
 
-
+                      Timestamp
 
                     * **extraData** `string`
 
-
+                      Extra data
 
                     * **baseFeePerGas** `string`
 
-
+                      Base fee per gas
 
                     * **blockHash** `string`
 
-
+                      Block hash
 
                     * **transactions** `array<string>`
 
-
+                      hex encoded bytes
 
                     * **withdrawals** `array<object>`
 
-
+                      Withdrawal object V1
 
                       <div>
                         <details>
@@ -244,19 +246,19 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                           * **index** `string`
 
-
+                            Withdrawal index
 
                           * **validatorIndex** `string`
 
-
+                            Validator index
 
                           * **address** `string`
 
-
+                            Withdrawal address
 
                           * **amount** `string`
 
-
+                            Withdrawal amount
                         </details>
                       </div>
                   </details>
@@ -266,7 +268,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           * **blockValue** `string`
 
-
+            Expected fee value
         </details>
       </div>
     </div>

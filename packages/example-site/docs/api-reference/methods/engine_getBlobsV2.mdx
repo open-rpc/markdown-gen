@@ -40,9 +40,9 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
     <div>
       ## Parameters (by position)
 
-      **Blob versioned hashes** `array<string>`
+      **Blob versioned hashes** `array<string>` *required*
 
-
+      32 byte hex value
     </div>
 
     <div>
@@ -50,7 +50,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
       **List of blobs and corresponding cell proofs** `array<object>`
 
-
+      Blob and proof object V2
 
       <div>
         <details>
@@ -64,11 +64,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           * **blob** `string`
 
-
+            Blob
 
           * **proofs** `array<string>`
 
-
+            48 hex encoded bytes
         </details>
       </div>
     </div>

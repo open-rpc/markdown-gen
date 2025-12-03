@@ -40,16 +40,18 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
     <div>
       ## Parameters (by position)
 
-      **Transaction hash** `string`
+      **Transaction hash** `string` *required*
 
 
+
+      *Match pattern:* `^0x[0-9a-f]{64}$`
     </div>
 
     <div>
       ## Result
 
       <div>
-        **Receipt information** *oneOf* `null or object`
+        **Receipt information** `null or object`
 
 
 
@@ -64,7 +66,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           **Receipt information** `null`
 
-
+          Not Found (null)
         </details>
 
         <details>
@@ -78,7 +80,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           **Receipt information** `object`
 
-
+          Receipt information
 
           <div>
             <details>
@@ -92,30 +94,30 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
               * **type** `string`
 
-
+                type
 
               * **transactionHash** `string`
 
-
+                transaction hash
 
               * **transactionIndex** `string`
 
-
+                transaction index
 
               * **blockHash** `string`
 
-
+                block hash
 
               * **blockNumber** `string`
 
-
+                block number
 
               * **from** `string`
 
-
+                from
 
               * <div>
-                  **to** *oneOf* `null or string`
+                  **to** `null or string`
 
                   Address of the receiver or null in a contract creation transaction.
 
@@ -161,7 +163,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
                 The amount of blob gas used for this specific transaction. Only specified for blob transactions as defined by EIP-4844.
 
               * <div>
-                  **contractAddress** *oneOf* `string or null`
+                  **contractAddress** `string or null`
 
                   The contract address created, if the transaction was a contract creation, otherwise null.
 
@@ -196,7 +198,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
               * **logs** `array<object>`
 
-
+                log
 
                 <div>
                   <details>
@@ -210,49 +212,49 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     * **removed** `boolean`
 
-
+                      removed
 
                     * **logIndex** `string`
 
-
+                      log index
 
                     * **transactionIndex** `string`
 
-
+                      transaction index
 
                     * **transactionHash** `string`
 
-
+                      transaction hash
 
                     * **blockHash** `string`
 
-
+                      block hash
 
                     * **blockNumber** `string`
 
-
+                      block number
 
                     * **blockTimestamp** `string`
 
-
+                      block timestamp
 
                     * **address** `string`
 
-
+                      address
 
                     * **data** `string`
 
-
+                      data
 
                     * **topics** `array<string>`
 
-
+                      32 hex encoded bytes
                   </details>
                 </div>
 
               * **logsBloom** `string`
 
-
+                logs bloom
 
               * **root** `string`
 

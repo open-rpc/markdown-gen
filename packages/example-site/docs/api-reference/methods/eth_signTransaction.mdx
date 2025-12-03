@@ -40,9 +40,9 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
     <div>
       ## Parameters (by position)
 
-      **Transaction** `object`
+      **Transaction** `object` *required*
 
-
+      Transaction object generic to all types
 
       <div>
         <details>
@@ -56,14 +56,14 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           * **type** `string`
 
-
+            type
 
           * **nonce** `string`
 
-
+            nonce
 
           * <div>
-              **to** *oneOf* `null or string`
+              **to** `null or string`
 
 
 
@@ -78,7 +78,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                 **to** `null`
 
-
+                Contract Creation (null)
               </details>
 
               <details>
@@ -92,25 +92,25 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                 **to** `string`
 
-
+                Address
               </details>
             </div>
 
           * **from** `string`
 
-
+            from address
 
           * **gas** `string`
 
-
+            gas limit
 
           * **value** `string`
 
-
+            value
 
           * **input** `string`
 
-
+            input data
 
           * **gasPrice** `string`
 
@@ -144,11 +144,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                 * **address** `string`
 
-
+                  hex encoded address
 
                 * **storageKeys** `array<string>`
 
-
+                  32 byte hex value
               </details>
             </div>
 
@@ -184,11 +184,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                 * **nonce** `string`
 
-
+                  nonce
 
                 * **address** `string`
 
-
+                  hex encoded address
 
                 * **yParity** `string`
 
@@ -196,11 +196,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                 * **r** `string`
 
-
+                  r
 
                 * **s** `string`
 
-
+                  s
               </details>
             </div>
         </details>
@@ -212,7 +212,9 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
       **Encoded transaction** `string`
 
+      hex encoded bytes
 
+      *Match pattern:* `^0x[0-9a-f]*$`
     </div>
 
     <div>

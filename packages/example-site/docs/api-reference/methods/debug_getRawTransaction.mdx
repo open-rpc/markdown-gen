@@ -40,9 +40,11 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
     <div>
       ## Parameters (by position)
 
-      **Transaction hash** `string`
+      **Transaction hash** `string` *required*
 
 
+
+      *Match pattern:* `^0x[0-9a-f]{64}$`
     </div>
 
     <div>
@@ -50,7 +52,9 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
       **EIP-2718 binary-encoded transaction** `string`
 
+      hex encoded bytes
 
+      *Match pattern:* `^0x[0-9a-f]*$`
     </div>
 
     <div>

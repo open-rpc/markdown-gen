@@ -40,9 +40,9 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
     <div>
       ## Parameters (by position)
 
-      **Execution payload** `object`
+      **Execution payload** `object` *required*
 
-
+      Execution payload object V3
 
       <div>
         <details>
@@ -56,63 +56,63 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           * **parentHash** `string`
 
-
+            Parent block hash
 
           * **feeRecipient** `string`
 
-
+            Recipient of transaction priority fees
 
           * **stateRoot** `string`
 
-
+            State root
 
           * **receiptsRoot** `string`
 
-
+            Receipts root
 
           * **logsBloom** `string`
 
-
+            Bloom filter
 
           * **prevRandao** `string`
 
-
+            Previous randao value
 
           * **blockNumber** `string`
 
-
+            Block number
 
           * **gasLimit** `string`
 
-
+            Gas limit
 
           * **gasUsed** `string`
 
-
+            Gas used
 
           * **timestamp** `string`
 
-
+            Timestamp
 
           * **extraData** `string`
 
-
+            Extra data
 
           * **baseFeePerGas** `string`
 
-
+            Base fee per gas
 
           * **blockHash** `string`
 
-
+            Block hash
 
           * **transactions** `array<string>`
 
-
+            hex encoded bytes
 
           * **withdrawals** `array<object>`
 
-
+            Withdrawal object V1
 
             <div>
               <details>
@@ -126,39 +126,41 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                 * **index** `string`
 
-
+                  Withdrawal index
 
                 * **validatorIndex** `string`
 
-
+                  Validator index
 
                 * **address** `string`
 
-
+                  Withdrawal address
 
                 * **amount** `string`
 
-
+                  Withdrawal amount
               </details>
             </div>
 
           * **blobGasUsed** `string`
 
-
+            Blob gas used
 
           * **excessBlobGas** `string`
 
-
+            Excess blob gas
         </details>
       </div>
 
-      **Expected blob versioned hashes** `array<string>`
+      **Expected blob versioned hashes** `array<string>` *required*
+
+      32 byte hex value
+
+      **Root of the parent beacon block** `string` *required*
 
 
 
-      **Root of the parent beacon block** `string`
-
-
+      *Match pattern:* `^0x[0-9a-f]{64}$`
     </div>
 
     <div>
@@ -166,7 +168,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
       **Payload status** `object`
 
-
+      Payload status object deprecating INVALID\_BLOCK\_HASH status
 
       <div>
         <details>
@@ -180,15 +182,15 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           * **status** `string`
 
-
+            Payload validation status
 
           * **latestValidHash** `string`
 
-
+            The hash of the most recent valid block
 
           * **validationError** `string`
 
-
+            Validation error message
         </details>
       </div>
     </div>

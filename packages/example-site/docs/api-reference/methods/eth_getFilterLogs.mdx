@@ -40,16 +40,18 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
     <div>
       ## Parameters (by position)
 
-      **Filter identifier** `string`
+      **Filter identifier** `string` *required*
 
 
+
+      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
     </div>
 
     <div>
       ## Result
 
       <div>
-        **Log objects** *oneOf* `array<string> or array<object>`
+        **Log objects** `array<string> or array<object>`
 
 
 
@@ -64,7 +66,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           **Log objects** `array<string>`
 
-
+          32 byte hex value
         </details>
 
         <details>
@@ -78,7 +80,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           **Log objects** `array<object>`
 
-
+          log
 
           <div>
             <details>
@@ -92,43 +94,43 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
               * **removed** `boolean`
 
-
+                removed
 
               * **logIndex** `string`
 
-
+                log index
 
               * **transactionIndex** `string`
 
-
+                transaction index
 
               * **transactionHash** `string`
 
-
+                transaction hash
 
               * **blockHash** `string`
 
-
+                block hash
 
               * **blockNumber** `string`
 
-
+                block number
 
               * **blockTimestamp** `string`
 
-
+                block timestamp
 
               * **address** `string`
 
-
+                address
 
               * **data** `string`
 
-
+                data
 
               * **topics** `array<string>`
 
-
+                32 hex encoded bytes
             </details>
           </div>
         </details>

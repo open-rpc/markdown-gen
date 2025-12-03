@@ -41,7 +41,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
       ## Parameters (by position)
 
       <div>
-        **Block** *anyOf* `string or string or string`
+        **Block** `string or string or string` *required*
 
 
 
@@ -54,9 +54,9 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
 
 
-          **Block** `string`
+          **Block** `string` *required*
 
-
+          Block number
         </details>
 
         <details>
@@ -68,7 +68,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
 
 
-          **Block** `string`
+          **Block** `string` *required*
 
           \`earliest\`: The lowest numbered block the client has available; \`finalized\`: The most recent crypto-economically secure block, cannot be re-orged outside of manual intervention driven by community coordination; \`safe\`: The most recent block that is safe from re-orgs under honest majority and certain synchronicity assumptions; \`latest\`: The most recent block in the canonical chain observed by the client, this block may be re-orged out of the canonical chain even under healthy/normal conditions; \`pending\`: A sample next block built by the client on top of \`latest\` and containing the set of transactions usually taken from local mempool. Before the merge transition is finalized, any call querying for \`finalized\` or \`safe\` block MUST be responded to with \`-39001: Unknown block\` error
         </details>
@@ -82,9 +82,9 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
 
 
-          **Block** `string`
+          **Block** `string` *required*
 
-
+          Block hash
         </details>
       </div>
     </div>
@@ -93,7 +93,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
       ## Result
 
       <div>
-        **Receipts information** *oneOf* `null or array<object>`
+        **Receipts information** `null or array<object>`
 
 
 
@@ -108,7 +108,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           **Receipts information** `null`
 
-
+          Not Found (null)
         </details>
 
         <details>
@@ -122,7 +122,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           **Receipts information** `array<object>`
 
-
+          Receipt information
 
           <div>
             <details>
@@ -136,30 +136,30 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
               * **type** `string`
 
-
+                type
 
               * **transactionHash** `string`
 
-
+                transaction hash
 
               * **transactionIndex** `string`
 
-
+                transaction index
 
               * **blockHash** `string`
 
-
+                block hash
 
               * **blockNumber** `string`
 
-
+                block number
 
               * **from** `string`
 
-
+                from
 
               * <div>
-                  **to** *oneOf* `null or string`
+                  **to** `null or string`
 
                   Address of the receiver or null in a contract creation transaction.
 
@@ -205,7 +205,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
                 The amount of blob gas used for this specific transaction. Only specified for blob transactions as defined by EIP-4844.
 
               * <div>
-                  **contractAddress** *oneOf* `string or null`
+                  **contractAddress** `string or null`
 
                   The contract address created, if the transaction was a contract creation, otherwise null.
 
@@ -240,7 +240,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
               * **logs** `array<object>`
 
-
+                log
 
                 <div>
                   <details>
@@ -254,49 +254,49 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
                     * **removed** `boolean`
 
-
+                      removed
 
                     * **logIndex** `string`
 
-
+                      log index
 
                     * **transactionIndex** `string`
 
-
+                      transaction index
 
                     * **transactionHash** `string`
 
-
+                      transaction hash
 
                     * **blockHash** `string`
 
-
+                      block hash
 
                     * **blockNumber** `string`
 
-
+                      block number
 
                     * **blockTimestamp** `string`
 
-
+                      block timestamp
 
                     * **address** `string`
 
-
+                      address
 
                     * **data** `string`
 
-
+                      data
 
                     * **topics** `array<string>`
 
-
+                      32 hex encoded bytes
                   </details>
                 </div>
 
               * **logsBloom** `string`
 
-
+                logs bloom
 
               * **root** `string`
 

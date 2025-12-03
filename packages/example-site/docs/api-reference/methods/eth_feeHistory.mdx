@@ -40,12 +40,14 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
     <div>
       ## Parameters (by position)
 
-      **blockCount** `string`
+      **blockCount** `string` *required*
 
       Requested range of blocks. Clients will return less than the requested range if not all blocks are available.
 
+      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
       <div>
-        **newestBlock** *oneOf* `string or string`
+        **newestBlock** `string or string` *required*
 
         Highest block of the requested range.
 
@@ -58,7 +60,7 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           Highest block of the requested range.
 
-          **newestBlock** `string`
+          **newestBlock** `string` *required*
 
           Highest block of the requested range.
         </details>
@@ -72,13 +74,13 @@ import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rp
 
           Highest block of the requested range.
 
-          **newestBlock** `string`
+          **newestBlock** `string` *required*
 
           Highest block of the requested range.
         </details>
       </div>
 
-      **rewardPercentiles** `array<number>`
+      **rewardPercentiles** `array<number>` *required*
 
       A monotonically increasing list of percentile values. For each block in the requested range, the transactions will be sorted in ascending order by effective tip per gas and the corresponding effective tip for the percentile will be determined, accounting for gas consumed.
     </div>
