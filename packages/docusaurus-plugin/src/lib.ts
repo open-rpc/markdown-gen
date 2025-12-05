@@ -411,7 +411,7 @@ function renderExample(
 
   let paramsValue: any;
   if (params.length === 0) {
-    paramsValue = {};
+    paramsValue = [];
   } else if (mode === "named") {
     const obj: Record<string, any> = {};
     for (const p of params) {
