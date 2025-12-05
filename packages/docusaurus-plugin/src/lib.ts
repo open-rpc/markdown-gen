@@ -23,15 +23,15 @@ type RefNode = { $ref: string };
 type NoRefs<T> =
   // If T itself is a ref → remove it
   T extends RefNode
-    ? never
-    : // If T is an array → apply recursively to element type
-      T extends (infer U)[]
-      ? NoRefs<U>[]
-      : // If T is an object → map over its properties
-        T extends object
-        ? { [K in keyof T]: NoRefs<T[K]> }
-        : // Primitives (string, number, etc.) are left as-is
-          T;
+  ? never
+  : // If T is an array → apply recursively to element type
+  T extends (infer U)[]
+  ? NoRefs<U>[]
+  : // If T is an object → map over its properties
+  T extends object
+  ? { [K in keyof T]: NoRefs<T[K]> }
+  : // Primitives (string, number, etc.) are left as-is
+  T;
 
 type DereffedOpenrpcDocument = NoRefs<OpenrpcDocument>;
 
@@ -39,7 +39,7 @@ type DereffedMethodObject = NoRefs<MethodObject>;
 
 type DereffedMethodObjectParams = NoRefs<MethodObjectParams>;
 
-const reactComponent: string = `import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components'`;
+const reactComponent: string = `import {TwoColumnLayout, InteractiveRequest, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';\nimport { useState } from 'react';`;
 const methodEdits: Edits = { ...identityEdits };
 
 methodEdits.editMethod = (content, method) => {
@@ -47,7 +47,6 @@ methodEdits.editMethod = (content, method) => {
   const params = (m.params || []) as DereffedMethodObjectParams;
 
   const exampleNamed = renderExample(m, params, "named");
-  const examplePositional = renderExample(m, params, "positional");
 
   return [
     {
@@ -63,28 +62,7 @@ methodEdits.editMethod = (content, method) => {
           name: "sidebar",
           value: {
             type: "mdxJsxAttributeValueExpression",
-            value: `<>
-              <RequestExample 
-                title="Named Parameters" 
-                code={${JSON.stringify(JSON.stringify(exampleNamed.request, null, 2))}} 
-              />
-              <ResponseExample 
-                title="Successful Response" 
-                code={${JSON.stringify(JSON.stringify(exampleNamed.response, null, 2))}} 
-              />${
-                params.length > 0
-                  ? `
-              <RequestExample 
-                title="Positional Parameters" 
-                code={${JSON.stringify(JSON.stringify(examplePositional.request, null, 2))}} 
-              />
-              <ResponseExample 
-                title="Successful Response" 
-                code={${JSON.stringify(JSON.stringify(examplePositional.response, null, 2))}} 
-              />`
-                  : ""
-              }
-            </>`,
+            value: `<InteractiveRequest request={${JSON.stringify(JSON.stringify(exampleNamed.request, null, 2))}} />`,
           },
         },
       ],
@@ -147,15 +125,15 @@ function renderIndex(doc: DereffedOpenrpcDocument): string {
     methods.length === 0
       ? "_No methods defined._"
       : methods
-          .map((m) => `- [\`${m.name}\`](./methods/${m.name}.mdx)`)
-          .join("\n");
+        .map((m) => `- [\`${m.name}\`](./methods/${m.name}.mdx)`)
+        .join("\n");
 
   const schemasList =
     schemas.length === 0
       ? "_No schemas defined._"
       : schemas
-          .map((s) => `- [\`${s}\`](./schemas/${s.toLowerCase()}.md)`)
-          .join("\n");
+        .map((s) => `- [\`${s}\`](./schemas/${s.toLowerCase()}.md)`)
+        .join("\n");
 
   return `---
 title: "${title}"
@@ -189,15 +167,15 @@ function renderMethod(m: DereffedMethodObject): string {
     params.length === 0
       ? "_This method does not accept any parameters._"
       : [
-          "| Name | Type | Required | Description |",
-          "| ---- | ---- | -------- | ----------- |",
-          ...params.map((p) => {
-            const type = typeFromSchema(p.schema);
-            const required = p.required ? "yes" : "no";
-            const pDesc = p.description || "";
-            return `| ${p.name} | \`${type}\` | ${required} | ${pDesc} |`;
-          }),
-        ].join("\n");
+        "| Name | Type | Required | Description |",
+        "| ---- | ---- | -------- | ----------- |",
+        ...params.map((p) => {
+          const type = typeFromSchema(p.schema);
+          const required = p.required ? "yes" : "no";
+          const pDesc = p.description || "";
+          return `| ${p.name} | \`${type}\` | ${required} | ${pDesc} |`;
+        }),
+      ].join("\n");
 
   const paramSchemaBlock =
     params.length === 0
@@ -213,10 +191,10 @@ ${JSON.stringify(asParamSchemaMap(params), null, 2)}
   const hasResult = !!(result && result.schema);
   const resultSection = hasResult
     ? (() => {
-        const rType = typeFromSchema(result!.schema);
-        const rName = result!.name || "result";
-        const rDesc = result!.description || "";
-        return `## Result
+      const rType = typeFromSchema(result!.schema);
+      const rName = result!.name || "result";
+      const rDesc = result!.description || "";
+      return `## Result
 
 - **Name:** \`${rName}\`
 ${rDesc ? `- **Description:** ${rDesc}\n` : ""}- **Type:** \`${rType}\`
@@ -227,7 +205,7 @@ ${rDesc ? `- **Description:** ${rDesc}\n` : ""}- **Type:** \`${rType}\`
 ${JSON.stringify(result!.schema, null, 2)}
 \`\`\`
 `;
-      })()
+    })()
     : `## Result
 
 _This method does not return a result payload._
@@ -275,35 +253,28 @@ tags:
   - method
 ---
 
-import {TwoColumnLayout, RequestExample, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';
+import {TwoColumnLayout, RequestBox, ResponseExample, TryNow} from '@open-rpc/docusaurus-plugin/components';
+import { useState } from 'react';
 
 <TwoColumnLayout 
   sidebar={
-    <>
-      <RequestExample 
-        title="Named Parameters" 
-        code={${JSON.stringify(JSON.stringify(exampleNamed.request, null, 2))}} 
-      />
-      
-      <ResponseExample 
-        title="Successful Response" 
-        code={${JSON.stringify(JSON.stringify(exampleNamed.response, null, 2))}} 
-      />${
-        params.length > 0
-          ? `
-      
-      <RequestExample 
-        title="Positional Parameters" 
-        code={${JSON.stringify(JSON.stringify(examplePositional.request, null, 2))}} 
-      />
-      
-      <ResponseExample 
-        title="Successful Response" 
-        code={${JSON.stringify(JSON.stringify(examplePositional.response, null, 2))}} 
-      />`
-          : ""
-      }
-    </>
+    (() => {
+      const [response, setResponse] = useState('');
+      return (
+        <>
+          <RequestBox 
+            request={${JSON.stringify(JSON.stringify(exampleNamed.request, null, 2))}}
+            onResponse={setResponse}
+          />
+          {response && (
+            <ResponseExample 
+              title="Response" 
+              code={response} 
+            />
+          )}
+        </>
+      );
+    })()
   }
 >
 <TryNow />
@@ -322,8 +293,7 @@ ${desc ? `${desc}\n` : ""}
 
 ${paramTable}
 ${paramSchemaBlock}
-${resultSection}${
-    params.length > 0
+${resultSection}${params.length > 0
       ? `
 
 ### Positional parameters
@@ -332,7 +302,7 @@ Parameter order:
 
 ${params.map((p, i) => `${i + 1}. \`${p.name}\``).join("\n")}`
       : ""
-  }
+    }
 
 ---
 
@@ -353,16 +323,16 @@ function renderSchema(name: string, schema: JSONSchema): string {
   const propsTable =
     isObject && schema.properties
       ? (() => {
-          const required = new Set<string>(schema.required || []);
-          const rows = Object.entries<any>(schema.properties).map(
-            ([propName, propSchema]) => {
-              const t = typeFromSchema(propSchema);
-              const isReq = required.has(propName) ? "yes" : "no";
-              const desc = propSchema.description || "";
-              return `| ${propName} | \`${t}\` | ${isReq} | ${desc} |`;
-            },
-          );
-          return `
+        const required = new Set<string>(schema.required || []);
+        const rows = Object.entries<any>(schema.properties).map(
+          ([propName, propSchema]) => {
+            const t = typeFromSchema(propSchema);
+            const isReq = required.has(propName) ? "yes" : "no";
+            const desc = propSchema.description || "";
+            return `| ${propName} | \`${t}\` | ${isReq} | ${desc} |`;
+          },
+        );
+        return `
 ---
 
 ## Properties
@@ -371,7 +341,7 @@ function renderSchema(name: string, schema: JSONSchema): string {
 | ---- | ---- | -------- | ----------- |
 ${rows.join("\n")}
 `;
-        })()
+      })()
       : "";
 
   return `---

@@ -1,0 +1,110 @@
+.requestBox {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-border-radius);
+  overflow: hidden;
+  background-color: var(--ifm-background-surface-color);
+}
+
+.requestHeader {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  background-color: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-success-dark);
+}
+
+.requestContent {
+  padding: 0;
+}
+
+.requestCode {
+  padding: 1rem;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ifm-color-content);
+  background: transparent;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  margin: 0;
+}
+
+/* Request form styles */
+.requestControlsContainer {
+  padding: 1rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+}
+
+.requestControls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.serverLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.serverInput {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-border-radius);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.875rem;
+}
+
+.sendButton {
+  padding: 0.5rem 1rem;
+  background-color: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--ifm-border-radius);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.sendButton:disabled {
+  background-color: var(--ifm-color-emphasis-300);
+  cursor: not-allowed;
+}
+
+.requestTextarea {
+  width: 100%;
+  height: 200px;
+  padding: 0.75rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-border-radius);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  resize: vertical;
+  background-color: var(--ifm-background-color);
+  color: var(--ifm-color-content);
+}
+
+/* Dark mode adjustments */
+[data-theme='dark'] .requestBox {
+  border-color: var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] .requestHeader {
+  background-color: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-success-light);
+}
+
+[data-theme='dark'] .requestCode {
+  color: var(--ifm-color-content-inverse);
+}
+
+[data-theme='dark'] .serverInput {
+  border-color: var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] .requestTextarea {
+  border-color: var(--ifm-color-emphasis-200);
+}

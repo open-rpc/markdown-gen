@@ -5,5 +5,13 @@ export {
   ResponseExample,
 } from "./components/ApiExamples";
 
+export {
+  RequestBox,
+} from "./components/RequestBox/RequestBox"
+
+export {
+  InteractiveRequest,
+} from "./components/InteractionRequest/InteractiveRequest"
+
 export { SchemaComponent } from "./components/SchemaComponent/SchemaComponent";
 export { TryNow } from "./components/TryNow/TryNow";
