@@ -4,6 +4,8 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
+// TODO: Remove this once we have a proper implementation nailed down
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import logger from "@docusaurus/logger";
 import type { LoadContext, Plugin } from "@docusaurus/types";
@@ -38,6 +40,14 @@ export default function openRPCDocusaurusPlugin(
      */
     async loadContent(): Promise<PluginContent> {
       logger.info(`[${PluginName}] loadContent called`);
+
+      /*
+      if (normalizedOptions.docOutputPath) {
+        await fs.rm(normalizedOptions.docOutputPath, {
+          recursive: true,
+          force: true,
+        });
+      }*/
       await generateDocs(
         normalizedOptions.openRPCSpecPath,
         normalizedOptions.docOutputPath,
@@ -68,7 +78,7 @@ export default function openRPCDocusaurusPlugin(
      * Useful for cross-plugin coordination
      */
     async allContentLoaded({ allContent, actions }): Promise<void> {
-      logger.info(`[${PluginName}] allContentLoaded called`);
+      //logger.info(`[${PluginName}] allContentLoaded called`);
       // TODO: Coordinate with other plugins if needed
     },
 

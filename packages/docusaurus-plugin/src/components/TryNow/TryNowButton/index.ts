@@ -1,1 +1,0 @@
-export { TryNowButton } from "./TryNowButton";

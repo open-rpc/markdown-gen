@@ -6,9 +6,10 @@ import type {
   Methods,
   ContentDescriptorOrReference,
   JSONSchema,
+  ContentDescriptorObject,
 } from "@open-rpc/meta-schema";
-import type { Root, RootContent } from "mdast";
-import type { MdxJsxFlowElement } from "mdast-util-mdx";
+import type { BlockContent, DefinitionContent, Root, RootContent } from "mdast";
+import type { MdxFlowExpression, MdxJsxFlowElement } from "mdast-util-mdx";
 
 export type RefNode = { $ref: string };
 
@@ -34,7 +35,23 @@ export type DereffedMethodObjectResultSchema = NoRefs<JSONSchema>;
 export type DereffedMethods = NoRefs<Methods>;
 export type DereffedMethodObjectResult = NoRefs<MethodObjectResult>;
 
+export interface ContentContainerDescriptor
+  extends Partial<ContentDescriptorObject> {
+  isArray?: boolean;
+  ofType?: "allOf" | "oneOf" | "anyOf";
+  constraintsSchema?: NoRefs<JSONSchema>;
+}
+
+export type OpenRPCMdContent =
+  | BlockContent
+  | DefinitionContent
+  | MdxFlowExpression
+  | MdxJsxFlowElement;
+
 export interface SchemaEdits {
+  //editSchemaPrimitive?
+  //editSchemaObject?
+  //editSchemaOfType?
   editSchemaNumber?: (
     content: (RootContent | MdxJsxFlowElement)[],
     schemaNumber: number,
@@ -60,14 +77,14 @@ export interface SchemaEdits {
 export interface Edits {
   editMethodParent?: (content: Root, method: DereffedMethodObject) => Root;
   editMethod?: (
-    content: (RootContent | MdxJsxFlowElement)[],
+    content: (OpenRPCMdContent | RootContent)[],
     method: DereffedMethodObject,
-  ) => (RootContent | MdxJsxFlowElement)[];
+  ) => (OpenRPCMdContent | RootContent)[];
 
   editMethodParamsParent?: (
     content: (RootContent | MdxJsxFlowElement)[],
     methodParams: DereffedMethodObjectParams,
-  ) => (RootContent | MdxJsxFlowElement)[];
+  ) => OpenRPCMdContent[];
   editMethodParam?: (
     content: (RootContent | MdxJsxFlowElement)[],
     methodParam: DereffedMethodObjectParam,
@@ -92,6 +109,11 @@ export interface Edits {
     content: (RootContent | MdxJsxFlowElement)[],
     methodResult: DereffedMethodObjectResult,
   ) => (RootContent | MdxJsxFlowElement)[];
+
+  /*
+  editMethodExamples:
+  editmethodExamplesParent:
+  */
 
   editMethodResultSchema?: (
     content: (RootContent | MdxJsxFlowElement)[],

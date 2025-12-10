@@ -1,5 +1,5 @@
 {
-  "name": "markdown-gen",
+  "name": "markdown-gen-beta",
   "module": "index.ts",
   "type": "module",
   "exports": {
@@ -20,18 +20,22 @@
   ],
   "version": "0.0.0-development",
   "scripts": {
-    "types": "bun run types:json-schema-renderer && bun run types:md-gen && bun run types:plugin",
+    "types": "bun run types:md-gen && bun run types:plugin",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "postinstall": "bun run build:json-schema-renderer",
-    "build:json-schema-renderer": "bun run --cwd packages/json-schema-renderer build.ts",
+    "postinstall": "bun run build:md-gen && bun run build:plugin",
     "build:md-gen": "bun run --cwd packages/markdown-generator build.ts",
     "build:plugin": "bun run --cwd packages/docusaurus-plugin build.ts",
+    "build:all": "bun run build:md-gen && bun run build:plugin",
     "types:md-gen": "bun run --cwd packages/markdown-generator tsc -p tsconfig.json",
     "types:plugin": "bun run --cwd packages/docusaurus-plugin tsc -p tsconfig.json",
-    "types:json-schema-renderer": "bun run --cwd packages/json-schema-renderer tsc -p tsconfig.json"
+    "types:all": "bun run types:md-gen && bun run types:plugin",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "bun run build:all && bun run types:all && changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.29.8",
     "@eslint/js": "^9.39.1",
     "@types/bun": "^1.3.1",
     "@types/node": "22.13.5",
