@@ -1,5 +1,13 @@
 # open-rpc-docusaurus-plugin-beta
 
+## 0.0.3
+
+### Patch Changes
+
+- 5912d70: Different approach to workspace:\* management
+- Updated dependencies [5912d70]
+  - open-rpc-markdown-generator-beta@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes
