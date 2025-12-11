@@ -14,6 +14,7 @@ import type {
 import { promises as fs } from "fs";
 import * as path from "path";
 import { OpenRPCMdContent } from "open-rpc-markdown-generator-beta";
+import { MethodObjectParamStructure } from "@open-rpc/meta-schema";
 
 type JSONSchema = any;
 
@@ -23,8 +24,11 @@ const methodEdits: Edits = { ...identityEdits };
 methodEdits.editMethod = (content, method) => {
   const m = method as DereffedMethodObject;
   const params = (m.params || []) as DereffedMethodObjectParams;
-
-  const exampleNamed = renderExample(m, params, "named");
+  const exampleNamed = renderExample(
+    m,
+    params,
+    getExampleMode(m.paramStructure),
+  );
 
   return [
     {
@@ -40,7 +44,7 @@ methodEdits.editMethod = (content, method) => {
           name: "sidebar",
           value: {
             type: "mdxJsxAttributeValueExpression",
-            value: `<InteractiveRequest request={${JSON.stringify(JSON.stringify(exampleNamed.request, null, 2))}} />`,
+            value: `<InteractiveRequest request={${JSON.stringify(JSON.stringify(exampleNamed?.request, null, 2))}} />`,
           },
         },
       ],
@@ -148,12 +152,19 @@ function refName(ref: string): string {
 
 type ExampleMode = "named" | "positional";
 
+function getExampleMode(
+  paramStructure?: MethodObjectParamStructure,
+): ExampleMode {
+  if (!paramStructure) return "positional";
+  return paramStructure === "by-name" ? "named" : "positional";
+}
+
 function renderExample(
   m: DereffedMethodObject,
   params: DereffedMethodObjectParams,
   mode: ExampleMode,
 ) {
-  const id = mode === "named" ? 1 : 2;
+  const id = 1;
 
   let paramsValue: any;
   if (params.length === 0) {
@@ -166,6 +177,9 @@ function renderExample(
     paramsValue = obj;
   } else {
     paramsValue = params.map((p) => exampleValueFromSchema(p.schema));
+  }
+  if (m.examples && m.examples.length > 0) {
+    paramsValue = m.examples[0].params.map((p) => p.value) ?? [];
   }
 
   const request = {
