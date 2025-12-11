@@ -1,5 +1,11 @@
 # open-rpc-docusaurus-plugin-beta
 
+## 0.0.4
+
+### Patch Changes
+
+- 6f8ecf8: Docusaurus plugin emits module esm type correction
+
 ## 0.0.3
 
 ### Patch Changes
