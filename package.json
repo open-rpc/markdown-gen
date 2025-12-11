@@ -32,7 +32,9 @@
     "types:all": "bun run types:md-gen && bun run types:plugin",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "bun run build:all && bun run types:all && changeset publish"
+    "release": "bun run build:all && bun run types:all && changeset publish",
+    "ci:version": "changeset version && bun update",
+    "ci:publish": "for dir in packages/markdown-generator packages/docusaurus-plugin; do (cd \"$dir\" && bun publish --access public || true); done && changeset tag"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
