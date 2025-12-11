@@ -207,6 +207,17 @@ function exampleValueFromSchema(schema: JSONSchema | undefined): any {
     return { [name.toLowerCase()]: "example" };
   }
 
+  // Handle oneOf, anyOf, allOf - pick the first option
+  if (schema.oneOf && Array.isArray(schema.oneOf) && schema.oneOf.length > 0) {
+    return exampleValueFromSchema(schema.oneOf[0]);
+  }
+  if (schema.anyOf && Array.isArray(schema.anyOf) && schema.anyOf.length > 0) {
+    return exampleValueFromSchema(schema.anyOf[0]);
+  }
+  if (schema.allOf && Array.isArray(schema.allOf) && schema.allOf.length > 0) {
+    return exampleValueFromSchema(schema.allOf[0]);
+  }
+
   switch (schema.type) {
     case "string":
       return "string";
