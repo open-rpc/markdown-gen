@@ -14096,6 +14096,11 @@
 					}
 				}
 			],
+			"tags": [
+				{
+					"name": "transaction"
+				}
+			],
 			"result": {
 				"name": "Encoded transaction",
 				"schema": {
@@ -15716,6 +15721,14 @@
 						"pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
 					},
 					"required": true
+				}
+			],
+			"tags": [
+				{
+					"name": "filter"
+				},
+				{
+					"name": "transaction"
 				}
 			],
 			"result": {

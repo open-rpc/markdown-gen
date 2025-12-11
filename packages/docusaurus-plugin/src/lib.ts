@@ -92,6 +92,15 @@ function renderIndex(doc: DereffedOpenrpcDocument): string {
   const methods = doc.methods || [];
   const schemas = Object.keys(doc.components?.schemas || {});
 
+  const tags = methods
+    .flatMap((m) => m.tags?.map((t) => t?.name) || [])
+    .filter(Boolean);
+  const uniqueTags = [...new Set(tags)];
+  const tagsList =
+    uniqueTags.length === 0
+      ? ""
+      : `tags:\n${uniqueTags.map((t) => `  - "${t}"`).join("\n")}`;
+
   const methodsList =
     methods.length === 0
       ? "_No methods defined._"
@@ -111,9 +120,7 @@ function renderIndex(doc: DereffedOpenrpcDocument): string {
 title: "${title}"
 description: "${escapeYaml(desc)}"
 sidebar_label: "${title}"
-tags:
-  - json-rpc
-  - openrpc
+${tagsList}
 ---
 
 # ${title}
