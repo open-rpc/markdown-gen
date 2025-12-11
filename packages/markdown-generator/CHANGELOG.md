@@ -1,5 +1,11 @@
 # open-rpc-markdown-generator-beta
 
+## 0.0.3
+
+### Patch Changes
+
+- 5912d70: Different approach to workspace:\* management
+
 ## 0.0.2
 
 ### Patch Changes
