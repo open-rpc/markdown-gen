@@ -34,6 +34,12 @@ export default function openRPCDocusaurusPlugin(
       // TODO: Return glob patterns for files to watch (e.g., OpenRPC JSON specs)
     },
 
+    getClientModules() {
+      // This path will resolve relative to the plugin's dist folder when published
+
+      return ["./components.css"];
+    },
+
     /**
      * Loads content - runs on startup and on hot reload
      * This is where you'd read OpenRPC specs and generate markdown/mdx files

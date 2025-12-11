@@ -5,7 +5,7 @@ hide_table_of_contents: true
 description: ""
 ---
 
-import {TwoColumnLayout, InteractiveRequest, ResponseExample, TryNow} from 'open-rpc-docusaurus-plugin-beta/components';
+import {TwoColumnLayout, InteractiveRequest, ResponseExample} from 'open-rpc-docusaurus-plugin-beta/components';
 import { useState } from 'react';
 
 <TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"engine_forkchoiceUpdatedV1\",\n  \"params\": {\n    \"Forkchoice state\": {\n      \"headBlockHash\": \"string\",\n      \"safeBlockHash\": \"string\",\n      \"finalizedBlockHash\": \"string\"\n    },\n    \"Payload attributes\": {\n      \"timestamp\": \"string\",\n      \"prevRandao\": \"string\",\n      \"suggestedFeeRecipient\": \"string\"\n    }\n  },\n  \"id\": 1\n}"} />}>
