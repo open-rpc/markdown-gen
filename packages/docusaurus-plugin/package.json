@@ -6,7 +6,8 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
-    "./components": "./dist/components.js"
+    "./components": "./dist/components.js",
+    "./components.css": "./dist/components.css"
   },
   "scripts": {
     "build": "bun run build.ts",
