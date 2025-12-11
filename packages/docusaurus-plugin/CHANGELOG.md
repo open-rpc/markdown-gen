@@ -1,5 +1,13 @@
 # open-rpc-docusaurus-plugin-beta
 
+## 0.0.2
+
+### Patch Changes
+
+- d3a30e4: This fixes workspace:\* mono repo version replacment with changeset issues
+- Updated dependencies [d3a30e4]
+  - open-rpc-markdown-generator-beta@0.0.2
+
 ## 0.0.1
 
 ### Patch Changes
