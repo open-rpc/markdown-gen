@@ -21,6 +21,7 @@ export default [
       "node_modules/",
       "**/dist/",
       "dist/",
+      "scripts/",
       "docs/",  // This will now work
       "build/",
       "coverage/",
