@@ -609,10 +609,7 @@ export function renderMethod(
           type: "paragraph",
           children: [{ type: "text", value: method.description ?? "" }],
         },
-        {
-          type: "paragraph",
-          children: [{ type: "text", value: method.summary ?? "" }],
-        },
+        ...parseMarkdownToNodes(method.summary ?? ""),
         ...content,
         ...renderResults(method.result, editSchema),
         ...renderErrors(method.errors, editSchema),
