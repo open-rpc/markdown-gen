@@ -1,9 +1,7 @@
 // Separate entry point for components to avoid loading them during plugin initialization
-export {
-  TwoColumnLayout,
-  RequestExample,
-  ResponseExample,
-} from "./components/ApiExamples";
+export { TwoColumnLayout } from "./components/Layout";
+export { ResponseExample } from "./components/Examples/ResponseExample";
+export { RequestExample } from "./components/Examples/RequestExample";
 
 export { RequestBox } from "./components/RequestBox/RequestBox";
 
