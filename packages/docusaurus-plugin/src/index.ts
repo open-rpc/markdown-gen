@@ -53,11 +53,20 @@ export default function openRPCDocusaurusPlugin(
           `OpenRPC spec file not found: ${normalizedOptions.openRPCSpecPath}`,
         );
       }
-
-      await fs.rm(normalizedOptions.docOutputPath, {
-        recursive: true,
-        force: true,
-      });
+      const outputDir = normalizedOptions.docOutputPath;
+      try {
+        const entries = await fs.readdir(outputDir, { withFileTypes: true });
+        await Promise.all(
+          entries
+            .filter((entry) => entry.name !== "index.md")
+            .map((entry) => {
+              const fullPath = `${outputDir}/${entry.name}`;
+              return fs.rm(fullPath, { recursive: true, force: true });
+            }),
+        );
+      } catch {
+        // Directory doesn't exist yet, that's fine
+      }
 
       await generateDocs(
         normalizedOptions.openRPCSpecPath,
