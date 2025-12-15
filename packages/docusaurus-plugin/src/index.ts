@@ -14,6 +14,7 @@ import type { Options } from "./options";
 import { normalizeOptions } from "./options";
 import { generateDocs } from "./lib";
 import fs from "fs/promises";
+import path from "path";
 
 const PluginName = "@open-rpc/docusaurus-plugin";
 
@@ -22,7 +23,14 @@ export default function openRPCDocusaurusPlugin(
   options: Options,
 ): Plugin<PluginContent> {
   const normalizedOptions = normalizeOptions(options);
-
+  const specPath = path.resolve(
+    context.siteDir,
+    normalizedOptions.openRPCSpecPath,
+  );
+  const outputDir = path.resolve(
+    context.siteDir,
+    normalizedOptions.docOutputPath,
+  );
   return {
     name: PluginName,
 
@@ -47,17 +55,27 @@ export default function openRPCDocusaurusPlugin(
      */
     async loadContent(): Promise<PluginContent> {
       logger.info(`[${PluginName}] loadContent called`);
+      logger.info(`[${PluginName}] loadContent - siteDir: ${context.siteDir}`);
+      logger.info(`[${PluginName}] specPath: ${specPath}`);
+      logger.info(`[${PluginName}] outputDir: ${outputDir}`);
 
-      if (!(await fs.stat(normalizedOptions.openRPCSpecPath)).isFile()) {
-        throw new Error(
-          `OpenRPC spec file not found: ${normalizedOptions.openRPCSpecPath}`,
-        );
+      if (!(await fs.stat(specPath)).isFile()) {
+        throw new Error(`OpenRPC spec file not found: ${specPath}`);
       }
 
-      await fs.rm(normalizedOptions.docOutputPath, {
-        recursive: true,
-        force: true,
-      });
+      try {
+        const entries = await fs.readdir(outputDir, { withFileTypes: true });
+        await Promise.all(
+          entries
+            .filter((entry) => entry.name !== "index.md")
+            .map((entry) => {
+              const fullPath = `${outputDir}/${entry.name}`;
+              return fs.rm(fullPath, { recursive: true, force: true });
+            }),
+        );
+      } catch {
+        // Directory doesn't exist yet, that's fine
+      }
 
       await generateDocs(
         normalizedOptions.openRPCSpecPath,

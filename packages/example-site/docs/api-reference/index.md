@@ -3,9 +3,7 @@
 title: "Ethereum JSON-RPC Specification"
 description: "A specification of the standard interface for Ethereum clients."
 sidebar_label: "Ethereum JSON-RPC Specification"
-tags:
-  - json-rpc
-  - openrpc
+
 ---
 
 # Ethereum JSON-RPC Specification
@@ -36,12 +34,10 @@ A specification of the standard interface for Ethereum clients.
 - [`engine_getPayloadV3`](./methods/engine_getPayloadV3.mdx)
 - [`engine_getPayloadV4`](./methods/engine_getPayloadV4.mdx)
 - [`engine_getPayloadV5`](./methods/engine_getPayloadV5.mdx)
-- [`engine_getPayloadV6`](./methods/engine_getPayloadV6.mdx)
 - [`engine_newPayloadV1`](./methods/engine_newPayloadV1.mdx)
 - [`engine_newPayloadV2`](./methods/engine_newPayloadV2.mdx)
 - [`engine_newPayloadV3`](./methods/engine_newPayloadV3.mdx)
 - [`engine_newPayloadV4`](./methods/engine_newPayloadV4.mdx)
-- [`engine_newPayloadV5`](./methods/engine_newPayloadV5.mdx)
 - [`eth_accounts`](./methods/eth_accounts.mdx)
 - [`eth_blobBaseFee`](./methods/eth_blobBaseFee.mdx)
 - [`eth_blockNumber`](./methods/eth_blockNumber.mdx)

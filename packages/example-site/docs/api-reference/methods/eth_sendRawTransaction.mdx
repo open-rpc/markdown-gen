@@ -8,13 +8,13 @@ description: ""
 import {TwoColumnLayout, InteractiveRequest, ResponseExample} from 'open-rpc-docusaurus-plugin-beta/components';
 import { useState } from 'react';
 
-<TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_sendRawTransaction\",\n  \"params\": {\n    \"Transaction\": \"string\"\n  },\n  \"id\": 1\n}"} />}>
+<TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_sendRawTransaction\",\n  \"params\": [\n    \"0xf869018203e882520894f17f52151ebef6c7334fad080c5704d77216b732881bc16d674ec80000801ba02da1c48b670996dcb1f447ef9ef00b33033c48a4fe938f420bec3e56bfd24071a062e0aa78a81bf0290afbc3a9d8e9a068e6d74caa66c5e0fa8a46deaae96b0833\"\n  ],\n  \"id\": 1\n}"} />}>
   <div>
     # eth\_sendRawTransaction
 
 
 
-    Submits a raw transaction. You can create and sign a transaction externally using a library such as \[web3.js]\(https\://web3js.readthedocs.io/) or \[ethers.js]\(https\://docs.ethers.org/). For \[EIP-4844]\(https\://eips.ethereum.org/EIPS/eip-4844) transactions, the raw form must be the network form. This means it includes the blobs, KZG commitments, and KZG proofs. For \[EIP-7594]\(https\://eips.ethereum.org/EIPS/eip-7594) transactions, the raw format must be the network form. This means it includes the blobs, KZG commitments, and cell proofs. The logic for handling the new transaction during fork boundaries are 1. When receiving an encoded transaction with cell proofs before the PeerDAS fork activates, we reject it. Only blob proofs are accepted into the pool. 2. At the time of fork activation, the implementer could (not mandatory) - Drop all old-format transactions - Convert old proofs to new format (computationally expensive) - Convert only when including in a locally produced block 3. After the fork has activated, only txs with cell proofs are accepted via p2p relay. 4. On RPC (eth\_sendRawTransaction), txs with blob proofs may still be accepted and will be auto-converted by the node. At implementer discretion, this facility can be deprecated later when users have switched to new client libraries that can create cell proofs.
+    Submits a raw transaction. You can create and sign a transaction externally using a library such as [web3.js](https://web3js.readthedocs.io/) or [ethers.js](https://docs.ethers.org/). For [EIP-4844](https://eips.ethereum.org/EIPS/eip-4844) transactions, the raw form must be the network form. This means it includes the blobs, KZG commitments, and KZG proofs. For [EIP-7594](https://eips.ethereum.org/EIPS/eip-7594) transactions, the raw format must be the network form. This means it includes the blobs, KZG commitments, and cell proofs. The logic for handling the new transaction during fork boundaries are 1. When receiving an encoded transaction with cell proofs before the PeerDAS fork activates, we reject it. Only blob proofs are accepted into the pool. 2. At the time of fork activation, the implementer could (not mandatory) - Drop all old-format transactions - Convert old proofs to new format (computationally expensive) - Convert only when including in a locally produced block 3. After the fork has activated, only txs with cell proofs are accepted via p2p relay. 4. On RPC (eth\_sendRawTransaction), txs with blob proofs may still be accepted and will be auto-converted by the node. At implementer discretion, this facility can be deprecated later when users have switched to new client libraries that can create cell proofs.
 
     <div>
       ## Parameters (by position)
@@ -34,6 +34,547 @@ import { useState } from 'react';
       *Match pattern:* `^0x[0-9a-f]{64}$`
 
       ***
+    </div>
+
+    <div>
+      ## Errors
+
+      <details>
+        <summary>
+          Error code: -32000
+        </summary>
+
+        * **code**
+
+          -32000
+        * **message**
+
+          Invalid input
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32001
+        </summary>
+
+        * **code**
+
+          -32001
+        * **message**
+
+          Resource not found
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32002
+        </summary>
+
+        * **code**
+
+          -32002
+        * **message**
+
+          Resource unavailable
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32003
+        </summary>
+
+        * **code**
+
+          -32003
+        * **message**
+
+          Transaction rejected
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32004
+        </summary>
+
+        * **code**
+
+          -32004
+        * **message**
+
+          Method not supported
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32005
+        </summary>
+
+        * **code**
+
+          -32005
+        * **message**
+
+          Limit exceeded
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32006
+        </summary>
+
+        * **code**
+
+          -32006
+        * **message**
+
+          JSON-RPC version not supported
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32700
+        </summary>
+
+        * **code**
+
+          -32700
+        * **message**
+
+          Parse error
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32600
+        </summary>
+
+        * **code**
+
+          -32600
+        * **message**
+
+          Invalid request
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32601
+        </summary>
+
+        * **code**
+
+          -32601
+        * **message**
+
+          Method not found
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32602
+        </summary>
+
+        * **code**
+
+          -32602
+        * **message**
+
+          Invalid params
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32603
+        </summary>
+
+        * **code**
+
+          -32603
+        * **message**
+
+          Internal error
+      </details>
+
+      <details>
+        <summary>
+          Error code: 800
+        </summary>
+
+        * **code**
+
+          800
+        * **message**
+
+          Intrinsic gas too low / Intrinsic gas exceeds gas limit
+        * **x-error-category**
+
+          GAS\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 801
+        </summary>
+
+        * **code**
+
+          801
+        * **message**
+
+          Insufficient gas for floor data gas cost
+        * **x-error-category**
+
+          GAS\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 802
+        </summary>
+
+        * **code**
+
+          802
+        * **message**
+
+          Tx gas limit exceeds max block gas limit / intrinsic gas exceeds gas limit
+        * **x-error-category**
+
+          GAS\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 803
+        </summary>
+
+        * **code**
+
+          803
+        * **message**
+
+          Transaction gas limit too high
+      </details>
+
+      <details>
+        <summary>
+          Error code: 804
+        </summary>
+
+        * **code**
+
+          804
+        * **message**
+
+          Gas price below configured minimum gas price / transaction gas price below minimum
+        * **x-error-category**
+
+          GAS\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 805
+        </summary>
+
+        * **code**
+
+          805
+        * **message**
+
+          Insufficient funds for gas \* price + value / Upfront cost exceeds account balance
+        * **x-error-category**
+
+          GAS\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 806
+        </summary>
+
+        * **code**
+
+          806
+        * **message**
+
+          Max priority fee per gas higher than max fee per gas
+        * **x-error-category**
+
+          GAS\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 807
+        </summary>
+
+        * **code**
+
+          807
+        * **message**
+
+          Tx fee exceeds the configured cap / Transaction fee cap exceeded
+        * **x-error-category**
+
+          GAS\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1
+        </summary>
+
+        * **code**
+
+          1
+        * **message**
+
+          Nonce too low
+        * **x-error-category**
+
+          EXECUTION\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 2
+        </summary>
+
+        * **code**
+
+          2
+        * **message**
+
+          Nonce too high
+        * **x-error-category**
+
+          EXECUTION\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 3
+        </summary>
+
+        * **code**
+
+          3
+        * **message**
+
+          Execution reverted by REVERT Opcode
+        * **x-error-category**
+
+          EXECUTION\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 4
+        </summary>
+
+        * **code**
+
+          4
+        * **message**
+
+          Invalid opcode
+        * **x-error-category**
+
+          EXECUTION\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1000
+        </summary>
+
+        * **code**
+
+          1000
+        * **message**
+
+          Transaction is already known to the transaction pool
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1001
+        </summary>
+
+        * **code**
+
+          1001
+        * **message**
+
+          Replacement transaction is sent without the required price bump
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1002
+        </summary>
+
+        * **code**
+
+          1002
+        * **message**
+
+          Oversized data: Transaction input data exceeds the allowed limit
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1003
+        </summary>
+
+        * **code**
+
+          1003
+        * **message**
+
+          Only replay-protected (EIP-155) transactions allowed over RPC
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1004
+        </summary>
+
+        * **code**
+
+          1004
+        * **message**
+
+          Transaction pool is full
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1005
+        </summary>
+
+        * **code**
+
+          1005
+        * **message**
+
+          Transaction Data contains invalid RLP encoding
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1006
+        </summary>
+
+        * **code**
+
+          1006
+        * **message**
+
+          Transaction sender is invalid
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1007
+        </summary>
+
+        * **code**
+
+          1007
+        * **message**
+
+          Transaction with negative value
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1008
+        </summary>
+
+        * **code**
+
+          1008
+        * **message**
+
+          Transaction sender is denylisted
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1009
+        </summary>
+
+        * **code**
+
+          1009
+        * **message**
+
+          Transaction receiver is denylisted
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1010
+        </summary>
+
+        * **code**
+
+          1010
+        * **message**
+
+          Transaction chain ID does not match the expected chain ID
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 2000
+        </summary>
+
+        * **code**
+
+          2000
+        * **message**
+
+          Not enough step counters to continue the execution
+        * **x-error-category**
+
+          ZK\_EXECUTION\_ERRORS
+      </details>
     </div>
 
     <div>
