@@ -48,17 +48,22 @@ export default function openRPCDocusaurusPlugin(
     async loadContent(): Promise<PluginContent> {
       logger.info(`[${PluginName}] loadContent called`);
 
-      if (normalizedOptions.docOutputPath) {
-        await fs.rm(normalizedOptions.docOutputPath, {
-          recursive: true,
-          force: true,
-        });
+      if (!(await fs.stat(normalizedOptions.openRPCSpecPath)).isFile()) {
+        throw new Error(
+          `OpenRPC spec file not found: ${normalizedOptions.openRPCSpecPath}`,
+        );
       }
+
+      await fs.rm(normalizedOptions.docOutputPath, {
+        recursive: true,
+        force: true,
+      });
+
       await generateDocs(
         normalizedOptions.openRPCSpecPath,
         normalizedOptions.docOutputPath,
       );
-      // TODO: Return content to be used in contentLoaded
+      // Return content to be used in contentLoaded
       return {};
     },
 
