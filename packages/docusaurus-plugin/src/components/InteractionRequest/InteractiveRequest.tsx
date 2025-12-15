@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { RequestBox } from "../RequestBox/RequestBox";
-import { ResponseExample } from "../ApiExamples/ResponseExample";
+import { ResponseExample } from "../Examples/ResponseExample";
 
 export function InteractiveRequest({ request }: { request: string }) {
   const [response, setResponse] = useState("");

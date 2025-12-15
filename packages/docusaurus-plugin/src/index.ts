@@ -13,6 +13,7 @@ import type { PluginContent } from "./types";
 import type { Options } from "./options";
 import { normalizeOptions } from "./options";
 import { generateDocs } from "./lib";
+import fs from "fs/promises";
 
 const PluginName = "@open-rpc/docusaurus-plugin";
 
@@ -47,18 +48,22 @@ export default function openRPCDocusaurusPlugin(
     async loadContent(): Promise<PluginContent> {
       logger.info(`[${PluginName}] loadContent called`);
 
-      /*
-      if (normalizedOptions.docOutputPath) {
-        await fs.rm(normalizedOptions.docOutputPath, {
-          recursive: true,
-          force: true,
-        });
-      }*/
+      if (!(await fs.stat(normalizedOptions.openRPCSpecPath)).isFile()) {
+        throw new Error(
+          `OpenRPC spec file not found: ${normalizedOptions.openRPCSpecPath}`,
+        );
+      }
+
+      await fs.rm(normalizedOptions.docOutputPath, {
+        recursive: true,
+        force: true,
+      });
+
       await generateDocs(
         normalizedOptions.openRPCSpecPath,
         normalizedOptions.docOutputPath,
       );
-      // TODO: Return content to be used in contentLoaded
+      // Return content to be used in contentLoaded
       return {};
     },
 
