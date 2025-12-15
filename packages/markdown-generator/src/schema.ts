@@ -57,6 +57,12 @@ export interface DetailData {
   summaryType: string;
   summaryContent: (BlockContent | DefinitionContent | MdxJsxFlowElement)[];
 }
+export interface ErrorGroupItem extends NoRefs<ErrorOrReference> {
+  "x-error-category"?: string;
+}
+
+export type ErrorGroups = ErrorGroupItem[];
+
 /*  Render heading helpers */
 
 export function objectFieldList(
@@ -414,7 +420,7 @@ export function renderExamples(
 }
 
 export function renderError(
-  error: NoRefs<ErrorOrReference>,
+  error: NoRefs<ErrorOrReference | ErrorGroupItem>,
   _editSchema: SchemaEdits,
 ): OpenRPCMdContent[] {
   if (!error || typeof error !== "object") return [];
@@ -485,6 +491,30 @@ export function renderError(
     });
   }
 
+  if ((error as ErrorGroupItem)["x-error-category"] !== undefined) {
+    const categoryValue = (error as ErrorGroupItem)["x-error-category"];
+
+    listItems.push({
+      type: "listItem",
+      spread: false,
+      children: [
+        {
+          type: "paragraph",
+          children: [
+            {
+              type: "strong",
+              children: [{ type: "text", value: "x-error-category" }],
+            },
+          ],
+        },
+        {
+          type: "paragraph",
+          children: [{ type: "text", value: categoryValue }],
+        },
+      ],
+    });
+  }
+
   // Add the list of code/message/data fields
   children.push({
     type: "list",
@@ -497,7 +527,7 @@ export function renderError(
 }
 
 export function renderErrors(
-  errors: NoRefs<MethodObjectErrors> | undefined,
+  errors: NoRefs<MethodObjectErrors | ErrorGroups> | undefined,
   editSchema: SchemaEdits,
 ): OpenRPCMdContent[] {
   if (errors === undefined) return [];
@@ -613,6 +643,7 @@ export function renderMethod(
         ...content,
         ...renderResults(method.result, editSchema),
         ...renderErrors(method.errors, editSchema),
+        ...renderErrors(method["x-error-group"]?.flat(), editSchema),
         ...renderExamples(
           method.examples,
           method.paramStructure ?? "either",
