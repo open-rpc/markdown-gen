@@ -8,7 +8,7 @@ description: ""
 import {TwoColumnLayout, InteractiveRequest, ResponseExample} from 'open-rpc-docusaurus-plugin-beta/components';
 import { useState } from 'react';
 
-<TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_newFilter\",\n  \"params\": {\n    \"Filter\": {}\n  },\n  \"id\": 1\n}"} />}>
+<TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_newFilter\",\n  \"params\": [\n    {\n      \"fromBlock\": \"0x137d3c2\",\n      \"toBlock\": \"0x137d3c3\",\n      \"address\": \"0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\",\n      \"topics\": []\n    }\n  ],\n  \"id\": 1\n}"} />}>
   <div>
     # eth\_newFilter
 
@@ -19,317 +19,157 @@ import { useState } from 'react';
     <div>
       ## Parameters (by position)
 
+      **Filter** `object` *required*
+
+      filter
+
+      ***
+
       <div>
-        **Filter** `object or object` *required*
-
-        ***
-
         <details>
           <summary>
-            Show Option 1 `Filter by block range` object
+            Show `Filter` object
           </summary>
 
-          #### `Filter by block range` fields
+          #### `Filter` fields
 
-          **Filter** `object` *required*
+          * **fromBlock** `string`
 
-          Filter by block range
+            from block
 
-          ***
+            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-          <div>
-            <details>
-              <summary>
-                Show `Filter` object
-              </summary>
+            ***
 
-              #### `Filter` fields
+          * **toBlock** `string`
 
-              * **fromBlock** `string`
+            to block
 
-                from block
+            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-                *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+            ***
+
+          * <div>
+              **address** `null or string or array<string>`
+
+              ***
+
+              <details>
+                <summary>
+                  Show Option 1 `Any Address` null
+                </summary>
+
+                #### `Any Address` fields
+
+                **address** `null`
+
+                Any Address
 
                 ***
+              </details>
 
-              * **toBlock** `string`
+              <details>
+                <summary>
+                  Show Option 2 `Address` string
+                </summary>
 
-                to block
+                #### `Address` fields
 
-                *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+                **address** `string`
 
-                ***
+                Address
 
-              * <div>
-                  **address** `null or string or array<string>`
-
-                  ***
-
-                  <details>
-                    <summary>
-                      Show Option 1 `Any Address` null
-                    </summary>
-
-                    #### `Any Address` fields
-
-                    **address** `null`
-
-                    Any Address
-
-                    ***
-                  </details>
-
-                  <details>
-                    <summary>
-                      Show Option 2 `Address` string
-                    </summary>
-
-                    #### `Address` fields
-
-                    **address** `string`
-
-                    Address
-
-                    *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                    ***
-                  </details>
-
-                  <details>
-                    <summary>
-                      Show Option 3 `Addresses` array
-                    </summary>
-
-                    #### `Addresses` fields
-
-                    **address** `array<string>`
-
-                    hex encoded address
-
-                    *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                    ***
-                  </details>
-                </div>
-
-              * <div>
-                  **topics** `null or array<unknown>`
-
-                  ***
-
-                  <details>
-                    <summary>
-                      Show Option 1 `Any Topic Match` null
-                    </summary>
-
-                    #### `Any Topic Match` fields
-
-                    **topics** `null`
-
-                    Any Topic Match
-
-                    ***
-                  </details>
-
-                  <details>
-                    <summary>
-                      Show Option 2 `Specified Filter Topics` array
-                    </summary>
-
-                    #### `Specified Filter Topics` fields
-
-                    <div>
-                      **topics** `string or array<string>`
-
-                      ***
-
-                      <details>
-                        <summary>
-                          Show Option 1 `Single Topic Match` string
-                        </summary>
-
-                        #### `Single Topic Match` fields
-
-                        **topics** `array<string>`
-
-                        Single Topic Match
-
-                        *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                        ***
-                      </details>
-
-                      <details>
-                        <summary>
-                          Show Option 2 `Multiple Topic Match` array
-                        </summary>
-
-                        #### `Multiple Topic Match` fields
-
-                        **topics** `array<string>`
-
-                        32 hex encoded bytes
-
-                        *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                        ***
-                      </details>
-                    </div>
-                  </details>
-                </div>
-            </details>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            Show Option 2 `Filter by block hash` object
-          </summary>
-
-          #### `Filter by block hash` fields
-
-          **Filter** `object` *required*
-
-          Filter by block hash
-
-          ***
-
-          <div>
-            <details>
-              <summary>
-                Show `Filter` object
-              </summary>
-
-              #### `Filter` fields
-
-              * **blockHash** `string` *required*
-
-                block hash
-
-                *Match pattern:* `^0x[0-9a-f]{64}$`
+                *Match pattern:* `^0x[0-9a-fA-F]{40}$`
 
                 ***
+              </details>
 
-              * <div>
-                  **address** `null or string or array<string>`
+              <details>
+                <summary>
+                  Show Option 3 `Addresses` array
+                </summary>
 
-                  ***
+                #### `Addresses` fields
 
-                  <details>
-                    <summary>
-                      Show Option 1 `Any Address` null
-                    </summary>
+                **address** `array<string>`
 
-                    #### `Any Address` fields
+                hex encoded address
 
-                    **address** `null`
+                *Match pattern:* `^0x[0-9a-fA-F]{40}$`
 
-                    Any Address
+                ***
+              </details>
+            </div>
 
-                    ***
-                  </details>
+          * <div>
+              **topics** `null or array<unknown>`
 
-                  <details>
-                    <summary>
-                      Show Option 2 `Address` string
-                    </summary>
+              ***
 
-                    #### `Address` fields
+              <details>
+                <summary>
+                  Show Option 1 `Any Topic Match` null
+                </summary>
 
-                    **address** `string`
+                #### `Any Topic Match` fields
 
-                    Address
+                **topics** `null`
 
-                    *Match pattern:* `^0x[0-9a-fA-F]{40}$`
+                Any Topic Match
 
-                    ***
-                  </details>
+                ***
+              </details>
 
-                  <details>
-                    <summary>
-                      Show Option 3 `Addresses` array
-                    </summary>
+              <details>
+                <summary>
+                  Show Option 2 `Specified Filter Topics` array
+                </summary>
 
-                    #### `Addresses` fields
+                #### `Specified Filter Topics` fields
 
-                    **address** `array<string>`
-
-                    hex encoded address
-
-                    *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                    ***
-                  </details>
-                </div>
-
-              * <div>
-                  **topics** `null or array<unknown>`
+                <div>
+                  **topics** `string or array<string>`
 
                   ***
 
                   <details>
                     <summary>
-                      Show Option 1 `Any Topic Match` null
+                      Show Option 1 `Single Topic Match` string
                     </summary>
 
-                    #### `Any Topic Match` fields
+                    #### `Single Topic Match` fields
 
-                    **topics** `null`
+                    **topics** `array<string>`
 
-                    Any Topic Match
+                    Single Topic Match
+
+                    *Match pattern:* `^0x[0-9a-f]{64}$`
 
                     ***
                   </details>
 
                   <details>
                     <summary>
-                      Show Option 2 `Specified Filter Topics` array
+                      Show Option 2 `Multiple Topic Match` array
                     </summary>
 
-                    #### `Specified Filter Topics` fields
+                    #### `Multiple Topic Match` fields
 
-                    <div>
-                      **topics** `string or array<string>`
+                    **topics** `array<string>`
 
-                      ***
+                    32 hex encoded bytes
 
-                      <details>
-                        <summary>
-                          Show Option 1 `Single Topic Match` string
-                        </summary>
+                    *Match pattern:* `^0x[0-9a-f]{64}$`
 
-                        #### `Single Topic Match` fields
-
-                        **topics** `array<string>`
-
-                        Single Topic Match
-
-                        *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                        ***
-                      </details>
-
-                      <details>
-                        <summary>
-                          Show Option 2 `Multiple Topic Match` array
-                        </summary>
-
-                        #### `Multiple Topic Match` fields
-
-                        **topics** `array<string>`
-
-                        32 hex encoded bytes
-
-                        *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                        ***
-                      </details>
-                    </div>
+                    ***
                   </details>
                 </div>
-            </details>
-          </div>
+              </details>
+            </div>
+
+          * **additionalProperties** `false`
+
+            ***
         </details>
       </div>
     </div>

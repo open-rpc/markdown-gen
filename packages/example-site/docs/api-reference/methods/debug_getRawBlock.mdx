@@ -8,7 +8,7 @@ description: ""
 import {TwoColumnLayout, InteractiveRequest, ResponseExample} from 'open-rpc-docusaurus-plugin-beta/components';
 import { useState } from 'react';
 
-<TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"debug_getRawBlock\",\n  \"params\": {\n    \"Block\": \"example\"\n  },\n  \"id\": 1\n}"} />}>
+<TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"debug_getRawBlock\",\n  \"params\": [\n    \"0x32026E\"\n  ],\n  \"id\": 1\n}"} />}>
   <div>
     # debug\_getRawBlock
 
@@ -70,23 +70,6 @@ import { useState } from 'react';
       *Match pattern:* `^0x[0-9a-f]*$`
 
       ***
-    </div>
-
-    <div>
-      ## Errors
-
-      <details>
-        <summary>
-          Error code: 4444
-        </summary>
-
-        * **code**
-
-          4444
-        * **message**
-
-          Pruned history unavailable
-      </details>
     </div>
 
     <div>

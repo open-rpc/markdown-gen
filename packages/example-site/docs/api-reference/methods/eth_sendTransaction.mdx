@@ -8,7 +8,7 @@ description: ""
 import {TwoColumnLayout, InteractiveRequest, ResponseExample} from 'open-rpc-docusaurus-plugin-beta/components';
 import { useState } from 'react';
 
-<TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_sendTransaction\",\n  \"params\": {\n    \"Transaction\": {\n      \"type\": \"string\",\n      \"nonce\": \"string\",\n      \"to\": \"example\",\n      \"from\": \"string\",\n      \"gas\": \"string\",\n      \"value\": \"string\",\n      \"input\": \"string\",\n      \"gasPrice\": \"string\",\n      \"maxPriorityFeePerGas\": \"string\",\n      \"maxFeePerGas\": \"string\",\n      \"maxFeePerBlobGas\": \"string\",\n      \"accessList\": [\n        {\n          \"address\": \"string\",\n          \"storageKeys\": [\n            \"string\"\n          ]\n        }\n      ],\n      \"blobVersionedHashes\": [\n        \"string\"\n      ],\n      \"blobs\": [\n        \"string\"\n      ],\n      \"chainId\": \"string\",\n      \"authorizationList\": [\n        {\n          \"chainId\": \"string\",\n          \"nonce\": \"string\",\n          \"address\": \"string\",\n          \"yParity\": \"string\",\n          \"r\": \"string\",\n          \"s\": \"string\"\n        }\n      ]\n    }\n  },\n  \"id\": 1\n}"} />}>
+<TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_sendTransaction\",\n  \"params\": [\n    {\n      \"from\": \"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\n      \"to\": \"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\n      \"gas\": \"0x76c0\",\n      \"gasPrice\": \"0x9184e72a000\",\n      \"value\": \"0x9184e72a\",\n      \"input\": \"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"\n    }\n  ],\n  \"id\": 1\n}"} />}>
   <div>
     # eth\_sendTransaction
 
@@ -180,6 +180,10 @@ import { useState } from 'react';
                   *Match pattern:* `^0x[0-9a-f]{64}$`
 
                   ***
+
+                * **additionalProperties** `false`
+
+                  ***
               </details>
             </div>
 
@@ -270,8 +274,16 @@ import { useState } from 'react';
                   *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
 
                   ***
+
+                * **additionalProperties** `true`
+
+                  ***
               </details>
             </div>
+
+          * **additionalProperties** `false`
+
+            ***
         </details>
       </div>
     </div>
@@ -286,6 +298,547 @@ import { useState } from 'react';
       *Match pattern:* `^0x[0-9a-f]{64}$`
 
       ***
+    </div>
+
+    <div>
+      ## Errors
+
+      <details>
+        <summary>
+          Error code: -32000
+        </summary>
+
+        * **code**
+
+          -32000
+        * **message**
+
+          Invalid input
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32001
+        </summary>
+
+        * **code**
+
+          -32001
+        * **message**
+
+          Resource not found
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32002
+        </summary>
+
+        * **code**
+
+          -32002
+        * **message**
+
+          Resource unavailable
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32003
+        </summary>
+
+        * **code**
+
+          -32003
+        * **message**
+
+          Transaction rejected
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32004
+        </summary>
+
+        * **code**
+
+          -32004
+        * **message**
+
+          Method not supported
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32005
+        </summary>
+
+        * **code**
+
+          -32005
+        * **message**
+
+          Limit exceeded
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32006
+        </summary>
+
+        * **code**
+
+          -32006
+        * **message**
+
+          JSON-RPC version not supported
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32700
+        </summary>
+
+        * **code**
+
+          -32700
+        * **message**
+
+          Parse error
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32600
+        </summary>
+
+        * **code**
+
+          -32600
+        * **message**
+
+          Invalid request
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32601
+        </summary>
+
+        * **code**
+
+          -32601
+        * **message**
+
+          Method not found
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32602
+        </summary>
+
+        * **code**
+
+          -32602
+        * **message**
+
+          Invalid params
+      </details>
+
+      <details>
+        <summary>
+          Error code: -32603
+        </summary>
+
+        * **code**
+
+          -32603
+        * **message**
+
+          Internal error
+      </details>
+
+      <details>
+        <summary>
+          Error code: 800
+        </summary>
+
+        * **code**
+
+          800
+        * **message**
+
+          Intrinsic gas too low / Intrinsic gas exceeds gas limit
+        * **x-error-category**
+
+          GAS\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 801
+        </summary>
+
+        * **code**
+
+          801
+        * **message**
+
+          Insufficient gas for floor data gas cost
+        * **x-error-category**
+
+          GAS\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 802
+        </summary>
+
+        * **code**
+
+          802
+        * **message**
+
+          Tx gas limit exceeds max block gas limit / intrinsic gas exceeds gas limit
+        * **x-error-category**
+
+          GAS\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 803
+        </summary>
+
+        * **code**
+
+          803
+        * **message**
+
+          Transaction gas limit too high
+      </details>
+
+      <details>
+        <summary>
+          Error code: 804
+        </summary>
+
+        * **code**
+
+          804
+        * **message**
+
+          Gas price below configured minimum gas price / transaction gas price below minimum
+        * **x-error-category**
+
+          GAS\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 805
+        </summary>
+
+        * **code**
+
+          805
+        * **message**
+
+          Insufficient funds for gas \* price + value / Upfront cost exceeds account balance
+        * **x-error-category**
+
+          GAS\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 806
+        </summary>
+
+        * **code**
+
+          806
+        * **message**
+
+          Max priority fee per gas higher than max fee per gas
+        * **x-error-category**
+
+          GAS\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 807
+        </summary>
+
+        * **code**
+
+          807
+        * **message**
+
+          Tx fee exceeds the configured cap / Transaction fee cap exceeded
+        * **x-error-category**
+
+          GAS\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1
+        </summary>
+
+        * **code**
+
+          1
+        * **message**
+
+          Nonce too low
+        * **x-error-category**
+
+          EXECUTION\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 2
+        </summary>
+
+        * **code**
+
+          2
+        * **message**
+
+          Nonce too high
+        * **x-error-category**
+
+          EXECUTION\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 3
+        </summary>
+
+        * **code**
+
+          3
+        * **message**
+
+          Execution reverted by REVERT Opcode
+        * **x-error-category**
+
+          EXECUTION\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 4
+        </summary>
+
+        * **code**
+
+          4
+        * **message**
+
+          Invalid opcode
+        * **x-error-category**
+
+          EXECUTION\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1000
+        </summary>
+
+        * **code**
+
+          1000
+        * **message**
+
+          Transaction is already known to the transaction pool
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1001
+        </summary>
+
+        * **code**
+
+          1001
+        * **message**
+
+          Replacement transaction is sent without the required price bump
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1002
+        </summary>
+
+        * **code**
+
+          1002
+        * **message**
+
+          Oversized data: Transaction input data exceeds the allowed limit
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1003
+        </summary>
+
+        * **code**
+
+          1003
+        * **message**
+
+          Only replay-protected (EIP-155) transactions allowed over RPC
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1004
+        </summary>
+
+        * **code**
+
+          1004
+        * **message**
+
+          Transaction pool is full
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1005
+        </summary>
+
+        * **code**
+
+          1005
+        * **message**
+
+          Transaction Data contains invalid RLP encoding
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1006
+        </summary>
+
+        * **code**
+
+          1006
+        * **message**
+
+          Transaction sender is invalid
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1007
+        </summary>
+
+        * **code**
+
+          1007
+        * **message**
+
+          Transaction with negative value
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1008
+        </summary>
+
+        * **code**
+
+          1008
+        * **message**
+
+          Transaction sender is denylisted
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1009
+        </summary>
+
+        * **code**
+
+          1009
+        * **message**
+
+          Transaction receiver is denylisted
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 1010
+        </summary>
+
+        * **code**
+
+          1010
+        * **message**
+
+          Transaction chain ID does not match the expected chain ID
+        * **x-error-category**
+
+          TXPOOL\_ERRORS
+      </details>
+
+      <details>
+        <summary>
+          Error code: 2000
+        </summary>
+
+        * **code**
+
+          2000
+        * **message**
+
+          Not enough step counters to continue the execution
+        * **x-error-category**
+
+          ZK\_EXECUTION\_ERRORS
+      </details>
     </div>
 
     <div>
