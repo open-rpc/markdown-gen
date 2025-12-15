@@ -297,6 +297,13 @@ export function renderAtomicSchema(
     ...contentContainerDescriptor,
     constraintsSchema: schema,
   } as ContentContainerDescriptor;
+  if (typeof schema == "boolean")
+    return renderAtomicHelper(
+      contentContainerDescriptor?.name ?? "",
+      schema.toString(),
+      "",
+      contentContainerDescriptor ?? {},
+    );
   if (typeof schema !== "object" || schema === null) {
     return [];
   }
@@ -755,7 +762,23 @@ export function renderObjectSchema(
       ),
     );
   }
-
+  if (Object.entries(schema.properties ?? {}).length > 0) {
+    fieldData.push(
+      renderSchema(
+        {
+          name: "additionalProperties",
+          description: "Additional JSON properties",
+          schema: schema.additionalProperties
+            ? schema.additionalProperties
+            : true,
+          required: false,
+          constraintsSchema: schema.additionalProperties ?? {},
+        },
+        schema.additionalProperties ?? true,
+        editSchema,
+      ),
+    );
+  }
   children.push(objectFieldList(fieldData));
   // aggregate the children into a details element
   const detailData: DetailData = {
@@ -862,6 +885,8 @@ export function renderSchema(
 ): OpenRPCMdContent[] {
   let children: OpenRPCMdContent[] = [];
   if (schema === null || schema === undefined) return [];
+  if (typeof schema == "boolean")
+    return renderAtomicSchema(contentDescriptor, schema, editSchema);
   if (typeof schema === "object" && schema !== null) {
     if (schema.allOf) {
       return renderOfTypeSchema(contentDescriptor, "allOf", schema, editSchema);
