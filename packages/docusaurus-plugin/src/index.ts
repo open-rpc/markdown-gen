@@ -23,7 +23,14 @@ export default function openRPCDocusaurusPlugin(
   options: Options,
 ): Plugin<PluginContent> {
   const normalizedOptions = normalizeOptions(options);
-
+  const specPath = path.resolve(
+    context.siteDir,
+    normalizedOptions.openRPCSpecPath,
+  );
+  const outputDir = path.resolve(
+    context.siteDir,
+    normalizedOptions.docOutputPath,
+  );
   return {
     name: PluginName,
 
@@ -48,15 +55,9 @@ export default function openRPCDocusaurusPlugin(
      */
     async loadContent(): Promise<PluginContent> {
       logger.info(`[${PluginName}] loadContent called`);
-
-      const specPath = path.resolve(
-        context.siteDir,
-        normalizedOptions.openRPCSpecPath,
-      );
-      const outputDir = path.resolve(
-        context.siteDir,
-        normalizedOptions.docOutputPath,
-      );
+      logger.info(`[${PluginName}] loadContent - siteDir: ${context.siteDir}`);
+      logger.info(`[${PluginName}] specPath: ${specPath}`);
+      logger.info(`[${PluginName}] outputDir: ${outputDir}`);
 
       if (!(await fs.stat(specPath)).isFile()) {
         throw new Error(`OpenRPC spec file not found: ${specPath}`);
