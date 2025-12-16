@@ -91,7 +91,7 @@ export default async function openRPCDocusaurusPlugin(
     async loadContent(): Promise<PluginContent> {
       logger.info(`[${PluginName}] loadContent called`);
       // await initDocs(specPath, outputDir);
-      await generateDocs(specPath, outputDir);
+      //      await generateDocs(specPath, outputDir);
 
       /*
       if (!(await fs.stat(specPath)).isFile()) {
@@ -131,6 +131,7 @@ export default async function openRPCDocusaurusPlugin(
      */
     async contentLoaded({ content, actions }): Promise<void> {
       logger.info(`[${PluginName}] contentLoaded called`);
+      await initDocs(specPath, outputDir);
       /*
       if (!(await fs.stat(specPath)).isFile()) {
         throw new Error(`OpenRPC spec file not found: ${specPath}`);
