@@ -72,8 +72,6 @@ export async function generateDocs(inputPath: string, outputPath: string) {
   await fs.mkdir(methodsDir, { recursive: true });
   await fs.mkdir(schemasDir, { recursive: true });
 
-  await fs.writeFile(path.join(outDir, "index.md"), renderIndex(doc), "utf8");
-
   for (const m of methods) {
     await fs.writeFile(
       path.join(methodsDir, `${m.methodName}.mdx`),
@@ -81,6 +79,8 @@ export async function generateDocs(inputPath: string, outputPath: string) {
       "utf8",
     );
   }
+
+  await fs.writeFile(path.join(outDir, "index.md"), renderIndex(doc), "utf8");
 }
 
 /* ---------- Renderers ---------- */
