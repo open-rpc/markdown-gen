@@ -77,10 +77,7 @@ export default function openRPCDocusaurusPlugin(
         // Directory doesn't exist yet, that's fine
       }
 
-      await generateDocs(
-        normalizedOptions.openRPCSpecPath,
-        normalizedOptions.docOutputPath,
-      );
+      await generateDocs(specPath, outputDir);
       // Return content to be used in contentLoaded
       return {};
     },
