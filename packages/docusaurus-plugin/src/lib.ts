@@ -53,27 +53,37 @@ methodEdits.editMethod = (content, method) => {
   ] as OpenRPCMdContent[];
 };
 export async function generateDocs(inputPath: string, outputPath: string) {
+  console.warn(`[generateDocs] Reading spec from: ${inputPath}`);
   const raw = await fs.readFile(inputPath, "utf8");
+  console.warn(`[generateDocs] Spec file read, length: ${raw.length}`);
+
+  console.warn(`[generateDocs] Parsing OpenRPC document...`);
   const doc: DereffedOpenrpcDocument = (await parseOpenRPCDocument(
     raw,
   )) as DereffedOpenrpcDocument;
+  console.warn(`[generateDocs] Parsed, methods: ${doc.methods?.length || 0}`);
 
+  console.warn(`[generateDocs] Rendering methods to markdown...`);
   const methods = await renderMethodsToMarkdown(
     doc,
     methodEdits,
     identitySchemaEdits,
   );
+  console.warn(`[generateDocs] Rendered ${methods.length} methods`);
 
   const outDir = outputPath;
   const methodsDir = path.join(outDir, "methods");
   const schemasDir = path.join(outDir, "schemas");
 
+  console.warn(`[generateDocs] Creating directories...`);
   await fs.mkdir(outDir, { recursive: true });
   await fs.mkdir(methodsDir, { recursive: true });
   await fs.mkdir(schemasDir, { recursive: true });
 
+  console.warn(`[generateDocs] Writing index.md...`);
   await fs.writeFile(path.join(outDir, "index.md"), renderIndex(doc), "utf8");
 
+  console.warn(`[generateDocs] Writing ${methods.length} method files...`);
   for (const m of methods) {
     await fs.writeFile(
       path.join(methodsDir, `${m.methodName}.mdx`),
@@ -81,6 +91,7 @@ export async function generateDocs(inputPath: string, outputPath: string) {
       "utf8",
     );
   }
+  console.warn(`[generateDocs] Done!`);
 }
 
 /* ---------- Renderers ---------- */

@@ -77,7 +77,17 @@ export default function openRPCDocusaurusPlugin(
         // Directory doesn't exist yet, that's fine
       }
 
-      await generateDocs(specPath, outputDir);
+      try {
+        logger.info(`[${PluginName}] Starting generateDocs...`);
+        await generateDocs(specPath, outputDir);
+        logger.info(`[${PluginName}] generateDocs completed successfully`);
+      } catch (err) {
+        logger.error(`[${PluginName}] generateDocs failed: ${err}`);
+        logger.error(
+          `[${PluginName}] Stack: ${err instanceof Error ? err.stack : "no stack"}`,
+        );
+        throw err;
+      }
       // Return content to be used in contentLoaded
       return {};
     },
