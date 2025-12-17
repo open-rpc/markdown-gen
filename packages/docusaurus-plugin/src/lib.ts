@@ -52,6 +52,7 @@ methodEdits.editMethod = (content, method) => {
     },
   ] as OpenRPCMdContent[];
 };
+
 export async function generateDocs(inputPath: string, outputPath: string) {
   const raw = await fs.readFile(inputPath, "utf8");
   const doc: DereffedOpenrpcDocument = (await parseOpenRPCDocument(

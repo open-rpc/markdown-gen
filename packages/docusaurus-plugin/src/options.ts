@@ -19,7 +19,6 @@ export type PluginOptions = Options & {
  * Normalize user options with defaults
  */
 export function normalizeOptions(options: Options): PluginOptions {
-  // TODO: Apply defaults and normalize options
   return {
     openRPCSpecPath: options.openRPCSpecPath || "./openrpc.json",
     docOutputPath: options.docOutputPath || "./api-reference",
