@@ -1,5 +1,13 @@
 # open-rpc-docusaurus-plugin-beta
 
+## 0.0.5
+
+### Patch Changes
+
+- 16eeda4: Changes here are a few bug patches, readme updates, race conditions and other commits to get this prod ready
+- Updated dependencies [16eeda4]
+  - open-rpc-markdown-generator-beta@0.0.4
+
 ## 0.0.4
 
 ### Patch Changes
