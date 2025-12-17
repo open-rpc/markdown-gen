@@ -3,7 +3,7 @@
 /* global Bun */
 import { parseArgs } from "node:util";
 import path from "node:path";
-import { renderMethodsToMarkdownFiles } from "./lib";
+import { renderDocumentToMarkdownFiles } from "./lib";
 import { identityEdits, identitySchemaEdits } from "./schema";
 import type { Edits, SchemaEdits } from "./type";
 
@@ -19,6 +19,7 @@ Options:
   -m, --methodDir <dir>  Output directory for generated .mdx files (default: ".")
   -c, --custom <file>    Path to .js file exporting edits/schemaEdits
   -h, --help             Show this help message
+  -t, --markdownType <type>  Type of markdown to generate (default: "mdx")
 `;
 
 async function main() {
@@ -28,6 +29,7 @@ async function main() {
       methodDir: { type: "string", short: "m", default: "." },
       custom: { type: "string", short: "c" },
       help: { type: "boolean", short: "h", default: false },
+      markdownType: { type: "string", short: "t", default: "mdx" },
     },
     allowPositionals: true,
   });
@@ -38,6 +40,7 @@ async function main() {
   }
 
   const [documentPath] = positionals;
+  const markdownType = values.markdownType as "mdx" | "md";
   if (!documentPath) {
     console.error("Error: OpenRPC document path is required.\n");
     console.log(HELP);
@@ -64,12 +67,12 @@ async function main() {
   const methodDir = path.resolve(values.methodDir!);
 
   // Generate markdown files
-  await renderMethodsToMarkdownFiles(
+  await renderDocumentToMarkdownFiles(
     methodDir,
     document,
     edits,
     schemaEdits,
-    "mdx",
+    markdownType,
   );
 
   console.log(`Generated markdown files in ${methodDir}`);
