@@ -1,5 +1,25 @@
-import React, { useState, type ReactNode } from "react";
+import React, { useState, useRef, useEffect, type ReactNode } from "react";
 import styles from "./styles.module.css";
+
+// Template generators for copy functionality
+const templates = {
+  curl: (url: string, body: string): string => {
+    const escapedJson = body.replace(/'/g, "'\\''");
+    return `curl -X POST \\
+  -H "Content-Type: application/json" \\
+  -d '${escapedJson}' \\
+  ${url}`;
+  },
+  fetch: (url: string, body: string): string => {
+    return `await fetch('${url}', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(${body}),
+}).then((res) => res.json());`;
+  },
+};
 
 interface RequestBoxProps {
   request: string;
@@ -21,6 +41,38 @@ export function RequestBox({
     }
   });
   const [loading, setLoading] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    if (dropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownOpen]);
+
+  const copyAs = async (format: keyof typeof templates) => {
+    try {
+      const text = templates[format](serverUrl, requestCode);
+      await navigator.clipboard.writeText(text);
+      setDropdownOpen(false);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      console.error("Failed to copy:", error);
+    }
+  };
 
   const handleSend = async () => {
     setLoading(true);
@@ -63,7 +115,40 @@ export function RequestBox({
   return (
     <div className={styles.exampleBlock}>
       <div className={styles.exampleHeader}>
-        <div className={styles.requestHeader}>Request</div>
+        <div className={styles.exampleHeaderRow}>
+          <div className={styles.requestHeader}>Request</div>
+          <div className={styles.copyDropdown} ref={dropdownRef}>
+            <button
+              className={styles.copyButton}
+              onClick={() => !copied && setDropdownOpen(!dropdownOpen)}
+              aria-haspopup="true"
+              aria-expanded={dropdownOpen}
+            >
+              {copied ? "Copied" : "Copy ▾"}
+            </button>
+            {dropdownOpen && (
+              <div 
+                className={styles.dropdownMenu}
+                style={{ background: '#ffffff' }}
+              >
+                <button 
+                  className={styles.dropdownItem} 
+                  onClick={() => copyAs("curl")}
+                  style={{ background: '#ffffff' }}
+                >
+                  Copy as Curl
+                </button>
+                <button 
+                  className={styles.dropdownItem} 
+                  onClick={() => copyAs("fetch")}
+                  style={{ background: '#ffffff' }}
+                >
+                  Copy as Fetch
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className={styles.requestControlsContainer}>
