@@ -6,12 +6,75 @@
 }
 
 .requestHeader {
-  padding: 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 600;
+  color: var(--ifm-color-success-dark);
+}
+
+.exampleHeader {
+  padding: 0.5rem 1rem;
   border-bottom: 1px solid var(--ifm-color-emphasis-300);
   background-color: var(--ifm-color-emphasis-100);
-  color: var(--ifm-color-success-dark);
+}
+
+.exampleHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.copyDropdown {
+  position: relative;
+}
+
+.copyButton {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-content);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-border-radius);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.copyButton:hover {
+  background-color: var(--ifm-color-emphasis-300);
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.25rem;
+  min-width: 140px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-border-radius);
+  box-shadow: var(--ifm-global-shadow-md, 0 5px 40px rgba(0, 0, 0, 0.2));
+  z-index: 100;
+  overflow: hidden;
+}
+
+.dropdownItem {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  text-align: left;
+  background-color: var(--ifm-color-emphasis-100);
+  border: none;
+  color: var(--ifm-color-content);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.dropdownItem:hover {
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+.dropdownItem:not(:last-child) {
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
 }
 
 .requestContent {
@@ -107,4 +170,38 @@
 
 [data-theme='dark'] .requestTextarea {
   border-color: var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] .exampleHeader {
+  background-color: var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] .requestHeader {
+  color: var(--ifm-color-success-light);
+}
+
+[data-theme='dark'] .copyButton {
+  background-color: var(--ifm-color-emphasis-300);
+  border-color: var(--ifm-color-emphasis-400);
+}
+
+[data-theme='dark'] .copyButton:hover {
+  background-color: var(--ifm-color-emphasis-400);
+}
+
+[data-theme='dark'] .dropdownMenu {
+  background-color: var(--ifm-background-surface-color, var(--ifm-background-color, #1b1b1d));
+  border-color: var(--ifm-color-emphasis-400);
+}
+
+[data-theme='dark'] .dropdownItem {
+  background-color: var(--ifm-background-surface-color, var(--ifm-background-color, #1b1b1d));
+}
+
+[data-theme='dark'] .dropdownItem:hover {
+  background-color: var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] .dropdownItem:not(:last-child) {
+  border-bottom-color: var(--ifm-color-emphasis-300);
 }

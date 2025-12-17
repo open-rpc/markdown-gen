@@ -227,7 +227,3 @@ function exampleResultFromMethod(m: DereffedMethodObject): any {
   }
   return val;
 }
-
-function escapeYaml(str: string): string {
-  return str.replace(/"/g, '\\"').replace(/\n/g, " ");
-}
