@@ -43,7 +43,7 @@ function escapeYaml(str: string): string {
 export async function renderMethodsToMarkdown(
   document: OpenrpcDocument,
   edits: Edits,
-  _schemaEdits: SchemaEdits,
+  schemaEdits: SchemaEdits = identitySchemaEdits,
 ): Promise<MethodToMarkdown[]> {
   const dereferencedDocument = await dereferenceDocument(document);
   const parsedDocument = await parseOpenRPCDocument(dereferencedDocument);
@@ -51,7 +51,7 @@ export async function renderMethodsToMarkdown(
   return parsedDocument.methods.map((method) => {
     const methodContent = renderMethod(
       method as NoRefs<MethodObject>,
-      identitySchemaEdits,
+      schemaEdits,
       edits,
     );
     const rootDocument: Root = {

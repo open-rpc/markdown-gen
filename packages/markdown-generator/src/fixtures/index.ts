@@ -1,4 +1,4 @@
-import additionalProperties from "./draft7/additionalItems.json";
+import additionalProperties from "./draft7/additionalProperties.json";
 import additionalItems from "./draft7/additionalItems.json";
 import allOf from "./draft7/allOf.json";
 import anyOf from "./draft7/anyOf.json";

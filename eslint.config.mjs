@@ -56,6 +56,7 @@ export default [
         ...globals.node,
         ...globals.es6,
         ...globals.browser,
+        Bun: 'readonly',
       }
     },
     plugins: {
