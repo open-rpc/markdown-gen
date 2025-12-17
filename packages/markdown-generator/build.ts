@@ -4,7 +4,7 @@ import { $ } from "bun";
 const isWatch = process.argv.includes("--watch");
 
 const baseConfig = {
-  entrypoints: ["./src/index.ts"],
+  entrypoints: ["./src/index.ts", "./src/cli.ts"],
 };
 
 

@@ -8,7 +8,7 @@ description: ""
 import {TwoColumnLayout, InteractiveRequest, ResponseExample} from 'open-rpc-docusaurus-plugin-beta/components';
 import { useState } from 'react';
 
-<TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_simulateV1\",\n  \"params\": {\n    \"Payload\": {\n      \"blockStateCalls\": [\n        {\n          \"blockOverrides\": {\n            \"number\": \"string\",\n            \"prevRandao\": \"string\",\n            \"time\": \"string\",\n            \"gasLimit\": \"string\",\n            \"feeRecipient\": \"string\",\n            \"baseFeePerGas\": \"string\",\n            \"withdrawals\": [\n              {\n                \"index\": \"string\",\n                \"validatorIndex\": \"string\",\n                \"address\": \"string\",\n                \"amount\": \"string\"\n              }\n            ],\n            \"blobBaseFee\": \"string\"\n          },\n          \"stateOverrides\": {},\n          \"calls\": [\n            {\n              \"type\": \"string\",\n              \"nonce\": \"string\",\n              \"to\": \"string\",\n              \"from\": \"string\",\n              \"gas\": \"string\",\n              \"value\": \"string\",\n              \"input\": \"string\",\n              \"gasPrice\": \"string\",\n              \"maxPriorityFeePerGas\": \"string\",\n              \"maxFeePerGas\": \"string\",\n              \"maxFeePerBlobGas\": \"string\",\n              \"accessList\": [\n                {\n                  \"address\": \"string\",\n                  \"storageKeys\": [\n                    \"string\"\n                  ]\n                }\n              ],\n              \"blobVersionedHashes\": \"string\"\n            }\n          ]\n        }\n      ],\n      \"traceTransfers\": true,\n      \"validation\": true,\n      \"returnFullTransactions\": true\n    },\n    \"Block tag\": \"example\"\n  },\n  \"id\": 1\n}"} />}>
+<TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_simulateV1\",\n  \"params\": [\n    \"example\",\n    \"string\"\n  ],\n  \"id\": 1\n}"} />}>
   <div>
     # eth\_simulateV1
 
@@ -19,534 +19,9 @@ import { useState } from 'react';
     <div>
       ## Parameters (by position)
 
-      **Payload** `object` *required*
-
-      Arguments for eth\_simulate
+      **Payload** `undefined` *required*
 
       ***
-
-      <div>
-        <details>
-          <summary>
-            Show `Payload` object
-          </summary>
-
-          #### `Payload` fields
-
-          * **blockStateCalls** `array<object>`
-
-            Definition of blocks that can contain calls and overrides
-
-            ***
-
-            <div>
-              <details>
-                <summary>
-                  Show `blockStateCalls` object
-                </summary>
-
-                #### `blockStateCalls` fields
-
-                Definition of blocks that can contain calls and overrides
-
-                * **blockOverrides** `object`
-
-                  Block overrides can be used to replace fields in a block.
-                  default: no block override.
-
-                  ***
-
-                  <div>
-                    <details>
-                      <summary>
-                        Show `blockOverrides` object
-                      </summary>
-
-                      #### `blockOverrides` fields
-
-                      Block overrides can be used to replace fields in a block.
-                      default: no block override.
-
-                      * **number** `string`
-
-                        When overriding block numbers across multiple blocks, block number need to be increasing. Skipping over blocks numbers is possible. If block number is not specified, it's incremented by one for each block.
-
-                        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
-
-                        ***
-
-                      * **prevRandao** `string`
-
-                        The Previous value of randomness beacon
-
-                        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
-
-                        ***
-
-                      * **time** `string`
-
-                        Time must either increase or remain constant relative to the previous block. If time is not specified, it's incremented by one for each block.
-
-                        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
-
-                        ***
-
-                      * **gasLimit** `string`
-
-                        Gas limit
-
-                        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
-
-                        ***
-
-                      * **feeRecipient** `string`
-
-                        Fee Recipient (also known as coinbase)
-
-                        *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                        ***
-
-                      * **baseFeePerGas** `string`
-
-                        Base fee per unit of gas
-
-                        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
-
-                        ***
-
-                      * **withdrawals** `array<object>`
-
-                        This array can have a maximum length of 16.
-
-                        ***
-
-                        <div>
-                          <details>
-                            <summary>
-                              Show `withdrawals` object
-                            </summary>
-
-                            #### `withdrawals` fields
-
-                            This array can have a maximum length of 16.
-
-                            * **index** `string` *required*
-
-                              index of withdrawal
-
-                              *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
-
-                              ***
-
-                            * **validatorIndex** `string` *required*
-
-                              index of validator that generated withdrawal
-
-                              *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
-
-                              ***
-
-                            * **address** `string` *required*
-
-                              recipient address for withdrawal value
-
-                              *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                              ***
-
-                            * **amount** `string` *required*
-
-                              value contained in withdrawal
-
-                              *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
-
-                              ***
-                          </details>
-                        </div>
-
-                      * **blobBaseFee** `string`
-
-                        Base fee per unit of blob gas
-
-                        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
-
-                        ***
-                    </details>
-                  </div>
-
-                * **stateOverrides** `object`
-
-                  State overrides can be used to replace existing blockchain state with new state.
-                  Default: no state overrides
-
-                  ***
-
-                  <div>
-                    <details>
-                      <summary>
-                        Show `stateOverrides` object
-                      </summary>
-
-                      #### `stateOverrides` fields
-
-                      State overrides can be used to replace existing blockchain state with new state.
-                      Default: no state overrides
-
-                      * <div>
-                          **^0x\[a-fA-F0-9]\{40}$** `object or object`
-
-                          ***
-
-                          <details>
-                            <summary>
-                              Show Option 1 `Account override with whole storage replacement` object
-                            </summary>
-
-                            #### `Account override with whole storage replacement` fields
-
-                            It is possible to override any kind of address (EOA's, contracts and precompiles)
-
-                            **^0x\[a-fA-F0-9]\{40}$** `object`
-
-                            It is possible to override any kind of address (EOA's, contracts and precompiles)
-
-                            ***
-
-                            <div>
-                              <details>
-                                <summary>
-                                  Show `^0x[a-fA-F0-9]{40}$` object
-                                </summary>
-
-                                #### `^0x[a-fA-F0-9]{40}$` fields
-
-                                * **nonce** `string`
-
-                                  Nonce
-
-                                  *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
-
-                                  ***
-
-                                * **balance** `string`
-
-                                  Balance
-
-                                  *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
-
-                                  ***
-
-                                * **code** `string`
-
-                                  Code
-
-                                  *Match pattern:* `^0x[0-9a-f]*$`
-
-                                  ***
-
-                                * **movePrecompileToAddress** `string`
-
-                                  Moves addresses precompile into the specified address. This move is done before the 'code' override is set. When the specified address is not a precompile, the behaviour is undefined and different clients might behave differently.
-
-                                  *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                                  ***
-
-                                * **state** `object` *required*
-
-                                  Key-value mapping to override all slots in the account storage before executing the call. This functions similar to eth\_call's state parameter.
-
-                                  ***
-
-                                  <div>
-                                    <details>
-                                      <summary>
-                                        Show `state` object
-                                      </summary>
-
-                                      #### `state` fields
-
-                                      Key-value mapping to override all slots in the account storage before executing the call. This functions similar to eth\_call's state parameter.
-
-                                      * **^0x\[a-fA-F0-9]\{64}$** `string`
-
-                                        32 byte hex value
-
-                                        *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                                        ***
-                                    </details>
-                                  </div>
-                              </details>
-                            </div>
-                          </details>
-
-                          <details>
-                            <summary>
-                              Show Option 2 `Account override with partial storage modification` object
-                            </summary>
-
-                            #### `Account override with partial storage modification` fields
-
-                            **^0x\[a-fA-F0-9]\{40}$** `object`
-
-                            Account override with partial storage modification
-
-                            ***
-
-                            <div>
-                              <details>
-                                <summary>
-                                  Show `^0x[a-fA-F0-9]{40}$` object
-                                </summary>
-
-                                #### `^0x[a-fA-F0-9]{40}$` fields
-
-                                * **nonce** `string`
-
-                                  Nonce
-
-                                  *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
-
-                                  ***
-
-                                * **balance** `string`
-
-                                  Balance
-
-                                  *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
-
-                                  ***
-
-                                * **code** `string`
-
-                                  Code
-
-                                  *Match pattern:* `^0x[0-9a-f]*$`
-
-                                  ***
-
-                                * **movePrecompileToAddress** `string`
-
-                                  Moves addresses precompile into the specified address. This move is done before the 'code' override is set. Can only move precompiles.
-
-                                  *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                                  ***
-
-                                * **stateDiff** `object` *required*
-
-                                  Key-value mapping to override individual slots in the account storage before executing the call. This functions similar to eth\_call's state parameter.
-
-                                  ***
-
-                                  <div>
-                                    <details>
-                                      <summary>
-                                        Show `stateDiff` object
-                                      </summary>
-
-                                      #### `stateDiff` fields
-
-                                      Key-value mapping to override individual slots in the account storage before executing the call. This functions similar to eth\_call's state parameter.
-
-                                      * **^0x\[a-fA-F0-9]\{64}$** `string`
-
-                                        32 byte hex value
-
-                                        *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                                        ***
-                                    </details>
-                                  </div>
-                              </details>
-                            </div>
-                          </details>
-                        </div>
-                    </details>
-                  </div>
-
-                * **calls** `array<object>`
-
-                  List of transactions to execute at this block/state.
-                  Default: \[]
-
-                  ***
-
-                  <div>
-                    <details>
-                      <summary>
-                        Show `calls` object
-                      </summary>
-
-                      #### `calls` fields
-
-                      List of transactions to execute at this block/state.
-                      Default: \[]
-
-                      * **type** `string`
-
-                        Default: 0x2
-
-                        *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
-
-                        ***
-
-                      * **nonce** `string`
-
-                        Default: Defaults to correct nonce
-
-                        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
-
-                        ***
-
-                      * **to** `string`
-
-                        Default: 0x0
-
-                        *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                        ***
-
-                      * **from** `string`
-
-                        Default: null
-
-                        *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                        ***
-
-                      * **gas** `string`
-
-                        Default: Remaining gas in the current block
-
-                        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
-
-                        ***
-
-                      * **value** `string`
-
-                        Default: 0
-
-                        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
-
-                        ***
-
-                      * **input** `string`
-
-                        Default: no data
-
-                        *Match pattern:* `^0x[0-9a-f]*$`
-
-                        ***
-
-                      * **gasPrice** `string`
-
-                        The gas price willing to be paid by the sender in wei
-                        Default: 0
-
-                        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
-
-                        ***
-
-                      * **maxPriorityFeePerGas** `string`
-
-                        Maximum fee per gas the sender is willing to pay to miners in wei
-                        Default: 0
-
-                        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
-
-                        ***
-
-                      * **maxFeePerGas** `string`
-
-                        The maximum total fee per gas the sender is willing to pay (includes the network / base fee and miner / priority fee) in wei
-                        Default: 0
-
-                        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
-
-                        ***
-
-                      * **maxFeePerBlobGas** `string`
-
-                        The maximum total fee per blob gas the sender is willing to pay in wei
-                        Default: 0
-
-                        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
-
-                        ***
-
-                      * **accessList** `array<object>`
-
-                        EIP-2930 access list
-                        Default: \[]
-
-                        ***
-
-                        <div>
-                          <details>
-                            <summary>
-                              Show `accessList` object
-                            </summary>
-
-                            #### `accessList` fields
-
-                            EIP-2930 access list
-                            Default: \[]
-
-                            * **address** `string` *required*
-
-                              hex encoded address
-
-                              *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                              ***
-
-                            * **storageKeys** `array<string>` *required*
-
-                              32 byte hex value
-
-                              *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                              ***
-                          </details>
-                        </div>
-
-                      * **blobVersionedHashes** `string`
-
-                        EIP-4844 versioned hashes
-                        Default: \[]
-
-                        *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                        ***
-                    </details>
-                  </div>
-              </details>
-            </div>
-
-          * **traceTransfers** `boolean`
-
-            Adds ETH transfers as ERC20 transfer events to the logs. These transfers have emitter contract parameter set as address(0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee).
-            Default: false.
-
-            ***
-
-          * **validation** `boolean`
-
-            When true, the eth\_simulateV1 does all validations that a normal EVM would do, except contract sender and signature checks. When false, eth\_simulateV1 behaves like eth\_call.
-            Default: false.
-
-            ***
-
-          * **returnFullTransactions** `boolean`
-
-            When true, the method returns full transaction objects, otherwise, just hashes are returned.
-
-            ***
-        </details>
-      </div>
 
       <div>
         **Block tag** `string or string or string`
@@ -961,6 +436,10 @@ import { useState } from 'react';
                                 *Match pattern:* `^0x[0-9a-f]{64}$`
 
                                 ***
+
+                              * **additionalProperties** `false`
+
+                                ***
                             </details>
                           </div>
 
@@ -1035,6 +514,10 @@ import { useState } from 'react';
                                 *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
 
                                 ***
+
+                              * **additionalProperties** `true`
+
+                                ***
                             </details>
                           </div>
 
@@ -1067,6 +550,10 @@ import { useState } from 'react';
                           s
 
                           *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                          ***
+
+                        * **additionalProperties** `true`
 
                           ***
                       </details>
@@ -1205,6 +692,10 @@ import { useState } from 'react';
                                 *Match pattern:* `^0x[0-9a-f]{64}$`
 
                                 ***
+
+                              * **additionalProperties** `false`
+
+                                ***
                             </details>
                           </div>
 
@@ -1253,6 +744,10 @@ import { useState } from 'react';
                           s
 
                           *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                          ***
+
+                        * **additionalProperties** `true`
 
                           ***
                       </details>
@@ -1411,6 +906,10 @@ import { useState } from 'react';
                                 *Match pattern:* `^0x[0-9a-f]{64}$`
 
                                 ***
+
+                              * **additionalProperties** `false`
+
+                                ***
                             </details>
                           </div>
 
@@ -1451,6 +950,10 @@ import { useState } from 'react';
                           s
 
                           *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                          ***
+
+                        * **additionalProperties** `true`
 
                           ***
                       </details>
@@ -1593,6 +1096,10 @@ import { useState } from 'react';
                                 *Match pattern:* `^0x[0-9a-f]{64}$`
 
                                 ***
+
+                              * **additionalProperties** `false`
+
+                                ***
                             </details>
                           </div>
 
@@ -1633,6 +1140,10 @@ import { useState } from 'react';
                           s
 
                           *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                          ***
+
+                        * **additionalProperties** `true`
 
                           ***
                       </details>
@@ -1775,6 +1286,10 @@ import { useState } from 'react';
                           *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
                           ***
+
+                        * **additionalProperties** `true`
+
+                          ***
                       </details>
                     </div>
                   </details>
@@ -1825,6 +1340,10 @@ import { useState } from 'react';
                   value contained in withdrawal
 
                   *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
+
+                  ***
+
+                * **additionalProperties** `false`
 
                   ***
               </details>
@@ -1929,6 +1448,10 @@ import { useState } from 'react';
                                 *Match pattern:* `^execution reverted.*`
 
                                 ***
+
+                              * **additionalProperties** `true`
+
+                                ***
                             </details>
                           </div>
                         </details>
@@ -1959,10 +1482,18 @@ import { useState } from 'react';
                                 *Match pattern:* `^vm execution error.*`
 
                                 ***
+
+                              * **additionalProperties** `true`
+
+                                ***
                             </details>
                           </div>
                         </details>
                       </div>
+
+                    * **additionalProperties** `true`
+
+                      ***
                   </details>
                 </div>
               </details>
@@ -2103,12 +1634,24 @@ import { useState } from 'react';
                             *Match pattern:* `^0x[0-9a-f]{64}$`
 
                             ***
+
+                          * **additionalProperties** `false`
+
+                            ***
                         </details>
                       </div>
+
+                    * **additionalProperties** `true`
+
+                      ***
                   </details>
                 </div>
               </details>
             </div>
+
+          * **additionalProperties** `true`
+
+            ***
         </details>
       </div>
     </div>

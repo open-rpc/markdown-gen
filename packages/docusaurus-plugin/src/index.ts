@@ -13,14 +13,58 @@ import type { PluginContent } from "./types";
 import type { Options } from "./options";
 import { normalizeOptions } from "./options";
 import { generateDocs } from "./lib";
+import fs from "fs/promises";
+import path from "path";
 
 const PluginName = "@open-rpc/docusaurus-plugin";
 
-export default function openRPCDocusaurusPlugin(
+async function initDocs(specPath: string, outputDir: string) {
+  if (!(await fs.stat(specPath)).isFile()) {
+    throw new Error(`OpenRPC spec file not found: ${specPath}`);
+  }
+
+  try {
+    const entries = await fs.readdir(outputDir, { withFileTypes: true });
+    await Promise.all(
+      entries
+        .filter((entry) => entry.name !== "index.md")
+        .map((entry) => {
+          const fullPath = `${outputDir}/${entry.name}`;
+          return fs.rm(fullPath, { recursive: true, force: true });
+        }),
+    );
+  } catch {
+    // Directory doesn't exist yet, that's fine
+  }
+
+  try {
+    await generateDocs(specPath, outputDir);
+  } catch (err) {
+    logger.error(`[${PluginName}] generateDocs failed: ${err}`);
+    logger.error(
+      `[${PluginName}] Stack: ${err instanceof Error ? err.stack : "no stack"}`,
+    );
+    throw err;
+  }
+  // Return content to be used in contentLoaded
+  return {};
+}
+
+export default async function openRPCDocusaurusPlugin(
   context: LoadContext,
   options: Options,
-): Plugin<PluginContent> {
+): Promise<Plugin<PluginContent>> {
   const normalizedOptions = normalizeOptions(options);
+  const specPath = path.resolve(
+    context.siteDir,
+    normalizedOptions.openRPCSpecPath,
+  );
+  const outputDir = path.resolve(
+    context.siteDir,
+    normalizedOptions.docOutputPath,
+  );
+
+  await initDocs(specPath, outputDir);
 
   return {
     name: PluginName,
@@ -46,19 +90,39 @@ export default function openRPCDocusaurusPlugin(
      */
     async loadContent(): Promise<PluginContent> {
       logger.info(`[${PluginName}] loadContent called`);
+      // await initDocs(specPath, outputDir);
+      //      await generateDocs(specPath, outputDir);
 
       /*
-      if (normalizedOptions.docOutputPath) {
-        await fs.rm(normalizedOptions.docOutputPath, {
-          recursive: true,
-          force: true,
-        });
-      }*/
-      await generateDocs(
-        normalizedOptions.openRPCSpecPath,
-        normalizedOptions.docOutputPath,
-      );
-      // TODO: Return content to be used in contentLoaded
+      if (!(await fs.stat(specPath)).isFile()) {
+        throw new Error(`OpenRPC spec file not found: ${specPath}`);
+      }
+
+      try {
+        const entries = await fs.readdir(outputDir, { withFileTypes: true });
+        await Promise.all(
+          entries
+            .filter((entry) => entry.name !== "index.md")
+            .map((entry) => {
+              const fullPath = `${outputDir}/${entry.name}`;
+              return fs.rm(fullPath, { recursive: true, force: true });
+            }),
+        );
+      } catch {
+        // Directory doesn't exist yet, that's fine
+      }
+
+      try {
+        await generateDocs(specPath, outputDir);
+      } catch (err) {
+        logger.error(`[${PluginName}] generateDocs failed: ${err}`);
+        logger.error(
+          `[${PluginName}] Stack: ${err instanceof Error ? err.stack : "no stack"}`,
+        );
+        throw err;
+      }
+        */
+      // Return content to be used in contentLoaded
       return {};
     },
 
@@ -67,6 +131,37 @@ export default function openRPCDocusaurusPlugin(
      */
     async contentLoaded({ content, actions }): Promise<void> {
       logger.info(`[${PluginName}] contentLoaded called`);
+      await initDocs(specPath, outputDir);
+      /*
+      if (!(await fs.stat(specPath)).isFile()) {
+        throw new Error(`OpenRPC spec file not found: ${specPath}`);
+      }
+
+      try {
+        const entries = await fs.readdir(outputDir, { withFileTypes: true });
+        await Promise.all(
+          entries
+            .filter((entry) => entry.name !== "index.md")
+            .map((entry) => {
+              const fullPath = `${outputDir}/${entry.name}`;
+              return fs.rm(fullPath, { recursive: true, force: true });
+            }),
+        );
+      } catch {
+        // Directory doesn't exist yet, that's fine
+      }
+
+      try {
+        await generateDocs(specPath, outputDir);
+      } catch (err) {
+        logger.error(`[${PluginName}] generateDocs failed: ${err}`);
+        logger.error(
+          `[${PluginName}] Stack: ${err instanceof Error ? err.stack : "no stack"}`,
+        );
+        throw err;
+      }
+      // Return content to be used in contentLoaded
+
       // const { addRoute, setGlobalData } = actions;
 
       // TODO: Create routes using addRoute() for generated markdown pages
@@ -77,6 +172,7 @@ export default function openRPCDocusaurusPlugin(
       //   component: '@theme/DocPage',
       //   exact: false,
       // });
+      */
     },
 
     /**

@@ -36,19 +36,10 @@ const config: Config = {
   },
   plugins: [['../docusaurus-plugin/dist/index.js', 
     {
-      openRPCSpecPath: `./execution-apis.json`,
+      openRPCSpecPath: `./error-group-openrpc.json`,
       docOutputPath: `./docs/api-reference`,
 
   }]],
-/*
-  plugins: [['@open-rpc/docusaurus-plugin', 
-    {
-      openRPCSpecPath: `./execution-apis.json`,
-      docOutputPath: `./docs/api-reference`,
-
-  }]],
-
-  */
   presets: [
     [
       'classic',

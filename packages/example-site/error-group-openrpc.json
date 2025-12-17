@@ -1074,12 +1074,6 @@
 					}
 				}
 			],
-			"errors": [
-				{
-					"code": 4444,
-					"message": "Pruned history unavailable"
-				}
-			],
 			"result": {
 				"name": "Block RLP",
 				"schema": {
@@ -1133,12 +1127,6 @@
 							}
 						]
 					}
-				}
-			],
-			"errors": [
-				{
-					"code": 4444,
-					"message": "Pruned history unavailable"
 				}
 			],
 			"result": {
@@ -1196,12 +1184,6 @@
 					}
 				}
 			],
-			"errors": [
-				{
-					"code": 4444,
-					"message": "Pruned history unavailable"
-				}
-			],
 			"result": {
 				"name": "Receipts",
 				"schema": {
@@ -1245,12 +1227,6 @@
 						"type": "string",
 						"pattern": "^0x[0-9a-f]{64}$"
 					}
-				}
-			],
-			"errors": [
-				{
-					"code": 4444,
-					"message": "Pruned history unavailable"
 				}
 			],
 			"result": {
@@ -4160,337 +4136,6 @@
 			]
 		},
 		{
-			"name": "engine_getPayloadV6",
-			"summary": "Obtains execution payload from payload build process",
-			"externalDocs": {
-				"description": "Method specification",
-				"url": "https://github.com/ethereum/execution-apis/blob/main/src/engine/amsterdam.md#engine_getpayloadv6"
-			},
-			"params": [
-				{
-					"name": "Payload id",
-					"required": true,
-					"schema": {
-						"title": "8 hex encoded bytes",
-						"type": "string",
-						"pattern": "^0x[0-9a-f]{16}$"
-					}
-				}
-			],
-			"result": {
-				"name": "Response object",
-				"schema": {
-					"type": "object",
-					"required": [
-						"executionPayload",
-						"blockValue",
-						"blobsBundle",
-						"shouldOverrideBuilder",
-						"executionRequests"
-					],
-					"properties": {
-						"executionPayload": {
-							"title": "Execution payload object V4",
-							"type": "object",
-							"required": [
-								"parentHash",
-								"feeRecipient",
-								"stateRoot",
-								"receiptsRoot",
-								"logsBloom",
-								"prevRandao",
-								"blockNumber",
-								"gasLimit",
-								"gasUsed",
-								"timestamp",
-								"extraData",
-								"baseFeePerGas",
-								"blockHash",
-								"transactions",
-								"withdrawals",
-								"blobGasUsed",
-								"excessBlobGas",
-								"blockAccessList"
-							],
-							"properties": {
-								"parentHash": {
-									"title": "Parent block hash",
-									"type": "string",
-									"pattern": "^0x[0-9a-f]{64}$"
-								},
-								"feeRecipient": {
-									"title": "Recipient of transaction priority fees",
-									"type": "string",
-									"pattern": "^0x[0-9a-fA-F]{40}$"
-								},
-								"stateRoot": {
-									"title": "State root",
-									"type": "string",
-									"pattern": "^0x[0-9a-f]{64}$"
-								},
-								"receiptsRoot": {
-									"title": "Receipts root",
-									"type": "string",
-									"pattern": "^0x[0-9a-f]{64}$"
-								},
-								"logsBloom": {
-									"title": "Bloom filter",
-									"type": "string",
-									"pattern": "^0x[0-9a-f]{512}$"
-								},
-								"prevRandao": {
-									"title": "Previous randao value",
-									"type": "string",
-									"pattern": "^0x[0-9a-f]{64}$"
-								},
-								"blockNumber": {
-									"title": "Block number",
-									"type": "string",
-									"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-								},
-								"gasLimit": {
-									"title": "Gas limit",
-									"type": "string",
-									"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-								},
-								"gasUsed": {
-									"title": "Gas used",
-									"type": "string",
-									"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-								},
-								"timestamp": {
-									"title": "Timestamp",
-									"type": "string",
-									"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-								},
-								"extraData": {
-									"title": "Extra data",
-									"type": "string",
-									"pattern": "^0x[0-9a-f]{0,64}$"
-								},
-								"baseFeePerGas": {
-									"title": "Base fee per gas",
-									"type": "string",
-									"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$"
-								},
-								"blockHash": {
-									"title": "Block hash",
-									"type": "string",
-									"pattern": "^0x[0-9a-f]{64}$"
-								},
-								"transactions": {
-									"title": "Transactions",
-									"type": "array",
-									"items": {
-										"title": "hex encoded bytes",
-										"type": "string",
-										"pattern": "^0x[0-9a-f]*$"
-									}
-								},
-								"withdrawals": {
-									"title": "Withdrawals",
-									"type": "array",
-									"items": {
-										"title": "Withdrawal object V1",
-										"type": "object",
-										"required": [
-											"index",
-											"validatorIndex",
-											"address",
-											"amount"
-										],
-										"properties": {
-											"index": {
-												"title": "Withdrawal index",
-												"type": "string",
-												"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-											},
-											"validatorIndex": {
-												"title": "Validator index",
-												"type": "string",
-												"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-											},
-											"address": {
-												"title": "Withdrawal address",
-												"type": "string",
-												"pattern": "^0x[0-9a-fA-F]{40}$"
-											},
-											"amount": {
-												"title": "Withdrawal amount",
-												"type": "string",
-												"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-											}
-										}
-									}
-								},
-								"blobGasUsed": {
-									"title": "Blob gas used",
-									"type": "string",
-									"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-								},
-								"excessBlobGas": {
-									"title": "Excess blob gas",
-									"type": "string",
-									"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-								},
-								"blockAccessList": {
-									"title": "Block access list",
-									"type": "string",
-									"pattern": "^0x[0-9a-f]*$"
-								}
-							}
-						},
-						"blockValue": {
-							"title": "hex encoded 256 bit unsigned integer",
-							"type": "string",
-							"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$"
-						},
-						"blobsBundle": {
-							"title": "Blobs bundle object V2",
-							"type": "object",
-							"required": [
-								"commitments",
-								"proofs",
-								"blobs"
-							],
-							"properties": {
-								"commitments": {
-									"title": "Commitments",
-									"type": "array",
-									"items": {
-										"title": "48 hex encoded bytes",
-										"type": "string",
-										"pattern": "^0x[0-9a-f]{96}$"
-									}
-								},
-								"proofs": {
-									"title": "Proofs",
-									"type": "array",
-									"items": {
-										"title": "48 hex encoded bytes",
-										"type": "string",
-										"pattern": "^0x[0-9a-f]{96}$"
-									}
-								},
-								"blobs": {
-									"title": "Blobs",
-									"type": "array",
-									"items": {
-										"title": "hex encoded bytes",
-										"type": "string",
-										"pattern": "^0x[0-9a-f]*$"
-									}
-								}
-							}
-						},
-						"shouldOverrideBuilder": {
-							"type": "boolean"
-						},
-						"executionRequests": {
-							"type": "array",
-							"items": {
-								"title": "hex encoded bytes",
-								"type": "string",
-								"pattern": "^0x[0-9a-f]*$"
-							}
-						}
-					}
-				}
-			},
-			"errors": [
-				{
-					"code": -38001,
-					"message": "Unknown payload"
-				},
-				{
-					"code": -38005,
-					"message": "Unsupported fork"
-				}
-			],
-			"examples": [
-				{
-					"name": "engine_getPayloadV6 example",
-					"params": [
-						{
-							"name": "Payload id",
-							"value": "0x0000000038fa5dd"
-						}
-					],
-					"result": {
-						"name": "Response object",
-						"value": {
-							"executionPayload": {
-								"parentHash": "0x3b8fb240d288781d4aac94d3fd16809ee413bc99294a085798a589dae51ddd4a",
-								"feeRecipient": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
-								"stateRoot": "0xca3149fa9e37db08d1cd49c9061db1002ef1cd58db2210f2115c8c989b2bdf45",
-								"receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
-								"logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-								"prevRandao": "0xc130d5e63c61c935f6089e61140ca9136172677cf6aa5800dcc1cf0a02152a14",
-								"blockNumber": "0x112720f",
-								"gasLimit": "0x1c9c380",
-								"gasUsed": "0xbad2e8",
-								"timestamp": "0x673b0a3b",
-								"extraData": "0x",
-								"baseFeePerGas": "0x7",
-								"blockHash": "0x1256f99fb899c2de0aeac0c5aa6aad69de188b6a0f4ac29f2d075a53aa3ed0e4",
-								"transactions": [
-									"0x03f88f0780843b9aca008506fc23ac00830186a09400000000000000000000000000000000000001008080c001e1a0010657f37554c781402a22917dee2f75def7ab966d7b770905398eba3c44401401a0840650aa8f74d2b07f40067dc33b715078d73422f01da17abdbd11e02bbdfda9a04b2260f6022bf53eadb337b3e59514936f7317d872defb891a708ee279bdca90",
-									"0x03f88f0701843b9aca008506fc23ac00830186a09400000000000000000000000000000000000001008080c001e1a001521d528ad0c760354a4f0496776cf14a92fe1fb5d50e959dcea1a489c7c83101a0a86c1fd8c2e74820686937f5c1bfe836e2fb622ac9fcbebdc4ab4357f2dbbc61a05c3b2b44ff8252f78d70aeb33f8ba09beaeadad1b376a57d34fa720bbc4a18ee",
-									"0x03f88f0702843b9aca008506fc23ac00830186a09400000000000000000000000000000000000001008080c001e1a001453362c360fdd8832e3539d463e6d64b2ee320ac6a08885df6083644a063e701a037a728aec08aefffa702a2ca620db89caf3e46ab7f25f7646fc951510991badca065d846f046357af39bb739b161233fce73ddfe0bb87f2d28ef60dfe6dbb0128d"
-								],
-								"withdrawals": [
-									{
-										"index": "0xf0",
-										"validatorIndex": "0xf0",
-										"address": "0x00000000000000000000000000000000000010f0",
-										"amount": "0x1"
-									},
-									{
-										"index": "0xf1",
-										"validatorIndex": "0xf1",
-										"address": "0x00000000000000000000000000000000000010f1",
-										"amount": "0x1"
-									},
-									{
-										"index": "0xf2",
-										"validatorIndex": "0xf2",
-										"address": "0x00000000000000000000000000000000000010f2",
-										"amount": "0x1"
-									},
-									{
-										"index": "0xf3",
-										"validatorIndex": "0xf3",
-										"address": "0x00000000000000000000000000000000000010f3",
-										"amount": "0x1"
-									}
-								],
-								"blobGasUsed": "0x60000",
-								"excessBlobGas": "0x0",
-								"blockAccessList": "0xc0"
-							},
-							"blockValue": "0x10a741a46278014d",
-							"blobsBundle": {
-								"commitments": [
-									"0x85103a5617937691dfeeb89b86a80d5dc9e3c9d3a1a0e7ce311e26e0bb732eabaa47ffa288f0d54de28209a62a7d29d0"
-								],
-								"proofs": [
-									"0x94f2118951a591531b0bb7b4ed5bd96ae41069e709afb8d3e64d27f2e2114e9b23c678ca876a50e2f77f53bb0ca518ef"
-								],
-								"blobs": [
-									"0x00100008000000000000000000000000000000000000000000000000000000000000200000000000000000000000002000800000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000001100000000000000000000000000000000000100000000000000000000000000010000000000000000000000000000000000000000000000000000000020000000000100000000000000000000000000000000000000000000000000001000800002000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000008000000000000000000000000001000480000000000000000000000000000000000000800000000000000000000000000000000002000000000000000000000000000000000000000000000100000100100000000800000000000000000000000000000000400000000000000000000000001000000000000000020000000000040000000000000000000000000000001000000000000000000000000040004000000000100000000000000000000000000000000000000020000010000000000020000000000000000000000020000080010000000000200001000000000000000000000000000000000000000000000000010000000000000000100000200400000000000000000000000000000000000000000000000000000000000010000000020000000000000000200000000000000800000000000000000000100000000040000000000000000000000000000000000000000000000000000200040000000001000400000000000080000000000000000000000000001000000001000002000000000400000000000000000000000000000020000008000000000020000000000000000000000000000000000000000000000000000000080000100000000400100000000008000000000000000000001000100000080000020000000000000008000080004000000000010000000000000000000000010000000800000000000000002000000000001000000000000000000000080000000000000800100800000000020002000000000080008000000010000000000040000002000000000000000000000000000000000400000000000008000000000000800000000000000000000000040000000000000000000000000000040000002000000000010000000000000000000200001000000000000000000000000080000000000000000400000001000000000000000000200000000010000000000000004000000000000020000200004100000010000000000000000000000000000100020000000000000000080000001000000080010000000010001000008000000000000001000000000000000000000000000000000000000000004000000000002000000000008000100000400000400000000000000000000010000000000010800000000000040000000002000000000000800100400000000000000400000001001000200000000000000000000000000000000000020000004000000008000000080000001000000000000020000000000000000000000000001000200400000004000002100000000040000800010000020000000000000000000200000002000000080000000000100000000800000000000002000000100000000020000008000000000020000000000000000100080000200002000000010000000000000008000000000000400000000000000000000200000000000000000002000004000000000000004040000000000000000000000100000000000020000000000000040000000010200008004000400000010000000000000002080000000000004400001000040002000000200000000000000000008000000000010200000000000000000000000000000000100100020000000040000000000000000002000800020000000020000000020001200100000000000000000000000000000000000002000010400000000000010010000000000000000004040001000001000000000000000000000000400000000000004000000000100000000100001000000000000000000040000000000800000000000020000000000002040000000000000000002010000020040040800000000001000000100020000040000000000000000000000800000800100000000200000000000000000000000000000001000000000800020080000000000000000002000000000010000000020000000000000000000000000002000000000000000002000000000000000000000000000000001000008100000000000000000000000002000040100200000010000000000000000100000000000000000000000000010000020000000400000000000000000000000000000008000001000000000040000000002000000000080000000002800000000000020000000000000000000001000000000000000000400000000000002000000000100000000000000002000001004000020400000000000000000004000000040000800020020000000000000000000000002000000400008000000000008001400000010000000010000002000020000040001000000000000000000004000200000000000000002000000000000000000000000000000000020000000040000000000200001000040000000004000000100020000000000000010000002000000000000002100000000000000000000010002000200000002000000000004000001000000000200000000000000000000004000020001020000040010000002001080040002001080400010000800004000000000020000008100002200000000000010020001004000000000002000080000000020000400008000000000000000000020000000000000000000000000002000000000000000001000000040004000000000000008200002002100000000000000000800000000400000000020002002008000000000004000000000000001002000000000002000000000000000800200000000000000001000000080000000000000040020000000040001000000000020400001000001200200800000002001000000020000000000000008000002000020200010000000001000000020000000000000020000100020100040012000000000000001000020001000020000000400002000000080000000000000000000000000000010001000000800000040000000000001010000000000000000000400000200000010000000020001000000002000000400000000000000000000000000002000000080000100000000210000012000020000040400000000000000002008004000000040000000100000000000002000020004000000000000100008000000004010000004000000004000400000000000000100001000000000000040000000001200000000002000000002000000004000000000000100000020000001080001000000002080000000000002000000000000080000000000000000101000004001800000020000000000000000000400000000004000020000000000000020000000080000000000401000000000000000000000004000400000001000000000000008000000001020020000004000000000000001000000000000000002000000800000000000080020000000800000010000000020000100000004100000000010000100000000002000000000000100000000080800000000000001000100000000080000000000000000020000000008000001000000000000000000001000100000000000000000002000002080000000000200000000004000000200000004002000000000000020000000000000000000000000080000002000200004008000400010000000000020010000000000000000000000000000000000000802001010000800000080000000100000000000002008002004000000000"
-								]
-							},
-							"shouldOverrideBuilder": false,
-							"executionRequests": [
-								"0x96a96086cff07df17668f35f7418ef8798079167e3f4f9b72ecde17b28226137cf454ab1dd20ef5d924786ab3483c2f9003f5102dabe0a27b1746098d1dc17a5d3fbd478759fea9287e4e419b3c3cef20100000000000000b1acdb2c4d3df3f1b8d3bfd33421660df358d84d78d16c4603551935f4b67643373e7eb63dcb16ec359be0ec41fee33b03a16e80745f2374ff1d3c352508ac5d857c6476d3c3bcf7e6ca37427c9209f17be3af5264c0e2132b3dd1156c28b4e9f000000000000000a5c85a60ba2905c215f6a12872e62b1ee037051364244043a5f639aa81b04a204c55e7cc851f29c7c183be253ea1510b001db70c485b6264692f26b8aeaab5b0c384180df8e2184a21a808a3ec8e86ca01000000000000009561731785b48cf1886412234531e4940064584463e96ac63a1a154320227e333fb51addc4a89b7e0d3f862d7c1fd4ea03bd8eb3d8806f1e7daf591cbbbb92b0beb74d13c01617f22c5026b4f9f9f294a8a7c32db895de3b01bee0132c9209e1f100000000000000",
-								"0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b85103a5617937691dfeeb89b86a80d5dc9e3c9d3a1a0e7ce311e26e0bb732eabaa47ffa288f0d54de28209a62a7d29d0000000000000000000000000000000000000000000000000000010f698daeed734da114470da559bd4b4c7259e1f7952555241dcbc90cf194a2ef676fc6005f3672fada2a3645edb297a75530100000000000000"
-							]
-						}
-					}
-				}
-			]
-		},
-		{
 			"name": "engine_newPayloadV1",
 			"summary": "Runs execution payload validation",
 			"externalDocs": {
@@ -5625,317 +5270,6 @@
 			]
 		},
 		{
-			"name": "engine_newPayloadV5",
-			"summary": "Runs execution payload validation",
-			"externalDocs": {
-				"description": "Method specification",
-				"url": "https://github.com/ethereum/execution-apis/blob/main/src/engine/amsterdam.md#engine_newpayloadv5"
-			},
-			"params": [
-				{
-					"name": "Execution payload",
-					"required": true,
-					"schema": {
-						"title": "Execution payload object V4",
-						"type": "object",
-						"required": [
-							"parentHash",
-							"feeRecipient",
-							"stateRoot",
-							"receiptsRoot",
-							"logsBloom",
-							"prevRandao",
-							"blockNumber",
-							"gasLimit",
-							"gasUsed",
-							"timestamp",
-							"extraData",
-							"baseFeePerGas",
-							"blockHash",
-							"transactions",
-							"withdrawals",
-							"blobGasUsed",
-							"excessBlobGas",
-							"blockAccessList"
-						],
-						"properties": {
-							"parentHash": {
-								"title": "Parent block hash",
-								"type": "string",
-								"pattern": "^0x[0-9a-f]{64}$"
-							},
-							"feeRecipient": {
-								"title": "Recipient of transaction priority fees",
-								"type": "string",
-								"pattern": "^0x[0-9a-fA-F]{40}$"
-							},
-							"stateRoot": {
-								"title": "State root",
-								"type": "string",
-								"pattern": "^0x[0-9a-f]{64}$"
-							},
-							"receiptsRoot": {
-								"title": "Receipts root",
-								"type": "string",
-								"pattern": "^0x[0-9a-f]{64}$"
-							},
-							"logsBloom": {
-								"title": "Bloom filter",
-								"type": "string",
-								"pattern": "^0x[0-9a-f]{512}$"
-							},
-							"prevRandao": {
-								"title": "Previous randao value",
-								"type": "string",
-								"pattern": "^0x[0-9a-f]{64}$"
-							},
-							"blockNumber": {
-								"title": "Block number",
-								"type": "string",
-								"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-							},
-							"gasLimit": {
-								"title": "Gas limit",
-								"type": "string",
-								"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-							},
-							"gasUsed": {
-								"title": "Gas used",
-								"type": "string",
-								"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-							},
-							"timestamp": {
-								"title": "Timestamp",
-								"type": "string",
-								"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-							},
-							"extraData": {
-								"title": "Extra data",
-								"type": "string",
-								"pattern": "^0x[0-9a-f]{0,64}$"
-							},
-							"baseFeePerGas": {
-								"title": "Base fee per gas",
-								"type": "string",
-								"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$"
-							},
-							"blockHash": {
-								"title": "Block hash",
-								"type": "string",
-								"pattern": "^0x[0-9a-f]{64}$"
-							},
-							"transactions": {
-								"title": "Transactions",
-								"type": "array",
-								"items": {
-									"title": "hex encoded bytes",
-									"type": "string",
-									"pattern": "^0x[0-9a-f]*$"
-								}
-							},
-							"withdrawals": {
-								"title": "Withdrawals",
-								"type": "array",
-								"items": {
-									"title": "Withdrawal object V1",
-									"type": "object",
-									"required": [
-										"index",
-										"validatorIndex",
-										"address",
-										"amount"
-									],
-									"properties": {
-										"index": {
-											"title": "Withdrawal index",
-											"type": "string",
-											"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-										},
-										"validatorIndex": {
-											"title": "Validator index",
-											"type": "string",
-											"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-										},
-										"address": {
-											"title": "Withdrawal address",
-											"type": "string",
-											"pattern": "^0x[0-9a-fA-F]{40}$"
-										},
-										"amount": {
-											"title": "Withdrawal amount",
-											"type": "string",
-											"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-										}
-									}
-								}
-							},
-							"blobGasUsed": {
-								"title": "Blob gas used",
-								"type": "string",
-								"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-							},
-							"excessBlobGas": {
-								"title": "Excess blob gas",
-								"type": "string",
-								"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-							},
-							"blockAccessList": {
-								"title": "Block access list",
-								"type": "string",
-								"pattern": "^0x[0-9a-f]*$"
-							}
-						}
-					}
-				},
-				{
-					"name": "Expected blob versioned hashes",
-					"required": true,
-					"schema": {
-						"type": "array",
-						"items": {
-							"title": "32 byte hex value",
-							"type": "string",
-							"pattern": "^0x[0-9a-f]{64}$"
-						}
-					}
-				},
-				{
-					"name": "Parent beacon block root",
-					"required": true,
-					"schema": {
-						"title": "32 byte hex value",
-						"type": "string",
-						"pattern": "^0x[0-9a-f]{64}$"
-					}
-				},
-				{
-					"name": "Execution requests",
-					"required": true,
-					"schema": {
-						"type": "array",
-						"items": {
-							"title": "hex encoded bytes",
-							"type": "string",
-							"pattern": "^0x[0-9a-f]*$"
-						}
-					}
-				}
-			],
-			"result": {
-				"name": "Payload status",
-				"schema": {
-					"title": "Payload status object deprecating INVALID_BLOCK_HASH status",
-					"type": "object",
-					"required": [
-						"status"
-					],
-					"properties": {
-						"status": {
-							"title": "Payload validation status",
-							"type": "string",
-							"enum": [
-								"VALID",
-								"INVALID",
-								"SYNCING",
-								"ACCEPTED"
-							]
-						},
-						"latestValidHash": {
-							"title": "The hash of the most recent valid block",
-							"type": "string",
-							"pattern": "^0x[0-9a-f]{64}$"
-						},
-						"validationError": {
-							"title": "Validation error message",
-							"type": "string"
-						}
-					}
-				}
-			},
-			"errors": [
-				{
-					"code": -32602,
-					"message": "Invalid params"
-				},
-				{
-					"code": -38005,
-					"message": "Unsupported fork"
-				}
-			],
-			"examples": [
-				{
-					"name": "engine_newPayloadV5 example",
-					"params": [
-						{
-							"name": "Execution payload",
-							"value": {
-								"parentHash": "0x3b8fb240d288781d4aac94d3fd16809ee413bc99294a085798a589dae51ddd4a",
-								"feeRecipient": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
-								"stateRoot": "0xca3149fa9e37db08d1cd49c9061db1002ef1cd58db2210f2115c8c989b2bdf45",
-								"receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
-								"logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-								"prevRandao": "0xc130d5e63c61c935f6089e61140ca9136172677cf6aa5800dcc1cf0a02152a14",
-								"blockNumber": "0x112720f",
-								"gasLimit": "0x1c9c380",
-								"gasUsed": "0xbad2e8",
-								"timestamp": "0x673b0a3b",
-								"extraData": "0x",
-								"baseFeePerGas": "0x7",
-								"blockHash": "0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858",
-								"transactions": [
-									"0x03f88f0780843b9aca008506fc23ac00830186a09400000000000000000000000000000000000001008080c001e1a0010657f37554c781402a22917dee2f75def7ab966d7b770905398eba3c44401401a0840650aa8f74d2b07f40067dc33b715078d73422f01da17abdbd11e02bbdfda9a04b2260f6022bf53eadb337b3e59514936f7317d872defb891a708ee279bdca90",
-									"0x03f88f0701843b9aca008506fc23ac00830186a09400000000000000000000000000000000000001008080c001e1a001521d528ad0c760354a4f0496776cf14a92fe1fb5d50e959dcea1a489c7c83101a0a86c1fd8c2e74820686937f5c1bfe836e2fb622ac9fcbebdc4ab4357f2dbbc61a05c3b2b44ff8252f78d70aeb33f8ba09beaeadad1b376a57d34fa720bbc4a18ee",
-									"0x03f88f0702843b9aca008506fc23ac00830186a09400000000000000000000000000000000000001008080c001e1a001453362c360fdd8832e3539d463e6d64b2ee320ac6a08885df6083644a063e701a037a728aec08aefffa702a2ca620db89caf3e46ab7f25f7646fc951510991badca065d846f046357af39bb739b161233fce73ddfe0bb87f2d28ef60dfe6dbb0128d"
-								],
-								"withdrawals": [
-									{
-										"index": "0xf0",
-										"validatorIndex": "0xf0",
-										"address": "0x00000000000000000000000000000000000010f0",
-										"amount": "0x1"
-									},
-									{
-										"index": "0xf1",
-										"validatorIndex": "0xf1",
-										"address": "0x00000000000000000000000000000000000010f1",
-										"amount": "0x1"
-									}
-								],
-								"blobGasUsed": "0x20000",
-								"excessBlobGas": "0x0",
-								"blockAccessList": "0xf90244f90241f8f79400000000000000000000000000000000000001f8e8f843a00000000000000000000000000000000000000000000000000000000000000000f838c22080a00000000000000000000000000000000000000000000000000000000000000000c22180a00000000000000000000000000000000000000000000000000000000000000001f843a00000000000000000000000000000000000000000000000000000000000000001f838c22080a00000000000000000000000000000000000000000000000000000000000000100c22180a00000000000000000000000000000000000000000000000000000000000000200c780c22180c680c221890056bc75e2d63100000c080c22180f90145f90142f8f794a94f5374fce5edbc8e2a8697c15331677e6ebf0bf8e8f843a00000000000000000000000000000000000000000000000000000000000000000f838c22080a00000000000000000000000000000000000000000000000000000000000000000c22180a00000000000000000000000000000000000000000000000000000000000000100f843a00000000000000000000000000000000000000000000000000000000000000001f838c22080a00000000000000000000000000000000000000000000000000000000000000200c22180a00000000000000000000000000000000000000000000000000000000000000300c780c22180c680c2218901152d02c7e14af680c080c22180"
-							}
-						},
-						{
-							"name": "Expected blob versioned hashes",
-							"value": [
-								"0x000657f37554c781402a22917dee2f75def7ab966d7b770905398eba3c444014"
-							]
-						},
-						{
-							"name": "Parent beacon block root",
-							"value": "0x169630f535b4a41330164c6e5c92b1224c0c407f582d407d0ac3d206cd32fd52"
-						},
-						{
-							"name": "Execution requests",
-							"value": [
-								"0x96a96086cff07df17668f35f7418ef8798079167e3f4f9b72ecde17b28226137cf454ab1dd20ef5d924786ab3483c2f9003f5102dabe0a27b1746098d1dc17a5d3fbd478759fea9287e4e419b3c3cef20100000000000000b1acdb2c4d3df3f1b8d3bfd33421660df358d84d78d16c4603551935f4b67643373e7eb63dcb16ec359be0ec41fee33b03a16e80745f2374ff1d3c352508ac5d857c6476d3c3bcf7e6ca37427c9209f17be3af5264c0e2132b3dd1156c28b4e9f000000000000000a5c85a60ba2905c215f6a12872e62b1ee037051364244043a5f639aa81b04a204c55e7cc851f29c7c183be253ea1510b001db70c485b6264692f26b8aeaab5b0c384180df8e2184a21a808a3ec8e86ca01000000000000009561731785b48cf1886412234531e4940064584463e96ac63a1a154320227e333fb51addc4a89b7e0d3f862d7c1fd4ea03bd8eb3d8806f1e7daf591cbbbb92b0beb74d13c01617f22c5026b4f9f9f294a8a7c32db895de3b01bee0132c9209e1f100000000000000",
-								"0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b85103a5617937691dfeeb89b86a80d5dc9e3c9d3a1a0e7ce311e26e0bb732eabaa47ffa288f0d54de28209a62a7d29d0000000000000000000000000000000000000000000000000000010f698daeed734da114470da559bd4b4c7259e1f7952555241dcbc90cf194a2ef676fc6005f3672fada2a3645edb297a75530100000000000000"
-							]
-						}
-					],
-					"result": {
-						"name": "Payload status",
-						"value": {
-							"status": "VALID",
-							"latestValidHash": "0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858",
-							"validationError": null
-						}
-					}
-				}
-			]
-		},
-		{
 			"name": "eth_accounts",
 			"summary": "Returns a list of addresses owned by client.",
 			"params": [],
@@ -6238,16 +5572,6 @@
 					"pattern": "^0x[0-9a-f]*$"
 				}
 			},
-			"errors": [
-				{
-					"code": 3,
-					"message": "execution reverted",
-					"data": {
-						"title": "raw EVM revert data",
-						"$ref": "#/components/schemas/bytes"
-					}
-				}
-			],
 			"examples": [
 				{
 					"name": "eth_call example",
@@ -6835,16 +6159,6 @@
 					"pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
 				}
 			},
-			"errors": [
-				{
-					"code": 3,
-					"message": "execution reverted",
-					"data": {
-						"title": "raw EVM revert data",
-						"$ref": "#/components/schemas/bytes"
-					}
-				}
-			],
 			"examples": [
 				{
 					"name": "eth_estimateGas example",
@@ -8117,12 +7431,6 @@
 					]
 				}
 			},
-			"errors": [
-				{
-					"code": 4444,
-					"message": "Pruned history unavailable"
-				}
-			],
 			"examples": [
 				{
 					"name": "eth_getBlockByHash example",
@@ -8151,6 +7459,7 @@
 							"receiptsRoot": "0x68461ab700003503a305083630a8fb8d14927238f0bc8b6b3d246c0c64f21f4a",
 							"miner": "0xb42b6c4a95406c78ff892d270ad20b22642e102d",
 							"difficulty": "0x66e619a",
+							"totalDifficulty": "0x1e875d746ae",
 							"extraData": "0xd583010502846765746885676f312e37856c696e7578",
 							"size": "0x334",
 							"gasLimit": "0x47e7c4",
@@ -9133,12 +8442,6 @@
 					]
 				}
 			},
-			"errors": [
-				{
-					"code": 4444,
-					"message": "Pruned history unavailable"
-				}
-			],
 			"examples": [
 				{
 					"name": "eth_getBlockByNumber example",
@@ -9167,6 +8470,7 @@
 							"receiptsRoot": "0x68461ab700003503a305083630a8fb8d14927238f0bc8b6b3d246c0c64f21f4a",
 							"miner": "0xb42b6c4a95406c78ff892d270ad20b22642e102d",
 							"difficulty": "0x66e619a",
+							"totalDifficulty": "0x1e875d746ae",
 							"extraData": "0xd583010502846765746885676f312e37856c696e7578",
 							"size": "0x334",
 							"gasLimit": "0x47e7c4",
@@ -9439,12 +8743,6 @@
 					]
 				}
 			},
-			"errors": [
-				{
-					"code": 4444,
-					"message": "Pruned history unavailable"
-				}
-			],
 			"examples": [
 				{
 					"name": "eth_getBlockReceipts example",
@@ -9544,12 +8842,6 @@
 					]
 				}
 			},
-			"errors": [
-				{
-					"code": 4444,
-					"message": "Pruned history unavailable"
-				}
-			],
 			"examples": [
 				{
 					"name": "eth_getBlockTransactionCountByHash example",
@@ -9612,12 +8904,6 @@
 					]
 				}
 			},
-			"errors": [
-				{
-					"code": 4444,
-					"message": "Pruned history unavailable"
-				}
-			],
 			"examples": [
 				{
 					"name": "eth_getBlockTransactionCountByNumber example",
@@ -10002,157 +9288,76 @@
 					"schema": {
 						"title": "filter",
 						"type": "object",
-						"oneOf": [
-							{
-								"title": "Filter by block range",
-								"type": "object",
-								"properties": {
-									"fromBlock": {
-										"title": "from block",
-										"type": "string",
-										"pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
-									},
-									"toBlock": {
-										"title": "to block",
-										"type": "string",
-										"pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
-									},
-									"address": {
-										"title": "Address(es)",
-										"oneOf": [
-											{
-												"title": "Any Address",
-												"type": "null"
-											},
-											{
-												"title": "Address",
-												"type": "string",
-												"pattern": "^0x[0-9a-fA-F]{40}$"
-											},
-											{
-												"title": "Addresses",
-												"type": "array",
-												"items": {
-													"title": "hex encoded address",
-													"type": "string",
-													"pattern": "^0x[0-9a-fA-F]{40}$"
-												}
-											}
-										]
-									},
-									"topics": {
-										"title": "Topics",
-										"oneOf": [
-											{
-												"title": "Any Topic Match",
-												"type": "null"
-											},
-											{
-												"title": "Specified Filter Topics",
-												"type": "array",
-												"items": {
-													"title": "Filter Topic List Entry",
-													"oneOf": [
-														{
-															"title": "Single Topic Match",
-															"type": "string",
-															"pattern": "^0x[0-9a-f]{64}$"
-														},
-														{
-															"title": "Multiple Topic Match",
-															"type": "array",
-															"items": {
-																"title": "32 hex encoded bytes",
-																"type": "string",
-																"pattern": "^0x[0-9a-f]{64}$"
-															}
-														}
-													]
-												}
-											}
-										]
-									}
-								}
+						"additionalProperties": false,
+						"properties": {
+							"fromBlock": {
+								"title": "from block",
+								"type": "string",
+								"pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
 							},
-							{
-								"title": "Filter by block hash",
-								"type": "object",
-								"properties": {
-									"blockHash": {
-										"title": "block hash",
+							"toBlock": {
+								"title": "to block",
+								"type": "string",
+								"pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
+							},
+							"address": {
+								"title": "Address(es)",
+								"oneOf": [
+									{
+										"title": "Any Address",
+										"type": "null"
+									},
+									{
+										"title": "Address",
 										"type": "string",
-										"pattern": "^0x[0-9a-f]{64}$"
+										"pattern": "^0x[0-9a-fA-F]{40}$"
 									},
-									"address": {
-										"title": "Address(es)",
-										"oneOf": [
-											{
-												"title": "Any Address",
-												"type": "null"
-											},
-											{
-												"title": "Address",
-												"type": "string",
-												"pattern": "^0x[0-9a-fA-F]{40}$"
-											},
-											{
-												"title": "Addresses",
-												"type": "array",
-												"items": {
-													"title": "hex encoded address",
-													"type": "string",
-													"pattern": "^0x[0-9a-fA-F]{40}$"
-												}
-											}
-										]
-									},
-									"topics": {
-										"title": "Topics",
-										"oneOf": [
-											{
-												"title": "Any Topic Match",
-												"type": "null"
-											},
-											{
-												"title": "Specified Filter Topics",
-												"type": "array",
-												"items": {
-													"title": "Filter Topic List Entry",
-													"oneOf": [
-														{
-															"title": "Single Topic Match",
-															"type": "string",
-															"pattern": "^0x[0-9a-f]{64}$"
-														},
-														{
-															"title": "Multiple Topic Match",
-															"type": "array",
-															"items": {
-																"title": "32 hex encoded bytes",
-																"type": "string",
-																"pattern": "^0x[0-9a-f]{64}$"
-															}
-														}
-													]
-												}
-											}
-										]
+									{
+										"title": "Addresses",
+										"type": "array",
+										"items": {
+											"title": "hex encoded address",
+											"type": "string",
+											"pattern": "^0x[0-9a-fA-F]{40}$"
+										}
 									}
-								},
-								"required": [
-									"blockHash"
+								]
+							},
+							"topics": {
+								"title": "Topics",
+								"oneOf": [
+									{
+										"title": "Any Topic Match",
+										"type": "null"
+									},
+									{
+										"title": "Specified Filter Topics",
+										"type": "array",
+										"items": {
+											"title": "Filter Topic List Entry",
+											"oneOf": [
+												{
+													"title": "Single Topic Match",
+													"type": "string",
+													"pattern": "^0x[0-9a-f]{64}$"
+												},
+												{
+													"title": "Multiple Topic Match",
+													"type": "array",
+													"items": {
+														"title": "32 hex encoded bytes",
+														"type": "string",
+														"pattern": "^0x[0-9a-f]{64}$"
+													}
+												}
+											]
+										}
+									}
 								]
 							}
-						],
-						"additionalProperties": false
+						}
 					},
 					"required": true
-				}
-			],
-			"errors": [
-				{
-					"code": 4444,
-					"message": "Pruned history unavailable"
 				}
 			],
 			"result": {
@@ -10457,7 +9662,6 @@
 					"result": {
 						"name": "Account",
 						"value": {
-							"address": "0xe5cB067E90D5Cd1F8052B83562Ae670bA4A211a8",
 							"accountProof": [
 								"0xf90211a06a718c2c9da77c253b12d7b2569657901e37bb691718f5dda1b86157ab1dd5eda0e7f19ed5e21bccc8d3260236b24f80ad88b3634f5d005f37b838881f0e12f1bda0abb301291704e4d92686c0f5f8ebb1734185321559b8d717ffdca95c99591976a0d0c2026bfab65c3b95276bfa82af9dec860b485f8857f293c148d63a2182128fa0c98044ec9a1273a218bed58b478277dd39173ad7b8edb95c200423a6bc8fc25fa056e5a55d9ddccdbf49362857200bbb1f042d61187c9f5f9ddcff5d2f1fc984a2a02a5b7200af424114f99a4b5f0a21c19aac82209e431ed80bfde177adb1004bdfa0026e4374f0518ff44a80fa374838ecb86cc64ac93bb710fea6dff4198f947b27a03fea341d87984673ad523177ed52f278bf4d8f97e6531c8ece932aeede4802f4a0bfe2f4a7fcb78f7e9f080dea7b6977fb1d88c441696e4456dad92b9d34ff0f43a02a3eb5c0edb14626c9c629601027bd60178bb2b688a67cea4d179fc432436615a0747355b8e02f3b884b4ffe5cea1619e32515fea064cca98208591af8c744e894a0874253737bae37f020ad3bb7e3292c7c4a63cdc158af6b33aaa4deaef016dccba03d8192bc1fc6aa1548912e763a0b5013a94399cefad7b47cf388873b2b794068a09b67f9737c6028d796bfd1c5da57a6f45824dc891f848ea0e1f8019d1fb5fba8a0aa871f9de8da85960fcd8a22cdf21c27f11e3966c14a6737ffd414b98dda00b280",
 								"0xf90211a0d360be1e1da1a0c32bc4c105833bd531e59d110684007b7c50fb2709002973eca0cf6dd1e350a7031b4e2ab49c899fd8bd47551c8565d8fd8d1d7796c83820c3b1a0eb0a88c29bb33989a589156f7bf07d9efc74034dd9d3f5b73385c3b45c3249bea02783c25f97a6ddb8dc07adf4b176991836d39184b1f678adeda832fff15e3664a00a4e288060045e587774d8a64993a7add73068b16863145e1e8eeb4602e18e19a0340851f4046ad1298962d6e47d05c66329549c839c158748aaad7ae00b943aefa085b127bc2a3bd17604283de21b2b3c9aa8f1d4b7b85c94d8105a46fe32c77688a00f531d62b3c5435324c01009c284fe31277e8d38302b75ea01be89f09e205969a00011c8351c0e3d639ac54b9d3a59de630b16a67de8270d7d6064d0a67e93f9cca048780d32b7f2db88650b51c46f46fd0a68795edee1fd5ecee6eb3595741d9669a0c91afd74eaf8e08a997061a62b354e2516fdc494e8e26cc50ceeb8f4a175608ba0e2c07f1b48fab80eecb340f5882e8c7b32ee416e4045c61f1df646a133487303a01a1eff78435a7a29a29463bdc3486ae81364b00bea82ba0fdf67a110770f2261a04f2eb440ba71c72da5fd7f0e439018d6671dc809f747213a1ea755848124e994a074ff9f37fce99daa3ed01dd763076450022996fc729be2cc43c61ec5182c2366a0b80b36b7b621112592f52390b89748d422e9b1517c4b0203b8176a53f89d4a6680",
@@ -11304,12 +10508,6 @@
 					]
 				}
 			},
-			"errors": [
-				{
-					"code": 4444,
-					"message": "Pruned history unavailable"
-				}
-			],
 			"examples": [
 				{
 					"name": "eth_getTransactionByBlockHashAndIndex example",
@@ -12097,12 +11295,6 @@
 					]
 				}
 			},
-			"errors": [
-				{
-					"code": 4444,
-					"message": "Pruned history unavailable"
-				}
-			],
 			"examples": [
 				{
 					"name": "eth_getTransactionByBlockNumberAndIndex example",
@@ -13187,12 +12379,6 @@
 					]
 				}
 			},
-			"errors": [
-				{
-					"code": 4444,
-					"message": "Pruned history unavailable"
-				}
-			],
 			"examples": [
 				{
 					"name": "eth_getTransactionReceipt example",
@@ -13254,12 +12440,6 @@
 					]
 				}
 			},
-			"errors": [
-				{
-					"code": 4444,
-					"message": "Pruned history unavailable"
-				}
-			],
 			"examples": [
 				{
 					"name": "eth_getUncleCountByBlockHash example",
@@ -13322,12 +12502,6 @@
 					]
 				}
 			},
-			"errors": [
-				{
-					"code": 4444,
-					"message": "Pruned history unavailable"
-				}
-			],
 			"examples": [
 				{
 					"name": "eth_getUncleCountByBlockNumber example",
@@ -13399,149 +12573,74 @@
 					"schema": {
 						"title": "filter",
 						"type": "object",
-						"oneOf": [
-							{
-								"title": "Filter by block range",
-								"type": "object",
-								"properties": {
-									"fromBlock": {
-										"title": "from block",
-										"type": "string",
-										"pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
-									},
-									"toBlock": {
-										"title": "to block",
-										"type": "string",
-										"pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
-									},
-									"address": {
-										"title": "Address(es)",
-										"oneOf": [
-											{
-												"title": "Any Address",
-												"type": "null"
-											},
-											{
-												"title": "Address",
-												"type": "string",
-												"pattern": "^0x[0-9a-fA-F]{40}$"
-											},
-											{
-												"title": "Addresses",
-												"type": "array",
-												"items": {
-													"title": "hex encoded address",
-													"type": "string",
-													"pattern": "^0x[0-9a-fA-F]{40}$"
-												}
-											}
-										]
-									},
-									"topics": {
-										"title": "Topics",
-										"oneOf": [
-											{
-												"title": "Any Topic Match",
-												"type": "null"
-											},
-											{
-												"title": "Specified Filter Topics",
-												"type": "array",
-												"items": {
-													"title": "Filter Topic List Entry",
-													"oneOf": [
-														{
-															"title": "Single Topic Match",
-															"type": "string",
-															"pattern": "^0x[0-9a-f]{64}$"
-														},
-														{
-															"title": "Multiple Topic Match",
-															"type": "array",
-															"items": {
-																"title": "32 hex encoded bytes",
-																"type": "string",
-																"pattern": "^0x[0-9a-f]{64}$"
-															}
-														}
-													]
-												}
-											}
-										]
-									}
-								}
+						"additionalProperties": false,
+						"properties": {
+							"fromBlock": {
+								"title": "from block",
+								"type": "string",
+								"pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
 							},
-							{
-								"title": "Filter by block hash",
-								"type": "object",
-								"properties": {
-									"blockHash": {
-										"title": "block hash",
+							"toBlock": {
+								"title": "to block",
+								"type": "string",
+								"pattern": "^0x(0|[1-9a-f][0-9a-f]*)$"
+							},
+							"address": {
+								"title": "Address(es)",
+								"oneOf": [
+									{
+										"title": "Any Address",
+										"type": "null"
+									},
+									{
+										"title": "Address",
 										"type": "string",
-										"pattern": "^0x[0-9a-f]{64}$"
+										"pattern": "^0x[0-9a-fA-F]{40}$"
 									},
-									"address": {
-										"title": "Address(es)",
-										"oneOf": [
-											{
-												"title": "Any Address",
-												"type": "null"
-											},
-											{
-												"title": "Address",
-												"type": "string",
-												"pattern": "^0x[0-9a-fA-F]{40}$"
-											},
-											{
-												"title": "Addresses",
-												"type": "array",
-												"items": {
-													"title": "hex encoded address",
-													"type": "string",
-													"pattern": "^0x[0-9a-fA-F]{40}$"
-												}
-											}
-										]
-									},
-									"topics": {
-										"title": "Topics",
-										"oneOf": [
-											{
-												"title": "Any Topic Match",
-												"type": "null"
-											},
-											{
-												"title": "Specified Filter Topics",
-												"type": "array",
-												"items": {
-													"title": "Filter Topic List Entry",
-													"oneOf": [
-														{
-															"title": "Single Topic Match",
-															"type": "string",
-															"pattern": "^0x[0-9a-f]{64}$"
-														},
-														{
-															"title": "Multiple Topic Match",
-															"type": "array",
-															"items": {
-																"title": "32 hex encoded bytes",
-																"type": "string",
-																"pattern": "^0x[0-9a-f]{64}$"
-															}
-														}
-													]
-												}
-											}
-										]
+									{
+										"title": "Addresses",
+										"type": "array",
+										"items": {
+											"title": "hex encoded address",
+											"type": "string",
+											"pattern": "^0x[0-9a-fA-F]{40}$"
+										}
 									}
-								},
-								"required": [
-									"blockHash"
+								]
+							},
+							"topics": {
+								"title": "Topics",
+								"oneOf": [
+									{
+										"title": "Any Topic Match",
+										"type": "null"
+									},
+									{
+										"title": "Specified Filter Topics",
+										"type": "array",
+										"items": {
+											"title": "Filter Topic List Entry",
+											"oneOf": [
+												{
+													"title": "Single Topic Match",
+													"type": "string",
+													"pattern": "^0x[0-9a-f]{64}$"
+												},
+												{
+													"title": "Multiple Topic Match",
+													"type": "array",
+													"items": {
+														"title": "32 hex encoded bytes",
+														"type": "string",
+														"pattern": "^0x[0-9a-f]{64}$"
+													}
+												}
+											]
+										}
+									}
 								]
 							}
-						],
-						"additionalProperties": false
+						}
 					},
 					"required": true
 				}
@@ -13611,6 +12710,187 @@
 						"pattern": "^0x[0-9a-f]*$"
 					}
 				}
+			],
+			"x-error-group": [
+				[
+					{
+						"code": -32000,
+						"message": "Invalid input"
+					},
+					{
+						"code": -32001,
+						"message": "Resource not found"
+					},
+					{
+						"code": -32002,
+						"message": "Resource unavailable"
+					},
+					{
+						"code": -32003,
+						"message": "Transaction rejected"
+					},
+					{
+						"code": -32004,
+						"message": "Method not supported"
+					},
+					{
+						"code": -32005,
+						"message": "Limit exceeded"
+					},
+					{
+						"code": -32006,
+						"message": "JSON-RPC version not supported"
+					}
+				],
+				[
+					{
+						"code": -32700,
+						"message": "Parse error"
+					},
+					{
+						"code": -32600,
+						"message": "Invalid request"
+					},
+					{
+						"code": -32601,
+						"message": "Method not found"
+					},
+					{
+						"code": -32602,
+						"message": "Invalid params"
+					},
+					{
+						"code": -32603,
+						"message": "Internal error"
+					}
+				],
+				[
+					{
+						"code": 800,
+						"message": "Intrinsic gas too low / Intrinsic gas exceeds gas limit",
+						"x-error-category": "GAS_ERRORS"
+					},
+					{
+						"code": 801,
+						"message": "Insufficient gas for floor data gas cost",
+						"x-error-category": "GAS_ERRORS"
+					},
+					{
+						"code": 802,
+						"message": "Tx gas limit exceeds max block gas limit / intrinsic gas exceeds gas limit",
+						"x-error-category": "GAS_ERRORS"
+					},
+					{
+						"code": 803,
+						"message": "Transaction gas limit too high"
+					},
+					{
+						"code": 804,
+						"message": "Gas price below configured minimum gas price / transaction gas price below minimum",
+						"x-error-category": "GAS_ERRORS"
+					},
+					{
+						"code": 805,
+						"message": "Insufficient funds for gas * price + value / Upfront cost exceeds account balance",
+						"x-error-category": "GAS_ERRORS"
+					},
+					{
+						"code": 806,
+						"message": "Max priority fee per gas higher than max fee per gas",
+						"x-error-category": "GAS_ERRORS"
+					},
+					{
+						"code": 807,
+						"message": "Tx fee exceeds the configured cap / Transaction fee cap exceeded",
+						"x-error-category": "GAS_ERRORS"
+					}
+				],
+				[
+					{
+						"code": 1,
+						"message": "Nonce too low",
+						"x-error-category": "EXECUTION_ERRORS"
+					},
+					{
+						"code": 2,
+						"message": "Nonce too high",
+						"x-error-category": "EXECUTION_ERRORS"
+					},
+					{
+						"code": 3,
+						"message": "Execution reverted by REVERT Opcode",
+						"x-error-category": "EXECUTION_ERRORS"
+					},
+					{
+						"code": 4,
+						"message": "Invalid opcode",
+						"x-error-category": "EXECUTION_ERRORS"
+					}
+				],
+				[
+					{
+						"code": 1000,
+						"message": "Transaction is already known to the transaction pool",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1001,
+						"message": "Replacement transaction is sent without the required price bump",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1002,
+						"message": "Oversized data: Transaction input data exceeds the allowed limit",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1003,
+						"message": "Only replay-protected (EIP-155) transactions allowed over RPC",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1004,
+						"message": "Transaction pool is full",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1005,
+						"message": "Transaction Data contains invalid RLP encoding",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1006,
+						"message": "Transaction sender is invalid",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1007,
+						"message": "Transaction with negative value",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1008,
+						"message": "Transaction sender is denylisted",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1009,
+						"message": "Transaction receiver is denylisted",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1010,
+						"message": "Transaction chain ID does not match the expected chain ID",
+						"x-error-category": "TXPOOL_ERRORS"
+					}
+				],
+				[
+					{
+						"code": 2000,
+						"message": "Not enough step counters to continue the execution",
+						"x-error-category": "ZK_EXECUTION_ERRORS"
+					}
+				]
 			],
 			"result": {
 				"name": "Transaction hash",
@@ -13824,6 +13104,187 @@
 						}
 					}
 				}
+			],
+			"x-error-group": [
+				[
+					{
+						"code": -32000,
+						"message": "Invalid input"
+					},
+					{
+						"code": -32001,
+						"message": "Resource not found"
+					},
+					{
+						"code": -32002,
+						"message": "Resource unavailable"
+					},
+					{
+						"code": -32003,
+						"message": "Transaction rejected"
+					},
+					{
+						"code": -32004,
+						"message": "Method not supported"
+					},
+					{
+						"code": -32005,
+						"message": "Limit exceeded"
+					},
+					{
+						"code": -32006,
+						"message": "JSON-RPC version not supported"
+					}
+				],
+				[
+					{
+						"code": -32700,
+						"message": "Parse error"
+					},
+					{
+						"code": -32600,
+						"message": "Invalid request"
+					},
+					{
+						"code": -32601,
+						"message": "Method not found"
+					},
+					{
+						"code": -32602,
+						"message": "Invalid params"
+					},
+					{
+						"code": -32603,
+						"message": "Internal error"
+					}
+				],
+				[
+					{
+						"code": 800,
+						"message": "Intrinsic gas too low / Intrinsic gas exceeds gas limit",
+						"x-error-category": "GAS_ERRORS"
+					},
+					{
+						"code": 801,
+						"message": "Insufficient gas for floor data gas cost",
+						"x-error-category": "GAS_ERRORS"
+					},
+					{
+						"code": 802,
+						"message": "Tx gas limit exceeds max block gas limit / intrinsic gas exceeds gas limit",
+						"x-error-category": "GAS_ERRORS"
+					},
+					{
+						"code": 803,
+						"message": "Transaction gas limit too high"
+					},
+					{
+						"code": 804,
+						"message": "Gas price below configured minimum gas price / transaction gas price below minimum",
+						"x-error-category": "GAS_ERRORS"
+					},
+					{
+						"code": 805,
+						"message": "Insufficient funds for gas * price + value / Upfront cost exceeds account balance",
+						"x-error-category": "GAS_ERRORS"
+					},
+					{
+						"code": 806,
+						"message": "Max priority fee per gas higher than max fee per gas",
+						"x-error-category": "GAS_ERRORS"
+					},
+					{
+						"code": 807,
+						"message": "Tx fee exceeds the configured cap / Transaction fee cap exceeded",
+						"x-error-category": "GAS_ERRORS"
+					}
+				],
+				[
+					{
+						"code": 1,
+						"message": "Nonce too low",
+						"x-error-category": "EXECUTION_ERRORS"
+					},
+					{
+						"code": 2,
+						"message": "Nonce too high",
+						"x-error-category": "EXECUTION_ERRORS"
+					},
+					{
+						"code": 3,
+						"message": "Execution reverted by REVERT Opcode",
+						"x-error-category": "EXECUTION_ERRORS"
+					},
+					{
+						"code": 4,
+						"message": "Invalid opcode",
+						"x-error-category": "EXECUTION_ERRORS"
+					}
+				],
+				[
+					{
+						"code": 1000,
+						"message": "Transaction is already known to the transaction pool",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1001,
+						"message": "Replacement transaction is sent without the required price bump",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1002,
+						"message": "Oversized data: Transaction input data exceeds the allowed limit",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1003,
+						"message": "Only replay-protected (EIP-155) transactions allowed over RPC",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1004,
+						"message": "Transaction pool is full",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1005,
+						"message": "Transaction Data contains invalid RLP encoding",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1006,
+						"message": "Transaction sender is invalid",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1007,
+						"message": "Transaction with negative value",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1008,
+						"message": "Transaction sender is denylisted",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1009,
+						"message": "Transaction receiver is denylisted",
+						"x-error-category": "TXPOOL_ERRORS"
+					},
+					{
+						"code": 1010,
+						"message": "Transaction chain ID does not match the expected chain ID",
+						"x-error-category": "TXPOOL_ERRORS"
+					}
+				],
+				[
+					{
+						"code": 2000,
+						"message": "Not enough step counters to continue the execution",
+						"x-error-category": "ZK_EXECUTION_ERRORS"
+					}
+				]
 			],
 			"result": {
 				"name": "Transaction hash",
@@ -14056,6 +13517,19 @@
 										"r",
 										"s"
 									],
+									"additionalProperties": {
+										"oneOf": [
+											{
+												"title": "Contract Creation (null)",
+												"type": "null"
+											},
+											{
+												"title": "Address",
+												"type": "string",
+												"pattern": "^0x[0-9a-fA-F]{40}$"
+											}
+										]
+									},
 									"properties": {
 										"chainId": {
 											"title": "chainId",
@@ -14094,11 +13568,6 @@
 							}
 						}
 					}
-				}
-			],
-			"tags": [
-				{
-					"name": "transaction"
 				}
 			],
 			"result": {
@@ -14140,7 +13609,6 @@
 					"name": "Payload",
 					"required": true,
 					"schema": {
-						"type": "object",
 						"title": "Arguments for eth_simulate",
 						"required": [
 							"blockStateCalls"
@@ -14150,287 +13618,134 @@
 								"title": "Block State Calls",
 								"description": "Definition of blocks that can contain calls and overrides",
 								"type": "array",
-								"items": {
-									"type": "object",
-									"properties": {
-										"blockOverrides": {
-											"title": "Block overrides",
-											"type": "object",
-											"description": "Block overrides can be used to replace fields in a block.\ndefault: no block override.",
-											"properties": {
-												"number": {
-													"title": "Number",
-													"type": "string",
-													"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$",
-													"description": "When overriding block numbers across multiple blocks, block number need to be increasing. Skipping over blocks numbers is possible. If block number is not specified, it's incremented by one for each block."
-												},
-												"prevRandao": {
-													"title": "The Previous value of randomness beacon",
-													"type": "string",
-													"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$"
-												},
-												"time": {
-													"title": "Time",
-													"type": "string",
-													"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$",
-													"description": "Time must either increase or remain constant relative to the previous block. If time is not specified, it's incremented by one for each block."
-												},
-												"gasLimit": {
-													"title": "Gas limit",
-													"type": "string",
-													"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-												},
-												"feeRecipient": {
-													"title": "Fee Recipient (also known as coinbase)",
-													"type": "string",
-													"pattern": "^0x[0-9a-fA-F]{40}$"
-												},
-												"baseFeePerGas": {
-													"title": "Base fee per unit of gas",
-													"type": "string",
-													"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$"
-												},
-												"withdrawals": {
-													"title": "Withdrawals made by validators",
-													"description": "This array can have a maximum length of 16.",
-													"type": "array",
-													"items": {
-														"type": "object",
-														"title": "Validator withdrawal",
-														"required": [
-															"index",
-															"validatorIndex",
-															"address",
-															"amount"
-														],
-														"additionalProperties": false,
-														"properties": {
-															"index": {
-																"title": "index of withdrawal",
-																"type": "string",
-																"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-															},
-															"validatorIndex": {
-																"title": "index of validator that generated withdrawal",
-																"type": "string",
-																"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-															},
-															"address": {
-																"title": "recipient address for withdrawal value",
-																"type": "string",
-																"pattern": "^0x[0-9a-fA-F]{40}$"
-															},
-															"amount": {
-																"title": "value contained in withdrawal",
-																"type": "string",
-																"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$"
-															}
+								"properties": {
+									"blockOverrides": {
+										"title": "Block overrides",
+										"type": "object",
+										"description": "Block overrides can be used to replace fields in a block.\ndefault: no block override.",
+										"properties": {
+											"number": {
+												"title": "Number",
+												"type": "string",
+												"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$",
+												"description": "When overriding block numbers across multiple blocks, block number need to be increasing. Skipping over blocks numbers is possible. If block number is not specified, it's incremented by one for each block."
+											},
+											"prevRandao": {
+												"title": "The Previous value of randomness beacon",
+												"type": "string",
+												"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$"
+											},
+											"time": {
+												"title": "Time",
+												"type": "string",
+												"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$",
+												"description": "Time must either increase or remain constant relative to the previous block. If time is not specified, it's incremented by one for each block."
+											},
+											"gasLimit": {
+												"title": "Gas limit",
+												"type": "string",
+												"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
+											},
+											"feeRecipient": {
+												"title": "Fee Recipient (also known as coinbase)",
+												"type": "string",
+												"pattern": "^0x[0-9a-fA-F]{40}$"
+											},
+											"baseFeePerGas": {
+												"title": "Base fee per unit of gas",
+												"type": "string",
+												"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$"
+											},
+											"withdrawals": {
+												"title": "Withdrawals made by validators",
+												"description": "This array can have a maximum length of 16.",
+												"type": "array",
+												"items": {
+													"type": "object",
+													"title": "Validator withdrawal",
+													"required": [
+														"index",
+														"validatorIndex",
+														"address",
+														"amount"
+													],
+													"additionalProperties": false,
+													"properties": {
+														"index": {
+															"title": "index of withdrawal",
+															"type": "string",
+															"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
+														},
+														"validatorIndex": {
+															"title": "index of validator that generated withdrawal",
+															"type": "string",
+															"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
+														},
+														"address": {
+															"title": "recipient address for withdrawal value",
+															"type": "string",
+															"pattern": "^0x[0-9a-fA-F]{40}$"
+														},
+														"amount": {
+															"title": "value contained in withdrawal",
+															"type": "string",
+															"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$"
 														}
 													}
-												},
-												"blobBaseFee": {
-													"title": "Base fee per unit of blob gas",
-													"type": "string",
-													"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
 												}
+											},
+											"blobBaseFee": {
+												"title": "Base fee per unit of blob gas",
+												"type": "string",
+												"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
 											}
-										},
-										"stateOverrides": {
-											"title": "State overrides",
-											"type": "object",
-											"description": "State overrides can be used to replace existing blockchain state with new state.\nDefault: no state overrides",
-											"additionalProperties": false,
-											"patternProperties": {
-												"^0x[a-fA-F0-9]{40}$": {
-													"title": "Details of an account to be overridden",
-													"type": "object",
-													"oneOf": [
-														{
-															"type": "object",
-															"title": "Account override with whole storage replacement",
-															"description": "It is possible to override any kind of address (EOA's, contracts and precompiles)",
-															"required": [
-																"state"
-															],
-															"properties": {
-																"nonce": {
-																	"title": "Nonce",
-																	"type": "string",
-																	"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-																},
-																"balance": {
-																	"title": "Balance",
-																	"type": "string",
-																	"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$"
-																},
-																"code": {
-																	"title": "Code",
-																	"type": "string",
-																	"pattern": "^0x[0-9a-f]*$"
-																},
-																"movePrecompileToAddress": {
-																	"title": "MovePrecompileToAddress",
-																	"type": "string",
-																	"pattern": "^0x[0-9a-fA-F]{40}$",
-																	"description": "Moves addresses precompile into the specified address. This move is done before the 'code' override is set. When the specified address is not a precompile, the behaviour is undefined and different clients might behave differently."
-																},
-																"state": {
-																	"title": "Storage",
-																	"type": "object",
-																	"description": "Key-value mapping to override all slots in the account storage before executing the call. This functions similar to eth_call's state parameter.",
-																	"additionalProperties": false,
-																	"patternProperties": {
-																		"^0x[a-fA-F0-9]{64}$": {
-																			"title": "32 byte hex value",
-																			"type": "string",
-																			"pattern": "^0x[0-9a-f]{64}$"
-																		}
-																	}
-																}
-															}
-														},
-														{
-															"title": "Account override with partial storage modification",
-															"type": "object",
-															"required": [
-																"stateDiff"
-															],
-															"properties": {
-																"nonce": {
-																	"title": "Nonce",
-																	"type": "string",
-																	"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
-																},
-																"balance": {
-																	"title": "Balance",
-																	"type": "string",
-																	"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$"
-																},
-																"code": {
-																	"title": "Code",
-																	"type": "string",
-																	"pattern": "^0x[0-9a-f]*$"
-																},
-																"movePrecompileToAddress": {
-																	"title": "MovePrecompileToAddress",
-																	"type": "string",
-																	"pattern": "^0x[0-9a-fA-F]{40}$",
-																	"description": "Moves addresses precompile into the specified address. This move is done before the 'code' override is set. Can only move precompiles."
-																},
-																"stateDiff": {
-																	"title": "Storage difference",
-																	"type": "object",
-																	"description": "Key-value mapping to override individual slots in the account storage before executing the call. This functions similar to eth_call's state parameter.",
-																	"additionalProperties": false,
-																	"patternProperties": {
-																		"^0x[a-fA-F0-9]{64}$": {
-																			"title": "32 byte hex value",
-																			"type": "string",
-																			"pattern": "^0x[0-9a-f]{64}$"
-																		}
-																	}
-																}
-															}
-														}
-													]
-												}
-											}
-										},
-										"calls": {
-											"type": "array",
-											"title": "calls",
-											"description": "List of transactions to execute at this block/state.\nDefault: []",
-											"items": {
+										}
+									},
+									"stateOverrides": {
+										"title": "State overrides",
+										"type": "object",
+										"description": "State overrides can be used to replace existing blockchain state with new state.\nDefault: no state overrides",
+										"additionalProperties": false,
+										"patternProperties": {
+											"^0x[a-fA-F0-9]{40}$": {
+												"title": "Details of an account to be overridden",
 												"type": "object",
-												"title": "Transaction object type for call",
-												"properties": {
-													"type": {
-														"title": "type",
-														"type": "string",
-														"pattern": "^0x([0-9a-fA-F]?){1,2}$",
-														"description": "Default: 0x2"
-													},
-													"nonce": {
-														"title": "nonce",
-														"type": "string",
-														"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$",
-														"description": "Default: Defaults to correct nonce"
-													},
-													"to": {
-														"title": "to address",
-														"type": "string",
-														"pattern": "^0x[0-9a-fA-F]{40}$",
-														"description": "Default: 0x0"
-													},
-													"from": {
-														"title": "from address",
-														"type": "string",
-														"pattern": "^0x[0-9a-fA-F]{40}$",
-														"description": "Default: null"
-													},
-													"gas": {
-														"title": "gas limit",
-														"type": "string",
-														"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$",
-														"description": "Default: Remaining gas in the current block"
-													},
-													"value": {
-														"title": "value",
-														"type": "string",
-														"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$",
-														"description": "Default: 0"
-													},
-													"input": {
-														"title": "input data",
-														"type": "string",
-														"pattern": "^0x[0-9a-f]*$",
-														"description": "Default: no data"
-													},
-													"gasPrice": {
-														"title": "gas price",
-														"type": "string",
-														"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$",
-														"description": "The gas price willing to be paid by the sender in wei\nDefault: 0"
-													},
-													"maxPriorityFeePerGas": {
-														"title": "max priority fee per gas",
-														"type": "string",
-														"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$",
-														"description": "Maximum fee per gas the sender is willing to pay to miners in wei\nDefault: 0"
-													},
-													"maxFeePerGas": {
-														"title": "max fee per gas",
-														"type": "string",
-														"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$",
-														"description": "The maximum total fee per gas the sender is willing to pay (includes the network / base fee and miner / priority fee) in wei\nDefault: 0"
-													},
-													"maxFeePerBlobGas": {
-														"title": "max fee per blob gas",
-														"type": "string",
-														"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$",
-														"description": "The maximum total fee per blob gas the sender is willing to pay in wei\nDefault: 0"
-													},
-													"accessList": {
-														"title": "accessList",
-														"type": "array",
-														"description": "EIP-2930 access list\nDefault: []",
-														"items": {
-															"title": "Access list entry",
-															"type": "object",
-															"required": [
-																"address",
-																"storageKeys"
-															],
-															"additionalProperties": false,
-															"properties": {
-																"address": {
-																	"title": "hex encoded address",
-																	"type": "string",
-																	"pattern": "^0x[0-9a-fA-F]{40}$"
-																},
-																"storageKeys": {
-																	"type": "array",
-																	"items": {
+												"oneOf": [
+													{
+														"title": "Account override with whole storage replacement",
+														"description": "It is possible to override any kind of address (EOA's, contracts and precompiles)",
+														"required": [
+															"state"
+														],
+														"properties": {
+															"nonce": {
+																"title": "Nonce",
+																"type": "string",
+																"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
+															},
+															"balance": {
+																"title": "Balance",
+																"type": "string",
+																"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$"
+															},
+															"code": {
+																"title": "Code",
+																"type": "string",
+																"pattern": "^0x[0-9a-f]*$"
+															},
+															"movePrecompileToAddress": {
+																"title": "MovePrecompileToAddress",
+																"type": "string",
+																"pattern": "^0x[0-9a-fA-F]{40}$",
+																"description": "Moves addresses precompile into the specified address. This move is done before the 'code' override is set. When the specified address is not a precompile, the behaviour is undefined and different clients might behave differently."
+															},
+															"state": {
+																"title": "Storage",
+																"type": "object",
+																"description": "Key-value mapping to override all slots in the account storage before executing the call. This functions similar to eth_call's state parameter.",
+																"additionalProperties": false,
+																"patternProperties": {
+																	"^0x[a-fA-F0-9]{64}$": {
 																		"title": "32 byte hex value",
 																		"type": "string",
 																		"pattern": "^0x[0-9a-f]{64}$"
@@ -14439,12 +13754,160 @@
 															}
 														}
 													},
-													"blobVersionedHashes": {
-														"title": "Blob versioned hashes",
-														"type": "string",
-														"pattern": "^0x[0-9a-f]{64}$",
-														"description": "EIP-4844 versioned hashes\nDefault: []"
+													{
+														"title": "Account override with partial storage modification",
+														"required": [
+															"stateDiff"
+														],
+														"properties": {
+															"nonce": {
+																"title": "Nonce",
+																"type": "string",
+																"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$"
+															},
+															"balance": {
+																"title": "Balance",
+																"type": "string",
+																"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$"
+															},
+															"code": {
+																"title": "Code",
+																"type": "string",
+																"pattern": "^0x[0-9a-f]*$"
+															},
+															"movePrecompileToAddress": {
+																"title": "MovePrecompileToAddress",
+																"type": "string",
+																"pattern": "^0x[0-9a-fA-F]{40}$",
+																"description": "Moves addresses precompile into the specified address. This move is done before the 'code' override is set. Can only move precompiles."
+															},
+															"stateDiff": {
+																"title": "Storage difference",
+																"type": "object",
+																"description": "Key-value mapping to override individual slots in the account storage before executing the call. This functions similar to eth_call's state parameter.",
+																"additionalProperties": false,
+																"patternProperties": {
+																	"^0x[a-fA-F0-9]{64}$": {
+																		"title": "32 byte hex value",
+																		"type": "string",
+																		"pattern": "^0x[0-9a-f]{64}$"
+																	}
+																}
+															}
+														}
 													}
+												]
+											}
+										}
+									},
+									"calls": {
+										"type": "array",
+										"title": "calls",
+										"description": "List of transactions to execute at this block/state.\nDefault: []",
+										"items": {
+											"type": "object",
+											"title": "Transaction object type for call",
+											"properties": {
+												"type": {
+													"title": "type",
+													"type": "string",
+													"pattern": "^0x([0-9a-fA-F]?){1,2}$",
+													"description": "Default: 0x2"
+												},
+												"nonce": {
+													"title": "nonce",
+													"type": "string",
+													"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$",
+													"description": "Default: Defaults to correct nonce"
+												},
+												"to": {
+													"title": "to address",
+													"type": "string",
+													"pattern": "^0x[0-9a-fA-F]{40}$",
+													"description": "Default: 0x0"
+												},
+												"from": {
+													"title": "from address",
+													"type": "string",
+													"pattern": "^0x[0-9a-fA-F]{40}$",
+													"description": "Default: null"
+												},
+												"gas": {
+													"title": "gas limit",
+													"type": "string",
+													"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,15})$",
+													"description": "Default: Remaining gas in the current block"
+												},
+												"value": {
+													"title": "value",
+													"type": "string",
+													"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$",
+													"description": "Default: 0"
+												},
+												"input": {
+													"title": "input data",
+													"type": "string",
+													"pattern": "^0x[0-9a-f]*$",
+													"description": "Default: no data"
+												},
+												"gasPrice": {
+													"title": "gas price",
+													"type": "string",
+													"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$",
+													"description": "The gas price willing to be paid by the sender in wei\nDefault: 0"
+												},
+												"maxPriorityFeePerGas": {
+													"title": "max priority fee per gas",
+													"type": "string",
+													"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$",
+													"description": "Maximum fee per gas the sender is willing to pay to miners in wei\nDefault: 0"
+												},
+												"maxFeePerGas": {
+													"title": "max fee per gas",
+													"type": "string",
+													"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$",
+													"description": "The maximum total fee per gas the sender is willing to pay (includes the network / base fee and miner / priority fee) in wei\nDefault: 0"
+												},
+												"maxFeePerBlobGas": {
+													"title": "max fee per blob gas",
+													"type": "string",
+													"pattern": "^0x(0|[1-9a-f][0-9a-f]{0,63})$",
+													"description": "The maximum total fee per blob gas the sender is willing to pay in wei\nDefault: 0"
+												},
+												"accessList": {
+													"title": "accessList",
+													"type": "array",
+													"description": "EIP-2930 access list\nDefault: []",
+													"items": {
+														"title": "Access list entry",
+														"type": "object",
+														"required": [
+															"address",
+															"storageKeys"
+														],
+														"additionalProperties": false,
+														"properties": {
+															"address": {
+																"title": "hex encoded address",
+																"type": "string",
+																"pattern": "^0x[0-9a-fA-F]{40}$"
+															},
+															"storageKeys": {
+																"type": "array",
+																"items": {
+																	"title": "32 byte hex value",
+																	"type": "string",
+																	"pattern": "^0x[0-9a-f]{64}$"
+																}
+															}
+														}
+													}
+												},
+												"blobVersionedHashes": {
+													"title": "Blob versioned hashes",
+													"type": "string",
+													"pattern": "^0x[0-9a-f]{64}$",
+													"description": "EIP-4844 versioned hashes\nDefault: []"
 												}
 											}
 										}
@@ -15723,14 +15186,6 @@
 					"required": true
 				}
 			],
-			"tags": [
-				{
-					"name": "filter"
-				},
-				{
-					"name": "transaction"
-				}
-			],
 			"result": {
 				"name": "Success",
 				"schema": {
@@ -15752,6 +15207,154 @@
 					}
 				}
 			]
+		}
+	],
+	"x-extensions": [
+		{
+			"openrpcExtension": "0.0.0-development",
+			"name": "x-error-group",
+			"version": "0.0.1",
+			"description": "Enables grouping and organization of JSON-RPC errors in OpenRPC methods. Unlike the standard Errors array, this extension allows defining reusable error collections that can be referenced across methods. Error groups can be combined through references, creating a union of all individual errors in the referenced arrays. This promotes better error organization, reusability, and consistency across API documentation.",
+			"summary": "Group, organize, and reuse JSON-RPC error definitions across OpenRPC methods via references",
+			"externalDocumentation": {
+				"description": "github",
+				"url": "https://github.com/open-rpc/tools/tree/main/packages/extensions/src/x-error-groups"
+			},
+			"restricted": [
+				"methodObject"
+			],
+			"schema": {
+				"type": "array",
+				"items": {
+					"oneOf": [
+						{
+							"type": "array",
+							"items": {
+								"allOf": [
+									{
+										"type": "object",
+										"properties": {
+											"code": {
+												"type": "integer",
+												"description": "The code of the error."
+											},
+											"message": {
+												"type": "string",
+												"description": "The message of the error."
+											},
+											"data": {
+												"description": "The data of the error."
+											},
+											"x-error-category": {
+												"type": "string"
+											}
+										},
+										"required": [
+											"code",
+											"message"
+										]
+									},
+									{
+										"if": {
+											"properties": {
+												"x-error-category": {
+													"const": "GAS_ERRORS"
+												}
+											},
+											"required": [
+												"x-error-category"
+											]
+										},
+										"then": {
+											"properties": {
+												"code": {
+													"type": "integer",
+													"minimum": 800,
+													"maximum": 999
+												}
+											}
+										}
+									},
+									{
+										"if": {
+											"properties": {
+												"x-error-category": {
+													"const": "EXECUTION_ERRORS"
+												}
+											},
+											"required": [
+												"x-error-category"
+											]
+										},
+										"then": {
+											"properties": {
+												"code": {
+													"type": "integer",
+													"minimum": 1,
+													"maximum": 199
+												}
+											}
+										}
+									},
+									{
+										"if": {
+											"properties": {
+												"x-error-category": {
+													"const": "TXPOOL_ERRORS"
+												}
+											},
+											"required": [
+												"x-error-category"
+											]
+										},
+										"then": {
+											"properties": {
+												"code": {
+													"type": "integer",
+													"minimum": 1000,
+													"maximum": 1199
+												}
+											}
+										}
+									},
+									{
+										"if": {
+											"properties": {
+												"x-error-category": {
+													"const": "ZK_EXECUTION_ERRORS"
+												}
+											},
+											"required": [
+												"x-error-category"
+											]
+										},
+										"then": {
+											"properties": {
+												"code": {
+													"type": "integer",
+													"minimum": 2000,
+													"maximum": 2199
+												}
+											}
+										}
+									}
+								]
+							}
+						},
+						{
+							"type": "object",
+							"properties": {
+								"$ref": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"$ref"
+							]
+						}
+					]
+				}
+			}
 		}
 	],
 	"components": {}

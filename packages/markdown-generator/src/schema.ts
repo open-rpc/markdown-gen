@@ -57,6 +57,12 @@ export interface DetailData {
   summaryType: string;
   summaryContent: (BlockContent | DefinitionContent | MdxJsxFlowElement)[];
 }
+export interface ErrorGroupItem extends NoRefs<ErrorOrReference> {
+  "x-error-category"?: string;
+}
+
+export type ErrorGroups = ErrorGroupItem[];
+
 /*  Render heading helpers */
 
 export function objectFieldList(
@@ -291,6 +297,13 @@ export function renderAtomicSchema(
     ...contentContainerDescriptor,
     constraintsSchema: schema,
   } as ContentContainerDescriptor;
+  if (typeof schema == "boolean")
+    return renderAtomicHelper(
+      contentContainerDescriptor?.name ?? "",
+      schema.toString(),
+      "",
+      contentContainerDescriptor ?? {},
+    );
   if (typeof schema !== "object" || schema === null) {
     return [];
   }
@@ -414,7 +427,7 @@ export function renderExamples(
 }
 
 export function renderError(
-  error: NoRefs<ErrorOrReference>,
+  error: NoRefs<ErrorOrReference | ErrorGroupItem>,
   _editSchema: SchemaEdits,
 ): OpenRPCMdContent[] {
   if (!error || typeof error !== "object") return [];
@@ -485,6 +498,30 @@ export function renderError(
     });
   }
 
+  if ((error as ErrorGroupItem)["x-error-category"] !== undefined) {
+    const categoryValue = (error as ErrorGroupItem)["x-error-category"];
+
+    listItems.push({
+      type: "listItem",
+      spread: false,
+      children: [
+        {
+          type: "paragraph",
+          children: [
+            {
+              type: "strong",
+              children: [{ type: "text", value: "x-error-category" }],
+            },
+          ],
+        },
+        {
+          type: "paragraph",
+          children: [{ type: "text", value: categoryValue }],
+        },
+      ],
+    });
+  }
+
   // Add the list of code/message/data fields
   children.push({
     type: "list",
@@ -497,7 +534,7 @@ export function renderError(
 }
 
 export function renderErrors(
-  errors: NoRefs<MethodObjectErrors> | undefined,
+  errors: NoRefs<MethodObjectErrors | ErrorGroups> | undefined,
   editSchema: SchemaEdits,
 ): OpenRPCMdContent[] {
   if (errors === undefined) return [];
@@ -609,13 +646,11 @@ export function renderMethod(
           type: "paragraph",
           children: [{ type: "text", value: method.description ?? "" }],
         },
-        {
-          type: "paragraph",
-          children: [{ type: "text", value: method.summary ?? "" }],
-        },
+        ...parseMarkdownToNodes(method.summary ?? ""),
         ...content,
         ...renderResults(method.result, editSchema),
         ...renderErrors(method.errors, editSchema),
+        ...renderErrors(method["x-error-group"]?.flat(), editSchema),
         ...renderExamples(
           method.examples,
           method.paramStructure ?? "either",
@@ -727,7 +762,23 @@ export function renderObjectSchema(
       ),
     );
   }
-
+  if (Object.entries(schema.properties ?? {}).length > 0) {
+    fieldData.push(
+      renderSchema(
+        {
+          name: "additionalProperties",
+          description: "Additional JSON properties",
+          schema: schema.additionalProperties
+            ? schema.additionalProperties
+            : true,
+          required: false,
+          constraintsSchema: schema.additionalProperties ?? {},
+        },
+        schema.additionalProperties ?? true,
+        editSchema,
+      ),
+    );
+  }
   children.push(objectFieldList(fieldData));
   // aggregate the children into a details element
   const detailData: DetailData = {
@@ -834,6 +885,8 @@ export function renderSchema(
 ): OpenRPCMdContent[] {
   let children: OpenRPCMdContent[] = [];
   if (schema === null || schema === undefined) return [];
+  if (typeof schema == "boolean")
+    return renderAtomicSchema(contentDescriptor, schema, editSchema);
   if (typeof schema === "object" && schema !== null) {
     if (schema.allOf) {
       return renderOfTypeSchema(contentDescriptor, "allOf", schema, editSchema);

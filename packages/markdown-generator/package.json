@@ -12,6 +12,9 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "openrpc-md": "./dist/cli.js"
+  },
   "files": [
     "dist"
   ],
