@@ -130,21 +130,16 @@ export function RequestBox({
               {copied ? "Copied" : "Copy ▾"}
             </button>
             {dropdownOpen && (
-              <div
-                className={styles.dropdownMenu}
-                style={{ background: "#ffffff" }}
-              >
+              <div className={styles.dropdownMenu}>
                 <button
                   className={styles.dropdownItem}
                   onClick={() => copyAs("curl")}
-                  style={{ background: "#ffffff" }}
                 >
                   Copy as Curl
                 </button>
                 <button
                   className={styles.dropdownItem}
                   onClick={() => copyAs("fetch")}
-                  style={{ background: "#ffffff" }}
                 >
                   Copy as Fetch
                 </button>

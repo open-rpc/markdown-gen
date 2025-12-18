@@ -70,7 +70,7 @@
 }
 
 .dropdownItem:hover {
-  background-color: var(--ifm-color-emphasis-100);
+  background-color: var(--ifm-color-emphasis-200);
 }
 
 .dropdownItem:not(:last-child) {
@@ -181,12 +181,12 @@
 }
 
 [data-theme='dark'] .copyButton {
-  background-color: var(--ifm-color-emphasis-300);
-  border-color: var(--ifm-color-emphasis-400);
+  background-color: transparent;
+  border-color: var(--ifm-color-emphasis-300);
 }
 
 [data-theme='dark'] .copyButton:hover {
-  background-color: var(--ifm-color-emphasis-400);
+  background-color: var(--ifm-color-emphasis-200);
 }
 
 [data-theme='dark'] .dropdownMenu {
