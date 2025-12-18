@@ -1,5 +1,16 @@
 # open-rpc-docusaurus-plugin-beta
 
+## 0.1.0
+
+### Minor Changes
+
+- 4905fdb: The initial release for open-rpc mardown gneerator and docusaurus-plugin
+
+### Patch Changes
+
+- Updated dependencies [4905fdb]
+  - @open-rpc/markdown-generator@0.1.0
+
 ## 0.0.5
 
 ### Patch Changes
