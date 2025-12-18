@@ -1,5 +1,5 @@
 {
-  "name": "open-rpc-markdown-generator-beta",
+  "name": "@open-rpc/markdown-generator",
   "module": "index.ts",
   "type": "module",
   "exports": {
