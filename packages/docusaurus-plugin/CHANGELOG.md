@@ -1,5 +1,13 @@
 # open-rpc-docusaurus-plugin-beta
 
+## 0.1.1
+
+### Patch Changes
+
+- da88124: Fix dropdown copy as backgrounds and hovers
+- Updated dependencies [da88124]
+  - @open-rpc/markdown-generator@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes
