@@ -1,0 +1,861 @@
+{
+  "openrpc": "1.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Comprehensive Schema Test",
+    "description": "Test document for validating renderMethod function with all JSON Schema draft7 fixtures"
+  },
+  "methods": [
+    {
+      "name": "test_allOf_composition_param",
+      "description": "Tests allOf composition schema as parameter",
+      "summary": "Validates rendering of allOf schemas with multiple property requirements",
+      "tags": [
+        {
+          "name": "composition"
+        },
+        {
+          "name": "allOf"
+        }
+      ],
+      "paramStructure": "by-name",
+      "params": [
+        {
+          "name": "composedObject",
+          "required": true,
+          "description": "An object that must satisfy all allOf schemas",
+          "schema": {
+            "allOf": [
+              {
+                "properties": {
+                  "bar": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "bar"
+                ]
+              },
+              {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "foo"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "result": {
+        "name": "success",
+        "description": "Operation successful",
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      "examples": [
+        {
+          "name": "Valid allOf example",
+          "description": "Object satisfies both schemas",
+          "params": [
+            {
+              "name": "composedObject",
+              "value": {
+                "foo": "test",
+                "bar": 42
+              }
+            }
+          ],
+          "result": {
+            "name": "success",
+            "value": true
+          }
+        }
+      ],
+      "errors": [
+        {
+          "code": 4001,
+          "message": "Invalid composition",
+          "data": "Object does not satisfy all schemas in allOf"
+        }
+      ]
+    },
+    {
+      "name": "test_anyOf_composition_result",
+      "description": "Tests anyOf composition schema as result",
+      "paramStructure": "by-position",
+      "params": [
+        {
+          "name": "input",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "result": {
+        "name": "flexibleResult",
+        "description": "Result can be integer or satisfy minimum constraint",
+        "schema": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "minimum": 2
+            }
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "Integer result",
+          "params": [
+            {
+              "name": "input",
+              "value": "test"
+            }
+          ],
+          "result": {
+            "name": "flexibleResult",
+            "value": 1
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_oneOf_composition_param",
+      "description": "Tests oneOf composition schema as parameter",
+      "paramStructure": "either",
+      "params": [
+        {
+          "name": "exclusiveValue",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "minimum": 2
+              }
+            ]
+          }
+        }
+      ],
+      "result": {
+        "name": "processed",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "test_object_properties_schema",
+      "description": "Tests object with properties validation",
+      "paramStructure": "by-name",
+      "params": [
+        {
+          "name": "user",
+          "required": true,
+          "description": "User object with typed properties",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "foo": {
+                "type": "integer"
+              },
+              "bar": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "userId",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "errors": [
+        {
+          "code": 4002,
+          "message": "Invalid property type"
+        }
+      ]
+    },
+    {
+      "name": "test_array_items_schema",
+      "description": "Tests array items schema validation",
+      "tags": [
+        {
+          "name": "arrays"
+        }
+      ],
+      "paramStructure": "by-position",
+      "params": [
+        {
+          "name": "numbers",
+          "required": true,
+          "description": "Array of integers",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "sum",
+        "schema": {
+          "type": "integer"
+        }
+      }
+    },
+    {
+      "name": "test_enum_validation",
+      "description": "Tests enum keyword for value restriction",
+      "summary": "Validates that parameter values are restricted to specific enum values",
+      "paramStructure": "by-name",
+      "params": [
+        {
+          "name": "status",
+          "required": true,
+          "description": "Status must be one of the allowed values",
+          "schema": {
+            "enum": [
+              "pending",
+              "active",
+              "completed"
+            ]
+          }
+        }
+      ],
+      "result": {
+        "name": "updated",
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "name": "test_multiple_constraints",
+      "description": "Tests multiple constraint keywords on different parameters",
+      "paramStructure": "by-name",
+      "params": [
+        {
+          "name": "count",
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          }
+        },
+        {
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z]+$"
+          }
+        }
+      ],
+      "result": {
+        "name": "valid",
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "name": "test_result_only_no_params",
+      "description": "Tests method with no parameters, only result",
+      "params": [],
+      "result": {
+        "name": "timestamp",
+        "description": "Current server timestamp",
+        "schema": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    {
+      "name": "test_params_only_no_result",
+      "description": "Tests method with parameters but no result",
+      "params": [
+        {
+          "name": "message",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_nested_allOf_properties",
+      "description": "Tests nested schema composition with allOf containing properties",
+      "paramStructure": "by-name",
+      "params": [
+        {
+          "name": "complexObject",
+          "schema": {
+            "allOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              },
+              {
+                "properties": {
+                  "metadata": {
+                    "type": "object",
+                    "properties": {
+                      "created": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "result": {
+        "name": "success",
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "name": "test_boolean_schema_types",
+      "description": "Tests boolean schema types (true/false)",
+      "params": [
+        {
+          "name": "acceptAnything",
+          "description": "Parameter with schema true accepts any value",
+          "schema": true
+        }
+      ],
+      "result": {
+        "name": "output",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "test_null_type_handling",
+      "description": "Tests null type in schemas",
+      "params": [
+        {
+          "name": "nullableValue",
+          "schema": {
+            "type": "null"
+          }
+        }
+      ],
+      "result": {
+        "name": "processed",
+        "description": "Result with null type",
+        "schema": {
+          "type": "null"
+        }
+      }
+    },
+    {
+      "name": "test_format_validation",
+      "description": "Tests format keyword for string validation",
+      "tags": [
+        {
+          "name": "validation"
+        },
+        {
+          "name": "format"
+        }
+      ],
+      "params": [
+        {
+          "name": "email",
+          "schema": {
+            "type": "string",
+            "format": "email"
+          }
+        },
+        {
+          "name": "uri",
+          "schema": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        {
+          "name": "datetime",
+          "schema": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      ],
+      "result": {
+        "name": "valid",
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "name": "test_dependencies_keyword",
+      "description": "Tests dependencies keyword for conditional requirements",
+      "paramStructure": "by-name",
+      "params": [
+        {
+          "name": "config",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "credit_card": {
+                "type": "number"
+              },
+              "billing_address": {
+                "type": "string"
+              }
+            },
+            "dependencies": {
+              "credit_card": [
+                "billing_address"
+              ]
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "success",
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "name": "test_patternProperties_schema",
+      "description": "Tests patternProperties for dynamic property validation",
+      "params": [
+        {
+          "name": "data",
+          "schema": {
+            "type": "object",
+            "patternProperties": {
+              "^S_": {
+                "type": "string"
+              },
+              "^I_": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "valid",
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "name": "test_additionalProperties_schema",
+      "description": "Tests additionalProperties constraint",
+      "paramStructure": "by-name",
+      "params": [
+        {
+          "name": "strictObject",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      ],
+      "result": {
+        "name": "processed",
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      "errors": [
+        {
+          "code": 4003,
+          "message": "Additional properties not allowed"
+        }
+      ]
+    },
+    {
+      "name": "test_const_keyword",
+      "description": "Tests const keyword for exact value matching",
+      "params": [
+        {
+          "name": "version",
+          "schema": {
+            "const": "1.0.0"
+          }
+        }
+      ],
+      "result": {
+        "name": "compatible",
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "name": "test_not_keyword",
+      "description": "Tests not keyword for schema negation",
+      "params": [
+        {
+          "name": "value",
+          "description": "Value that must not be an integer",
+          "schema": {
+            "not": {
+              "type": "integer"
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "valid",
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "name": "test_contains_keyword",
+      "description": "Tests contains keyword for array validation",
+      "paramStructure": "by-position",
+      "params": [
+        {
+          "name": "numbers",
+          "description": "Array must contain at least one value >= 5",
+          "schema": {
+            "type": "array",
+            "contains": {
+              "minimum": 5
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "found",
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "name": "test_numeric_constraints",
+      "description": "Tests numeric constraint keywords",
+      "summary": "Validates multipleOf, exclusiveMinimum, and exclusiveMaximum",
+      "tags": [
+        {
+          "name": "numeric"
+        },
+        {
+          "name": "constraints"
+        }
+      ],
+      "params": [
+        {
+          "name": "evenNumber",
+          "schema": {
+            "type": "integer",
+            "multipleOf": 2
+          }
+        },
+        {
+          "name": "positiveNumber",
+          "schema": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        },
+        {
+          "name": "lessThanHundred",
+          "schema": {
+            "type": "number",
+            "exclusiveMaximum": 100
+          }
+        }
+      ],
+      "result": {
+        "name": "sum",
+        "schema": {
+          "type": "number"
+        }
+      },
+      "examples": [
+        {
+          "name": "Valid numeric constraints",
+          "params": [
+            {
+              "name": "evenNumber",
+              "value": 4
+            },
+            {
+              "name": "positiveNumber",
+              "value": 5.5
+            },
+            {
+              "name": "lessThanHundred",
+              "value": 99.9
+            }
+          ],
+          "result": {
+            "name": "sum",
+            "value": 109.4
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_string_constraints",
+      "description": "Tests string constraint keywords",
+      "paramStructure": "by-name",
+      "params": [
+        {
+          "name": "shortString",
+          "schema": {
+            "type": "string",
+            "maxLength": 10
+          }
+        },
+        {
+          "name": "longString",
+          "schema": {
+            "type": "string",
+            "minLength": 5
+          }
+        },
+        {
+          "name": "patternString",
+          "schema": {
+            "type": "string",
+            "pattern": "^[0-9]{3}-[0-9]{4}$"
+          }
+        }
+      ],
+      "result": {
+        "name": "concatenated",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "test_array_constraints",
+      "description": "Tests array constraint keywords",
+      "tags": [
+        {
+          "name": "arrays"
+        },
+        {
+          "name": "constraints"
+        }
+      ],
+      "params": [
+        {
+          "name": "limitedArray",
+          "schema": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5
+          }
+        },
+        {
+          "name": "uniqueArray",
+          "schema": {
+            "type": "array",
+            "uniqueItems": true
+          }
+        }
+      ],
+      "result": {
+        "name": "merged",
+        "schema": {
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "test_object_constraints",
+      "description": "Tests object constraint keywords",
+      "summary": "Validates minProperties, maxProperties, required, and propertyNames",
+      "paramStructure": "by-name",
+      "params": [
+        {
+          "name": "boundedObject",
+          "schema": {
+            "type": "object",
+            "minProperties": 1,
+            "maxProperties": 5
+          }
+        },
+        {
+          "name": "requiredObject",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        {
+          "name": "propertyNamesObject",
+          "schema": {
+            "type": "object",
+            "propertyNames": {
+              "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "validated",
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      "errors": [
+        {
+          "code": 4004,
+          "message": "Object constraint violation",
+          "data": {
+            "reason": "Property count or names invalid"
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_default_keyword",
+      "description": "Tests default keyword for default values",
+      "params": [
+        {
+          "name": "priority",
+          "schema": {
+            "type": "string",
+            "default": "normal",
+            "enum": [
+              "low",
+              "normal",
+              "high"
+            ]
+          }
+        }
+      ],
+      "result": {
+        "name": "scheduled",
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "name": "test_additional_items_schema",
+      "description": "Tests additionalItems for tuple validation",
+      "paramStructure": "either",
+      "params": [
+        {
+          "name": "tuple",
+          "description": "Array with specific item types and additional items allowed",
+          "schema": {
+            "type": "array",
+            "items": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "additionalItems": {
+              "type": "boolean"
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "processed",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "test_if_then_else_keyword",
+      "description": "Tests if-then-else conditional schema validation",
+      "summary": "Validates conditional schema application based on if/then/else keywords",
+      "paramStructure": "by-name",
+      "params": [
+        {
+          "name": "conditionalValue",
+          "description": "Value validated conditionally based on if-then-else",
+          "schema": {
+            "if": {
+              "type": "integer"
+            },
+            "then": {
+              "minimum": 0
+            },
+            "else": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "valid",
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    }
+  ]
+}

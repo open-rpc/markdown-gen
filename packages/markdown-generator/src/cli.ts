@@ -1,6 +1,5 @@
 #!/usr/bin/env bun
 /* eslint-disable no-console */
-/* global Bun */
 import { parseArgs } from "node:util";
 import path from "node:path";
 import { renderDocumentToMarkdownFiles } from "./lib";

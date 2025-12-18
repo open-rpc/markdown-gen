@@ -1,6 +1,6 @@
 {
-  "name": "open-rpc-docusaurus-plugin-beta",
-  "version": "0.0.5",
+  "name": "@open-rpc/docusaurus-plugin",
+  "version": "0.0.4",
   "private": false,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -22,7 +22,7 @@
     "@docusaurus/utils": "3.9.2",
     "@docusaurus/utils-common": "3.9.2",
     "@docusaurus/utils-validation": "3.9.2",
-    "open-rpc-markdown-generator-beta": "workspace:*",
+    "@open-rpc/markdown-generator": "workspace:*",
     "@open-rpc/meta-schema": "^1.14.9",
     "@open-rpc/schema-utils-js": "^2.1.2"
   },

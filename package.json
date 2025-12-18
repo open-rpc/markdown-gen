@@ -1,19 +1,6 @@
 {
-  "name": "markdown-gen-beta",
-  "module": "index.ts",
+  "name": "@open-rpc/markdown-gen-root",
   "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "browser": "./dist/browser/index.js",
-      "import": "./dist/index.js"
-    }
-  },
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
   "private": true,
   "workspaces": [
     "packages/*"

@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
     // Environment setup & latest features
+    "types": [
+      "bun"
+    ],
     "lib": [
       "ESNext"
     ],

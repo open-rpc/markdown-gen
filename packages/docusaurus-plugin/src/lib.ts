@@ -1,25 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { parseOpenRPCDocument } from "@open-rpc/schema-utils-js";
-import type { Edits } from "open-rpc-markdown-generator-beta";
+import type { Edits } from "@open-rpc/markdown-generator";
 import {
   identityEdits,
   identitySchemaEdits,
   renderMethodsToMarkdown,
   renderIndex,
-} from "open-rpc-markdown-generator-beta";
+} from "@open-rpc/markdown-generator";
 import type {
   DereffedMethodObject,
   DereffedMethodObjectParams,
   DereffedOpenrpcDocument,
-} from "open-rpc-markdown-generator-beta";
+} from "@open-rpc/markdown-generator";
 import { promises as fs } from "fs";
 import * as path from "path";
-import { OpenRPCMdContent } from "open-rpc-markdown-generator-beta";
+import { OpenRPCMdContent } from "@open-rpc/markdown-generator";
 import { MethodObjectParamStructure } from "@open-rpc/meta-schema";
 
 type JSONSchema = any;
 
-const reactComponent: string = `import {TwoColumnLayout, InteractiveRequest, ResponseExample} from 'open-rpc-docusaurus-plugin-beta/components';\nimport { useState } from 'react';`;
+const reactComponent: string = `import {TwoColumnLayout, InteractiveRequest, ResponseExample} from '@open-rpc/docusaurus-plugin/components';\nimport { useState } from 'react';`;
 const methodEdits: Edits = { ...identityEdits };
 
 methodEdits.editMethod = (content, method) => {
