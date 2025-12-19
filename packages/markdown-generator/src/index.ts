@@ -3,5 +3,10 @@ export {
   renderDocumentToMarkdownFiles,
   renderIndex,
 } from "./lib";
-export { identityEdits, identitySchemaEdits } from "./schema";
+export {
+  identityEdits,
+  identitySchemaEdits,
+  markdownEdits,
+  markdownSchemaEdits,
+} from "./schema";
 export * from "./type";
