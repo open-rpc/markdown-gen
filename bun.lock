@@ -31,7 +31,7 @@
     },
     "packages/docusaurus-plugin": {
       "name": "@open-rpc/docusaurus-plugin",
-      "version": "0.1.5",
+      "version": "0.1.6",
       "dependencies": {
         "@docusaurus/core": "3.9.2",
         "@docusaurus/logger": "3.9.2",
@@ -74,7 +74,7 @@
     },
     "packages/markdown-generator": {
       "name": "@open-rpc/markdown-generator",
-      "version": "0.1.5",
+      "version": "0.1.6",
       "bin": {
         "openrpc-md": "./dist/cli.js",
       },

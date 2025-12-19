@@ -1,5 +1,13 @@
 # open-rpc-docusaurus-plugin-beta
 
+## 0.1.6
+
+### Patch Changes
+
+- 220d782: Fixes a race condition when running in active development mode. This set of changes now allows for incremental deletion and proper removal ordering
+- Updated dependencies [220d782]
+  - @open-rpc/markdown-generator@0.1.6
+
 ## 0.1.5
 
 ### Patch Changes
