@@ -5,37 +5,22 @@ import type { LoadContext, Plugin } from "@docusaurus/types";
 import type { PluginContent } from "./types";
 import type { Options, PluginOptions } from "./options";
 import { normalizeOptions } from "./options";
-import { generateDocs } from "./lib";
+import { cleanUpExistingDocs, generateDocs } from "./lib";
 import fs from "fs/promises";
 import path from "path";
+import { parseOpenRPCDocument } from "@open-rpc/schema-utils-js";
+import { DereffedOpenrpcDocument } from "@open-rpc/markdown-generator";
 
 const PluginName = "@open-rpc/docusaurus-plugin";
 
-async function initDocs(
+async function rebuildDocs(
   specPath: string,
   outputDir: string,
   options: PluginOptions,
 ) {
-  if (!(await fs.stat(specPath)).isFile()) {
-    throw new Error(`OpenRPC spec file not found: ${specPath}`);
-  }
-
-  try {
-    const entries = await fs.readdir(outputDir, { withFileTypes: true });
-    await Promise.all(
-      entries
-        .filter((entry) => entry.name !== "index.md")
-        .map((entry) => {
-          const fullPath = `${outputDir}/${entry.name}`;
-          return fs.rm(fullPath, { recursive: true, force: true });
-        }),
-    );
-  } catch {
-    // Directory doesn't exist yet, that's fine
-  }
-
   try {
     await generateDocs(specPath, outputDir, options);
+    await cleanUpExistingDocs(specPath, outputDir);
   } catch (err) {
     logger.error(`[${PluginName}] generateDocs failed: ${err}`);
     logger.error(
@@ -61,7 +46,7 @@ export default async function openRPCDocusaurusPlugin(
     normalizedOptions.docOutputPath,
   );
 
-  await initDocs(specPath, outputDir, normalizedOptions);
+  await rebuildDocs(specPath, outputDir, normalizedOptions);
 
   return {
     name: PluginName,
@@ -95,7 +80,7 @@ export default async function openRPCDocusaurusPlugin(
      */
     async contentLoaded({ content, actions }): Promise<void> {
       logger.info(`[${PluginName}] contentLoaded called`);
-      await initDocs(specPath, outputDir, normalizedOptions);
+      await rebuildDocs(specPath, outputDir, normalizedOptions);
     },
 
     /**

@@ -58,6 +58,39 @@ methodEdits.editMethod = (content, method) => {
   ] as OpenRPCMdContent[];
 };
 
+export async function cleanUpExistingDocs(specPath: string, outputDir: string) {
+  if (!(await fs.stat(specPath)).isFile()) {
+    throw new Error(`OpenRPC spec file not found: ${specPath}`);
+  }
+  const raw = await fs.readFile(specPath, "utf8");
+  const doc: DereffedOpenrpcDocument = (await parseOpenRPCDocument(
+    raw,
+  )) as DereffedOpenrpcDocument;
+
+  const methodFileNamesToGenerate = new Set(
+    doc.methods.map((method) => `${method.name}.mdx`),
+  );
+  const entries = await fs.readdir(outputDir, {
+    withFileTypes: true,
+    recursive: true,
+  });
+
+  const entriesToDelete = entries
+    .filter(
+      (entry) =>
+        entry.isFile() &&
+        methodFileNamesToGenerate.has(entry.name) === false &&
+        entry.name !== "index.md",
+    )
+    .map((entry) => `${entry.parentPath}/${entry.name}`);
+
+  await Promise.all(
+    entriesToDelete.map((entry) =>
+      fs.rm(entry, { recursive: true, force: true }),
+    ),
+  );
+}
+
 export async function generateDocs(
   inputPath: string,
   outputPath: string,
