@@ -14,20 +14,15 @@ import type {
 } from "@open-rpc/markdown-generator";
 import { promises as fs } from "fs";
 import * as path from "path";
-import {
-  OpenRPCMdContent,
-  markdownEdits,
-  markdownSchemaEdits,
-} from "@open-rpc/markdown-generator";
+import { OpenRPCMdContent } from "@open-rpc/markdown-generator";
 import { MethodObjectParamStructure } from "@open-rpc/meta-schema";
 
 type JSONSchema = any;
 
 const reactComponent: string = `import {TwoColumnLayout, InteractiveRequest, ResponseExample} from '@open-rpc/docusaurus-plugin/components';\nimport { useState } from 'react';`;
-const methodEdits: Edits = { ...identityEdits, ...markdownEdits };
+const methodEdits: Edits = { ...identityEdits };
 const schemaEdits: SchemaEdits = {
   ...identitySchemaEdits,
-  ...markdownSchemaEdits,
 };
 
 methodEdits.editMethod = (content, method) => {
@@ -68,7 +63,7 @@ export async function generateDocs(inputPath: string, outputPath: string) {
     raw,
   )) as DereffedOpenrpcDocument;
 
-  const methods = await renderMethodsToMarkdown(doc, methodEdits, schemaEdits);
+  const methods = await renderMethodsToMarkdown(doc, schemaEdits, methodEdits);
 
   const outDir = outputPath;
   const methodsDir = path.join(outDir, "methods");
