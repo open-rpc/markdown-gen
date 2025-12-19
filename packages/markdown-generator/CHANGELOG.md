@@ -1,5 +1,11 @@
 # open-rpc-markdown-generator-beta
 
+## 0.1.3
+
+### Patch Changes
+
+- 24dbf85: Change here fixes minor snake case issue and allows for configurable powered by link.
+
 ## 0.1.2
 
 ### Patch Changes
