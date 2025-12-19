@@ -1,5 +1,13 @@
 # open-rpc-docusaurus-plugin-beta
 
+## 0.1.5
+
+### Patch Changes
+
+- 57bfb86: Change adds support for some index frontmatter customization
+- Updated dependencies [57bfb86]
+  - @open-rpc/markdown-generator@0.1.5
+
 ## 0.1.4
 
 ### Patch Changes
