@@ -77,3 +77,7 @@ A specification of the standard interface for Ethereum clients.
 - [`eth_simulateV1`](./methods/eth_simulateV1.mdx)
 - [`eth_syncing`](./methods/eth_syncing.mdx)
 - [`eth_uninstallFilter`](./methods/eth_uninstallFilter.mdx)
+
+---
+
+*Powered by [OpenRPC](https://open-rpc.org)*
