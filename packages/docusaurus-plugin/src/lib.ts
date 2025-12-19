@@ -85,7 +85,12 @@ export async function generateDocs(
   }
 
   // NOTE a little hacky, but good for now
-  const indexContent = renderIndex(doc, "mdx");
+  const additionalFrontmatter: Record<string, string> = {};
+  if (options.indexSlug) {
+    additionalFrontmatter["slug"] = options.indexSlug;
+  }
+
+  const indexContent = renderIndex(doc, "mdx", additionalFrontmatter);
   const finalIndex =
     options.showPoweredBy === true
       ? `${indexContent}\n---\n\n*Powered by [OpenRPC](https://open-rpc.org)*\n`

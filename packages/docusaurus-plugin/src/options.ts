@@ -5,6 +5,7 @@ export type Options = {
   openRPCSpecPath: string;
   docOutputPath: string;
   showPoweredBy: boolean;
+  indexSlug: string | undefined;
 };
 
 /**
@@ -23,5 +24,6 @@ export function normalizeOptions(options: Options): PluginOptions {
     docOutputPath: options.docOutputPath || "./api-reference",
     showPoweredBy:
       options.showPoweredBy === undefined ? true : options.showPoweredBy,
+    indexSlug: options.indexSlug === undefined ? undefined : options.indexSlug,
   };
 }
