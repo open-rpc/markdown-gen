@@ -3,7 +3,12 @@
 import { parseArgs } from "node:util";
 import path from "node:path";
 import { renderDocumentToMarkdownFiles } from "./lib";
-import { identityEdits, identitySchemaEdits } from "./schema";
+import {
+  identityEdits,
+  identitySchemaEdits,
+  markdownSchemaEdits,
+  markdownEdits,
+} from "./schema";
 import type { Edits, SchemaEdits } from "./type";
 
 const HELP = `
@@ -51,9 +56,15 @@ async function main() {
   const file = Bun.file(resolvedDocPath);
   const document = await file.json();
 
-  // Load custom edits if provided
   let edits: Edits = identityEdits;
   let schemaEdits: SchemaEdits = identitySchemaEdits;
+
+  // if markdownType is md, use markdownSchemaEdits and markdownEdits
+  if (markdownType === "md") {
+    schemaEdits = markdownSchemaEdits;
+    edits = markdownEdits;
+  }
+  // Load custom edits if provided
 
   if (values.custom) {
     const customPath = path.resolve(values.custom);
@@ -69,8 +80,8 @@ async function main() {
   await renderDocumentToMarkdownFiles(
     methodDir,
     document,
-    edits,
     schemaEdits,
+    edits,
     markdownType,
   );
 
