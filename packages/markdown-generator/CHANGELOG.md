@@ -1,5 +1,11 @@
 # open-rpc-markdown-generator-beta
 
+## 0.1.2
+
+### Patch Changes
+
+- b9d85ae: Changes here fix bugs with the edits interface, adds missing cli deps, and adds support for a more pure markdown output
+
 ## 0.1.1
 
 ### Patch Changes
