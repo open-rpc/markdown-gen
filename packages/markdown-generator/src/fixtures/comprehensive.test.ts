@@ -46,8 +46,8 @@ describe("renderMethodsToMarkdown", () => {
   it("should return array of MethodToMarkdown objects for all methods", async () => {
     const results = await renderMethodsToMarkdown(
       testDoc,
-      identityEdits,
       identitySchemaEdits,
+      identityEdits,
     );
 
     expect(Array.isArray(results)).toBe(true);
@@ -57,8 +57,8 @@ describe("renderMethodsToMarkdown", () => {
   it("should produce objects with methodName and markdown properties", async () => {
     const results = await renderMethodsToMarkdown(
       testDoc,
-      identityEdits,
       identitySchemaEdits,
+      identityEdits,
     );
 
     for (const result of results) {
@@ -74,8 +74,8 @@ describe("renderMethodsToMarkdown", () => {
   it("should include frontmatter in markdown output", async () => {
     const results = await renderMethodsToMarkdown(
       testDoc,
-      identityEdits,
       identitySchemaEdits,
+      identityEdits,
     );
 
     for (const result of results) {
@@ -89,8 +89,8 @@ describe("renderMethodsToMarkdown", () => {
   it("should process all 25 methods from fixture", async () => {
     const results = await renderMethodsToMarkdown(
       testDoc,
-      identityEdits,
       identitySchemaEdits,
+      identityEdits,
     );
 
     const methodNames = results.map((r) => r.methodName);

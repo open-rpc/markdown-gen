@@ -40,10 +40,14 @@ function escapeYaml(str: string): string {
   return str.replace(/"/g, '\\"').replace(/\n/g, " ");
 }
 
+function postProcessMarkdown(markdown: string): string {
+  return markdown;
+}
+
 export async function renderMethodsToMarkdown(
   document: OpenrpcDocument,
+  schemaEdits: SchemaEdits,
   edits: Edits,
-  schemaEdits: SchemaEdits = identitySchemaEdits,
 ): Promise<MethodToMarkdown[]> {
   const dereferencedDocument = await dereferenceDocument(document);
   const parsedDocument = await parseOpenRPCDocument(dereferencedDocument);
@@ -60,9 +64,15 @@ export async function renderMethodsToMarkdown(
     };
     return {
       methodName: (method as DereffedMethodObject).name,
-      markdown: toMarkdown(rootDocument, {
-        extensions: [gfmToMarkdown(), mdxToMarkdown(), frontmatterToMarkdown()],
-      }),
+      markdown: postProcessMarkdown(
+        toMarkdown(rootDocument, {
+          extensions: [
+            gfmToMarkdown(),
+            mdxToMarkdown(),
+            frontmatterToMarkdown(),
+          ],
+        }),
+      ),
     };
   });
 }
@@ -70,11 +80,11 @@ export async function renderMethodsToMarkdown(
 export async function renderDocumentToMarkdownFiles(
   methodsDir: string,
   document: OpenrpcDocument,
+  schemaEdits: SchemaEdits,
   edits: Edits,
-  _schemaEdits: SchemaEdits,
   markdownType: "mdx" | "md",
 ): Promise<void> {
-  const methods = await renderMethodsToMarkdown(document, edits, _schemaEdits);
+  const methods = await renderMethodsToMarkdown(document, schemaEdits, edits);
   await Promise.all(
     methods.map(async (method) => {
       fs.writeFile(

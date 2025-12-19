@@ -5,354 +5,346 @@ hide_table_of_contents: true
 description: ""
 ---
 
-import {TwoColumnLayout, InteractiveRequest, ResponseExample} from 'open-rpc-docusaurus-plugin-beta/components';
+import {TwoColumnLayout, InteractiveRequest, ResponseExample} from '@open-rpc/docusaurus-plugin/components';
 import { useState } from 'react';
 
 <TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"engine_forkchoiceUpdatedV3\",\n  \"params\": [\n    {\n      \"headBlockHash\": \"0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858\",\n      \"safeBlockHash\": \"0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858\",\n      \"finalizedBlockHash\": \"0x3b8fb240d288781d4aac94d3fd16809ee413bc99294a085798a589dae51ddd4a\"\n    },\n    {\n      \"timestamp\": \"0x64e7785b\",\n      \"prevRandao\": \"0xc130d5e63c61c935f6089e61140ca9136172677cf6aa5800dcc1cf0a02152a14\",\n      \"suggestedFeeRecipient\": \"0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b\",\n      \"withdrawals\": [\n        {\n          \"index\": \"0xf0\",\n          \"validatorIndex\": \"0xf0\",\n          \"address\": \"0x00000000000000000000000000000000000010f0\",\n          \"amount\": \"0x1\"\n        },\n        {\n          \"index\": \"0xf1\",\n          \"validatorIndex\": \"0xf1\",\n          \"address\": \"0x00000000000000000000000000000000000010f1\",\n          \"amount\": \"0x1\"\n        }\n      ],\n      \"parentBeaconBlockRoot\": \"0x11f780a954bcba8889998e4e61deaae6388dd2391e9c810bd9c94962cc1eadc1\"\n    }\n  ],\n  \"id\": 1\n}"} />}>
+  # engine\_forkchoiceUpdatedV3
+
+
+
+  Updates the forkchoice state
+
+  ## Parameters (by position)
+
+  **Forkchoice state** `object` *required*
+
+  Forkchoice state object V1
+
+  ***
+
   <div>
-    # engine\_forkchoiceUpdatedV3
+    <details>
+      <summary>
+        Show `Forkchoice state` object
+      </summary>
 
+      #### `Forkchoice state` fields
 
+      * **headBlockHash** `string`
 
-    Updates the forkchoice state
+        Head block hash
 
-    <div>
-      ## Parameters (by position)
+        *Match pattern:* `^0x[0-9a-f]{64}$`
 
-      **Forkchoice state** `object` *required*
+        ***
 
-      Forkchoice state object V1
+      * **safeBlockHash** `string`
 
-      ***
+        Safe block hash
 
-      <div>
-        <details>
-          <summary>
-            Show `Forkchoice state` object
-          </summary>
+        *Match pattern:* `^0x[0-9a-f]{64}$`
 
-          #### `Forkchoice state` fields
+        ***
 
-          * **headBlockHash** `string`
+      * **finalizedBlockHash** `string`
 
-            Head block hash
+        Finalized block hash
 
-            *Match pattern:* `^0x[0-9a-f]{64}$`
+        *Match pattern:* `^0x[0-9a-f]{64}$`
 
-            ***
+        ***
 
-          * **safeBlockHash** `string`
+      * **additionalProperties** `true`
 
-            Safe block hash
+        ***
+    </details>
+  </div>
 
-            *Match pattern:* `^0x[0-9a-f]{64}$`
+  **Payload attributes** `object`
 
-            ***
+  Payload attributes object V3
 
-          * **finalizedBlockHash** `string`
+  ***
 
-            Finalized block hash
+  <div>
+    <details>
+      <summary>
+        Show `Payload attributes` object
+      </summary>
 
-            *Match pattern:* `^0x[0-9a-f]{64}$`
+      #### `Payload attributes` fields
 
-            ***
+      * **timestamp** `string`
 
-          * **additionalProperties** `true`
+        Timestamp
 
-            ***
-        </details>
-      </div>
+        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
 
-      **Payload attributes** `object`
+        ***
 
-      Payload attributes object V3
+      * **prevRandao** `string`
 
-      ***
+        Previous randao value
 
-      <div>
-        <details>
-          <summary>
-            Show `Payload attributes` object
-          </summary>
+        *Match pattern:* `^0x[0-9a-f]{64}$`
 
-          #### `Payload attributes` fields
+        ***
 
-          * **timestamp** `string`
+      * **suggestedFeeRecipient** `string`
 
-            Timestamp
+        Suggested fee recipient
 
-            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
+        *Match pattern:* `^0x[0-9a-fA-F]{40}$`
 
-            ***
+        ***
 
-          * **prevRandao** `string`
+      * **withdrawals** `array<object>`
 
-            Previous randao value
+        Withdrawal object V1
 
-            *Match pattern:* `^0x[0-9a-f]{64}$`
+        ***
 
-            ***
+        <div>
+          <details>
+            <summary>
+              Show `withdrawals` object
+            </summary>
 
-          * **suggestedFeeRecipient** `string`
+            #### `withdrawals` fields
 
-            Suggested fee recipient
+            * **index** `string` *required*
 
-            *Match pattern:* `^0x[0-9a-fA-F]{40}$`
+              Withdrawal index
 
-            ***
+              *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
 
-          * **withdrawals** `array<object>`
+              ***
 
-            Withdrawal object V1
+            * **validatorIndex** `string` *required*
 
-            ***
+              Validator index
 
-            <div>
-              <details>
-                <summary>
-                  Show `withdrawals` object
-                </summary>
+              *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
 
-                #### `withdrawals` fields
+              ***
 
-                * **index** `string` *required*
+            * **address** `string` *required*
 
-                  Withdrawal index
+              Withdrawal address
 
-                  *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
+              *Match pattern:* `^0x[0-9a-fA-F]{40}$`
 
-                  ***
+              ***
 
-                * **validatorIndex** `string` *required*
+            * **amount** `string` *required*
 
-                  Validator index
+              Withdrawal amount
 
-                  *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
+              *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
 
-                  ***
+              ***
 
-                * **address** `string` *required*
+            * **additionalProperties** `true`
 
-                  Withdrawal address
+              ***
+          </details>
+        </div>
 
-                  *Match pattern:* `^0x[0-9a-fA-F]{40}$`
+      * **parentBeaconBlockRoot** `string`
 
-                  ***
+        Parent beacon block root
 
-                * **amount** `string` *required*
+        *Match pattern:* `^0x[0-9a-f]{64}$`
 
-                  Withdrawal amount
+        ***
 
-                  *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
+      * **additionalProperties** `true`
 
-                  ***
+        ***
+    </details>
+  </div>
 
-                * **additionalProperties** `true`
+  ## Result
 
-                  ***
-              </details>
-            </div>
+  **Response object** `object`
 
-          * **parentBeaconBlockRoot** `string`
+  Forkchoice updated response
 
-            Parent beacon block root
+  ***
 
-            *Match pattern:* `^0x[0-9a-f]{64}$`
+  <div>
+    <details>
+      <summary>
+        Show `Response object` object
+      </summary>
 
-            ***
+      #### `Response object` fields
 
-          * **additionalProperties** `true`
+      * **payloadStatus** `object` *required*
 
-            ***
-        </details>
-      </div>
-    </div>
+        Payload status
 
-    <div>
-      ## Result
+        ***
 
-      **Response object** `object`
+        <div>
+          <details>
+            <summary>
+              Show `payloadStatus` object
+            </summary>
 
-      Forkchoice updated response
+            #### `payloadStatus` fields
 
-      ***
+            * **status** `string` *required*
 
-      <div>
-        <details>
-          <summary>
-            Show `Response object` object
-          </summary>
+              Set of possible values is restricted to VALID, INVALID, SYNCING
 
-          #### `Response object` fields
+              *Allowed values:* `VALID` `INVALID` `SYNCING`
 
-          * **payloadStatus** `object` *required*
+              ***
 
-            Payload status
+            * **latestValidHash** `string`
 
-            ***
+              The hash of the most recent valid block
 
-            <div>
-              <details>
-                <summary>
-                  Show `payloadStatus` object
-                </summary>
+              *Match pattern:* `^0x[0-9a-f]{64}$`
 
-                #### `payloadStatus` fields
+              ***
 
-                * **status** `string` *required*
+            * **validationError** `string`
 
-                  Set of possible values is restricted to VALID, INVALID, SYNCING
+              Validation error message
 
-                  *Allowed values:* `VALID` `INVALID` `SYNCING`
+              ***
 
-                  ***
+            * **additionalProperties** `true`
 
-                * **latestValidHash** `string`
+              ***
+          </details>
+        </div>
 
-                  The hash of the most recent valid block
+      * **payloadId** `string`
 
-                  *Match pattern:* `^0x[0-9a-f]{64}$`
+        Payload id
 
-                  ***
+        *Match pattern:* `^0x[0-9a-f]{16}$`
 
-                * **validationError** `string`
+        ***
 
-                  Validation error message
+      * **additionalProperties** `true`
 
-                  ***
+        ***
+    </details>
+  </div>
 
-                * **additionalProperties** `true`
+  ## Errors
 
-                  ***
-              </details>
-            </div>
+  <details>
+    <summary>
+      Error code: -38002
+    </summary>
 
-          * **payloadId** `string`
+    * **code**
 
-            Payload id
+      -38002
+    * **message**
 
-            *Match pattern:* `^0x[0-9a-f]{16}$`
+      Invalid forkchoice state
+  </details>
 
-            ***
+  <details>
+    <summary>
+      Error code: -38003
+    </summary>
 
-          * **additionalProperties** `true`
+    * **code**
 
-            ***
-        </details>
-      </div>
-    </div>
+      -38003
+    * **message**
 
-    <div>
-      ## Errors
+      Invalid payload attributes
+  </details>
 
-      <details>
-        <summary>
-          Error code: -38002
-        </summary>
+  <details>
+    <summary>
+      Error code: -32602
+    </summary>
 
-        * **code**
+    * **code**
 
-          -38002
-        * **message**
+      -32602
+    * **message**
 
-          Invalid forkchoice state
-      </details>
+      Invalid params
+  </details>
 
-      <details>
-        <summary>
-          Error code: -38003
-        </summary>
+  <details>
+    <summary>
+      Error code: -38005
+    </summary>
 
-        * **code**
+    * **code**
 
-          -38003
-        * **message**
+      -38005
+    * **message**
 
-          Invalid payload attributes
-      </details>
+      Unsupported fork
+  </details>
 
-      <details>
-        <summary>
-          Error code: -32602
-        </summary>
+  ## Examples
 
-        * **code**
+  <div>
+    <details>
+      <summary>
+        engine\_forkchoiceUpdatedV3 example
+      </summary>
 
-          -32602
-        * **message**
+      #### Request
 
-          Invalid params
-      </details>
-
-      <details>
-        <summary>
-          Error code: -38005
-        </summary>
-
-        * **code**
-
-          -38005
-        * **message**
-
-          Unsupported fork
-      </details>
-    </div>
-
-    <div>
-      ## Examples
-
-      <details>
-        <summary>
-          engine\_forkchoiceUpdatedV3 example
-        </summary>
-
-        #### Request
-
-        ```json
-        {
-          "params": [
-            {
-              "headBlockHash": "0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858",
-              "safeBlockHash": "0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858",
-              "finalizedBlockHash": "0x3b8fb240d288781d4aac94d3fd16809ee413bc99294a085798a589dae51ddd4a"
-            },
-            {
-              "timestamp": "0x64e7785b",
-              "prevRandao": "0xc130d5e63c61c935f6089e61140ca9136172677cf6aa5800dcc1cf0a02152a14",
-              "suggestedFeeRecipient": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
-              "withdrawals": [
-                {
-                  "index": "0xf0",
-                  "validatorIndex": "0xf0",
-                  "address": "0x00000000000000000000000000000000000010f0",
-                  "amount": "0x1"
-                },
-                {
-                  "index": "0xf1",
-                  "validatorIndex": "0xf1",
-                  "address": "0x00000000000000000000000000000000000010f1",
-                  "amount": "0x1"
-                }
-              ],
-              "parentBeaconBlockRoot": "0x11f780a954bcba8889998e4e61deaae6388dd2391e9c810bd9c94962cc1eadc1"
-            }
-          ]
-        }
-        ```
-
-        #### Response
-
-        ```json
-        {
-          "payloadStatus": {
-            "status": "VALID",
-            "latestValidHash": "0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858",
-            "validationError": null
+      ```json
+      {
+        "params": [
+          {
+            "headBlockHash": "0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858",
+            "safeBlockHash": "0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858",
+            "finalizedBlockHash": "0x3b8fb240d288781d4aac94d3fd16809ee413bc99294a085798a589dae51ddd4a"
           },
-          "payloadId": "0x0000000021f32cc1"
-        }
-        ```
-      </details>
-    </div>
+          {
+            "timestamp": "0x64e7785b",
+            "prevRandao": "0xc130d5e63c61c935f6089e61140ca9136172677cf6aa5800dcc1cf0a02152a14",
+            "suggestedFeeRecipient": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
+            "withdrawals": [
+              {
+                "index": "0xf0",
+                "validatorIndex": "0xf0",
+                "address": "0x00000000000000000000000000000000000010f0",
+                "amount": "0x1"
+              },
+              {
+                "index": "0xf1",
+                "validatorIndex": "0xf1",
+                "address": "0x00000000000000000000000000000000000010f1",
+                "amount": "0x1"
+              }
+            ],
+            "parentBeaconBlockRoot": "0x11f780a954bcba8889998e4e61deaae6388dd2391e9c810bd9c94962cc1eadc1"
+          }
+        ]
+      }
+      ```
+
+      #### Response
+
+      ```json
+      {
+        "payloadStatus": {
+          "status": "VALID",
+          "latestValidHash": "0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858",
+          "validationError": null
+        },
+        "payloadId": "0x0000000021f32cc1"
+      }
+      ```
+    </details>
   </div>
 </TwoColumnLayout>

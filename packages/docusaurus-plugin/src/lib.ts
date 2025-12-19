@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { parseOpenRPCDocument } from "@open-rpc/schema-utils-js";
-import type { Edits } from "@open-rpc/markdown-generator";
+import type { Edits, SchemaEdits } from "@open-rpc/markdown-generator";
 import {
   identityEdits,
   identitySchemaEdits,
@@ -21,6 +21,9 @@ type JSONSchema = any;
 
 const reactComponent: string = `import {TwoColumnLayout, InteractiveRequest, ResponseExample} from '@open-rpc/docusaurus-plugin/components';\nimport { useState } from 'react';`;
 const methodEdits: Edits = { ...identityEdits };
+const schemaEdits: SchemaEdits = {
+  ...identitySchemaEdits,
+};
 
 methodEdits.editMethod = (content, method) => {
   const m = method as DereffedMethodObject;
@@ -60,11 +63,7 @@ export async function generateDocs(inputPath: string, outputPath: string) {
     raw,
   )) as DereffedOpenrpcDocument;
 
-  const methods = await renderMethodsToMarkdown(
-    doc,
-    methodEdits,
-    identitySchemaEdits,
-  );
+  const methods = await renderMethodsToMarkdown(doc, schemaEdits, methodEdits);
 
   const outDir = outputPath;
   const methodsDir = path.join(outDir, "methods");

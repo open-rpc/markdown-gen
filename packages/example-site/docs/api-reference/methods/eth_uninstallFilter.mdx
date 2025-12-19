@@ -5,57 +5,51 @@ hide_table_of_contents: true
 description: ""
 ---
 
-import {TwoColumnLayout, InteractiveRequest, ResponseExample} from 'open-rpc-docusaurus-plugin-beta/components';
+import {TwoColumnLayout, InteractiveRequest, ResponseExample} from '@open-rpc/docusaurus-plugin/components';
 import { useState } from 'react';
 
 <TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_uninstallFilter\",\n  \"params\": [\n    \"0x01\"\n  ],\n  \"id\": 1\n}"} />}>
+  # eth\_uninstallFilter
+
+
+
+  Uninstalls a filter with given id.
+
+  ## Parameters (by position)
+
+  **Filter identifier** `string` *required*
+
+  ***
+
+  ## Result
+
+  **Success** `boolean`
+
+  ***
+
+  ## Examples
+
   <div>
-    # eth\_uninstallFilter
+    <details>
+      <summary>
+        eth\_uninstallFilter example
+      </summary>
 
+      #### Request
 
+      ```json
+      {
+        "params": [
+          "0x01"
+        ]
+      }
+      ```
 
-    Uninstalls a filter with given id.
+      #### Response
 
-    <div>
-      ## Parameters (by position)
-
-      **Filter identifier** `string` *required*
-
-      ***
-    </div>
-
-    <div>
-      ## Result
-
-      **Success** `boolean`
-
-      ***
-    </div>
-
-    <div>
-      ## Examples
-
-      <details>
-        <summary>
-          eth\_uninstallFilter example
-        </summary>
-
-        #### Request
-
-        ```json
-        {
-          "params": [
-            "0x01"
-          ]
-        }
-        ```
-
-        #### Response
-
-        ```json
-        true
-        ```
-      </details>
-    </div>
+      ```json
+      true
+      ```
+    </details>
   </div>
 </TwoColumnLayout>

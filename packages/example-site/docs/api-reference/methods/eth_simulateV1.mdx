@@ -5,1631 +5,435 @@ hide_table_of_contents: true
 description: ""
 ---
 
-import {TwoColumnLayout, InteractiveRequest, ResponseExample} from 'open-rpc-docusaurus-plugin-beta/components';
+import {TwoColumnLayout, InteractiveRequest, ResponseExample} from '@open-rpc/docusaurus-plugin/components';
 import { useState } from 'react';
 
 <TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_simulateV1\",\n  \"params\": [\n    \"example\",\n    \"string\"\n  ],\n  \"id\": 1\n}"} />}>
+  # eth\_simulateV1
+
+
+
+  Executes a sequence of message calls building on each other's state without creating transactions on the block chain, optionally overriding block and state data
+
+  ## Parameters (by position)
+
+  **Payload** `undefined` *required*
+
+  ***
+
+  **Block tag** `string or string or string`
+
+  default: 'latest'
+
+  ***
+
   <div>
-    # eth\_simulateV1
+    <details>
+      <summary>
+        Show Option 1 `Block number` string
+      </summary>
 
+      #### `Block number` fields
 
+      default: 'latest'
 
-    Executes a sequence of message calls building on each other's state without creating transactions on the block chain, optionally overriding block and state data
+      **Block tag** `string`
 
-    <div>
-      ## Parameters (by position)
+      default: 'latest'
 
-      **Payload** `undefined` *required*
+      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
       ***
+    </details>
+  </div>
 
-      <div>
-        **Block tag** `string or string or string`
+  <div>
+    <details>
+      <summary>
+        Show Option 2 `Block tag` string
+      </summary>
 
-        default: 'latest'
+      #### `Block tag` fields
+
+      `earliest`: The lowest numbered block the client has available; `finalized`: The most recent crypto-economically secure block, cannot be re-orged outside of manual intervention driven by community coordination; `safe`: The most recent block that is safe from re-orgs under honest majority and certain synchronicity assumptions; `latest`: The most recent block in the canonical chain observed by the client, this block may be re-orged out of the canonical chain even under healthy/normal conditions; `pending`: A sample next block built by the client on top of `latest` and containing the set of transactions usually taken from local mempool. Before the merge transition is finalized, any call querying for `finalized` or `safe` block MUST be responded to with `-39001: Unknown block` error
+
+      **Block tag** `string`
+
+      default: 'latest'
+
+      *Allowed values:* `earliest` `finalized` `safe` `latest` `pending`
+
+      ***
+    </details>
+  </div>
+
+  <div>
+    <details>
+      <summary>
+        Show Option 3 `Block hash` string
+      </summary>
+
+      #### `Block hash` fields
+
+      default: 'latest'
+
+      **Block tag** `string`
+
+      default: 'latest'
+
+      *Match pattern:* `^0x[0-9a-f]{64}$`
+
+      ***
+    </details>
+  </div>
+
+  ## Result
+
+  **Result of calls** `array<object>`
+
+  Result of eth\_simulate block-level, with array of calls
+
+  ***
+
+  <div>
+    <details>
+      <summary>
+        Show `Result of calls` object
+      </summary>
+
+      #### `Result of calls` fields
+
+      * **hash** `string` *required*
+
+        Hash
+
+        *Match pattern:* `^0x[0-9a-f]{64}$`
 
         ***
 
-        <details>
-          <summary>
-            Show Option 1 `Block number` string
-          </summary>
+      * **parentHash** `string` *required*
 
-          #### `Block number` fields
+        Parent block hash
 
-          default: 'latest'
+        *Match pattern:* `^0x[0-9a-f]{64}$`
 
-          **Block tag** `string`
+        ***
 
-          default: 'latest'
+      * **sha3Uncles** `string` *required*
 
-          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+        Ommers hash
 
-          ***
-        </details>
+        *Match pattern:* `^0x[0-9a-f]{64}$`
 
-        <details>
-          <summary>
-            Show Option 2 `Block tag` string
-          </summary>
+        ***
 
-          #### `Block tag` fields
+      * **miner** `string` *required*
 
-          `earliest`: The lowest numbered block the client has available; `finalized`: The most recent crypto-economically secure block, cannot be re-orged outside of manual intervention driven by community coordination; `safe`: The most recent block that is safe from re-orgs under honest majority and certain synchronicity assumptions; `latest`: The most recent block in the canonical chain observed by the client, this block may be re-orged out of the canonical chain even under healthy/normal conditions; `pending`: A sample next block built by the client on top of `latest` and containing the set of transactions usually taken from local mempool. Before the merge transition is finalized, any call querying for `finalized` or `safe` block MUST be responded to with `-39001: Unknown block` error
+        Coinbase
 
-          **Block tag** `string`
+        *Match pattern:* `^0x[0-9a-fA-F]{40}$`
 
-          default: 'latest'
+        ***
 
-          *Allowed values:* `earliest` `finalized` `safe` `latest` `pending`
+      * **stateRoot** `string` *required*
 
-          ***
-        </details>
+        State root
 
-        <details>
-          <summary>
-            Show Option 3 `Block hash` string
-          </summary>
+        *Match pattern:* `^0x[0-9a-f]{64}$`
 
-          #### `Block hash` fields
+        ***
 
-          default: 'latest'
+      * **transactionsRoot** `string` *required*
 
-          **Block tag** `string`
+        Transactions root
 
-          default: 'latest'
+        *Match pattern:* `^0x[0-9a-f]{64}$`
 
-          *Match pattern:* `^0x[0-9a-f]{64}$`
+        ***
 
-          ***
-        </details>
-      </div>
-    </div>
+      * **receiptsRoot** `string` *required*
 
-    <div>
-      ## Result
+        Receipts root
 
-      **Result of calls** `array<object>`
+        *Match pattern:* `^0x[0-9a-f]{64}$`
 
-      Result of eth\_simulate block-level, with array of calls
+        ***
 
-      ***
+      * **logsBloom** `string` *required*
 
-      <div>
-        <details>
-          <summary>
-            Show `Result of calls` object
-          </summary>
+        Bloom filter
 
-          #### `Result of calls` fields
+        *Match pattern:* `^0x[0-9a-f]{512}$`
 
-          * **hash** `string` *required*
+        ***
 
-            Hash
+      * **difficulty** `string`
 
-            *Match pattern:* `^0x[0-9a-f]{64}$`
+        Difficulty
 
-            ***
+        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-          * **parentHash** `string` *required*
+        ***
 
-            Parent block hash
+      * **number** `string` *required*
 
-            *Match pattern:* `^0x[0-9a-f]{64}$`
+        Number
 
-            ***
+        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-          * **sha3Uncles** `string` *required*
+        ***
 
-            Ommers hash
+      * **gasLimit** `string` *required*
 
-            *Match pattern:* `^0x[0-9a-f]{64}$`
+        Gas limit
 
-            ***
+        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-          * **miner** `string` *required*
+        ***
 
-            Coinbase
+      * **gasUsed** `string` *required*
 
-            *Match pattern:* `^0x[0-9a-fA-F]{40}$`
+        Gas used
 
-            ***
+        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-          * **stateRoot** `string` *required*
+        ***
 
-            State root
+      * **timestamp** `string` *required*
 
-            *Match pattern:* `^0x[0-9a-f]{64}$`
+        Timestamp
 
-            ***
+        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-          * **transactionsRoot** `string` *required*
+        ***
 
-            Transactions root
+      * **extraData** `string` *required*
 
-            *Match pattern:* `^0x[0-9a-f]{64}$`
+        Extra data
 
-            ***
+        *Match pattern:* `^0x[0-9a-f]*$`
 
-          * **receiptsRoot** `string` *required*
+        ***
 
-            Receipts root
+      * **mixHash** `string` *required*
 
-            *Match pattern:* `^0x[0-9a-f]{64}$`
+        Mix hash
 
-            ***
+        *Match pattern:* `^0x[0-9a-f]{64}$`
 
-          * **logsBloom** `string` *required*
+        ***
 
-            Bloom filter
+      * **nonce** `string` *required*
 
-            *Match pattern:* `^0x[0-9a-f]{512}$`
+        Nonce
 
-            ***
+        *Match pattern:* `^0x[0-9a-f]{16}$`
 
-          * **difficulty** `string`
+        ***
 
-            Difficulty
+      * **baseFeePerGas** `string`
 
-            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+        Base fee per gas
 
-            ***
+        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-          * **number** `string` *required*
+        ***
 
-            Number
+      * **withdrawalsRoot** `string`
 
-            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+        Withdrawals root
 
-            ***
+        *Match pattern:* `^0x[0-9a-f]{64}$`
 
-          * **gasLimit** `string` *required*
+        ***
 
-            Gas limit
+      * **blobGasUsed** `string`
 
-            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+        Blob gas used
 
-            ***
+        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-          * **gasUsed** `string` *required*
+        ***
 
-            Gas used
+      * **excessBlobGas** `string`
 
-            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+        Excess blob gas
 
-            ***
+        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-          * **timestamp** `string` *required*
+        ***
 
-            Timestamp
+      * **parentBeaconBlockRoot** `string`
 
-            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+        Parent Beacon Block Root
 
-            ***
+        *Match pattern:* `^0x[0-9a-f]{64}$`
 
-          * **extraData** `string` *required*
+        ***
 
-            Extra data
+      * **size** `string` *required*
 
-            *Match pattern:* `^0x[0-9a-f]*$`
+        Block size
 
-            ***
+        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-          * **mixHash** `string` *required*
+        ***
 
-            Mix hash
+      * **transactions** `array<string> or array<object>` *required*
 
-            *Match pattern:* `^0x[0-9a-f]{64}$`
+        ***
 
-            ***
+        <div>
+          <details>
+            <summary>
+              Show Option 1 `Transaction hashes` array
+            </summary>
 
-          * **nonce** `string` *required*
+            #### `Transaction hashes` fields
 
-            Nonce
-
-            *Match pattern:* `^0x[0-9a-f]{16}$`
-
-            ***
-
-          * **baseFeePerGas** `string`
-
-            Base fee per gas
-
-            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-            ***
-
-          * **withdrawalsRoot** `string`
-
-            Withdrawals root
-
-            *Match pattern:* `^0x[0-9a-f]{64}$`
-
-            ***
-
-          * **blobGasUsed** `string`
-
-            Blob gas used
-
-            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-            ***
-
-          * **excessBlobGas** `string`
-
-            Excess blob gas
-
-            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-            ***
-
-          * **parentBeaconBlockRoot** `string`
-
-            Parent Beacon Block Root
-
-            *Match pattern:* `^0x[0-9a-f]{64}$`
-
-            ***
-
-          * **size** `string` *required*
-
-            Block size
-
-            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-            ***
-
-          * <div>
-              **transactions** `array<string> or array<object>` *required*
-
-              ***
-
-              <details>
-                <summary>
-                  Show Option 1 `Transaction hashes` array
-                </summary>
-
-                #### `Transaction hashes` fields
-
-                **transactions** `array<string>` *required*
-
-                32 byte hex value
-
-                *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                ***
-              </details>
-
-              <details>
-                <summary>
-                  Show Option 2 `Full transactions` array
-                </summary>
-
-                #### `Full transactions` fields
-
-                <div>
-                  **transactions** `object or object or object or object or object` *required*
-
-                  ***
-
-                  <details>
-                    <summary>
-                      Show Option 1 `Signed 7702 Transaction` object
-                    </summary>
-
-                    #### `Signed 7702 Transaction` fields
-
-                    **transactions** `array<object>` *required*
-
-                    Signed 7702 Transaction
-
-                    ***
-
-                    <div>
-                      <details>
-                        <summary>
-                          Show `transactions` object
-                        </summary>
-
-                        #### `transactions` fields
-
-                        * **type** `string` *required*
-
-                          type
-
-                          *Match pattern:* `^0x4$`
-
-                          ***
-
-                        * **nonce** `string` *required*
-
-                          nonce
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **to** `string` *required*
-
-                          to address
-
-                          *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                          ***
-
-                        * **gas** `string` *required*
-
-                          gas limit
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **value** `string` *required*
-
-                          value
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **input** `string` *required*
-
-                          input data
-
-                          *Match pattern:* `^0x[0-9a-f]*$`
-
-                          ***
-
-                        * **maxPriorityFeePerGas** `string` *required*
-
-                          Maximum fee per gas the sender is willing to pay to miners in wei
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **maxFeePerGas** `string` *required*
-
-                          The maximum total fee per gas the sender is willing to pay (includes the network / base fee and miner / priority fee) in wei
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **gasPrice** `string`
-
-                          The effective gas price paid by the sender in wei. For transactions not yet included in a block, this value should be set equal to the max fee per gas. This field is DEPRECATED, please transition to using effectiveGasPrice in the receipt object going forward.
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **accessList** `array<object>` *required*
-
-                          EIP-2930 access lists
-
-                          ***
-
-                          <div>
-                            <details>
-                              <summary>
-                                Show `accessList` object
-                              </summary>
-
-                              #### `accessList` fields
-
-                              EIP-2930 access lists
-
-                              * **address** `string` *required*
-
-                                hex encoded address
-
-                                *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                                ***
-
-                              * **storageKeys** `array<string>` *required*
-
-                                32 byte hex value
-
-                                *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                                ***
-
-                              * **additionalProperties** `false`
-
-                                ***
-                            </details>
-                          </div>
-
-                        * **chainId** `string` *required*
-
-                          Chain ID that this transaction is valid on
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **authorizationList** `array<object>` *required*
-
-                          List of authorizations for the transaction
-
-                          ***
-
-                          <div>
-                            <details>
-                              <summary>
-                                Show `authorizationList` object
-                              </summary>
-
-                              #### `authorizationList` fields
-
-                              List of authorizations for the transaction
-
-                              * **chainId** `string` *required*
-
-                                Chain ID on which this transaction is valid
-
-                                *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                                ***
-
-                              * **nonce** `string` *required*
-
-                                nonce
-
-                                *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                                ***
-
-                              * **address** `string` *required*
-
-                                hex encoded address
-
-                                *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                                ***
-
-                              * **yParity** `string` *required*
-
-                                The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature
-
-                                *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
-
-                                ***
-
-                              * **r** `string` *required*
-
-                                r
-
-                                *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
-
-                                ***
-
-                              * **s** `string` *required*
-
-                                s
-
-                                *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
-
-                                ***
-
-                              * **additionalProperties** `true`
-
-                                ***
-                            </details>
-                          </div>
-
-                        * **yParity** `string` *required*
-
-                          The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature.
-
-                          *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
-
-                          ***
-
-                        * **v** `string`
-
-                          For backwards compatibility, `v` is optionally provided as an alternative to `yParity`. This field is DEPRECATED and all use of it should migrate to `yParity`.
-
-                          *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
-
-                          ***
-
-                        * **r** `string` *required*
-
-                          r
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **s** `string` *required*
-
-                          s
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **additionalProperties** `true`
-
-                          ***
-                      </details>
-                    </div>
-                  </details>
-
-                  <details>
-                    <summary>
-                      Show Option 2 `Signed 4844 Transaction` object
-                    </summary>
-
-                    #### `Signed 4844 Transaction` fields
-
-                    **transactions** `array<object>` *required*
-
-                    Signed 4844 Transaction
-
-                    ***
-
-                    <div>
-                      <details>
-                        <summary>
-                          Show `transactions` object
-                        </summary>
-
-                        #### `transactions` fields
-
-                        * **type** `string` *required*
-
-                          type
-
-                          *Match pattern:* `^0x3$`
-
-                          ***
-
-                        * **nonce** `string` *required*
-
-                          nonce
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **to** `string` *required*
-
-                          to address
-
-                          *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                          ***
-
-                        * **gas** `string` *required*
-
-                          gas limit
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **value** `string` *required*
-
-                          value
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **input** `string` *required*
-
-                          input data
-
-                          *Match pattern:* `^0x[0-9a-f]*$`
-
-                          ***
-
-                        * **maxPriorityFeePerGas** `string` *required*
-
-                          Maximum fee per gas the sender is willing to pay to miners in wei
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **maxFeePerGas** `string` *required*
-
-                          The maximum total fee per gas the sender is willing to pay (includes the network / base fee and miner / priority fee) in wei
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **maxFeePerBlobGas** `string` *required*
-
-                          The maximum total fee per gas the sender is willing to pay for blob gas in wei
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **gasPrice** `string`
-
-                          The effective gas price paid by the sender in wei. For transactions not yet included in a block, this value should be set equal to the max fee per gas. This field is DEPRECATED, please transition to using effectiveGasPrice in the receipt object going forward.
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **accessList** `array<object>` *required*
-
-                          EIP-2930 access list
-
-                          ***
-
-                          <div>
-                            <details>
-                              <summary>
-                                Show `accessList` object
-                              </summary>
-
-                              #### `accessList` fields
-
-                              EIP-2930 access list
-
-                              * **address** `string` *required*
-
-                                hex encoded address
-
-                                *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                                ***
-
-                              * **storageKeys** `array<string>` *required*
-
-                                32 byte hex value
-
-                                *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                                ***
-
-                              * **additionalProperties** `false`
-
-                                ***
-                            </details>
-                          </div>
-
-                        * **blobVersionedHashes** `array<string>` *required*
-
-                          List of versioned blob hashes associated with the transaction's EIP-4844 data blobs
-
-                          *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                          ***
-
-                        * **chainId** `string` *required*
-
-                          Chain ID that this transaction is valid on
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **yParity** `string` *required*
-
-                          The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature.
-
-                          *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
-
-                          ***
-
-                        * **v** `string`
-
-                          For backwards compatibility, `v` is optionally provided as an alternative to `yParity`. This field is DEPRECATED and all use of it should migrate to `yParity`.
-
-                          *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
-
-                          ***
-
-                        * **r** `string` *required*
-
-                          r
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **s** `string` *required*
-
-                          s
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **additionalProperties** `true`
-
-                          ***
-                      </details>
-                    </div>
-                  </details>
-
-                  <details>
-                    <summary>
-                      Show Option 3 `Signed 1559 Transaction` object
-                    </summary>
-
-                    #### `Signed 1559 Transaction` fields
-
-                    **transactions** `array<object>` *required*
-
-                    Signed 1559 Transaction
-
-                    ***
-
-                    <div>
-                      <details>
-                        <summary>
-                          Show `transactions` object
-                        </summary>
-
-                        #### `transactions` fields
-
-                        * **type** `string` *required*
-
-                          type
-
-                          *Match pattern:* `^0x2$`
-
-                          ***
-
-                        * **nonce** `string` *required*
-
-                          nonce
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * <div>
-                            **to** `null or string`
-
-                            ***
-
-                            <details>
-                              <summary>
-                                Show Option 1 `Contract Creation (null)` null
-                              </summary>
-
-                              #### `Contract Creation (null)` fields
-
-                              **to** `null`
-
-                              Contract Creation (null)
-
-                              ***
-                            </details>
-
-                            <details>
-                              <summary>
-                                Show Option 2 `Address` string
-                              </summary>
-
-                              #### `Address` fields
-
-                              **to** `string`
-
-                              Address
-
-                              *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                              ***
-                            </details>
-                          </div>
-
-                        * **gas** `string` *required*
-
-                          gas limit
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **value** `string` *required*
-
-                          value
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **input** `string` *required*
-
-                          input data
-
-                          *Match pattern:* `^0x[0-9a-f]*$`
-
-                          ***
-
-                        * **maxPriorityFeePerGas** `string` *required*
-
-                          Maximum fee per gas the sender is willing to pay to miners in wei
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **maxFeePerGas** `string` *required*
-
-                          The maximum total fee per gas the sender is willing to pay (includes the network / base fee and miner / priority fee) in wei
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **gasPrice** `string` *required*
-
-                          The effective gas price paid by the sender in wei. For transactions not yet included in a block, this value should be set equal to the max fee per gas. This field is DEPRECATED, please transition to using effectiveGasPrice in the receipt object going forward.
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **accessList** `array<object>` *required*
-
-                          EIP-2930 access list
-
-                          ***
-
-                          <div>
-                            <details>
-                              <summary>
-                                Show `accessList` object
-                              </summary>
-
-                              #### `accessList` fields
-
-                              EIP-2930 access list
-
-                              * **address** `string` *required*
-
-                                hex encoded address
-
-                                *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                                ***
-
-                              * **storageKeys** `array<string>` *required*
-
-                                32 byte hex value
-
-                                *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                                ***
-
-                              * **additionalProperties** `false`
-
-                                ***
-                            </details>
-                          </div>
-
-                        * **chainId** `string` *required*
-
-                          Chain ID that this transaction is valid on.
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **yParity** `string` *required*
-
-                          The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature.
-
-                          *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
-
-                          ***
-
-                        * **v** `string`
-
-                          For backwards compatibility, `v` is optionally provided as an alternative to `yParity`. This field is DEPRECATED and all use of it should migrate to `yParity`.
-
-                          *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
-
-                          ***
-
-                        * **r** `string` *required*
-
-                          r
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **s** `string` *required*
-
-                          s
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **additionalProperties** `true`
-
-                          ***
-                      </details>
-                    </div>
-                  </details>
-
-                  <details>
-                    <summary>
-                      Show Option 4 `Signed 2930 Transaction` object
-                    </summary>
-
-                    #### `Signed 2930 Transaction` fields
-
-                    **transactions** `array<object>` *required*
-
-                    Signed 2930 Transaction
-
-                    ***
-
-                    <div>
-                      <details>
-                        <summary>
-                          Show `transactions` object
-                        </summary>
-
-                        #### `transactions` fields
-
-                        * **type** `string` *required*
-
-                          type
-
-                          *Match pattern:* `^0x1$`
-
-                          ***
-
-                        * **nonce** `string` *required*
-
-                          nonce
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * <div>
-                            **to** `null or string`
-
-                            ***
-
-                            <details>
-                              <summary>
-                                Show Option 1 `Contract Creation (null)` null
-                              </summary>
-
-                              #### `Contract Creation (null)` fields
-
-                              **to** `null`
-
-                              Contract Creation (null)
-
-                              ***
-                            </details>
-
-                            <details>
-                              <summary>
-                                Show Option 2 `Address` string
-                              </summary>
-
-                              #### `Address` fields
-
-                              **to** `string`
-
-                              Address
-
-                              *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                              ***
-                            </details>
-                          </div>
-
-                        * **gas** `string` *required*
-
-                          gas limit
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **value** `string` *required*
-
-                          value
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **input** `string` *required*
-
-                          input data
-
-                          *Match pattern:* `^0x[0-9a-f]*$`
-
-                          ***
-
-                        * **gasPrice** `string` *required*
-
-                          The gas price willing to be paid by the sender in wei
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **accessList** `array<object>` *required*
-
-                          EIP-2930 access list
-
-                          ***
-
-                          <div>
-                            <details>
-                              <summary>
-                                Show `accessList` object
-                              </summary>
-
-                              #### `accessList` fields
-
-                              EIP-2930 access list
-
-                              * **address** `string` *required*
-
-                                hex encoded address
-
-                                *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                                ***
-
-                              * **storageKeys** `array<string>` *required*
-
-                                32 byte hex value
-
-                                *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                                ***
-
-                              * **additionalProperties** `false`
-
-                                ***
-                            </details>
-                          </div>
-
-                        * **chainId** `string` *required*
-
-                          Chain ID that this transaction is valid on.
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **yParity** `string` *required*
-
-                          The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature.
-
-                          *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
-
-                          ***
-
-                        * **v** `string`
-
-                          For backwards compatibility, `v` is optionally provided as an alternative to `yParity`. This field is DEPRECATED and all use of it should migrate to `yParity`.
-
-                          *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
-
-                          ***
-
-                        * **r** `string` *required*
-
-                          r
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **s** `string` *required*
-
-                          s
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **additionalProperties** `true`
-
-                          ***
-                      </details>
-                    </div>
-                  </details>
-
-                  <details>
-                    <summary>
-                      Show Option 5 `Signed Legacy Transaction` object
-                    </summary>
-
-                    #### `Signed Legacy Transaction` fields
-
-                    **transactions** `array<object>` *required*
-
-                    Signed Legacy Transaction
-
-                    ***
-
-                    <div>
-                      <details>
-                        <summary>
-                          Show `transactions` object
-                        </summary>
-
-                        #### `transactions` fields
-
-                        * **type** `string` *required*
-
-                          type
-
-                          *Match pattern:* `^0x0$`
-
-                          ***
-
-                        * **nonce** `string` *required*
-
-                          nonce
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * <div>
-                            **to** `null or string`
-
-                            ***
-
-                            <details>
-                              <summary>
-                                Show Option 1 `Contract Creation (null)` null
-                              </summary>
-
-                              #### `Contract Creation (null)` fields
-
-                              **to** `null`
-
-                              Contract Creation (null)
-
-                              ***
-                            </details>
-
-                            <details>
-                              <summary>
-                                Show Option 2 `Address` string
-                              </summary>
-
-                              #### `Address` fields
-
-                              **to** `string`
-
-                              Address
-
-                              *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                              ***
-                            </details>
-                          </div>
-
-                        * **gas** `string` *required*
-
-                          gas limit
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **value** `string` *required*
-
-                          value
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **input** `string` *required*
-
-                          input data
-
-                          *Match pattern:* `^0x[0-9a-f]*$`
-
-                          ***
-
-                        * **gasPrice** `string` *required*
-
-                          The gas price willing to be paid by the sender in wei
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **chainId** `string`
-
-                          Chain ID that this transaction is valid on.
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **v** `string` *required*
-
-                          v
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **r** `string` *required*
-
-                          r
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **s** `string` *required*
-
-                          s
-
-                          *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                          ***
-
-                        * **additionalProperties** `true`
-
-                          ***
-                      </details>
-                    </div>
-                  </details>
-                </div>
-              </details>
-            </div>
-
-          * **withdrawals** `array<object>`
-
-            Validator withdrawal
-
-            ***
-
-            <div>
-              <details>
-                <summary>
-                  Show `withdrawals` object
-                </summary>
-
-                #### `withdrawals` fields
-
-                * **index** `string` *required*
-
-                  index of withdrawal
-
-                  *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
-
-                  ***
-
-                * **validatorIndex** `string` *required*
-
-                  index of validator that generated withdrawal
-
-                  *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
-
-                  ***
-
-                * **address** `string` *required*
-
-                  recipient address for withdrawal value
-
-                  *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                  ***
-
-                * **amount** `string` *required*
-
-                  value contained in withdrawal
-
-                  *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
-
-                  ***
-
-                * **additionalProperties** `false`
-
-                  ***
-              </details>
-            </div>
-
-          * **uncles** `array<string>` *required*
+            **transactions** `array<string>` *required*
 
             32 byte hex value
 
             *Match pattern:* `^0x[0-9a-f]{64}$`
 
             ***
+          </details>
+        </div>
 
-          * **requestsHash** `string`
+        <div>
+          <details>
+            <summary>
+              Show Option 2 `Full transactions` array
+            </summary>
 
-            EIP-7685 requests hash
+            #### `Full transactions` fields
 
-            *Match pattern:* `^0x[0-9a-f]{64}$`
+            **transactions** `object or object or object or object or object` *required*
 
             ***
 
-          * <div>
-              **calls** `object or object` *required*
-
-              ***
-
+            <div>
               <details>
                 <summary>
-                  Show Option 1 `Result of call failure` object
+                  Show Option 1 `Signed 7702 Transaction` object
                 </summary>
 
-                #### `Result of call failure` fields
+                #### `Signed 7702 Transaction` fields
 
-                The error messages are suggestions, and clients might implement different error messages. However, the error codes are enforced by the spec.
+                **transactions** `array<object>` *required*
 
-                **calls** `array<object>` *required*
-
-                The error messages are suggestions, and clients might implement different error messages. However, the error codes are enforced by the spec.
+                Signed 7702 Transaction
 
                 ***
 
                 <div>
                   <details>
                     <summary>
-                      Show `calls` object
+                      Show `transactions` object
                     </summary>
 
-                    #### `calls` fields
+                    #### `transactions` fields
 
-                    * **status** `string` *required*
+                    * **type** `string` *required*
 
-                      Call Status Failure
+                      type
 
-                      *Match pattern:* `^0x0$`
+                      *Match pattern:* `^0x4$`
 
                       ***
 
-                    * **returnData** `string` *required*
+                    * **nonce** `string` *required*
 
-                      Return data
+                      nonce
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **to** `string` *required*
+
+                      to address
+
+                      *Match pattern:* `^0x[0-9a-fA-F]{40}$`
+
+                      ***
+
+                    * **gas** `string` *required*
+
+                      gas limit
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **value** `string` *required*
+
+                      value
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **input** `string` *required*
+
+                      input data
 
                       *Match pattern:* `^0x[0-9a-f]*$`
 
                       ***
 
-                    * **gasUsed** `string` *required*
+                    * **maxPriorityFeePerGas** `string` *required*
 
-                      Return gasUsed
+                      Maximum fee per gas the sender is willing to pay to miners in wei
 
-                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
-
-                      ***
-
-                    * <div>
-                        **error** `object or object` *required*
-
-                        ***
-
-                        <details>
-                          <summary>
-                            Show Option 1 `error` object
-                          </summary>
-
-                          #### `error` fields
-
-                          **error** `object` *required*
-
-                          ***
-
-                          <div>
-                            <details>
-                              <summary>
-                                Show `error` object
-                              </summary>
-
-                              #### `error` fields
-
-                              * <div />
-
-                              * **message** `string` *required*
-
-                                *Match pattern:* `^execution reverted.*`
-
-                                ***
-
-                              * **additionalProperties** `true`
-
-                                ***
-                            </details>
-                          </div>
-                        </details>
-
-                        <details>
-                          <summary>
-                            Show Option 2 `error` object
-                          </summary>
-
-                          #### `error` fields
-
-                          **error** `object` *required*
-
-                          ***
-
-                          <div>
-                            <details>
-                              <summary>
-                                Show `error` object
-                              </summary>
-
-                              #### `error` fields
-
-                              * <div />
-
-                              * **message** `string`
-
-                                *Match pattern:* `^vm execution error.*`
-
-                                ***
-
-                              * **additionalProperties** `true`
-
-                                ***
-                            </details>
-                          </div>
-                        </details>
-                      </div>
-
-                    * **additionalProperties** `true`
-
-                      ***
-                  </details>
-                </div>
-              </details>
-
-              <details>
-                <summary>
-                  Show Option 2 `Result of call success` object
-                </summary>
-
-                #### `Result of call success` fields
-
-                **calls** `array<object>` *required*
-
-                Result of call success
-
-                ***
-
-                <div>
-                  <details>
-                    <summary>
-                      Show `calls` object
-                    </summary>
-
-                    #### `calls` fields
-
-                    * **status** `string` *required*
-
-                      Call Status Success
-
-                      *Match pattern:* `^0x1$`
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
                       ***
 
-                    * **returnData** `string` *required*
+                    * **maxFeePerGas** `string` *required*
 
-                      Return data
+                      The maximum total fee per gas the sender is willing to pay (includes the network / base fee and miner / priority fee) in wei
 
-                      *Match pattern:* `^0x[0-9a-f]*$`
-
-                      ***
-
-                    * **gasUsed** `string` *required*
-
-                      Return gasUsed
-
-                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
                       ***
 
-                    * **logs** `array<object>` *required*
+                    * **gasPrice** `string`
 
-                      log
+                      The effective gas price paid by the sender in wei. For transactions not yet included in a block, this value should be set equal to the max fee per gas. This field is DEPRECATED, please transition to using effectiveGasPrice in the receipt object going forward.
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **accessList** `array<object>` *required*
+
+                      EIP-2930 access lists
 
                       ***
 
                       <div>
                         <details>
                           <summary>
-                            Show `logs` object
+                            Show `accessList` object
                           </summary>
 
-                          #### `logs` fields
+                          #### `accessList` fields
 
-                          * **removed** `boolean`
+                          EIP-2930 access lists
 
-                            removed
+                          * **address** `string` *required*
 
-                            ***
-
-                          * **logIndex** `string`
-
-                            log index
-
-                            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                            ***
-
-                          * **transactionIndex** `string`
-
-                            transaction index
-
-                            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                            ***
-
-                          * **transactionHash** `string` *required*
-
-                            transaction hash
-
-                            *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                            ***
-
-                          * **blockHash** `string`
-
-                            block hash
-
-                            *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                            ***
-
-                          * **blockNumber** `string`
-
-                            block number
-
-                            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                            ***
-
-                          * **blockTimestamp** `string`
-
-                            block timestamp
-
-                            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                            ***
-
-                          * **address** `string`
-
-                            address
+                            hex encoded address
 
                             *Match pattern:* `^0x[0-9a-fA-F]{40}$`
 
                             ***
 
-                          * **data** `string`
+                          * **storageKeys** `array<string>` *required*
 
-                            data
-
-                            *Match pattern:* `^0x[0-9a-f]*$`
-
-                            ***
-
-                          * **topics** `array<string>`
-
-                            32 hex encoded bytes
+                            32 byte hex value
 
                             *Match pattern:* `^0x[0-9a-f]{64}$`
 
@@ -1641,6 +445,116 @@ import { useState } from 'react';
                         </details>
                       </div>
 
+                    * **chainId** `string` *required*
+
+                      Chain ID that this transaction is valid on
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **authorizationList** `array<object>` *required*
+
+                      List of authorizations for the transaction
+
+                      ***
+
+                      <div>
+                        <details>
+                          <summary>
+                            Show `authorizationList` object
+                          </summary>
+
+                          #### `authorizationList` fields
+
+                          List of authorizations for the transaction
+
+                          * **chainId** `string` *required*
+
+                            Chain ID on which this transaction is valid
+
+                            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                            ***
+
+                          * **nonce** `string` *required*
+
+                            nonce
+
+                            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                            ***
+
+                          * **address** `string` *required*
+
+                            hex encoded address
+
+                            *Match pattern:* `^0x[0-9a-fA-F]{40}$`
+
+                            ***
+
+                          * **yParity** `string` *required*
+
+                            The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature
+
+                            *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
+
+                            ***
+
+                          * **r** `string` *required*
+
+                            r
+
+                            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
+
+                            ***
+
+                          * **s** `string` *required*
+
+                            s
+
+                            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
+
+                            ***
+
+                          * **additionalProperties** `true`
+
+                            ***
+                        </details>
+                      </div>
+
+                    * **yParity** `string` *required*
+
+                      The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature.
+
+                      *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
+
+                      ***
+
+                    * **v** `string`
+
+                      For backwards compatibility, `v` is optionally provided as an alternative to `yParity`. This field is DEPRECATED and all use of it should migrate to `yParity`.
+
+                      *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
+
+                      ***
+
+                    * **r** `string` *required*
+
+                      r
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **s** `string` *required*
+
+                      s
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
                     * **additionalProperties** `true`
 
                       ***
@@ -1649,262 +563,1364 @@ import { useState } from 'react';
               </details>
             </div>
 
-          * **additionalProperties** `true`
+            <div>
+              <details>
+                <summary>
+                  Show Option 2 `Signed 4844 Transaction` object
+                </summary>
+
+                #### `Signed 4844 Transaction` fields
+
+                **transactions** `array<object>` *required*
+
+                Signed 4844 Transaction
+
+                ***
+
+                <div>
+                  <details>
+                    <summary>
+                      Show `transactions` object
+                    </summary>
+
+                    #### `transactions` fields
+
+                    * **type** `string` *required*
+
+                      type
+
+                      *Match pattern:* `^0x3$`
+
+                      ***
+
+                    * **nonce** `string` *required*
+
+                      nonce
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **to** `string` *required*
+
+                      to address
+
+                      *Match pattern:* `^0x[0-9a-fA-F]{40}$`
+
+                      ***
+
+                    * **gas** `string` *required*
+
+                      gas limit
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **value** `string` *required*
+
+                      value
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **input** `string` *required*
+
+                      input data
+
+                      *Match pattern:* `^0x[0-9a-f]*$`
+
+                      ***
+
+                    * **maxPriorityFeePerGas** `string` *required*
+
+                      Maximum fee per gas the sender is willing to pay to miners in wei
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **maxFeePerGas** `string` *required*
+
+                      The maximum total fee per gas the sender is willing to pay (includes the network / base fee and miner / priority fee) in wei
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **maxFeePerBlobGas** `string` *required*
+
+                      The maximum total fee per gas the sender is willing to pay for blob gas in wei
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **gasPrice** `string`
+
+                      The effective gas price paid by the sender in wei. For transactions not yet included in a block, this value should be set equal to the max fee per gas. This field is DEPRECATED, please transition to using effectiveGasPrice in the receipt object going forward.
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **accessList** `array<object>` *required*
+
+                      EIP-2930 access list
+
+                      ***
+
+                      <div>
+                        <details>
+                          <summary>
+                            Show `accessList` object
+                          </summary>
+
+                          #### `accessList` fields
+
+                          EIP-2930 access list
+
+                          * **address** `string` *required*
+
+                            hex encoded address
+
+                            *Match pattern:* `^0x[0-9a-fA-F]{40}$`
+
+                            ***
+
+                          * **storageKeys** `array<string>` *required*
+
+                            32 byte hex value
+
+                            *Match pattern:* `^0x[0-9a-f]{64}$`
+
+                            ***
+
+                          * **additionalProperties** `false`
+
+                            ***
+                        </details>
+                      </div>
+
+                    * **blobVersionedHashes** `array<string>` *required*
+
+                      List of versioned blob hashes associated with the transaction's EIP-4844 data blobs
+
+                      *Match pattern:* `^0x[0-9a-f]{64}$`
+
+                      ***
+
+                    * **chainId** `string` *required*
+
+                      Chain ID that this transaction is valid on
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **yParity** `string` *required*
+
+                      The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature.
+
+                      *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
+
+                      ***
+
+                    * **v** `string`
+
+                      For backwards compatibility, `v` is optionally provided as an alternative to `yParity`. This field is DEPRECATED and all use of it should migrate to `yParity`.
+
+                      *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
+
+                      ***
+
+                    * **r** `string` *required*
+
+                      r
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **s** `string` *required*
+
+                      s
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **additionalProperties** `true`
+
+                      ***
+                  </details>
+                </div>
+              </details>
+            </div>
+
+            <div>
+              <details>
+                <summary>
+                  Show Option 3 `Signed 1559 Transaction` object
+                </summary>
+
+                #### `Signed 1559 Transaction` fields
+
+                **transactions** `array<object>` *required*
+
+                Signed 1559 Transaction
+
+                ***
+
+                <div>
+                  <details>
+                    <summary>
+                      Show `transactions` object
+                    </summary>
+
+                    #### `transactions` fields
+
+                    * **type** `string` *required*
+
+                      type
+
+                      *Match pattern:* `^0x2$`
+
+                      ***
+
+                    * **nonce** `string` *required*
+
+                      nonce
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **to** `null or string`
+
+                      ***
+
+                      <div>
+                        <details>
+                          <summary>
+                            Show Option 1 `Contract Creation (null)` null
+                          </summary>
+
+                          #### `Contract Creation (null)` fields
+
+                          **to** `null`
+
+                          Contract Creation (null)
+
+                          ***
+                        </details>
+                      </div>
+
+                      <div>
+                        <details>
+                          <summary>
+                            Show Option 2 `Address` string
+                          </summary>
+
+                          #### `Address` fields
+
+                          **to** `string`
+
+                          Address
+
+                          *Match pattern:* `^0x[0-9a-fA-F]{40}$`
+
+                          ***
+                        </details>
+                      </div>
+
+                    * **gas** `string` *required*
+
+                      gas limit
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **value** `string` *required*
+
+                      value
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **input** `string` *required*
+
+                      input data
+
+                      *Match pattern:* `^0x[0-9a-f]*$`
+
+                      ***
+
+                    * **maxPriorityFeePerGas** `string` *required*
+
+                      Maximum fee per gas the sender is willing to pay to miners in wei
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **maxFeePerGas** `string` *required*
+
+                      The maximum total fee per gas the sender is willing to pay (includes the network / base fee and miner / priority fee) in wei
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **gasPrice** `string` *required*
+
+                      The effective gas price paid by the sender in wei. For transactions not yet included in a block, this value should be set equal to the max fee per gas. This field is DEPRECATED, please transition to using effectiveGasPrice in the receipt object going forward.
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **accessList** `array<object>` *required*
+
+                      EIP-2930 access list
+
+                      ***
+
+                      <div>
+                        <details>
+                          <summary>
+                            Show `accessList` object
+                          </summary>
+
+                          #### `accessList` fields
+
+                          EIP-2930 access list
+
+                          * **address** `string` *required*
+
+                            hex encoded address
+
+                            *Match pattern:* `^0x[0-9a-fA-F]{40}$`
+
+                            ***
+
+                          * **storageKeys** `array<string>` *required*
+
+                            32 byte hex value
+
+                            *Match pattern:* `^0x[0-9a-f]{64}$`
+
+                            ***
+
+                          * **additionalProperties** `false`
+
+                            ***
+                        </details>
+                      </div>
+
+                    * **chainId** `string` *required*
+
+                      Chain ID that this transaction is valid on.
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **yParity** `string` *required*
+
+                      The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature.
+
+                      *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
+
+                      ***
+
+                    * **v** `string`
+
+                      For backwards compatibility, `v` is optionally provided as an alternative to `yParity`. This field is DEPRECATED and all use of it should migrate to `yParity`.
+
+                      *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
+
+                      ***
+
+                    * **r** `string` *required*
+
+                      r
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **s** `string` *required*
+
+                      s
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **additionalProperties** `true`
+
+                      ***
+                  </details>
+                </div>
+              </details>
+            </div>
+
+            <div>
+              <details>
+                <summary>
+                  Show Option 4 `Signed 2930 Transaction` object
+                </summary>
+
+                #### `Signed 2930 Transaction` fields
+
+                **transactions** `array<object>` *required*
+
+                Signed 2930 Transaction
+
+                ***
+
+                <div>
+                  <details>
+                    <summary>
+                      Show `transactions` object
+                    </summary>
+
+                    #### `transactions` fields
+
+                    * **type** `string` *required*
+
+                      type
+
+                      *Match pattern:* `^0x1$`
+
+                      ***
+
+                    * **nonce** `string` *required*
+
+                      nonce
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **to** `null or string`
+
+                      ***
+
+                      <div>
+                        <details>
+                          <summary>
+                            Show Option 1 `Contract Creation (null)` null
+                          </summary>
+
+                          #### `Contract Creation (null)` fields
+
+                          **to** `null`
+
+                          Contract Creation (null)
+
+                          ***
+                        </details>
+                      </div>
+
+                      <div>
+                        <details>
+                          <summary>
+                            Show Option 2 `Address` string
+                          </summary>
+
+                          #### `Address` fields
+
+                          **to** `string`
+
+                          Address
+
+                          *Match pattern:* `^0x[0-9a-fA-F]{40}$`
+
+                          ***
+                        </details>
+                      </div>
+
+                    * **gas** `string` *required*
+
+                      gas limit
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **value** `string` *required*
+
+                      value
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **input** `string` *required*
+
+                      input data
+
+                      *Match pattern:* `^0x[0-9a-f]*$`
+
+                      ***
+
+                    * **gasPrice** `string` *required*
+
+                      The gas price willing to be paid by the sender in wei
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **accessList** `array<object>` *required*
+
+                      EIP-2930 access list
+
+                      ***
+
+                      <div>
+                        <details>
+                          <summary>
+                            Show `accessList` object
+                          </summary>
+
+                          #### `accessList` fields
+
+                          EIP-2930 access list
+
+                          * **address** `string` *required*
+
+                            hex encoded address
+
+                            *Match pattern:* `^0x[0-9a-fA-F]{40}$`
+
+                            ***
+
+                          * **storageKeys** `array<string>` *required*
+
+                            32 byte hex value
+
+                            *Match pattern:* `^0x[0-9a-f]{64}$`
+
+                            ***
+
+                          * **additionalProperties** `false`
+
+                            ***
+                        </details>
+                      </div>
+
+                    * **chainId** `string` *required*
+
+                      Chain ID that this transaction is valid on.
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **yParity** `string` *required*
+
+                      The parity (0 for even, 1 for odd) of the y-value of the secp256k1 signature.
+
+                      *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
+
+                      ***
+
+                    * **v** `string`
+
+                      For backwards compatibility, `v` is optionally provided as an alternative to `yParity`. This field is DEPRECATED and all use of it should migrate to `yParity`.
+
+                      *Match pattern:* `^0x([0-9a-fA-F]?){1,2}$`
+
+                      ***
+
+                    * **r** `string` *required*
+
+                      r
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **s** `string` *required*
+
+                      s
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **additionalProperties** `true`
+
+                      ***
+                  </details>
+                </div>
+              </details>
+            </div>
+
+            <div>
+              <details>
+                <summary>
+                  Show Option 5 `Signed Legacy Transaction` object
+                </summary>
+
+                #### `Signed Legacy Transaction` fields
+
+                **transactions** `array<object>` *required*
+
+                Signed Legacy Transaction
+
+                ***
+
+                <div>
+                  <details>
+                    <summary>
+                      Show `transactions` object
+                    </summary>
+
+                    #### `transactions` fields
+
+                    * **type** `string` *required*
+
+                      type
+
+                      *Match pattern:* `^0x0$`
+
+                      ***
+
+                    * **nonce** `string` *required*
+
+                      nonce
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **to** `null or string`
+
+                      ***
+
+                      <div>
+                        <details>
+                          <summary>
+                            Show Option 1 `Contract Creation (null)` null
+                          </summary>
+
+                          #### `Contract Creation (null)` fields
+
+                          **to** `null`
+
+                          Contract Creation (null)
+
+                          ***
+                        </details>
+                      </div>
+
+                      <div>
+                        <details>
+                          <summary>
+                            Show Option 2 `Address` string
+                          </summary>
+
+                          #### `Address` fields
+
+                          **to** `string`
+
+                          Address
+
+                          *Match pattern:* `^0x[0-9a-fA-F]{40}$`
+
+                          ***
+                        </details>
+                      </div>
+
+                    * **gas** `string` *required*
+
+                      gas limit
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **value** `string` *required*
+
+                      value
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **input** `string` *required*
+
+                      input data
+
+                      *Match pattern:* `^0x[0-9a-f]*$`
+
+                      ***
+
+                    * **gasPrice** `string` *required*
+
+                      The gas price willing to be paid by the sender in wei
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **chainId** `string`
+
+                      Chain ID that this transaction is valid on.
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **v** `string` *required*
+
+                      v
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **r** `string` *required*
+
+                      r
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **s** `string` *required*
+
+                      s
+
+                      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                      ***
+
+                    * **additionalProperties** `true`
+
+                      ***
+                  </details>
+                </div>
+              </details>
+            </div>
+          </details>
+        </div>
+
+      * **withdrawals** `array<object>`
+
+        Validator withdrawal
+
+        ***
+
+        <div>
+          <details>
+            <summary>
+              Show `withdrawals` object
+            </summary>
+
+            #### `withdrawals` fields
+
+            * **index** `string` *required*
+
+              index of withdrawal
+
+              *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
+
+              ***
+
+            * **validatorIndex** `string` *required*
+
+              index of validator that generated withdrawal
+
+              *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
+
+              ***
+
+            * **address** `string` *required*
+
+              recipient address for withdrawal value
+
+              *Match pattern:* `^0x[0-9a-fA-F]{40}$`
+
+              ***
+
+            * **amount** `string` *required*
+
+              value contained in withdrawal
+
+              *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
+
+              ***
+
+            * **additionalProperties** `false`
+
+              ***
+          </details>
+        </div>
+
+      * **uncles** `array<string>` *required*
+
+        32 byte hex value
+
+        *Match pattern:* `^0x[0-9a-f]{64}$`
+
+        ***
+
+      * **requestsHash** `string`
+
+        EIP-7685 requests hash
+
+        *Match pattern:* `^0x[0-9a-f]{64}$`
+
+        ***
+
+      * **calls** `object or object` *required*
+
+        ***
+
+        <div>
+          <details>
+            <summary>
+              Show Option 1 `Result of call failure` object
+            </summary>
+
+            #### `Result of call failure` fields
+
+            The error messages are suggestions, and clients might implement different error messages. However, the error codes are enforced by the spec.
+
+            **calls** `array<object>` *required*
+
+            The error messages are suggestions, and clients might implement different error messages. However, the error codes are enforced by the spec.
 
             ***
-        </details>
-      </div>
-    </div>
 
-    <div>
-      ## Errors
+            <div>
+              <details>
+                <summary>
+                  Show `calls` object
+                </summary>
 
-      <details>
-        <summary>
-          Error code: -32000
-        </summary>
+                #### `calls` fields
 
-        * **code**
+                * **status** `string` *required*
 
-          -32000
-        * **message**
+                  Call Status Failure
 
-          Invalid request
-      </details>
+                  *Match pattern:* `^0x0$`
 
-      <details>
-        <summary>
-          Error code: -32602
-        </summary>
+                  ***
 
-        * **code**
+                * **returnData** `string` *required*
 
-          -32602
-        * **message**
+                  Return data
 
-          Missing or invalid parameters
-      </details>
+                  *Match pattern:* `^0x[0-9a-f]*$`
 
-      <details>
-        <summary>
-          Error code: -32005
-        </summary>
+                  ***
 
-        * **code**
+                * **gasUsed** `string` *required*
 
-          -32005
-        * **message**
+                  Return gasUsed
 
-          Transactions maxFeePerGas is too low
-      </details>
+                  *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
 
-      <details>
-        <summary>
-          Error code: -32015
-        </summary>
+                  ***
 
-        * **code**
+                * **error** `object or object` *required*
 
-          -32015
-        * **message**
+                  ***
 
-          Execution error
-      </details>
+                  <div>
+                    <details>
+                      <summary>
+                        Show Option 1 `error` object
+                      </summary>
 
-      <details>
-        <summary>
-          Error code: -32016
-        </summary>
+                      #### `error` fields
 
-        * **code**
+                      **error** `object` *required*
 
-          -32016
-        * **message**
+                      ***
 
-          Timeout
-      </details>
+                      <div>
+                        <details>
+                          <summary>
+                            Show `error` object
+                          </summary>
 
-      <details>
-        <summary>
-          Error code: -32603
-        </summary>
+                          #### `error` fields
 
-        * **code**
+                          *
 
-          -32603
-        * **message**
+                          * **message** `string` *required*
 
-          The Ethereum node encountered an internal error
-      </details>
+                            *Match pattern:* `^execution reverted.*`
 
-      <details>
-        <summary>
-          Error code: -38010
-        </summary>
+                            ***
 
-        * **code**
+                          * **additionalProperties** `true`
 
-          -38010
-        * **message**
+                            ***
+                        </details>
+                      </div>
+                    </details>
+                  </div>
 
-          Transactions nonce is too low
-      </details>
+                  <div>
+                    <details>
+                      <summary>
+                        Show Option 2 `error` object
+                      </summary>
 
-      <details>
-        <summary>
-          Error code: -38011
-        </summary>
+                      #### `error` fields
 
-        * **code**
+                      **error** `object` *required*
 
-          -38011
-        * **message**
+                      ***
 
-          Transactions nonce is too high
-      </details>
+                      <div>
+                        <details>
+                          <summary>
+                            Show `error` object
+                          </summary>
 
-      <details>
-        <summary>
-          Error code: -38012
-        </summary>
+                          #### `error` fields
 
-        * **code**
+                          *
 
-          -38012
-        * **message**
+                          * **message** `string`
 
-          Transactions baseFeePerGas is too low
-      </details>
+                            *Match pattern:* `^vm execution error.*`
 
-      <details>
-        <summary>
-          Error code: -38013
-        </summary>
+                            ***
 
-        * **code**
+                          * **additionalProperties** `true`
 
-          -38013
-        * **message**
+                            ***
+                        </details>
+                      </div>
+                    </details>
+                  </div>
 
-          Not enough gas provided to pay for intrinsic gas for a transaction
-      </details>
+                * **additionalProperties** `true`
 
-      <details>
-        <summary>
-          Error code: -38014
-        </summary>
+                  ***
+              </details>
+            </div>
+          </details>
+        </div>
 
-        * **code**
+        <div>
+          <details>
+            <summary>
+              Show Option 2 `Result of call success` object
+            </summary>
 
-          -38014
-        * **message**
+            #### `Result of call success` fields
 
-          Insufficient funds to pay for gas fees and value for a transaction
-      </details>
+            **calls** `array<object>` *required*
 
-      <details>
-        <summary>
-          Error code: -38015
-        </summary>
+            Result of call success
 
-        * **code**
+            ***
 
-          -38015
-        * **message**
+            <div>
+              <details>
+                <summary>
+                  Show `calls` object
+                </summary>
 
-          Block gas limit exceeded by the block's transactions
-      </details>
+                #### `calls` fields
 
-      <details>
-        <summary>
-          Error code: -38020
-        </summary>
+                * **status** `string` *required*
 
-        * **code**
+                  Call Status Success
 
-          -38020
-        * **message**
+                  *Match pattern:* `^0x1$`
 
-          Block number in sequence did not increase
-      </details>
+                  ***
 
-      <details>
-        <summary>
-          Error code: -38021
-        </summary>
+                * **returnData** `string` *required*
 
-        * **code**
+                  Return data
 
-          -38021
-        * **message**
+                  *Match pattern:* `^0x[0-9a-f]*$`
 
-          Block timestamp in sequence did not increase or stay the same
-      </details>
+                  ***
 
-      <details>
-        <summary>
-          Error code: -38022
-        </summary>
+                * **gasUsed** `string` *required*
 
-        * **code**
+                  Return gasUsed
 
-          -38022
-        * **message**
+                  *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
 
-          MovePrecompileToAddress referenced itself in replacement
-      </details>
+                  ***
 
-      <details>
-        <summary>
-          Error code: -38023
-        </summary>
+                * **logs** `array<object>` *required*
 
-        * **code**
+                  log
 
-          -38023
-        * **message**
+                  ***
 
-          Multiple MovePrecompileToAddress referencing the same address to replace
-      </details>
+                  <div>
+                    <details>
+                      <summary>
+                        Show `logs` object
+                      </summary>
 
-      <details>
-        <summary>
-          Error code: -38024
-        </summary>
+                      #### `logs` fields
 
-        * **code**
+                      * **removed** `boolean`
 
-          -38024
-        * **message**
+                        removed
 
-          Sender is not an EOA
-      </details>
+                        ***
 
-      <details>
-        <summary>
-          Error code: -38025
-        </summary>
+                      * **logIndex** `string`
 
-        * **code**
+                        log index
 
-          -38025
-        * **message**
+                        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-          Max init code size exceeded
-      </details>
+                        ***
 
-      <details>
-        <summary>
-          Error code: -38026
-        </summary>
+                      * **transactionIndex** `string`
 
-        * **code**
+                        transaction index
 
-          -38026
-        * **message**
+                        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-          Client adjustable limit exceeded
-      </details>
-    </div>
+                        ***
+
+                      * **transactionHash** `string` *required*
+
+                        transaction hash
+
+                        *Match pattern:* `^0x[0-9a-f]{64}$`
+
+                        ***
+
+                      * **blockHash** `string`
+
+                        block hash
+
+                        *Match pattern:* `^0x[0-9a-f]{64}$`
+
+                        ***
+
+                      * **blockNumber** `string`
+
+                        block number
+
+                        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                        ***
+
+                      * **blockTimestamp** `string`
+
+                        block timestamp
+
+                        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+                        ***
+
+                      * **address** `string`
+
+                        address
+
+                        *Match pattern:* `^0x[0-9a-fA-F]{40}$`
+
+                        ***
+
+                      * **data** `string`
+
+                        data
+
+                        *Match pattern:* `^0x[0-9a-f]*$`
+
+                        ***
+
+                      * **topics** `array<string>`
+
+                        32 hex encoded bytes
+
+                        *Match pattern:* `^0x[0-9a-f]{64}$`
+
+                        ***
+
+                      * **additionalProperties** `false`
+
+                        ***
+                    </details>
+                  </div>
+
+                * **additionalProperties** `true`
+
+                  ***
+              </details>
+            </div>
+          </details>
+        </div>
+
+      * **additionalProperties** `true`
+
+        ***
+    </details>
   </div>
+
+  ## Errors
+
+  <details>
+    <summary>
+      Error code: -32000
+    </summary>
+
+    * **code**
+
+      -32000
+    * **message**
+
+      Invalid request
+  </details>
+
+  <details>
+    <summary>
+      Error code: -32602
+    </summary>
+
+    * **code**
+
+      -32602
+    * **message**
+
+      Missing or invalid parameters
+  </details>
+
+  <details>
+    <summary>
+      Error code: -32005
+    </summary>
+
+    * **code**
+
+      -32005
+    * **message**
+
+      Transactions maxFeePerGas is too low
+  </details>
+
+  <details>
+    <summary>
+      Error code: -32015
+    </summary>
+
+    * **code**
+
+      -32015
+    * **message**
+
+      Execution error
+  </details>
+
+  <details>
+    <summary>
+      Error code: -32016
+    </summary>
+
+    * **code**
+
+      -32016
+    * **message**
+
+      Timeout
+  </details>
+
+  <details>
+    <summary>
+      Error code: -32603
+    </summary>
+
+    * **code**
+
+      -32603
+    * **message**
+
+      The Ethereum node encountered an internal error
+  </details>
+
+  <details>
+    <summary>
+      Error code: -38010
+    </summary>
+
+    * **code**
+
+      -38010
+    * **message**
+
+      Transactions nonce is too low
+  </details>
+
+  <details>
+    <summary>
+      Error code: -38011
+    </summary>
+
+    * **code**
+
+      -38011
+    * **message**
+
+      Transactions nonce is too high
+  </details>
+
+  <details>
+    <summary>
+      Error code: -38012
+    </summary>
+
+    * **code**
+
+      -38012
+    * **message**
+
+      Transactions baseFeePerGas is too low
+  </details>
+
+  <details>
+    <summary>
+      Error code: -38013
+    </summary>
+
+    * **code**
+
+      -38013
+    * **message**
+
+      Not enough gas provided to pay for intrinsic gas for a transaction
+  </details>
+
+  <details>
+    <summary>
+      Error code: -38014
+    </summary>
+
+    * **code**
+
+      -38014
+    * **message**
+
+      Insufficient funds to pay for gas fees and value for a transaction
+  </details>
+
+  <details>
+    <summary>
+      Error code: -38015
+    </summary>
+
+    * **code**
+
+      -38015
+    * **message**
+
+      Block gas limit exceeded by the block's transactions
+  </details>
+
+  <details>
+    <summary>
+      Error code: -38020
+    </summary>
+
+    * **code**
+
+      -38020
+    * **message**
+
+      Block number in sequence did not increase
+  </details>
+
+  <details>
+    <summary>
+      Error code: -38021
+    </summary>
+
+    * **code**
+
+      -38021
+    * **message**
+
+      Block timestamp in sequence did not increase or stay the same
+  </details>
+
+  <details>
+    <summary>
+      Error code: -38022
+    </summary>
+
+    * **code**
+
+      -38022
+    * **message**
+
+      MovePrecompileToAddress referenced itself in replacement
+  </details>
+
+  <details>
+    <summary>
+      Error code: -38023
+    </summary>
+
+    * **code**
+
+      -38023
+    * **message**
+
+      Multiple MovePrecompileToAddress referencing the same address to replace
+  </details>
+
+  <details>
+    <summary>
+      Error code: -38024
+    </summary>
+
+    * **code**
+
+      -38024
+    * **message**
+
+      Sender is not an EOA
+  </details>
+
+  <details>
+    <summary>
+      Error code: -38025
+    </summary>
+
+    * **code**
+
+      -38025
+    * **message**
+
+      Max init code size exceeded
+  </details>
+
+  <details>
+    <summary>
+      Error code: -38026
+    </summary>
+
+    * **code**
+
+      -38026
+    * **message**
+
+      Client adjustable limit exceeded
+  </details>
 </TwoColumnLayout>

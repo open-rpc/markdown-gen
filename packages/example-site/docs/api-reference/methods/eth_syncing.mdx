@@ -5,127 +5,123 @@ hide_table_of_contents: true
 description: ""
 ---
 
-import {TwoColumnLayout, InteractiveRequest, ResponseExample} from 'open-rpc-docusaurus-plugin-beta/components';
+import {TwoColumnLayout, InteractiveRequest, ResponseExample} from '@open-rpc/docusaurus-plugin/components';
 import { useState } from 'react';
 
 <TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_syncing\",\n  \"params\": [],\n  \"id\": 1\n}"} />}>
+  # eth\_syncing
+
+
+
+  Returns an object with data about the sync status or false.
+
+  ## Parameters (by position)
+
+  This method does not accept any parameters.
+
+  ## Result
+
+  **Syncing status** `object or unknown`
+
+  ***
+
   <div>
-    # eth\_syncing
+    <details>
+      <summary>
+        Show Option 1 `Syncing progress` object
+      </summary>
 
+      #### `Syncing progress` fields
 
+      **Syncing status** `object`
 
-    Returns an object with data about the sync status or false.
+      Syncing progress
 
-    <div>
-      ## Parameters (by position)
-
-      This method does not accept any parameters.
-    </div>
-
-    <div>
-      ## Result
+      ***
 
       <div>
-        **Syncing status** `object or unknown`
-
-        ***
-
         <details>
           <summary>
-            Show Option 1 `Syncing progress` object
+            Show `Syncing status` object
           </summary>
 
-          #### `Syncing progress` fields
+          #### `Syncing status` fields
 
-          **Syncing status** `object`
+          * **startingBlock** `string`
 
-          Syncing progress
+            Starting block
 
-          ***
+            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-          <div>
-            <details>
-              <summary>
-                Show `Syncing status` object
-              </summary>
+            ***
 
-              #### `Syncing status` fields
+          * **currentBlock** `string`
 
-              * **startingBlock** `string`
+            Current block
 
-                Starting block
+            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-                *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+            ***
 
-                ***
+          * **highestBlock** `string`
 
-              * **currentBlock** `string`
+            Highest block
 
-                Current block
+            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-                *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+            ***
 
-                ***
+          * **additionalProperties** `false`
 
-              * **highestBlock** `string`
-
-                Highest block
-
-                *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-                ***
-
-              * **additionalProperties** `false`
-
-                ***
-            </details>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            Show Option 2 `Not syncing` boolean
-          </summary>
-
-          #### `Not syncing` fields
-
-          Should always return false if not syncing.
-
-          **Syncing status** `boolean`
-
-          Should always return false if not syncing.
-
-          ***
+            ***
         </details>
       </div>
-    </div>
+    </details>
+  </div>
 
-    <div>
-      ## Examples
+  <div>
+    <details>
+      <summary>
+        Show Option 2 `Not syncing` boolean
+      </summary>
 
-      <details>
-        <summary>
-          eth\_syncing example
-        </summary>
+      #### `Not syncing` fields
 
-        #### Request
+      Should always return false if not syncing.
 
-        ```json
-        {
-          "params": []
-        }
-        ```
+      **Syncing status** `boolean`
 
-        #### Response
+      Should always return false if not syncing.
 
-        ```json
-        {
-          "startingBlock": "0x0",
-          "currentBlock": "0x1518",
-          "highestBlock": "0x9567a3"
-        }
-        ```
-      </details>
-    </div>
+      ***
+    </details>
+  </div>
+
+  ## Examples
+
+  <div>
+    <details>
+      <summary>
+        eth\_syncing example
+      </summary>
+
+      #### Request
+
+      ```json
+      {
+        "params": []
+      }
+      ```
+
+      #### Response
+
+      ```json
+      {
+        "startingBlock": "0x0",
+        "currentBlock": "0x1518",
+        "highestBlock": "0x9567a3"
+      }
+      ```
+    </details>
   </div>
 </TwoColumnLayout>

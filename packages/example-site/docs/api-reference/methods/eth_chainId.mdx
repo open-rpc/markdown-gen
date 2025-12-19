@@ -5,57 +5,51 @@ hide_table_of_contents: true
 description: ""
 ---
 
-import {TwoColumnLayout, InteractiveRequest, ResponseExample} from 'open-rpc-docusaurus-plugin-beta/components';
+import {TwoColumnLayout, InteractiveRequest, ResponseExample} from '@open-rpc/docusaurus-plugin/components';
 import { useState } from 'react';
 
 <TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_chainId\",\n  \"params\": [],\n  \"id\": 1\n}"} />}>
+  # eth\_chainId
+
+
+
+  Returns the chain ID of the current network.
+
+  ## Parameters (by position)
+
+  This method does not accept any parameters.
+
+  ## Result
+
+  **Chain ID** `string`
+
+  hex encoded unsigned integer
+
+  *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+
+  ***
+
+  ## Examples
+
   <div>
-    # eth\_chainId
+    <details>
+      <summary>
+        eth\_chainId example
+      </summary>
 
+      #### Request
 
+      ```json
+      {
+        "params": []
+      }
+      ```
 
-    Returns the chain ID of the current network.
+      #### Response
 
-    <div>
-      ## Parameters (by position)
-
-      This method does not accept any parameters.
-    </div>
-
-    <div>
-      ## Result
-
-      **Chain ID** `string`
-
-      hex encoded unsigned integer
-
-      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-      ***
-    </div>
-
-    <div>
-      ## Examples
-
-      <details>
-        <summary>
-          eth\_chainId example
-        </summary>
-
-        #### Request
-
-        ```json
-        {
-          "params": []
-        }
-        ```
-
-        #### Response
-
-        ```json
-        "0x1"
-        ```
-      </details>
-    </div>
+      ```json
+      "0x1"
+      ```
+    </details>
   </div>
 </TwoColumnLayout>
