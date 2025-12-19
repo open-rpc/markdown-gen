@@ -26,10 +26,11 @@ plugins: [
 
 ### Options
 
-| Option            | Type     | Default           | Description                                  |
-| ----------------- | -------- | ----------------- | -------------------------------------------- |
-| `openRPCSpecPath` | `string` | `./openrpc.json`  | Path to the OpenRPC JSON specification file  |
-| `docOutputPath`   | `string` | `./api-reference` | Output directory for generated documentation |
+| Option            | Type      | Default           | Description                                    |
+| ----------------- | --------- | ----------------- | ---------------------------------------------- |
+| `openRPCSpecPath` | `string`  | `./openrpc.json`  | Path to the OpenRPC JSON specification file    |
+| `docOutputPath`   | `string`  | `./api-reference` | Output directory for generated documentation   |
+| `showPoweredBy`   | `boolean` | `true`            | Show "Powered by OpenRPC" footer on index page |
 
 ## Sidebar Configuration
 

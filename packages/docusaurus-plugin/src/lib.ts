@@ -16,7 +16,7 @@ import { promises as fs } from "fs";
 import * as path from "path";
 import { OpenRPCMdContent } from "@open-rpc/markdown-generator";
 import { MethodObjectParamStructure } from "@open-rpc/meta-schema";
-import { Options, PluginOptions } from "./options";
+import { PluginOptions } from "./options";
 
 type JSONSchema = any;
 
@@ -72,11 +72,9 @@ export async function generateDocs(
 
   const outDir = outputPath;
   const methodsDir = path.join(outDir, "methods");
-  const schemasDir = path.join(outDir, "schemas");
 
   await fs.mkdir(outDir, { recursive: true });
   await fs.mkdir(methodsDir, { recursive: true });
-  await fs.mkdir(schemasDir, { recursive: true });
 
   for (const m of methods) {
     await fs.writeFile(

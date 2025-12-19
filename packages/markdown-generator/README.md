@@ -18,11 +18,11 @@ npm install @open-rpc/markdown-generator
 
 ## Programmatic API
 
-### `renderMethodsToMarkdown(document, edits, schemaEdits)`
+### `renderMethodsToMarkdown(document, schemaEdits, edits)`
 
 Renders all methods from an OpenRPC document to markdown strings. Returns `Promise<Array<{ methodName: string; markdown: string }>>`.
 
-### `renderDocumentToMarkdownFiles(methodsDir, document, edits, schemaEdits, markdownType)`
+### `renderDocumentToMarkdownFiles(methodsDir, document, schemaEdits, edits, markdownType)`
 
 Writes markdown files directly to disk for each method, plus an `index.md`. The `markdownType` parameter controls whether output is `"mdx"` or `"md"`.
 
@@ -77,52 +77,69 @@ Use this for:
 
 ### The `Edits` Interface
 
-Hooks for customizing method, parameter, and result output:
+Hooks for customizing method, parameter, result, error, and example output:
 
 ```typescript
 interface Edits {
-  // Wrap the entire method content
-  editMethod?: (
+  // Wrap the entire method output (including frontmatter)
+  editMethodParent: (
+    content: RootContent[] | OpenRPCMdContent[],
+    method: DereffedMethodObject
+  ) => RootContent[] | OpenRPCMdContent[];
+
+  // Wrap the method content (excluding frontmatter)
+  editMethod: (
     content: (OpenRPCMdContent | RootContent)[],
     method: DereffedMethodObject
   ) => (OpenRPCMdContent | RootContent)[];
 
   // Wrap the parameters section
-  editMethodParamsParent?: (
-    content: (RootContent | MdxJsxFlowElement)[],
+  editMethodParamsParent: (
+    content: OpenRPCMdContent[],
     methodParams: DereffedMethodObjectParams
   ) => OpenRPCMdContent[];
 
   // Customize individual parameters
-  editMethodParam?: (
-    content: (RootContent | MdxJsxFlowElement)[],
+  editMethodParam: (
+    content: OpenRPCMdContent[],
     methodParam: DereffedMethodObjectParam
-  ) => (RootContent | MdxJsxFlowElement)[];
-
-  // Customize parameter schema rendering
-  editMethodParamSchema?: (
-    content: (RootContent | MdxJsxFlowElement)[],
-    methodParamSchema: DereffedMethodObjectParamSchema,
-    methodParam: DereffedMethodObjectParam
-  ) => (RootContent | MdxJsxFlowElement)[];
+  ) => OpenRPCMdContent[];
 
   // Customize result rendering
-  editMethodResult?: (
-    content: (RootContent | MdxJsxFlowElement)[],
-    methodResult: DereffedMethodObjectResult
-  ) => (RootContent | MdxJsxFlowElement)[];
+  editMethodResult: (
+    content: OpenRPCMdContent[],
+    methodResult: DereffedMethodObjectResult | undefined
+  ) => OpenRPCMdContent[];
 
-  editMethodResultParent?: (
-    content: (RootContent | MdxJsxFlowElement)[],
-    methodResult: DereffedMethodObjectResult
-  ) => (RootContent | MdxJsxFlowElement)[];
+  // Wrap the result section
+  editMethodResultParent: (
+    content: OpenRPCMdContent[],
+    methodResult: DereffedMethodObjectResult | undefined
+  ) => OpenRPCMdContent[];
 
-  // Customize result schema rendering
-  editMethodResultSchema?: (
-    content: (RootContent | MdxJsxFlowElement)[],
-    methodResultSchema: DereffedMethodObjectResultSchema,
-    methodResult: DereffedMethodObjectResult
-  ) => (RootContent | MdxJsxFlowElement)[];
+  // Wrap the errors section
+  editMethodErrorsParent: (
+    content: OpenRPCMdContent[],
+    errors: DereffedMethodObjectErrorsWithGroup
+  ) => OpenRPCMdContent[];
+
+  // Customize individual error rendering
+  editMethodError: (
+    content: OpenRPCMdContent[],
+    error: DereffedMethodObjectErrorWithGroup
+  ) => OpenRPCMdContent[];
+
+  // Wrap the examples section
+  editMethodExampleParent: (
+    content: OpenRPCMdContent[],
+    examples: DereffedMethodObjectExamples
+  ) => OpenRPCMdContent[];
+
+  // Customize individual example rendering
+  editMethodExample: (
+    content: OpenRPCMdContent[],
+    example: DereffedMethodObjectExample
+  ) => OpenRPCMdContent[];
 }
 ```
 
@@ -132,30 +149,38 @@ Hooks for customizing JSON Schema type rendering:
 
 ```typescript
 interface SchemaEdits {
-  editSchemaNumber?: (
-    content: (RootContent | MdxJsxFlowElement)[],
-    schemaNumber: number
-  ) => (RootContent | MdxJsxFlowElement)[];
+  // Customize object schema rendering
+  editSchemaObject: (
+    content: OpenRPCMdContent[],
+    schema: JSONSchema
+  ) => OpenRPCMdContent[];
 
-  editSchemaString?: (
-    content: (RootContent | MdxJsxFlowElement)[],
-    text: string
-  ) => (RootContent | MdxJsxFlowElement)[];
+  // Customize boolean schema rendering
+  editSchemaBoolean: (
+    content: OpenRPCMdContent[],
+    schema: JSONSchema
+  ) => OpenRPCMdContent[];
 
-  editSchemaAnyOf?: (
-    content: (RootContent | MdxJsxFlowElement)[],
-    anyOf: JSONSchema[]
-  ) => (RootContent | MdxJsxFlowElement)[];
+  // Customize null schema rendering
+  editSchemaNull: (content: OpenRPCMdContent[]) => OpenRPCMdContent[];
 
-  editSchemaOneOf?: (
-    content: (RootContent | MdxJsxFlowElement)[],
-    oneOf: JSONSchema[]
-  ) => (RootContent | MdxJsxFlowElement)[];
+  // Customize primitive type rendering (string, number, integer, boolean, null)
+  editSchemaPrimitive: (
+    content: OpenRPCMdContent[],
+    schema: JSONSchema
+  ) => OpenRPCMdContent[];
 
-  editSchemaAllOf?: (
-    content: (RootContent | MdxJsxFlowElement)[],
-    allOf: JSONSchema[]
-  ) => (RootContent | MdxJsxFlowElement)[];
+  // Customize individual oneOf/anyOf/allOf option rendering
+  editSchemaOfType: (
+    content: OpenRPCMdContent[],
+    schema: JSONSchema
+  ) => OpenRPCMdContent[];
+
+  // Customize the container for oneOf/anyOf/allOf schemas
+  editSchemaOfTypes: (
+    content: OpenRPCMdContent[],
+    schemas: JSONSchema[]
+  ) => OpenRPCMdContent[];
 }
 ```
 
@@ -217,8 +242,8 @@ export const edits = {
 };
 
 export const schemaEdits = {
-  editSchemaString: (content, text) => {
-    // Custom string schema rendering
+  editSchemaPrimitive: (content, schema) => {
+    // Custom primitive schema rendering (string, number, etc.)
     return content;
   },
 };
@@ -250,6 +275,15 @@ export type {
 
 // mdast content type
 export type { OpenRPCMdContent } from "./type";
+
+// Rendering functions and identity edits
+export {
+  renderMethod,
+  identityEdits,
+  identitySchemaEdits,
+  markdownEdits,
+  markdownSchemaEdits,
+} from "./schema";
 ```
 
 ## Development

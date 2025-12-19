@@ -2,8 +2,6 @@
  * User-provided plugin options
  */
 export type Options = {
-  // TODO: Add user-configurable options here
-
   openRPCSpecPath: string;
   docOutputPath: string;
   showPoweredBy: boolean;

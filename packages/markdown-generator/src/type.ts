@@ -64,9 +64,6 @@ export type OpenRPCMdContent =
   | MdxJsxFlowElement;
 
 export interface SchemaEdits {
-  //editSchemaPrimitive?
-  //editSchemaObject?
-  //editSchemaOfType?
   editSchemaObject: (
     content: OpenRPCMdContent[],
     schema: JSONSchema,
@@ -94,14 +91,6 @@ export interface SchemaEdits {
 }
 
 export interface Edits {
-  editMethodErrorsParent: (
-    content: OpenRPCMdContent[],
-    errors: DereffedMethodObjectErrorsWithGroup,
-  ) => OpenRPCMdContent[];
-  editMethodError: (
-    content: OpenRPCMdContent[],
-    error: DereffedMethodObjectErrorWithGroup,
-  ) => OpenRPCMdContent[];
   editMethodParent: (
     content: RootContent[] | OpenRPCMdContent[],
     method: DereffedMethodObject,
@@ -121,17 +110,6 @@ export interface Edits {
     methodParam: DereffedMethodObjectParam,
   ) => OpenRPCMdContent[];
 
-  editMethodParamSchema: (
-    content: (RootContent | MdxJsxFlowElement)[],
-    methodParamSchema: DereffedMethodObjectParamSchema,
-    methodParam: DereffedMethodObjectParam,
-  ) => (RootContent | MdxJsxFlowElement)[];
-  editMethodParamSchemaParent: (
-    content: (RootContent | MdxJsxFlowElement)[],
-    methodParamSchema: DereffedMethodObjectParamSchema,
-    methodParam: DereffedMethodObjectParam,
-  ) => (RootContent | MdxJsxFlowElement)[];
-
   editMethodResult: (
     content: OpenRPCMdContent[],
     methodResult: DereffedMethodObjectResult | undefined,
@@ -142,9 +120,13 @@ export interface Edits {
     methodResult: DereffedMethodObjectResult | undefined,
   ) => OpenRPCMdContent[];
 
-  editMethodExample: (
+  editMethodErrorsParent: (
     content: OpenRPCMdContent[],
-    example: DereffedMethodObjectExample,
+    errors: DereffedMethodObjectErrorsWithGroup,
+  ) => OpenRPCMdContent[];
+  editMethodError: (
+    content: OpenRPCMdContent[],
+    error: DereffedMethodObjectErrorWithGroup,
   ) => OpenRPCMdContent[];
 
   editMethodExampleParent: (
@@ -152,15 +134,8 @@ export interface Edits {
     examples: DereffedMethodObjectExamples,
   ) => OpenRPCMdContent[];
 
-  editMethodResultSchema: (
-    content: (RootContent | MdxJsxFlowElement)[],
-    methodResultSchema: DereffedMethodObjectResultSchema,
-    methodResult: DereffedMethodObjectResult,
-  ) => (RootContent | MdxJsxFlowElement)[];
-
-  editMethodResultSchemaParent: (
-    content: (RootContent | MdxJsxFlowElement)[],
-    methodResultSchema: DereffedMethodObjectResultSchema,
-    methodResult: DereffedMethodObjectResult,
-  ) => (RootContent | MdxJsxFlowElement)[];
+  editMethodExample: (
+    content: OpenRPCMdContent[],
+    example: DereffedMethodObjectExample,
+  ) => OpenRPCMdContent[];
 }
