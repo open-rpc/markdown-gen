@@ -5,216 +5,218 @@ hide_table_of_contents: true
 description: ""
 ---
 
-import {TwoColumnLayout, InteractiveRequest, ResponseExample} from 'open-rpc-docusaurus-plugin-beta/components';
+import {TwoColumnLayout, InteractiveRequest, ResponseExample} from '@open-rpc/docusaurus-plugin/components';
 import { useState } from 'react';
 
 <TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_newFilter\",\n  \"params\": [\n    {\n      \"fromBlock\": \"0x137d3c2\",\n      \"toBlock\": \"0x137d3c3\",\n      \"address\": \"0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\",\n      \"topics\": []\n    }\n  ],\n  \"id\": 1\n}"} />}>
+  # eth\_newFilter
+
+
+
+  Install a log filter in the server, allowing for later polling. Registers client interest in logs matching the filter, and returns an identifier.
+
+  ## Parameters (by position)
+
+  **Filter** `object` *required*
+
+  filter
+
+  ***
+
   <div>
-    # eth\_newFilter
+    <details>
+      <summary>
+        Show `Filter` object
+      </summary>
 
+      #### `Filter` fields
 
+      * **fromBlock** `string`
 
-    Install a log filter in the server, allowing for later polling. Registers client interest in logs matching the filter, and returns an identifier.
+        from block
 
-    <div>
-      ## Parameters (by position)
+        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-      **Filter** `object` *required*
+        ***
 
-      filter
+      * **toBlock** `string`
 
-      ***
+        to block
 
-      <div>
-        <details>
-          <summary>
-            Show `Filter` object
-          </summary>
+        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-          #### `Filter` fields
+        ***
 
-          * **fromBlock** `string`
+      * **address** `null or string or array<string>`
 
-            from block
+        ***
 
-            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+        <div>
+          <details>
+            <summary>
+              Show Option 1 `Any Address` null
+            </summary>
+
+            #### `Any Address` fields
+
+            **address** `null`
+
+            Any Address
+
+            ***
+          </details>
+        </div>
+
+        <div>
+          <details>
+            <summary>
+              Show Option 2 `Address` string
+            </summary>
+
+            #### `Address` fields
+
+            **address** `string`
+
+            Address
+
+            *Match pattern:* `^0x[0-9a-fA-F]{40}$`
+
+            ***
+          </details>
+        </div>
+
+        <div>
+          <details>
+            <summary>
+              Show Option 3 `Addresses` array
+            </summary>
+
+            #### `Addresses` fields
+
+            **address** `array<string>`
+
+            hex encoded address
+
+            *Match pattern:* `^0x[0-9a-fA-F]{40}$`
+
+            ***
+          </details>
+        </div>
+
+      * **topics** `null or array<unknown>`
+
+        ***
+
+        <div>
+          <details>
+            <summary>
+              Show Option 1 `Any Topic Match` null
+            </summary>
+
+            #### `Any Topic Match` fields
+
+            **topics** `null`
+
+            Any Topic Match
+
+            ***
+          </details>
+        </div>
+
+        <div>
+          <details>
+            <summary>
+              Show Option 2 `Specified Filter Topics` array
+            </summary>
+
+            #### `Specified Filter Topics` fields
+
+            **topics** `string or array<string>`
 
             ***
 
-          * **toBlock** `string`
-
-            to block
-
-            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
-
-            ***
-
-          * <div>
-              **address** `null or string or array<string>`
-
-              ***
-
+            <div>
               <details>
                 <summary>
-                  Show Option 1 `Any Address` null
+                  Show Option 1 `Single Topic Match` string
                 </summary>
 
-                #### `Any Address` fields
+                #### `Single Topic Match` fields
 
-                **address** `null`
+                **topics** `array<string>`
 
-                Any Address
+                Single Topic Match
 
-                ***
-              </details>
-
-              <details>
-                <summary>
-                  Show Option 2 `Address` string
-                </summary>
-
-                #### `Address` fields
-
-                **address** `string`
-
-                Address
-
-                *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                ***
-              </details>
-
-              <details>
-                <summary>
-                  Show Option 3 `Addresses` array
-                </summary>
-
-                #### `Addresses` fields
-
-                **address** `array<string>`
-
-                hex encoded address
-
-                *Match pattern:* `^0x[0-9a-fA-F]{40}$`
+                *Match pattern:* `^0x[0-9a-f]{64}$`
 
                 ***
               </details>
             </div>
 
-          * <div>
-              **topics** `null or array<unknown>`
-
-              ***
-
+            <div>
               <details>
                 <summary>
-                  Show Option 1 `Any Topic Match` null
+                  Show Option 2 `Multiple Topic Match` array
                 </summary>
 
-                #### `Any Topic Match` fields
+                #### `Multiple Topic Match` fields
 
-                **topics** `null`
+                **topics** `array<string>`
 
-                Any Topic Match
+                32 hex encoded bytes
+
+                *Match pattern:* `^0x[0-9a-f]{64}$`
 
                 ***
               </details>
-
-              <details>
-                <summary>
-                  Show Option 2 `Specified Filter Topics` array
-                </summary>
-
-                #### `Specified Filter Topics` fields
-
-                <div>
-                  **topics** `string or array<string>`
-
-                  ***
-
-                  <details>
-                    <summary>
-                      Show Option 1 `Single Topic Match` string
-                    </summary>
-
-                    #### `Single Topic Match` fields
-
-                    **topics** `array<string>`
-
-                    Single Topic Match
-
-                    *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                    ***
-                  </details>
-
-                  <details>
-                    <summary>
-                      Show Option 2 `Multiple Topic Match` array
-                    </summary>
-
-                    #### `Multiple Topic Match` fields
-
-                    **topics** `array<string>`
-
-                    32 hex encoded bytes
-
-                    *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                    ***
-                  </details>
-                </div>
-              </details>
             </div>
+          </details>
+        </div>
 
-          * **additionalProperties** `false`
+      * **additionalProperties** `false`
 
-            ***
-        </details>
-      </div>
-    </div>
+        ***
+    </details>
+  </div>
 
-    <div>
-      ## Result
+  ## Result
 
-      **Filter identifier** `string`
+  **Filter identifier** `string`
 
-      hex encoded unsigned integer
+  hex encoded unsigned integer
 
-      *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+  *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-      ***
-    </div>
+  ***
 
-    <div>
-      ## Examples
+  ## Examples
 
-      <details>
-        <summary>
-          eth\_newFilter example
-        </summary>
+  <div>
+    <details>
+      <summary>
+        eth\_newFilter example
+      </summary>
 
-        #### Request
+      #### Request
 
-        ```json
-        {
-          "params": [
-            {
-              "fromBlock": "0x137d3c2",
-              "toBlock": "0x137d3c3",
-              "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-              "topics": []
-            }
-          ]
-        }
-        ```
+      ```json
+      {
+        "params": [
+          {
+            "fromBlock": "0x137d3c2",
+            "toBlock": "0x137d3c3",
+            "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+            "topics": []
+          }
+        ]
+      }
+      ```
 
-        #### Response
+      #### Response
 
-        ```json
-        "0x01"
-        ```
-      </details>
-    </div>
+      ```json
+      "0x01"
+      ```
+    </details>
   </div>
 </TwoColumnLayout>

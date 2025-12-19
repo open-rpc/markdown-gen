@@ -5,145 +5,139 @@ hide_table_of_contents: true
 description: ""
 ---
 
-import {TwoColumnLayout, InteractiveRequest, ResponseExample} from 'open-rpc-docusaurus-plugin-beta/components';
+import {TwoColumnLayout, InteractiveRequest, ResponseExample} from '@open-rpc/docusaurus-plugin/components';
 import { useState } from 'react';
 
 <TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"engine_exchangeTransitionConfigurationV1\",\n  \"params\": [\n    {\n      \"terminalTotalDifficulty\": 0,\n      \"terminalBlockHash\": \"0x0000000000000000000000000000000000000000000000000000000000000000\",\n      \"terminalBlockNumber\": \"0x1\"\n    }\n  ],\n  \"id\": 1\n}"} />}>
+  # engine\_exchangeTransitionConfigurationV1
+
+
+
+  Exchanges transition configuration
+
+  ## Parameters (by position)
+
+  **Consensus client configuration** `object` *required*
+
+  Transition configuration object
+
+  ***
+
   <div>
-    # engine\_exchangeTransitionConfigurationV1
+    <details>
+      <summary>
+        Show `Consensus client configuration` object
+      </summary>
 
+      #### `Consensus client configuration` fields
 
+      * **terminalTotalDifficulty** `string`
 
-    Exchanges transition configuration
+        Terminal total difficulty
 
-    <div>
-      ## Parameters (by position)
+        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
 
-      **Consensus client configuration** `object` *required*
+        ***
 
-      Transition configuration object
+      * **terminalBlockHash** `string`
 
-      ***
+        Terminal block hash
 
-      <div>
-        <details>
-          <summary>
-            Show `Consensus client configuration` object
-          </summary>
+        *Match pattern:* `^0x[0-9a-f]{64}$`
 
-          #### `Consensus client configuration` fields
+        ***
 
-          * **terminalTotalDifficulty** `string`
+      * **terminalBlockNumber** `string`
 
-            Terminal total difficulty
+        Terminal block number
 
-            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
+        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
 
-            ***
+        ***
 
-          * **terminalBlockHash** `string`
+      * **additionalProperties** `true`
 
-            Terminal block hash
+        ***
+    </details>
+  </div>
 
-            *Match pattern:* `^0x[0-9a-f]{64}$`
+  ## Result
 
-            ***
+  **Execution client configuration** `object`
 
-          * **terminalBlockNumber** `string`
+  Transition configuration object
 
-            Terminal block number
+  ***
 
-            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
+  <div>
+    <details>
+      <summary>
+        Show `Execution client configuration` object
+      </summary>
 
-            ***
+      #### `Execution client configuration` fields
 
-          * **additionalProperties** `true`
+      * **terminalTotalDifficulty** `string` *required*
 
-            ***
-        </details>
-      </div>
-    </div>
+        Terminal total difficulty
 
-    <div>
-      ## Result
+        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
 
-      **Execution client configuration** `object`
+        ***
 
-      Transition configuration object
+      * **terminalBlockHash** `string` *required*
 
-      ***
+        Terminal block hash
 
-      <div>
-        <details>
-          <summary>
-            Show `Execution client configuration` object
-          </summary>
+        *Match pattern:* `^0x[0-9a-f]{64}$`
 
-          #### `Execution client configuration` fields
+        ***
 
-          * **terminalTotalDifficulty** `string` *required*
+      * **terminalBlockNumber** `string` *required*
 
-            Terminal total difficulty
+        Terminal block number
 
-            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,63})$`
+        *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
 
-            ***
+        ***
 
-          * **terminalBlockHash** `string` *required*
+      * **additionalProperties** `true`
 
-            Terminal block hash
+        ***
+    </details>
+  </div>
 
-            *Match pattern:* `^0x[0-9a-f]{64}$`
+  ## Examples
 
-            ***
+  <div>
+    <details>
+      <summary>
+        engine\_exchangeTransitionConfigurationV1 example
+      </summary>
 
-          * **terminalBlockNumber** `string` *required*
+      #### Request
 
-            Terminal block number
+      ```json
+      {
+        "params": [
+          {
+            "terminalTotalDifficulty": 0,
+            "terminalBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "terminalBlockNumber": "0x1"
+          }
+        ]
+      }
+      ```
 
-            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]{0,15})$`
+      #### Response
 
-            ***
-
-          * **additionalProperties** `true`
-
-            ***
-        </details>
-      </div>
-    </div>
-
-    <div>
-      ## Examples
-
-      <details>
-        <summary>
-          engine\_exchangeTransitionConfigurationV1 example
-        </summary>
-
-        #### Request
-
-        ```json
-        {
-          "params": [
-            {
-              "terminalTotalDifficulty": 0,
-              "terminalBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-              "terminalBlockNumber": "0x1"
-            }
-          ]
-        }
-        ```
-
-        #### Response
-
-        ```json
-        {
-          "terminalTotalDifficulty": 0,
-          "terminalBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "terminalBlockNumber": "0x1"
-        }
-        ```
-      </details>
-    </div>
+      ```json
+      {
+        "terminalTotalDifficulty": 0,
+        "terminalBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "terminalBlockNumber": "0x1"
+      }
+      ```
+    </details>
   </div>
 </TwoColumnLayout>

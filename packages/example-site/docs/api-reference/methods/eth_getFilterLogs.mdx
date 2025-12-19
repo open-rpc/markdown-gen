@@ -5,210 +5,206 @@ hide_table_of_contents: true
 description: ""
 ---
 
-import {TwoColumnLayout, InteractiveRequest, ResponseExample} from 'open-rpc-docusaurus-plugin-beta/components';
+import {TwoColumnLayout, InteractiveRequest, ResponseExample} from '@open-rpc/docusaurus-plugin/components';
 import { useState } from 'react';
 
 <TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_getFilterLogs\",\n  \"params\": [\n    \"0x01\"\n  ],\n  \"id\": 1\n}"} />}>
+  # eth\_getFilterLogs
+
+
+
+  Returns an array of all logs matching the filter with the given ID (created using `eth_newFilter`).
+
+  ## Parameters (by position)
+
+  **Filter identifier** `string` *required*
+
+  ***
+
+  ## Result
+
+  **Log objects** `array<string> or array<object>`
+
+  ***
+
   <div>
-    # eth\_getFilterLogs
+    <details>
+      <summary>
+        Show Option 1 `new block or transaction hashes` array
+      </summary>
 
+      #### `new block or transaction hashes` fields
 
+      **Log objects** `array<string>`
 
-    Returns an array of all logs matching the filter with the given ID (created using `eth_newFilter`).
+      32 byte hex value
 
-    <div>
-      ## Parameters (by position)
-
-      **Filter identifier** `string` *required*
+      *Match pattern:* `^0x[0-9a-f]{64}$`
 
       ***
-    </div>
+    </details>
+  </div>
 
-    <div>
-      ## Result
+  <div>
+    <details>
+      <summary>
+        Show Option 2 `new logs` array
+      </summary>
+
+      #### `new logs` fields
+
+      **Log objects** `array<object>`
+
+      log
+
+      ***
 
       <div>
-        **Log objects** `array<string> or array<object>`
-
-        ***
-
         <details>
           <summary>
-            Show Option 1 `new block or transaction hashes` array
+            Show `Log objects` object
           </summary>
 
-          #### `new block or transaction hashes` fields
+          #### `Log objects` fields
 
-          **Log objects** `array<string>`
+          * **removed** `boolean`
 
-          32 byte hex value
+            removed
 
-          *Match pattern:* `^0x[0-9a-f]{64}$`
+            ***
 
-          ***
-        </details>
+          * **logIndex** `string`
 
-        <details>
-          <summary>
-            Show Option 2 `new logs` array
-          </summary>
+            log index
 
-          #### `new logs` fields
+            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-          **Log objects** `array<object>`
+            ***
 
-          log
+          * **transactionIndex** `string`
 
-          ***
+            transaction index
 
-          <div>
-            <details>
-              <summary>
-                Show `Log objects` object
-              </summary>
+            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-              #### `Log objects` fields
+            ***
 
-              * **removed** `boolean`
+          * **transactionHash** `string` *required*
 
-                removed
+            transaction hash
 
-                ***
+            *Match pattern:* `^0x[0-9a-f]{64}$`
 
-              * **logIndex** `string`
+            ***
 
-                log index
+          * **blockHash** `string`
 
-                *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+            block hash
 
-                ***
+            *Match pattern:* `^0x[0-9a-f]{64}$`
 
-              * **transactionIndex** `string`
+            ***
 
-                transaction index
+          * **blockNumber** `string`
 
-                *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+            block number
 
-                ***
+            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-              * **transactionHash** `string` *required*
+            ***
 
-                transaction hash
+          * **blockTimestamp** `string`
 
-                *Match pattern:* `^0x[0-9a-f]{64}$`
+            block timestamp
 
-                ***
+            *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
 
-              * **blockHash** `string`
+            ***
 
-                block hash
+          * **address** `string`
 
-                *Match pattern:* `^0x[0-9a-f]{64}$`
+            address
 
-                ***
+            *Match pattern:* `^0x[0-9a-fA-F]{40}$`
 
-              * **blockNumber** `string`
+            ***
 
-                block number
+          * **data** `string`
 
-                *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+            data
 
-                ***
+            *Match pattern:* `^0x[0-9a-f]*$`
 
-              * **blockTimestamp** `string`
+            ***
 
-                block timestamp
+          * **topics** `array<string>`
 
-                *Match pattern:* `^0x(0|[1-9a-f][0-9a-f]*)$`
+            32 hex encoded bytes
 
-                ***
+            *Match pattern:* `^0x[0-9a-f]{64}$`
 
-              * **address** `string`
+            ***
 
-                address
+          * **additionalProperties** `false`
 
-                *Match pattern:* `^0x[0-9a-fA-F]{40}$`
-
-                ***
-
-              * **data** `string`
-
-                data
-
-                *Match pattern:* `^0x[0-9a-f]*$`
-
-                ***
-
-              * **topics** `array<string>`
-
-                32 hex encoded bytes
-
-                *Match pattern:* `^0x[0-9a-f]{64}$`
-
-                ***
-
-              * **additionalProperties** `false`
-
-                ***
-            </details>
-          </div>
+            ***
         </details>
       </div>
-    </div>
+    </details>
+  </div>
 
-    <div>
-      ## Examples
+  ## Examples
 
-      <details>
-        <summary>
-          eth\_getFilterLogs example
-        </summary>
+  <div>
+    <details>
+      <summary>
+        eth\_getFilterLogs example
+      </summary>
 
-        #### Request
+      #### Request
 
-        ```json
+      ```json
+      {
+        "params": [
+          "0x01"
+        ]
+      }
+      ```
+
+      #### Response
+
+      ```json
+      [
         {
-          "params": [
-            "0x01"
+          "logIndex": "0x0",
+          "removed": false,
+          "blockNumber": "0x233",
+          "blockTimestamp": "0x11",
+          "blockHash": "0xfc139f5e2edee9e9c888d8df9a2d2226133a9bd87c88ccbd9c930d3d4c9f9ef5",
+          "transactionHash": "0x66e7a140c8fa27fe98fde923defea7562c3ca2d6bb89798aabec65782c08f63d",
+          "transactionIndex": "0x0",
+          "address": "0x42699a7612a82f1d9c36148af9c77354759b210b",
+          "data": "0x0000000000000000000000000000000000000000000000000000000000000004",
+          "topics": [
+            "0x04474795f5b996ff80cb47c148d4c5ccdbe09ef27551820caa9c2f8ed149cce3"
+          ]
+        },
+        {
+          "logIndex": "0x0",
+          "removed": false,
+          "blockNumber": "0x238",
+          "blockTimestamp": "0x22",
+          "blockHash": "0x98b0ec0f9fea0018a644959accbe69cd046a8582e89402e1ab0ada91cad644ed",
+          "transactionHash": "0xdb17aa1c2ce609132f599155d384c0bc5334c988a6c368056d7e167e23eee058",
+          "transactionIndex": "0x0",
+          "address": "0x42699a7612a82f1d9c36148af9c77354759b210b",
+          "data": "0x0000000000000000000000000000000000000000000000000000000000000007",
+          "topics": [
+            "0x04474795f5b996ff80cb47c148d4c5ccdbe09ef27551820caa9c2f8ed149cce3"
           ]
         }
-        ```
-
-        #### Response
-
-        ```json
-        [
-          {
-            "logIndex": "0x0",
-            "removed": false,
-            "blockNumber": "0x233",
-            "blockTimestamp": "0x11",
-            "blockHash": "0xfc139f5e2edee9e9c888d8df9a2d2226133a9bd87c88ccbd9c930d3d4c9f9ef5",
-            "transactionHash": "0x66e7a140c8fa27fe98fde923defea7562c3ca2d6bb89798aabec65782c08f63d",
-            "transactionIndex": "0x0",
-            "address": "0x42699a7612a82f1d9c36148af9c77354759b210b",
-            "data": "0x0000000000000000000000000000000000000000000000000000000000000004",
-            "topics": [
-              "0x04474795f5b996ff80cb47c148d4c5ccdbe09ef27551820caa9c2f8ed149cce3"
-            ]
-          },
-          {
-            "logIndex": "0x0",
-            "removed": false,
-            "blockNumber": "0x238",
-            "blockTimestamp": "0x22",
-            "blockHash": "0x98b0ec0f9fea0018a644959accbe69cd046a8582e89402e1ab0ada91cad644ed",
-            "transactionHash": "0xdb17aa1c2ce609132f599155d384c0bc5334c988a6c368056d7e167e23eee058",
-            "transactionIndex": "0x0",
-            "address": "0x42699a7612a82f1d9c36148af9c77354759b210b",
-            "data": "0x0000000000000000000000000000000000000000000000000000000000000007",
-            "topics": [
-              "0x04474795f5b996ff80cb47c148d4c5ccdbe09ef27551820caa9c2f8ed149cce3"
-            ]
-          }
-        ]
-        ```
-      </details>
-    </div>
+      ]
+      ```
+    </details>
   </div>
 </TwoColumnLayout>
