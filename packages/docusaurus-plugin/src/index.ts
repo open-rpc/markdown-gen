@@ -1,10 +1,3 @@
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-// TODO: Remove this once we have a proper implementation nailed down
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import logger from "@docusaurus/logger";

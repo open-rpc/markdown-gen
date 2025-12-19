@@ -70,19 +70,12 @@ export const identityEdits: Edits = {
     content as RootContent[] | OpenRPCMdContent[],
   editMethod: (content, _method) => content,
 
-  editMethodParamSchema: (content, _methodParamSchema, _methodParam) => content,
-  editMethodParamSchemaParent: (content, _methodParamSchema, _methodParam) =>
-    content,
   editMethodParamsParent: (content, _methodParams) => content,
   editMethodParam: (content, _methodParam) => content,
 
   editMethodResult: (content, _methodResult) => content,
   editMethodResultParent: (content, _methodResult) => content,
 
-  editMethodResultSchema: (content, _methodResultSchema, _methodResult) =>
-    content,
-  editMethodResultSchemaParent: (content, _methodResultSchema, _methodResult) =>
-    content,
   editMethodExample: (content, _example) => content,
   editMethodExampleParent: (content, _examples) => content,
 
@@ -370,6 +363,9 @@ export function renderAtomicSchema(
       schema,
     );
   if (typeof schema !== "object" || schema === null) {
+    if (typeof schema === "boolean") {
+      return editSchema.editSchemaBoolean([], schema);
+    }
     return editSchema.editSchemaNull([]);
   }
 
@@ -562,6 +558,8 @@ export function renderError(
     });
   }
 
+  // Add x-error-category as a list item with bold "x-error-category" it's an extension
+  // NOTE: This is a stop gap until full extensions rendering is doc supported
   if ((error as ErrorGroupItem)["x-error-category"] !== undefined) {
     const categoryValue = (error as ErrorGroupItem)["x-error-category"];
 
@@ -745,7 +743,6 @@ export function renderParams(
   const parameterContent = params
     .map((param) => {
       if (isComplexSchema(param.schema)) {
-        // TODO: add title to param
         return edits.editMethodParam(
           renderSchema(param, param.schema, editSchema),
           param,
@@ -770,8 +767,8 @@ export function renderParams(
       }
       return [];
     })
-    // TODO this is temporary until we get here
     .flat();
+
   if (params.length === 0) {
     parameterContent.push({
       type: "paragraph",

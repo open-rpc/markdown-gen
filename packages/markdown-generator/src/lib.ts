@@ -21,7 +21,6 @@ import type {
 } from "./type";
 import { renderMethod } from "./schema";
 import { toMarkdown } from "mdast-util-to-markdown";
-import type { Unsafe } from "mdast-util-to-markdown";
 import { gfmToMarkdown } from "mdast-util-gfm";
 import { mdxToMarkdown } from "mdast-util-mdx";
 import { frontmatterToMarkdown } from "mdast-util-frontmatter";
@@ -43,7 +42,7 @@ function escapeYaml(str: string): string {
 
 function postProcessMarkdown(markdown: string): string {
   // Remove backslash before underscore when it's between word characters
-  // e.g., get\_chainId -> get_chainId
+  // e.g., get\_snake\_case -> get_snake_case
   return markdown.replace(/(\w)\\_(\w)/g, "$1_$2");
 }
 

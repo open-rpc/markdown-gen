@@ -1259,7 +1259,6 @@ describe("schema", () => {
       ],
       "by-name",
       identitySchemaEdits,
-      identityEdits,
     );
     const root: Root = {
       type: "root",
