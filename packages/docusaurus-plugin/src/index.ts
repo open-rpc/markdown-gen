@@ -10,7 +10,7 @@
 import logger from "@docusaurus/logger";
 import type { LoadContext, Plugin } from "@docusaurus/types";
 import type { PluginContent } from "./types";
-import type { Options } from "./options";
+import type { Options, PluginOptions } from "./options";
 import { normalizeOptions } from "./options";
 import { generateDocs } from "./lib";
 import fs from "fs/promises";
@@ -18,7 +18,11 @@ import path from "path";
 
 const PluginName = "@open-rpc/docusaurus-plugin";
 
-async function initDocs(specPath: string, outputDir: string) {
+async function initDocs(
+  specPath: string,
+  outputDir: string,
+  options: PluginOptions,
+) {
   if (!(await fs.stat(specPath)).isFile()) {
     throw new Error(`OpenRPC spec file not found: ${specPath}`);
   }
@@ -38,7 +42,7 @@ async function initDocs(specPath: string, outputDir: string) {
   }
 
   try {
-    await generateDocs(specPath, outputDir);
+    await generateDocs(specPath, outputDir, options);
   } catch (err) {
     logger.error(`[${PluginName}] generateDocs failed: ${err}`);
     logger.error(
@@ -64,7 +68,7 @@ export default async function openRPCDocusaurusPlugin(
     normalizedOptions.docOutputPath,
   );
 
-  await initDocs(specPath, outputDir);
+  await initDocs(specPath, outputDir, normalizedOptions);
 
   return {
     name: PluginName,
@@ -90,39 +94,6 @@ export default async function openRPCDocusaurusPlugin(
      */
     async loadContent(): Promise<PluginContent> {
       logger.info(`[${PluginName}] loadContent called`);
-      // await initDocs(specPath, outputDir);
-      //      await generateDocs(specPath, outputDir);
-
-      /*
-      if (!(await fs.stat(specPath)).isFile()) {
-        throw new Error(`OpenRPC spec file not found: ${specPath}`);
-      }
-
-      try {
-        const entries = await fs.readdir(outputDir, { withFileTypes: true });
-        await Promise.all(
-          entries
-            .filter((entry) => entry.name !== "index.md")
-            .map((entry) => {
-              const fullPath = `${outputDir}/${entry.name}`;
-              return fs.rm(fullPath, { recursive: true, force: true });
-            }),
-        );
-      } catch {
-        // Directory doesn't exist yet, that's fine
-      }
-
-      try {
-        await generateDocs(specPath, outputDir);
-      } catch (err) {
-        logger.error(`[${PluginName}] generateDocs failed: ${err}`);
-        logger.error(
-          `[${PluginName}] Stack: ${err instanceof Error ? err.stack : "no stack"}`,
-        );
-        throw err;
-      }
-        */
-      // Return content to be used in contentLoaded
       return {};
     },
 
@@ -131,48 +102,7 @@ export default async function openRPCDocusaurusPlugin(
      */
     async contentLoaded({ content, actions }): Promise<void> {
       logger.info(`[${PluginName}] contentLoaded called`);
-      await initDocs(specPath, outputDir);
-      /*
-      if (!(await fs.stat(specPath)).isFile()) {
-        throw new Error(`OpenRPC spec file not found: ${specPath}`);
-      }
-
-      try {
-        const entries = await fs.readdir(outputDir, { withFileTypes: true });
-        await Promise.all(
-          entries
-            .filter((entry) => entry.name !== "index.md")
-            .map((entry) => {
-              const fullPath = `${outputDir}/${entry.name}`;
-              return fs.rm(fullPath, { recursive: true, force: true });
-            }),
-        );
-      } catch {
-        // Directory doesn't exist yet, that's fine
-      }
-
-      try {
-        await generateDocs(specPath, outputDir);
-      } catch (err) {
-        logger.error(`[${PluginName}] generateDocs failed: ${err}`);
-        logger.error(
-          `[${PluginName}] Stack: ${err instanceof Error ? err.stack : "no stack"}`,
-        );
-        throw err;
-      }
-      // Return content to be used in contentLoaded
-
-      // const { addRoute, setGlobalData } = actions;
-
-      // TODO: Create routes using addRoute() for generated markdown pages
-      // TODO: Set global data using setGlobalData() if needed
-      // Example:
-      // addRoute({
-      //   path: '/api',
-      //   component: '@theme/DocPage',
-      //   exact: false,
-      // });
-      */
+      await initDocs(specPath, outputDir, normalizedOptions);
     },
 
     /**

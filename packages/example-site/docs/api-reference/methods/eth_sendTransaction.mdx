@@ -9,7 +9,7 @@ import {TwoColumnLayout, InteractiveRequest, ResponseExample} from '@open-rpc/do
 import { useState } from 'react';
 
 <TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_sendTransaction\",\n  \"params\": [\n    {\n      \"from\": \"0xb60e8dd61c5d32be8058bb8eb970870f07233155\",\n      \"to\": \"0xd46e8dd67c5d32be8058bb8eb970870f07244567\",\n      \"gas\": \"0x76c0\",\n      \"gasPrice\": \"0x9184e72a000\",\n      \"value\": \"0x9184e72a\",\n      \"input\": \"0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675\"\n    }\n  ],\n  \"id\": 1\n}"} />}>
-  # eth\_sendTransaction
+  # eth_sendTransaction
 
 
 
@@ -468,7 +468,7 @@ import { useState } from 'react';
       Intrinsic gas too low / Intrinsic gas exceeds gas limit
     * **x-error-category**
 
-      GAS\_ERRORS
+      GAS_ERRORS
   </details>
 
   <details>
@@ -484,7 +484,7 @@ import { useState } from 'react';
       Insufficient gas for floor data gas cost
     * **x-error-category**
 
-      GAS\_ERRORS
+      GAS_ERRORS
   </details>
 
   <details>
@@ -500,7 +500,7 @@ import { useState } from 'react';
       Tx gas limit exceeds max block gas limit / intrinsic gas exceeds gas limit
     * **x-error-category**
 
-      GAS\_ERRORS
+      GAS_ERRORS
   </details>
 
   <details>
@@ -529,7 +529,7 @@ import { useState } from 'react';
       Gas price below configured minimum gas price / transaction gas price below minimum
     * **x-error-category**
 
-      GAS\_ERRORS
+      GAS_ERRORS
   </details>
 
   <details>
@@ -545,7 +545,7 @@ import { useState } from 'react';
       Insufficient funds for gas \* price + value / Upfront cost exceeds account balance
     * **x-error-category**
 
-      GAS\_ERRORS
+      GAS_ERRORS
   </details>
 
   <details>
@@ -561,7 +561,7 @@ import { useState } from 'react';
       Max priority fee per gas higher than max fee per gas
     * **x-error-category**
 
-      GAS\_ERRORS
+      GAS_ERRORS
   </details>
 
   <details>
@@ -577,7 +577,7 @@ import { useState } from 'react';
       Tx fee exceeds the configured cap / Transaction fee cap exceeded
     * **x-error-category**
 
-      GAS\_ERRORS
+      GAS_ERRORS
   </details>
 
   <details>
@@ -593,7 +593,7 @@ import { useState } from 'react';
       Nonce too low
     * **x-error-category**
 
-      EXECUTION\_ERRORS
+      EXECUTION_ERRORS
   </details>
 
   <details>
@@ -609,7 +609,7 @@ import { useState } from 'react';
       Nonce too high
     * **x-error-category**
 
-      EXECUTION\_ERRORS
+      EXECUTION_ERRORS
   </details>
 
   <details>
@@ -625,7 +625,7 @@ import { useState } from 'react';
       Execution reverted by REVERT Opcode
     * **x-error-category**
 
-      EXECUTION\_ERRORS
+      EXECUTION_ERRORS
   </details>
 
   <details>
@@ -641,7 +641,7 @@ import { useState } from 'react';
       Invalid opcode
     * **x-error-category**
 
-      EXECUTION\_ERRORS
+      EXECUTION_ERRORS
   </details>
 
   <details>
@@ -657,7 +657,7 @@ import { useState } from 'react';
       Transaction is already known to the transaction pool
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -673,7 +673,7 @@ import { useState } from 'react';
       Replacement transaction is sent without the required price bump
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -689,7 +689,7 @@ import { useState } from 'react';
       Oversized data: Transaction input data exceeds the allowed limit
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -705,7 +705,7 @@ import { useState } from 'react';
       Only replay-protected (EIP-155) transactions allowed over RPC
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -721,7 +721,7 @@ import { useState } from 'react';
       Transaction pool is full
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -737,7 +737,7 @@ import { useState } from 'react';
       Transaction Data contains invalid RLP encoding
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -753,7 +753,7 @@ import { useState } from 'react';
       Transaction sender is invalid
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -769,7 +769,7 @@ import { useState } from 'react';
       Transaction with negative value
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -785,7 +785,7 @@ import { useState } from 'react';
       Transaction sender is denylisted
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -801,7 +801,7 @@ import { useState } from 'react';
       Transaction receiver is denylisted
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -817,7 +817,7 @@ import { useState } from 'react';
       Transaction chain ID does not match the expected chain ID
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -833,7 +833,7 @@ import { useState } from 'react';
       Not enough step counters to continue the execution
     * **x-error-category**
 
-      ZK\_EXECUTION\_ERRORS
+      ZK_EXECUTION_ERRORS
   </details>
 
   ## Examples
@@ -841,7 +841,7 @@ import { useState } from 'react';
   <div>
     <details>
       <summary>
-        eth\_sendTransaction example
+        eth_sendTransaction example
       </summary>
 
       #### Request

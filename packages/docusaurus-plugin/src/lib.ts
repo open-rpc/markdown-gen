@@ -16,6 +16,7 @@ import { promises as fs } from "fs";
 import * as path from "path";
 import { OpenRPCMdContent } from "@open-rpc/markdown-generator";
 import { MethodObjectParamStructure } from "@open-rpc/meta-schema";
+import { Options, PluginOptions } from "./options";
 
 type JSONSchema = any;
 
@@ -57,7 +58,11 @@ methodEdits.editMethod = (content, method) => {
   ] as OpenRPCMdContent[];
 };
 
-export async function generateDocs(inputPath: string, outputPath: string) {
+export async function generateDocs(
+  inputPath: string,
+  outputPath: string,
+  options: PluginOptions,
+) {
   const raw = await fs.readFile(inputPath, "utf8");
   const doc: DereffedOpenrpcDocument = (await parseOpenRPCDocument(
     raw,
@@ -81,11 +86,14 @@ export async function generateDocs(inputPath: string, outputPath: string) {
     );
   }
 
-  await fs.writeFile(
-    path.join(outDir, "index.md"),
-    renderIndex(doc, "mdx"),
-    "utf8",
-  );
+  // NOTE a little hacky, but good for now
+  const indexContent = renderIndex(doc, "mdx");
+  const finalIndex =
+    options.showPoweredBy === true
+      ? `${indexContent}\n---\n\n*Powered by [OpenRPC](https://open-rpc.org)*\n`
+      : indexContent;
+
+  await fs.writeFile(path.join(outDir, "index.md"), finalIndex, "utf8");
 }
 
 /* ---------- Renderers ---------- */

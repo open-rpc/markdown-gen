@@ -9,11 +9,11 @@ import {TwoColumnLayout, InteractiveRequest, ResponseExample} from '@open-rpc/do
 import { useState } from 'react';
 
 <TwoColumnLayout sidebar={<InteractiveRequest request={"{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_sendRawTransaction\",\n  \"params\": [\n    \"0xf869018203e882520894f17f52151ebef6c7334fad080c5704d77216b732881bc16d674ec80000801ba02da1c48b670996dcb1f447ef9ef00b33033c48a4fe938f420bec3e56bfd24071a062e0aa78a81bf0290afbc3a9d8e9a068e6d74caa66c5e0fa8a46deaae96b0833\"\n  ],\n  \"id\": 1\n}"} />}>
-  # eth\_sendRawTransaction
+  # eth_sendRawTransaction
 
 
 
-  Submits a raw transaction. You can create and sign a transaction externally using a library such as [web3.js](https://web3js.readthedocs.io/) or [ethers.js](https://docs.ethers.org/). For [EIP-4844](https://eips.ethereum.org/EIPS/eip-4844) transactions, the raw form must be the network form. This means it includes the blobs, KZG commitments, and KZG proofs. For [EIP-7594](https://eips.ethereum.org/EIPS/eip-7594) transactions, the raw format must be the network form. This means it includes the blobs, KZG commitments, and cell proofs. The logic for handling the new transaction during fork boundaries are 1. When receiving an encoded transaction with cell proofs before the PeerDAS fork activates, we reject it. Only blob proofs are accepted into the pool. 2. At the time of fork activation, the implementer could (not mandatory) - Drop all old-format transactions - Convert old proofs to new format (computationally expensive) - Convert only when including in a locally produced block 3. After the fork has activated, only txs with cell proofs are accepted via p2p relay. 4. On RPC (eth\_sendRawTransaction), txs with blob proofs may still be accepted and will be auto-converted by the node. At implementer discretion, this facility can be deprecated later when users have switched to new client libraries that can create cell proofs.
+  Submits a raw transaction. You can create and sign a transaction externally using a library such as [web3.js](https://web3js.readthedocs.io/) or [ethers.js](https://docs.ethers.org/). For [EIP-4844](https://eips.ethereum.org/EIPS/eip-4844) transactions, the raw form must be the network form. This means it includes the blobs, KZG commitments, and KZG proofs. For [EIP-7594](https://eips.ethereum.org/EIPS/eip-7594) transactions, the raw format must be the network form. This means it includes the blobs, KZG commitments, and cell proofs. The logic for handling the new transaction during fork boundaries are 1. When receiving an encoded transaction with cell proofs before the PeerDAS fork activates, we reject it. Only blob proofs are accepted into the pool. 2. At the time of fork activation, the implementer could (not mandatory) - Drop all old-format transactions - Convert old proofs to new format (computationally expensive) - Convert only when including in a locally produced block 3. After the fork has activated, only txs with cell proofs are accepted via p2p relay. 4. On RPC (eth_sendRawTransaction), txs with blob proofs may still be accepted and will be auto-converted by the node. At implementer discretion, this facility can be deprecated later when users have switched to new client libraries that can create cell proofs.
 
   ## Parameters (by position)
 
@@ -202,7 +202,7 @@ import { useState } from 'react';
       Intrinsic gas too low / Intrinsic gas exceeds gas limit
     * **x-error-category**
 
-      GAS\_ERRORS
+      GAS_ERRORS
   </details>
 
   <details>
@@ -218,7 +218,7 @@ import { useState } from 'react';
       Insufficient gas for floor data gas cost
     * **x-error-category**
 
-      GAS\_ERRORS
+      GAS_ERRORS
   </details>
 
   <details>
@@ -234,7 +234,7 @@ import { useState } from 'react';
       Tx gas limit exceeds max block gas limit / intrinsic gas exceeds gas limit
     * **x-error-category**
 
-      GAS\_ERRORS
+      GAS_ERRORS
   </details>
 
   <details>
@@ -263,7 +263,7 @@ import { useState } from 'react';
       Gas price below configured minimum gas price / transaction gas price below minimum
     * **x-error-category**
 
-      GAS\_ERRORS
+      GAS_ERRORS
   </details>
 
   <details>
@@ -279,7 +279,7 @@ import { useState } from 'react';
       Insufficient funds for gas \* price + value / Upfront cost exceeds account balance
     * **x-error-category**
 
-      GAS\_ERRORS
+      GAS_ERRORS
   </details>
 
   <details>
@@ -295,7 +295,7 @@ import { useState } from 'react';
       Max priority fee per gas higher than max fee per gas
     * **x-error-category**
 
-      GAS\_ERRORS
+      GAS_ERRORS
   </details>
 
   <details>
@@ -311,7 +311,7 @@ import { useState } from 'react';
       Tx fee exceeds the configured cap / Transaction fee cap exceeded
     * **x-error-category**
 
-      GAS\_ERRORS
+      GAS_ERRORS
   </details>
 
   <details>
@@ -327,7 +327,7 @@ import { useState } from 'react';
       Nonce too low
     * **x-error-category**
 
-      EXECUTION\_ERRORS
+      EXECUTION_ERRORS
   </details>
 
   <details>
@@ -343,7 +343,7 @@ import { useState } from 'react';
       Nonce too high
     * **x-error-category**
 
-      EXECUTION\_ERRORS
+      EXECUTION_ERRORS
   </details>
 
   <details>
@@ -359,7 +359,7 @@ import { useState } from 'react';
       Execution reverted by REVERT Opcode
     * **x-error-category**
 
-      EXECUTION\_ERRORS
+      EXECUTION_ERRORS
   </details>
 
   <details>
@@ -375,7 +375,7 @@ import { useState } from 'react';
       Invalid opcode
     * **x-error-category**
 
-      EXECUTION\_ERRORS
+      EXECUTION_ERRORS
   </details>
 
   <details>
@@ -391,7 +391,7 @@ import { useState } from 'react';
       Transaction is already known to the transaction pool
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -407,7 +407,7 @@ import { useState } from 'react';
       Replacement transaction is sent without the required price bump
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -423,7 +423,7 @@ import { useState } from 'react';
       Oversized data: Transaction input data exceeds the allowed limit
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -439,7 +439,7 @@ import { useState } from 'react';
       Only replay-protected (EIP-155) transactions allowed over RPC
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -455,7 +455,7 @@ import { useState } from 'react';
       Transaction pool is full
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -471,7 +471,7 @@ import { useState } from 'react';
       Transaction Data contains invalid RLP encoding
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -487,7 +487,7 @@ import { useState } from 'react';
       Transaction sender is invalid
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -503,7 +503,7 @@ import { useState } from 'react';
       Transaction with negative value
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -519,7 +519,7 @@ import { useState } from 'react';
       Transaction sender is denylisted
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -535,7 +535,7 @@ import { useState } from 'react';
       Transaction receiver is denylisted
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -551,7 +551,7 @@ import { useState } from 'react';
       Transaction chain ID does not match the expected chain ID
     * **x-error-category**
 
-      TXPOOL\_ERRORS
+      TXPOOL_ERRORS
   </details>
 
   <details>
@@ -567,7 +567,7 @@ import { useState } from 'react';
       Not enough step counters to continue the execution
     * **x-error-category**
 
-      ZK\_EXECUTION\_ERRORS
+      ZK_EXECUTION_ERRORS
   </details>
 
   ## Examples
@@ -575,7 +575,7 @@ import { useState } from 'react';
   <div>
     <details>
       <summary>
-        eth\_sendRawTransaction example
+        eth_sendRawTransaction example
       </summary>
 
       #### Request

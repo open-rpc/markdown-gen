@@ -38,6 +38,7 @@ const config: Config = {
     {
       openRPCSpecPath: `./error-group-openrpc.json`,
       docOutputPath: `./docs/api-reference`,
+      showPoweredBy: true,
 
   }]],
   presets: [
