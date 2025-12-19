@@ -1,5 +1,13 @@
 # open-rpc-docusaurus-plugin-beta
 
+## 0.1.4
+
+### Patch Changes
+
+- 2575c21: Code cleanup and readme updates
+- Updated dependencies [2575c21]
+  - @open-rpc/markdown-generator@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes

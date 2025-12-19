@@ -1,5 +1,11 @@
 # open-rpc-markdown-generator-beta
 
+## 0.1.4
+
+### Patch Changes
+
+- 2575c21: Code cleanup and readme updates
+
 ## 0.1.3
 
 ### Patch Changes
