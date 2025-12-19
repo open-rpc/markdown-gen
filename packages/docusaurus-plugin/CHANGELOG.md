@@ -1,5 +1,13 @@
 # open-rpc-docusaurus-plugin-beta
 
+## 0.1.3
+
+### Patch Changes
+
+- 24dbf85: Change here fixes minor snake case issue and allows for configurable powered by link.
+- Updated dependencies [24dbf85]
+  - @open-rpc/markdown-generator@0.1.3
+
 ## 0.1.2
 
 ### Patch Changes
