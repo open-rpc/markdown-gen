@@ -860,7 +860,7 @@ export function renderObjectSchema(
     detailDescription: contentDescriptor?.description ?? "",
   };
   const result = [details(detailData)];
-  const container = {
+  const container: ContentContainerDescriptor = {
     ...contentDescriptor,
     constraintsSchema: schema,
   };

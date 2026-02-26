@@ -40,7 +40,7 @@
         "@docusaurus/utils-common": "3.9.2",
         "@docusaurus/utils-validation": "3.9.2",
         "@open-rpc/markdown-generator": "workspace:*",
-        "@open-rpc/schema-utils-js": "^2.1.2",
+        "@open-rpc/schema-utils-js": "2.2.1",
       },
       "devDependencies": {
         "@docusaurus/types": "3.9.2",
@@ -79,7 +79,7 @@
         "openrpc-md": "./dist/cli.js",
       },
       "dependencies": {
-        "@open-rpc/schema-utils-js": "^2.1.2",
+        "@open-rpc/schema-utils-js": "2.2.1",
         "@types/mdast": "^4.0.4",
         "mdast-util-from-markdown": "^2.0.2",
         "mdast-util-frontmatter": "^2.0.1",
@@ -631,8 +631,6 @@
     "@open-rpc/examples": ["@open-rpc/examples@1.7.2", "", {}, "sha512-wEvviOPc+gyBVmxvGQVl/hqYslEacxLe0UETupyp1JjXUAZxW27da+F1IxbP6NYdx6jt4RyLg+V0GBVTsN6RRA=="],
 
     "@open-rpc/markdown-generator": ["@open-rpc/markdown-generator@workspace:packages/markdown-generator"],
-
-    "@open-rpc/meta-schema": ["@open-rpc/meta-schema@1.14.9", "", {}, "sha512-2/CbDzOVpcaSnMs28TsRv8MKJwJi0TTYFlQ6q6qobAH26oIuhYgcZooKf4l71emgntU6MMcFQCA0h4mJ4dBCdA=="],
 
     "@open-rpc/schema-utils-js": ["@open-rpc/schema-utils-js@2.2.1", "", { "dependencies": { "@json-schema-tools/dereferencer": "^1.6.3", "@json-schema-tools/meta-schema": "^1.7.5", "@json-schema-tools/reference-resolver": "^1.2.6", "@open-rpc/spec-types": "0.0.2", "@open-rpc/specification-extension-spec": "^1.0.2", "ajv": "^6.10.0", "detect-node": "^2.0.4", "fast-safe-stringify": "^2.0.7", "fs-extra": "^10.1.0", "is-url": "^1.2.4", "isomorphic-fetch": "^3.0.0" } }, "sha512-lXsJrkViY08eoqD9X/3Gq0QiN4/jaPEiNdQCB3eZDv4vp26JaIWQ/r2WwYlA8rJZb4lYGIvKr3zM/rTcu7yMuw=="],
 
@@ -2532,10 +2530,6 @@
 
     "@manypkg/get-packages/fs-extra": ["fs-extra@8.1.0", "", { "dependencies": { "graceful-fs": "^4.2.0", "jsonfile": "^4.0.0", "universalify": "^0.1.0" } }, "sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g=="],
 
-    "@open-rpc/docusaurus-plugin/@open-rpc/schema-utils-js": ["@open-rpc/schema-utils-js@2.1.2", "", { "dependencies": { "@json-schema-tools/dereferencer": "^1.6.3", "@json-schema-tools/meta-schema": "^1.7.5", "@json-schema-tools/reference-resolver": "^1.2.6", "@open-rpc/meta-schema": "^1.14.9", "@open-rpc/specification-extension-spec": "^1.0.2", "ajv": "^6.10.0", "detect-node": "^2.0.4", "fast-safe-stringify": "^2.0.7", "fs-extra": "^10.1.0", "is-url": "^1.2.4", "isomorphic-fetch": "^3.0.0" } }, "sha512-GQT+UQSBg/xoPW3NMr7a9YV9iype0DlSYUocCb1qe4IvgJk9HX6KPfXwSVCNr0S7o4fJpc6A80azqODqfkJXMQ=="],
-
-    "@open-rpc/markdown-generator/@open-rpc/schema-utils-js": ["@open-rpc/schema-utils-js@2.1.2", "", { "dependencies": { "@json-schema-tools/dereferencer": "^1.6.3", "@json-schema-tools/meta-schema": "^1.7.5", "@json-schema-tools/reference-resolver": "^1.2.6", "@open-rpc/meta-schema": "^1.14.9", "@open-rpc/specification-extension-spec": "^1.0.2", "ajv": "^6.10.0", "detect-node": "^2.0.4", "fast-safe-stringify": "^2.0.7", "fs-extra": "^10.1.0", "is-url": "^1.2.4", "isomorphic-fetch": "^3.0.0" } }, "sha512-GQT+UQSBg/xoPW3NMr7a9YV9iype0DlSYUocCb1qe4IvgJk9HX6KPfXwSVCNr0S7o4fJpc6A80azqODqfkJXMQ=="],
-
     "@open-rpc/schema-utils-js/fs-extra": ["fs-extra@10.1.0", "", { "dependencies": { "graceful-fs": "^4.2.0", "jsonfile": "^6.0.1", "universalify": "^2.0.0" } }, "sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ=="],
 
     "@pnpm/network.ca-file/graceful-fs": ["graceful-fs@4.2.10", "", {}, "sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA=="],
@@ -2840,10 +2834,6 @@
 
     "@manypkg/find-root/find-up/locate-path": ["locate-path@5.0.0", "", { "dependencies": { "p-locate": "^4.1.0" } }, "sha512-t7hw9pI+WvuwNJXwk5zVHpyhIqzg2qTlklJOf0mVxGSbe3Fp2VieZcduNYjaLDoy6p9uGpQEGWG87WpMKlNq8g=="],
 
-    "@open-rpc/docusaurus-plugin/@open-rpc/schema-utils-js/fs-extra": ["fs-extra@10.1.0", "", { "dependencies": { "graceful-fs": "^4.2.0", "jsonfile": "^6.0.1", "universalify": "^2.0.0" } }, "sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ=="],
-
-    "@open-rpc/markdown-generator/@open-rpc/schema-utils-js/fs-extra": ["fs-extra@10.1.0", "", { "dependencies": { "graceful-fs": "^4.2.0", "jsonfile": "^6.0.1", "universalify": "^2.0.0" } }, "sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ=="],
-
     "@open-rpc/schema-utils-js/fs-extra/jsonfile": ["jsonfile@6.2.0", "", { "dependencies": { "universalify": "^2.0.0" }, "optionalDependencies": { "graceful-fs": "^4.1.6" } }, "sha512-FGuPw30AdOIUTRMC2OMRtQV+jkVj2cfPqSeWXv1NEAJ1qZ5zb1X6z1mFhbfOB/iy3ssJCD+3KuZ8r8C3uVFlAg=="],
 
     "@open-rpc/schema-utils-js/fs-extra/universalify": ["universalify@2.0.1", "", {}, "sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw=="],
@@ -2975,14 +2965,6 @@
     "wrap-ansi/strip-ansi/ansi-regex": ["ansi-regex@6.2.2", "", {}, "sha512-Bq3SmSpyFHaWjPk8If9yc6svM8c56dB5BAtW4Qbw5jHTwwXXcTLoRMkpDJp6VL0XzlWaCHTXrkFURMYmD0sLqg=="],
 
     "@manypkg/find-root/find-up/locate-path/p-locate": ["p-locate@4.1.0", "", { "dependencies": { "p-limit": "^2.2.0" } }, "sha512-R79ZZ/0wAxKGu3oYMlz8jy/kbhsNrS7SKZ7PxEHBgJ5+F2mtFW2fK2cOtBh1cHYkQsbzFV7I+EoRKe6Yt0oK7A=="],
-
-    "@open-rpc/docusaurus-plugin/@open-rpc/schema-utils-js/fs-extra/jsonfile": ["jsonfile@6.2.0", "", { "dependencies": { "universalify": "^2.0.0" }, "optionalDependencies": { "graceful-fs": "^4.1.6" } }, "sha512-FGuPw30AdOIUTRMC2OMRtQV+jkVj2cfPqSeWXv1NEAJ1qZ5zb1X6z1mFhbfOB/iy3ssJCD+3KuZ8r8C3uVFlAg=="],
-
-    "@open-rpc/docusaurus-plugin/@open-rpc/schema-utils-js/fs-extra/universalify": ["universalify@2.0.1", "", {}, "sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw=="],
-
-    "@open-rpc/markdown-generator/@open-rpc/schema-utils-js/fs-extra/jsonfile": ["jsonfile@6.2.0", "", { "dependencies": { "universalify": "^2.0.0" }, "optionalDependencies": { "graceful-fs": "^4.1.6" } }, "sha512-FGuPw30AdOIUTRMC2OMRtQV+jkVj2cfPqSeWXv1NEAJ1qZ5zb1X6z1mFhbfOB/iy3ssJCD+3KuZ8r8C3uVFlAg=="],
-
-    "@open-rpc/markdown-generator/@open-rpc/schema-utils-js/fs-extra/universalify": ["universalify@2.0.1", "", {}, "sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw=="],
 
     "css-minimizer-webpack-plugin/jest-worker/@types/node/undici-types": ["undici-types@7.16.0", "", {}, "sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw=="],
 
