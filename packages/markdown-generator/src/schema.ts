@@ -6,7 +6,7 @@ import type {
   MethodObjectParamStructure,
   ErrorOrReference,
   SimpleTypes,
-} from "@open-rpc/meta-schema";
+} from "./type";
 import type {
   ContentContainerDescriptor,
   DereffedMethodObject,

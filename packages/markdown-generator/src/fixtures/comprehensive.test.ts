@@ -7,7 +7,7 @@ import { mdxToMarkdown } from "mdast-util-mdx";
 import { frontmatterToMarkdown } from "mdast-util-frontmatter";
 import type { Root } from "mdast";
 import type { DereffedMethodObject, DereffedOpenrpcDocument } from "../type";
-import type { OpenrpcDocument } from "@open-rpc/meta-schema";
+import type { OpenrpcDocument } from "../type";
 import comprehensiveTestDoc from "./comprehensive-test-openrpc.json";
 
 const testDoc = comprehensiveTestDoc as unknown as OpenrpcDocument;

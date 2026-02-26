@@ -27,7 +27,7 @@ import { frontmatterToMarkdown } from "mdast-util-frontmatter";
 export type { OpenRPCMdContent } from "./type";
 
 import type { Root } from "mdast";
-import type { MethodObject, OpenrpcDocument } from "@open-rpc/meta-schema";
+import type { MethodObject, OpenrpcDocument } from "./type";
 import fs from "fs/promises";
 import path from "path";
 
