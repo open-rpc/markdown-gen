@@ -1,5 +1,11 @@
 # open-rpc-markdown-generator-beta
 
+## 0.1.7
+
+### Patch Changes
+
+- 5050e21: Change here implements the new stricter specification its no behavioral change but is future proofed for version changes
+
 ## 0.1.6
 
 ### Patch Changes
