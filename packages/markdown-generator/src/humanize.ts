@@ -1,4 +1,4 @@
-import type { JSONSchema } from "@open-rpc/meta-schema";
+import type { JSONSchema } from "./type";
 import type { NoRefs, OpenRPCMdContent } from "./type";
 import type { PhrasingContent } from "mdast";
 

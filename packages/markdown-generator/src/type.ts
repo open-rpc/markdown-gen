@@ -1,17 +1,5 @@
-import type {
-  OpenrpcDocument,
-  MethodObject,
-  MethodObjectParams,
-  MethodObjectResult,
-  Methods,
-  ContentDescriptorOrReference,
-  JSONSchema,
-  ContentDescriptorObject,
-  MethodObjectExamples,
-  ExamplePairingOrReference,
-  MethodObjectErrors,
-  ErrorOrReference,
-} from "@open-rpc/meta-schema";
+import type { V1_3, V1_4 } from "@open-rpc/spec-types";
+
 import type { BlockContent, DefinitionContent, RootContent } from "mdast";
 import type { MdxFlowExpression, MdxJsxFlowElement } from "mdast-util-mdx";
 
@@ -29,11 +17,41 @@ export type NoRefs<T> =
         ? { [K in keyof T]: NoRefs<T[K]> }
         : // Primitives (string, number, etc.) are left as-is
           T;
-export interface ErrorGroupItem extends NoRefs<ErrorOrReference> {
+export type ErrorGroupItem = NoRefs<ErrorOrReference> & {
   "x-error-category"?: string;
-}
+};
 
+export type OpenrpcDocument = V1_3.OpenrpcDocument | V1_4.OpenrpcDocument;
+export type MethodObject = V1_3.MethodObject | V1_4.MethodObject;
+export type MethodObjectParams =
+  | V1_3.MethodObjectParams
+  | V1_4.MethodObjectParams;
+export type ContentDescriptorOrReference =
+  | V1_3.ContentDescriptorOrReference
+  | V1_4.ContentDescriptorOrReference;
+export type JSONSchema = V1_3.JSONSchema | V1_4.JSONSchema;
+export type MethodObjectExamples =
+  | V1_3.MethodObjectExamples
+  | V1_4.MethodObjectExamples;
+export type ExamplePairingOrReference =
+  | V1_3.ExamplePairingOrReference
+  | V1_4.ExamplePairingOrReference;
+export type Methods = V1_3.Methods | V1_4.Methods;
+export type MethodObjectResult =
+  | V1_3.MethodObjectResult
+  | V1_4.MethodObjectResult;
+export type MethodObjectErrors =
+  | V1_3.MethodObjectErrors
+  | V1_4.MethodObjectErrors;
+export type MethodObjectParamStructure =
+  | V1_3.MethodObjectParamStructure
+  | V1_4.MethodObjectParamStructure;
+export type ErrorOrReference = V1_3.ErrorOrReference | V1_4.ErrorOrReference;
+export type ContentDescriptorObject =
+  | V1_3.ContentDescriptorObject
+  | V1_4.ContentDescriptorObject;
 export type ErrorGroups = ErrorGroupItem[];
+export type SimpleTypes = V1_3.SimpleTypes | V1_4.SimpleTypes;
 
 export type DereffedOpenrpcDocument = NoRefs<OpenrpcDocument>;
 export type DereffedMethodObject = NoRefs<MethodObject>;
@@ -50,12 +68,11 @@ export type DereffedMethodObjectErrorWithGroup = NoRefs<
   ErrorOrReference | ErrorGroupItem
 >;
 
-export interface ContentContainerDescriptor
-  extends Partial<ContentDescriptorObject> {
+export type ContentContainerDescriptor = Partial<ContentDescriptorObject> & {
   isArray?: boolean;
   ofType?: "allOf" | "oneOf" | "anyOf";
   constraintsSchema?: NoRefs<JSONSchema>;
-}
+};
 
 export type OpenRPCMdContent =
   | BlockContent

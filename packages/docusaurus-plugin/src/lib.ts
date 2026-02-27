@@ -15,8 +15,12 @@ import type {
 import { promises as fs } from "fs";
 import * as path from "path";
 import { OpenRPCMdContent } from "@open-rpc/markdown-generator";
-import { MethodObjectParamStructure } from "@open-rpc/meta-schema";
+import { V1_3, V1_4 } from "@open-rpc/spec-types";
 import { PluginOptions } from "./options";
+
+type MethodObjectParamStructure =
+  | V1_3.MethodObjectParamStructure
+  | V1_4.MethodObjectParamStructure;
 
 type JSONSchema = any;
 

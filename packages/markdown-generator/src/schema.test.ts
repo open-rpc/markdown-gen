@@ -14,7 +14,7 @@ import { gfmToMarkdown } from "mdast-util-gfm";
 import { mdxToMarkdown } from "mdast-util-mdx";
 import type { Root } from "mdast";
 import type { DereffedMethodObject, NoRefs, OpenRPCMdContent } from "./type";
-import type { JSONSchema } from "@open-rpc/meta-schema";
+import type { JSONSchema } from "./type";
 import { frontmatterToMarkdown } from "mdast-util-frontmatter";
 const debugMethod: DereffedMethodObject = {
   name: "debug_getBadBlocks",

@@ -39,7 +39,7 @@
     "eslint-plugin-prettier": "^5.5.4"
   },
   "dependencies": {
-    "@open-rpc/schema-utils-js": "^2.1.2",
+    "@open-rpc/schema-utils-js": "2.2.1",
     "@types/mdast": "^4.0.4",
     "mdast-util-from-markdown": "^2.0.2",
     "mdast-util-frontmatter": "^2.0.1",
