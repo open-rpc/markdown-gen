@@ -1,5 +1,13 @@
 # open-rpc-docusaurus-plugin-beta
 
+## 0.1.7
+
+### Patch Changes
+
+- 5050e21: Change here implements the new stricter specification its no behavioral change but is future proofed for version changes
+- Updated dependencies [5050e21]
+  - @open-rpc/markdown-generator@0.1.7
+
 ## 0.1.6
 
 ### Patch Changes
