@@ -2,6 +2,7 @@ export {
   renderMethodsToMarkdown,
   renderDocumentToMarkdownFiles,
   renderIndex,
+  tagPermalinkPrefixForDocOutputPath,
 } from "./lib";
 export {
   identityEdits,

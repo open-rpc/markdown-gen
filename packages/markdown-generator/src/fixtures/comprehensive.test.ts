@@ -1,6 +1,6 @@
 import { describe, it, expect } from "bun:test";
 import { renderMethod, identitySchemaEdits, identityEdits } from "../schema";
-import { renderMethodsToMarkdown, renderIndex } from "../lib";
+import { renderMethodsToMarkdown, renderIndex, tagPermalinkPrefixForDocOutputPath } from "../lib";
 import { toMarkdown } from "mdast-util-to-markdown";
 import { gfmToMarkdown } from "mdast-util-gfm";
 import { mdxToMarkdown } from "mdast-util-mdx";
@@ -136,6 +136,26 @@ describe("renderIndex", () => {
       '{label: "composition", permalink: "./tags/composition"}',
     );
     expect(index).toContain('{label: "arrays", permalink: "./tags/arrays"}');
+  });
+
+  it("should use ../tags/ permalinks when index is nested under docs/", () => {
+    const doc = comprehensiveTestDoc as DereffedOpenrpcDocument;
+    const index = renderIndex(doc, "mdx", {}, "../tags/");
+
+    expect(index).toContain(
+      '{label: "composition", permalink: "../tags/composition"}',
+    );
+    expect(index).toContain('{label: "arrays", permalink: "../tags/arrays"}');
+  });
+
+  it("should derive tag permalink prefix from doc output path depth", () => {
+    expect(tagPermalinkPrefixForDocOutputPath("./docs/api-reference")).toBe(
+      "../tags/",
+    );
+    expect(tagPermalinkPrefixForDocOutputPath("docs")).toBe("./tags/");
+    expect(tagPermalinkPrefixForDocOutputPath("./docs/foo/bar")).toBe(
+      "../../tags/",
+    );
   });
 
   it("should render a markdown tag line in the body when output is md", () => {

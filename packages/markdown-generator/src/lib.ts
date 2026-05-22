@@ -103,10 +103,23 @@ export async function renderDocumentToMarkdownFiles(
   );
 }
 
+export function tagPermalinkPrefixForDocOutputPath(
+  docOutputPath: string,
+): string {
+  const normalized = docOutputPath.replace(/\\/g, "/").replace(/\/$/, "");
+  const segments = normalized.split("/").filter(Boolean);
+  const docsIndex = segments.indexOf("docs");
+  if (docsIndex === -1) return "./tags/";
+  const depth = segments.length - docsIndex - 1;
+  if (depth <= 0) return "./tags/";
+  return "../".repeat(depth) + "tags/";
+}
+
 export function renderIndex(
   doc: DereffedOpenrpcDocument,
   markdownType: "mdx" | "md",
   additionalFrontmatter: Record<string, string> = {},
+  tagPermalinkPrefix = "./tags/",
 ): string {
   const title = doc.info?.title || "API";
   const version = doc.info?.version || "";
@@ -118,7 +131,11 @@ export function renderIndex(
     .flatMap((m) => m.tags?.map((t) => t?.name) || [])
     .filter(Boolean);
   const uniqueTags = [...new Set(tags)].sort();
-  const tagsBlock = renderTagsBlock(uniqueTags, markdownType);
+  const tagsBlock = renderTagsBlock(
+    uniqueTags,
+    markdownType,
+    tagPermalinkPrefix,
+  );
 
   const methodsList =
     methods.length === 0
@@ -159,8 +176,9 @@ ${tagsBlock}`;
 }
 
 // Mirror docusaurus's default tag slug (lodash.kebabCase) for predictable
-// tag URLs. The doc plugin builds tag permalinks as `<routeBasePath>/tags/<slug>`
-// and `./tags/<slug>` from the index file resolves to the same place.
+// tag URLs. Tag list pages live at `<routeBasePath>/tags/<slug>` (e.g.
+// `/docs/tags/client`), not under nested doc folders — use
+// tagPermalinkPrefixForDocOutputPath() when the index sits below `docs/`.
 function slugifyTag(tag: string): string {
   return tag
     .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
@@ -170,15 +188,21 @@ function slugifyTag(tag: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-function renderTagsBlock(tags: string[], markdownType: "mdx" | "md"): string {
+function renderTagsBlock(
+  tags: string[],
+  markdownType: "mdx" | "md",
+  tagPermalinkPrefix: string,
+): string {
   if (tags.length === 0) return "";
+
+  const tagHref = (tag: string) => `${tagPermalinkPrefix}${slugifyTag(tag)}`;
 
   if (markdownType === "mdx") {
     const items = tags
       .map(
         (t) =>
           `{label: ${JSON.stringify(t)}, permalink: ${JSON.stringify(
-            `./tags/${slugifyTag(t)}`,
+            tagHref(t),
           )}}`,
       )
       .join(", ");
@@ -189,6 +213,6 @@ import TagsListInline from '@theme/TagsListInline';
 `;
   }
 
-  const links = tags.map((t) => `[${t}](./tags/${slugifyTag(t)})`).join(" · ");
+  const links = tags.map((t) => `[${t}](${tagHref(t)})`).join(" · ");
   return `\n**Tags:** ${links}\n`;
 }
