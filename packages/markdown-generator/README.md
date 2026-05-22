@@ -35,7 +35,7 @@ The index intentionally does **not** aggregate method tags into its YAML frontma
 - For `"mdx"` output, it emits `<TagsListInline>` (Docusaurus theme component) so the chips match the standard `tags:` row visually.
 - For `"md"` output, it emits a `**Tags:** [name](./tags/<slug>) · ...` fallback line.
 
-When no methods carry tags, no tag block is emitted at all. Tag links target Docusaurus tag list pages at `<routeBasePath>/tags/<slug>` (e.g. `/docs/tags/composition`). When the index lives in a nested folder such as `docs/api-reference/`, pass `tagPermalinkPrefixForDocOutputPath(docOutputPath)` (or `"../tags/"` manually) as the fourth argument to `renderIndex` — `./tags/<slug>` would incorrectly resolve to `/docs/api-reference/tags/<slug>`. The Docusaurus plugin does this automatically. Tag pages themselves are still driven by method docs, which carry their own `tags:` frontmatter.
+When no methods carry tags, no tag block is emitted at all. Tag links must use **absolute** permalinks such as `/docs/tags/<slug>` — Docusaurus registers tag list pages at `<routeBasePath>/tags/<slug>`, and relative paths like `../tags/<slug>` are resolved by `@docusaurus/Link` to `/tags/<slug>` (404). Pass `tagPermalinkPrefixForDocsRoute("docs")` as the fourth argument to `renderIndex` (the Docusaurus plugin does this automatically). Write the index as `.mdx` when using `<TagsListInline>`. Tag pages list method docs that carry matching `tags:` frontmatter; add `docs/tags.yml` entries if you want tag descriptions on the tag page.
 
 ### `identityEdits` / `identitySchemaEdits`
 

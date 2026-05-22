@@ -1,6 +1,10 @@
 import { describe, it, expect } from "bun:test";
 import { renderMethod, identitySchemaEdits, identityEdits } from "../schema";
-import { renderMethodsToMarkdown, renderIndex, tagPermalinkPrefixForDocOutputPath } from "../lib";
+import {
+  renderMethodsToMarkdown,
+  renderIndex,
+  tagPermalinkPrefixForDocsRoute,
+} from "../lib";
 import { toMarkdown } from "mdast-util-to-markdown";
 import { gfmToMarkdown } from "mdast-util-gfm";
 import { mdxToMarkdown } from "mdast-util-mdx";
@@ -138,24 +142,25 @@ describe("renderIndex", () => {
     expect(index).toContain('{label: "arrays", permalink: "./tags/arrays"}');
   });
 
-  it("should use ../tags/ permalinks when index is nested under docs/", () => {
+  it("should use absolute docs tag permalinks for nested output paths", () => {
     const doc = comprehensiveTestDoc as DereffedOpenrpcDocument;
-    const index = renderIndex(doc, "mdx", {}, "../tags/");
+    const index = renderIndex(doc, "mdx", {}, "/docs/tags/");
 
     expect(index).toContain(
-      '{label: "composition", permalink: "../tags/composition"}',
+      '{label: "composition", permalink: "/docs/tags/composition"}',
     );
-    expect(index).toContain('{label: "arrays", permalink: "../tags/arrays"}');
+    expect(index).toContain(
+      '{label: "arrays", permalink: "/docs/tags/arrays"}',
+    );
   });
 
-  it("should derive tag permalink prefix from doc output path depth", () => {
-    expect(tagPermalinkPrefixForDocOutputPath("./docs/api-reference")).toBe(
-      "../tags/",
-    );
-    expect(tagPermalinkPrefixForDocOutputPath("docs")).toBe("./tags/");
-    expect(tagPermalinkPrefixForDocOutputPath("./docs/foo/bar")).toBe(
-      "../../tags/",
-    );
+  it("should derive tag permalink prefix from docs routeBasePath", () => {
+    expect(tagPermalinkPrefixForDocsRoute()).toBe("/docs/tags/");
+    expect(tagPermalinkPrefixForDocsRoute("docs")).toBe("/docs/tags/");
+    expect(tagPermalinkPrefixForDocsRoute("/docs/")).toBe("/docs/tags/");
+    expect(tagPermalinkPrefixForDocsRoute("api")).toBe("/api/tags/");
+    expect(tagPermalinkPrefixForDocsRoute("/")).toBe("/tags/");
+    expect(tagPermalinkPrefixForDocsRoute("")).toBe("/tags/");
   });
 
   it("should render a markdown tag line in the body when output is md", () => {

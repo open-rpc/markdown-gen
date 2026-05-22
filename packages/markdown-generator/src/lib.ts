@@ -103,22 +103,25 @@ export async function renderDocumentToMarkdownFiles(
   );
 }
 
-export function tagPermalinkPrefixForDocOutputPath(
-  docOutputPath: string,
+// Build the prefix used for tag links in the index. Docusaurus registers tag
+// list pages at `/<routeBasePath>/tags/<slug>` (default routeBasePath is
+// "docs"). Permalinks must be ABSOLUTE — `@docusaurus/Link` resolves any
+// relative path from the site root, so `./tags/x` or `../tags/x` both end up
+// at `/tags/x` (404) regardless of the index file's location.
+export function tagPermalinkPrefixForDocsRoute(
+  docsRouteBasePath = "docs",
 ): string {
-  const normalized = docOutputPath.replace(/\\/g, "/").replace(/\/$/, "");
-  const segments = normalized.split("/").filter(Boolean);
-  const docsIndex = segments.indexOf("docs");
-  if (docsIndex === -1) return "./tags/";
-  const depth = segments.length - docsIndex - 1;
-  if (depth <= 0) return "./tags/";
-  return "../".repeat(depth) + "tags/";
+  const base = docsRouteBasePath.replace(/^\/+|\/+$/g, "");
+  return base === "" ? "/tags/" : `/${base}/tags/`;
 }
 
 export function renderIndex(
   doc: DereffedOpenrpcDocument,
   markdownType: "mdx" | "md",
   additionalFrontmatter: Record<string, string> = {},
+  // Default emits a relative `./tags/<slug>` link that works for plain markdown
+  // viewers / GitHub but is BROKEN inside Docusaurus. Pass
+  // `tagPermalinkPrefixForDocsRoute(routeBasePath)` when generating for a site.
   tagPermalinkPrefix = "./tags/",
 ): string {
   const title = doc.info?.title || "API";
@@ -175,10 +178,9 @@ ${methodsList}
 ${tagsBlock}`;
 }
 
-// Mirror docusaurus's default tag slug (lodash.kebabCase) for predictable
-// tag URLs. Tag list pages live at `<routeBasePath>/tags/<slug>` (e.g.
-// `/docs/tags/client`), not under nested doc folders — use
-// tagPermalinkPrefixForDocOutputPath() when the index sits below `docs/`.
+// Approximation of `lodash.kebabCase`, which is what Docusaurus uses to derive
+// the tag slug from inline frontmatter tags. Matches for ASCII alnum tags; may
+// diverge for tags containing digit/underscore boundaries (e.g. "API_v2").
 function slugifyTag(tag: string): string {
   return tag
     .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
