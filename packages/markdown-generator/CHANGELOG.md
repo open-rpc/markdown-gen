@@ -1,5 +1,11 @@
 # open-rpc-markdown-generator-beta
 
+## 0.2.0
+
+### Minor Changes
+
+- b95fd00: This change release adds support for custom tagging at index its a symetric change but remvoes the index from having all the tags in the front matter
+
 ## 0.1.7
 
 ### Patch Changes
