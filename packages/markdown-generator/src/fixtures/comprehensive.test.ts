@@ -1,6 +1,10 @@
 import { describe, it, expect } from "bun:test";
 import { renderMethod, identitySchemaEdits, identityEdits } from "../schema";
-import { renderMethodsToMarkdown, renderIndex } from "../lib";
+import {
+  renderMethodsToMarkdown,
+  renderIndex,
+  tagPermalinkPrefixForDocsRoute,
+} from "../lib";
 import { toMarkdown } from "mdast-util-to-markdown";
 import { gfmToMarkdown } from "mdast-util-gfm";
 import { mdxToMarkdown } from "mdast-util-mdx";
@@ -113,17 +117,84 @@ describe("renderIndex", () => {
     );
   });
 
-  it("should include frontmatter with tags", () => {
+  it("should not aggregate method tags into the index frontmatter", () => {
     const doc = comprehensiveTestDoc as DereffedOpenrpcDocument;
     const index = renderIndex(doc, "mdx");
 
-    // Frontmatter should exist
     expect(index.startsWith("---")).toBe(true);
-    // Should have tags section
-    expect(index).toContain("tags:");
-    // Should include unique tags from methods
-    expect(index).toContain('"composition"');
-    expect(index).toContain('"arrays"');
+    const frontmatterEnd = index.indexOf("\n---", 3);
+    expect(frontmatterEnd).toBeGreaterThan(0);
+    const frontmatter = index.slice(0, frontmatterEnd);
+    expect(frontmatter).not.toContain("tags:");
+  });
+
+  it("should render an mdx tag strip in the body when methods have tags", () => {
+    const doc = comprehensiveTestDoc as DereffedOpenrpcDocument;
+    const index = renderIndex(doc, "mdx");
+
+    expect(index).toContain(
+      "import TagsListInline from '@theme/TagsListInline';",
+    );
+    expect(index).toContain("<TagsListInline tags={[");
+    expect(index).toContain(
+      '{label: "composition", permalink: "./tags/composition"}',
+    );
+    expect(index).toContain('{label: "arrays", permalink: "./tags/arrays"}');
+  });
+
+  it("should use absolute docs tag permalinks for nested output paths", () => {
+    const doc = comprehensiveTestDoc as DereffedOpenrpcDocument;
+    const index = renderIndex(doc, "mdx", {}, "/docs/tags/");
+
+    expect(index).toContain(
+      '{label: "composition", permalink: "/docs/tags/composition"}',
+    );
+    expect(index).toContain(
+      '{label: "arrays", permalink: "/docs/tags/arrays"}',
+    );
+  });
+
+  it("should derive tag permalink prefix from docs routeBasePath", () => {
+    expect(tagPermalinkPrefixForDocsRoute()).toBe("/docs/tags/");
+    expect(tagPermalinkPrefixForDocsRoute("docs")).toBe("/docs/tags/");
+    expect(tagPermalinkPrefixForDocsRoute("/docs/")).toBe("/docs/tags/");
+    expect(tagPermalinkPrefixForDocsRoute("api")).toBe("/api/tags/");
+    expect(tagPermalinkPrefixForDocsRoute("/")).toBe("/tags/");
+    expect(tagPermalinkPrefixForDocsRoute("")).toBe("/tags/");
+  });
+
+  it("should render a markdown tag line in the body when output is md", () => {
+    const doc = comprehensiveTestDoc as DereffedOpenrpcDocument;
+    const index = renderIndex(doc, "md");
+
+    expect(index).not.toContain("TagsListInline");
+    expect(index).toContain("**Tags:**");
+    expect(index).toContain("[composition](./tags/composition)");
+    expect(index).toContain("[arrays](./tags/arrays)");
+  });
+
+  it("should omit any tag block when no methods carry tags", () => {
+    const untaggedDoc: DereffedOpenrpcDocument = {
+      openrpc: "1.0.0",
+      info: { title: "Untagged API", version: "1.0.0" },
+      methods: [
+        {
+          name: "noop",
+          params: [],
+          result: { name: "ok", schema: {} },
+        },
+      ],
+    } as DereffedOpenrpcDocument;
+
+    const indexMdx = renderIndex(untaggedDoc, "mdx");
+    const indexMd = renderIndex(untaggedDoc, "md");
+
+    for (const out of [indexMdx, indexMd]) {
+      expect(out).not.toContain("tags:");
+      expect(out).not.toContain("TagsListInline");
+      expect(out).not.toContain("**Tags:**");
+      expect(out).not.toContain("./tags/");
+    }
   });
 
   it("should list all methods with correct .mdx links", () => {

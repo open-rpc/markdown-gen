@@ -6,6 +6,8 @@ export type Options = {
   docOutputPath: string;
   showPoweredBy: boolean;
   indexSlug: string | undefined;
+  /** Docusaurus docs routeBasePath (default preset: "docs"). */
+  docsRouteBasePath?: string;
 };
 
 /**
@@ -25,5 +27,6 @@ export function normalizeOptions(options: Options): PluginOptions {
     showPoweredBy:
       options.showPoweredBy === undefined ? true : options.showPoweredBy,
     indexSlug: options.indexSlug === undefined ? undefined : options.indexSlug,
+    docsRouteBasePath: options.docsRouteBasePath ?? "docs",
   };
 }

@@ -5598,6 +5598,11 @@
 		{
 			"name": "eth_chainId",
 			"summary": "Returns the chain ID of the current network.",
+			"tags": [
+				{
+					"name": "client"
+				}
+			],
 			"params": [],
 			"result": {
 				"name": "Chain ID",

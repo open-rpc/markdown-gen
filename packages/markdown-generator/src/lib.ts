@@ -103,10 +103,26 @@ export async function renderDocumentToMarkdownFiles(
   );
 }
 
+// Build the prefix used for tag links in the index. Docusaurus registers tag
+// list pages at `/<routeBasePath>/tags/<slug>` (default routeBasePath is
+// "docs"). Permalinks must be ABSOLUTE — `@docusaurus/Link` resolves any
+// relative path from the site root, so `./tags/x` or `../tags/x` both end up
+// at `/tags/x` (404) regardless of the index file's location.
+export function tagPermalinkPrefixForDocsRoute(
+  docsRouteBasePath = "docs",
+): string {
+  const base = docsRouteBasePath.replace(/^\/+|\/+$/g, "");
+  return base === "" ? "/tags/" : `/${base}/tags/`;
+}
+
 export function renderIndex(
   doc: DereffedOpenrpcDocument,
   markdownType: "mdx" | "md",
   additionalFrontmatter: Record<string, string> = {},
+  // Default emits a relative `./tags/<slug>` link that works for plain markdown
+  // viewers / GitHub but is BROKEN inside Docusaurus. Pass
+  // `tagPermalinkPrefixForDocsRoute(routeBasePath)` when generating for a site.
+  tagPermalinkPrefix = "./tags/",
 ): string {
   const title = doc.info?.title || "API";
   const version = doc.info?.version || "";
@@ -117,11 +133,12 @@ export function renderIndex(
   const tags = methods
     .flatMap((m) => m.tags?.map((t) => t?.name) || [])
     .filter(Boolean);
-  const uniqueTags = [...new Set(tags)];
-  const tagsList =
-    uniqueTags.length === 0
-      ? ""
-      : `tags:\n${uniqueTags.map((t) => `  - "${t}"`).join("\n")}`;
+  const uniqueTags = [...new Set(tags)].sort();
+  const tagsBlock = renderTagsBlock(
+    uniqueTags,
+    markdownType,
+    tagPermalinkPrefix,
+  );
 
   const methodsList =
     methods.length === 0
@@ -149,7 +166,6 @@ export function renderIndex(
 title: "${title}"
 description: "${escapeYaml(desc)}"
 ${frontmatter}
-${tagsList}
 ---
 
 # ${title}
@@ -159,5 +175,46 @@ ${version ? `Version: \`${version}\`\n` : ""}${desc ? `\n${desc}\n` : ""}
 ## Methods
 
 ${methodsList}
+${tagsBlock}`;
+}
+
+// Approximation of `lodash.kebabCase`, which is what Docusaurus uses to derive
+// the tag slug from inline frontmatter tags. Matches for ASCII alnum tags; may
+// diverge for tags containing digit/underscore boundaries (e.g. "API_v2").
+function slugifyTag(tag: string): string {
+  return tag
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function renderTagsBlock(
+  tags: string[],
+  markdownType: "mdx" | "md",
+  tagPermalinkPrefix: string,
+): string {
+  if (tags.length === 0) return "";
+
+  const tagHref = (tag: string) => `${tagPermalinkPrefix}${slugifyTag(tag)}`;
+
+  if (markdownType === "mdx") {
+    const items = tags
+      .map(
+        (t) =>
+          `{label: ${JSON.stringify(t)}, permalink: ${JSON.stringify(
+            tagHref(t),
+          )}}`,
+      )
+      .join(", ");
+    return `
+import TagsListInline from '@theme/TagsListInline';
+
+<TagsListInline tags={[${items}]} />
 `;
+  }
+
+  const links = tags.map((t) => `[${t}](${tagHref(t)})`).join(" · ");
+  return `\n**Tags:** ${links}\n`;
 }

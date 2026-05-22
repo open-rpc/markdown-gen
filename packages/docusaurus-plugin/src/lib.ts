@@ -6,6 +6,7 @@ import {
   identitySchemaEdits,
   renderMethodsToMarkdown,
   renderIndex,
+  tagPermalinkPrefixForDocsRoute,
 } from "@open-rpc/markdown-generator";
 import type {
   DereffedMethodObject,
@@ -84,7 +85,8 @@ export async function cleanUpExistingDocs(specPath: string, outputDir: string) {
       (entry) =>
         entry.isFile() &&
         methodFileNamesToGenerate.has(entry.name) === false &&
-        entry.name !== "index.md",
+        entry.name !== "index.md" &&
+        entry.name !== "index.mdx",
     )
     .map((entry) => `${entry.parentPath}/${entry.name}`);
 
@@ -127,13 +129,21 @@ export async function generateDocs(
     additionalFrontmatter["slug"] = options.indexSlug;
   }
 
-  const indexContent = renderIndex(doc, "mdx", additionalFrontmatter);
+  const indexContent = renderIndex(
+    doc,
+    "mdx",
+    additionalFrontmatter,
+    tagPermalinkPrefixForDocsRoute(options.docsRouteBasePath),
+  );
   const finalIndex =
     options.showPoweredBy === true
       ? `${indexContent}\n---\n\n*Powered by [OpenRPC](https://open-rpc.org)*\n`
       : indexContent;
 
-  await fs.writeFile(path.join(outDir, "index.md"), finalIndex, "utf8");
+  // Drop any legacy .md index before writing .mdx so Docusaurus doesn't see
+  // two route candidates with the same slug.
+  await fs.rm(path.join(outDir, "index.md"), { force: true });
+  await fs.writeFile(path.join(outDir, "index.mdx"), finalIndex, "utf8");
 }
 
 /* ---------- Renderers ---------- */
