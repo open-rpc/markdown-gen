@@ -1,6 +1,5 @@
 {
   "lockfileVersion": 1,
-  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "markdown-gen",
@@ -33,7 +32,7 @@
     },
     "packages/docusaurus-plugin": {
       "name": "@open-rpc/docusaurus-plugin",
-      "version": "0.1.7",
+      "version": "0.2.0",
       "dependencies": {
         "@docusaurus/core": "3.9.2",
         "@docusaurus/logger": "3.9.2",
@@ -75,7 +74,7 @@
     },
     "packages/markdown-generator": {
       "name": "@open-rpc/markdown-generator",
-      "version": "0.1.7",
+      "version": "0.2.0",
       "bin": {
         "openrpc-md": "./dist/cli.js",
       },
