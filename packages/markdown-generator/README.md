@@ -30,6 +30,13 @@ Writes markdown files directly to disk for each method, plus an `index.md`. The 
 
 Generates an index markdown string listing all methods with links. Returns the markdown as a string.
 
+The index intentionally does **not** aggregate method tags into its YAML frontmatter—that previously made the index doc appear under every `/tags/*` listing in Docusaurus. Instead, when at least one method has tags, the index appends an inline tag strip after the methods list:
+
+- For `"mdx"` output, it emits `<TagsListInline>` (Docusaurus theme component) so the chips match the standard `tags:` row visually.
+- For `"md"` output, it emits a `**Tags:** [name](./tags/<slug>) · ...` fallback line.
+
+When no methods carry tags, no tag block is emitted at all. Tag links use `./tags/<slug>` relative paths so they resolve against the index's `routeBasePath` (matching the docs tag plugin's default permalink shape). Tag pages themselves are still driven by method docs, which carry their own `tags:` frontmatter.
+
 ### `identityEdits` / `identitySchemaEdits`
 
 Default edit functions that pass content through unchanged. Use these as a starting point when creating custom edits.

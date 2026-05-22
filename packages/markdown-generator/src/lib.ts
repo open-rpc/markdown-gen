@@ -117,11 +117,8 @@ export function renderIndex(
   const tags = methods
     .flatMap((m) => m.tags?.map((t) => t?.name) || [])
     .filter(Boolean);
-  const uniqueTags = [...new Set(tags)];
-  const tagsList =
-    uniqueTags.length === 0
-      ? ""
-      : `tags:\n${uniqueTags.map((t) => `  - "${t}"`).join("\n")}`;
+  const uniqueTags = [...new Set(tags)].sort();
+  const tagsBlock = renderTagsBlock(uniqueTags, markdownType);
 
   const methodsList =
     methods.length === 0
@@ -149,7 +146,6 @@ export function renderIndex(
 title: "${title}"
 description: "${escapeYaml(desc)}"
 ${frontmatter}
-${tagsList}
 ---
 
 # ${title}
@@ -159,5 +155,40 @@ ${version ? `Version: \`${version}\`\n` : ""}${desc ? `\n${desc}\n` : ""}
 ## Methods
 
 ${methodsList}
+${tagsBlock}`;
+}
+
+// Mirror docusaurus's default tag slug (lodash.kebabCase) for predictable
+// tag URLs. The doc plugin builds tag permalinks as `<routeBasePath>/tags/<slug>`
+// and `./tags/<slug>` from the index file resolves to the same place.
+function slugifyTag(tag: string): string {
+  return tag
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function renderTagsBlock(tags: string[], markdownType: "mdx" | "md"): string {
+  if (tags.length === 0) return "";
+
+  if (markdownType === "mdx") {
+    const items = tags
+      .map(
+        (t) =>
+          `{label: ${JSON.stringify(t)}, permalink: ${JSON.stringify(
+            `./tags/${slugifyTag(t)}`,
+          )}}`,
+      )
+      .join(", ");
+    return `
+import TagsListInline from '@theme/TagsListInline';
+
+<TagsListInline tags={[${items}]} />
 `;
+  }
+
+  const links = tags.map((t) => `[${t}](./tags/${slugifyTag(t)})`).join(" · ");
+  return `\n**Tags:** ${links}\n`;
 }
