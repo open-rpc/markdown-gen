@@ -92,6 +92,13 @@ import {
 } from "@open-rpc/docusaurus-plugin/components";
 ```
 
+Generated method pages start with the request panel collapsed so the documentation
+can use the full available width. Use **Show request** / **Hide request** to toggle
+it; the control stays available while scrolling, and your preference is remembered
+across method pages. Hiding the panel preserves the edited request, server URL,
+and response. On wide content areas the panel sits beside the documentation;
+on narrower ones it opens above it without squeezing the text.
+
 #### Development
 
 This plugin uses Bun for development.

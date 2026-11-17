@@ -1,4 +1,10 @@
-import React, { useState, useRef, useEffect, type ReactNode } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useId,
+  type ReactNode,
+} from "react";
 import styles from "./styles.module.css";
 
 // Template generators for copy functionality
@@ -30,6 +36,7 @@ export function RequestBox({
   request,
   onResponse,
 }: RequestBoxProps): ReactNode {
+  const serverUrlId = useId();
   // TODO: support by-position better, default should be by-position (either)
   const [serverUrl, setServerUrl] = useState("http://localhost:8545");
   const [requestCode, setRequestCode] = useState(() => {
@@ -116,7 +123,7 @@ export function RequestBox({
   };
 
   return (
-    <div className={styles.exampleBlock}>
+    <div className={styles.requestBox}>
       <div className={styles.exampleHeader}>
         <div className={styles.exampleHeaderRow}>
           <div className={styles.requestHeader}>Request</div>
@@ -151,8 +158,11 @@ export function RequestBox({
 
       <div className={styles.requestControlsContainer}>
         <div className={styles.requestControls}>
-          <label className={styles.serverLabel}>Server URL:</label>
+          <label className={styles.serverLabel} htmlFor={serverUrlId}>
+            Server URL
+          </label>
           <input
+            id={serverUrlId}
             type="text"
             value={serverUrl}
             onChange={(e) => setServerUrl(e.target.value)}
@@ -169,6 +179,7 @@ export function RequestBox({
         </div>
 
         <textarea
+          aria-label="JSON-RPC request"
           value={requestCode}
           onChange={(e) => setRequestCode(e.target.value)}
           className={styles.requestTextarea}
