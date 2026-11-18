@@ -21,7 +21,8 @@
     "version-packages": "changeset version",
     "release": "bun run build:all && bun run types:all && changeset publish",
     "ci:version": "changeset version && bun update",
-    "ci:publish": "for dir in packages/markdown-generator packages/docusaurus-plugin; do (cd \"$dir\" && bun publish --access public || true); done && changeset tag"
+    "ci:publish": "for dir in packages/markdown-generator packages/docusaurus-plugin; do (cd \"$dir\" && bun publish --access public || true); done && changeset tag",
+    "test:ui": "bun run build:all && bun run types:all && bun run --cwd packages/example-site build && node scripts/check-request-panel.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "2.29.8",
@@ -34,6 +35,7 @@
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.5",
     "globals": "16.5.0",
+    "playwright": "1.65.1",
     "typescript": "5.9.3"
   },
   "dependencies": {

@@ -92,6 +92,14 @@ import {
 } from "@open-rpc/docusaurus-plugin/components";
 ```
 
+Generated method pages start with the request panel collapsed so the documentation
+can use the full available width. Use **Show request** / **Hide request** to toggle
+it; the control stays available while scrolling, and your preference is remembered
+across method pages. Hiding the panel preserves the edited request, server URL,
+and response. On wide content areas the panel sits beside the documentation;
+on narrower ones it opens above it without squeezing the text and scrolls into
+view when you open it.
+
 #### Development
 
 This plugin uses Bun for development.
@@ -106,3 +114,9 @@ bun run dev:watch
 
 We also use the `example-site` and `bun watch` called from the root of the project
 to develop the plugin and see the results in the example site
+
+From the repository root, run `bunx playwright install chromium` once, then
+`NODE_ENV=production bun run test:ui` for browser regression checks. The command
+builds the example site, starts a disposable local server, mocks RPC requests,
+and blocks external browser traffic. To use an existing Chromium installation,
+pass `--browser-executable /path/to/chromium` to `bun run test:ui`.
