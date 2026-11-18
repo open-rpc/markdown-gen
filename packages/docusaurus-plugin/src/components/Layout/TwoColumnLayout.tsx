@@ -1,4 +1,10 @@
-import React, { useEffect, useId, useState, type ReactNode } from "react";
+import React, {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import styles from "./styles.module.css";
 
 const STORAGE_KEY = "openrpc:request-panel-open";
@@ -14,6 +20,8 @@ export function TwoColumnLayout({
 }: TwoColumnLayoutProps): ReactNode {
   const [isRequestOpen, setIsRequestOpen] = useState(false);
   const requestPanelId = useId();
+  const requestPanelRef = useRef<HTMLDivElement>(null);
+  const revealRequestRef = useRef(false);
 
   useEffect(() => {
     try {
@@ -23,8 +31,23 @@ export function TwoColumnLayout({
     }
   }, []);
 
+  useEffect(() => {
+    if (!isRequestOpen || !revealRequestRef.current) return;
+    revealRequestRef.current = false;
+    const panel = requestPanelRef.current;
+    if (panel && window.getComputedStyle(panel).position !== "sticky") {
+      panel.scrollIntoView({
+        block: "start",
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "instant"
+          : "smooth",
+      });
+    }
+  }, [isRequestOpen]);
+
   function toggleRequest() {
     const nextIsOpen = !isRequestOpen;
+    revealRequestRef.current = nextIsOpen;
     setIsRequestOpen(nextIsOpen);
     try {
       window.localStorage.setItem(STORAGE_KEY, String(nextIsOpen));
@@ -61,6 +84,7 @@ export function TwoColumnLayout({
       </div>
       <div className={styles.twoColumnLayout} data-request-open={isRequestOpen}>
         <div
+          ref={requestPanelRef}
           id={requestPanelId}
           className={styles.sidebar}
           role="region"
